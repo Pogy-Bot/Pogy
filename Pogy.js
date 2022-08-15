@@ -1,6 +1,5 @@
 const { Client, Collection } = require("discord.js");
 const Util = require("./src/structures/Util");
-const config = require("./config.json");
 const { status } = config;
 
 module.exports = class PogyClient extends Client {
