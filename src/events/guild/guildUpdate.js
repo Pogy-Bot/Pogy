@@ -1,8 +1,6 @@
 const Event = require("../../structures/Event");
-const logger = require("../../utils/logger");
 const Logging = require("../../database/schemas/logging");
 const discord = require("discord.js");
-const moment = require("moment");
 const Maintenance = require("../../database/schemas/maintenance");
 module.exports = class extends Event {
   async run(oldGuild, newGuild) {
@@ -110,7 +108,7 @@ module.exports = class extends Event {
                 .permissionsFor(newGuild.me)
                 .has(["SEND_MESSAGES", "EMBED_LINKS"])
             ) {
-              channelEmbed.send(embed).catch(() => {});
+              channelEmbed.send({ embeds: [embed] }).catch(() => {});
             }
           }
         }

@@ -181,25 +181,27 @@ module.exports = class extends Command {
               if (reason.length > 1024) reasonx = `Reason Too Long`;
 
               chan
-                .send(
-                  new discord.MessageEmbed()
-                    .setAuthor(
-                      message.author.tag,
-                      message.author.displayAvatarURL()
-                    )
+                .send({
+                  embeds: [
+                    new discord.MessageEmbed()
+                      .setAuthor(
+                        message.author.tag,
+                        message.author.displayAvatarURL()
+                      )
 
-                    .setDescription(
-                      db.ticketWelcomeMessage
-                        .replace(/{user}/g, `${member}`)
-                        .replace(/{user_tag}/g, `${member.tag}`)
-                        .replace(/{user_name}/g, `${member.username}`)
-                        .replace(/{reason}/g, reasonx)
-                        .replace(/{user_ID}/g, `${member.id}`) ||
-                        language.ticketNewTicketWaitForAssistant
-                    )
+                      .setDescription(
+                        db.ticketWelcomeMessage
+                          .replace(/{user}/g, `${member}`)
+                          .replace(/{user_tag}/g, `${member.tag}`)
+                          .replace(/{user_name}/g, `${member.username}`)
+                          .replace(/{reason}/g, reasonx)
+                          .replace(/{user_ID}/g, `${member.id}`) ||
+                          language.ticketNewTicketWaitForAssistant
+                      )
 
-                    .setColor(color)
-                )
+                      .setColor(color),
+                  ],
+                })
                 .catch(() => {});
 
               if (ticketCategory) {
@@ -232,7 +234,7 @@ module.exports = class extends Command {
                 );
 
               if (ticketLog) {
-                ticketLog.send(embedLog).catch(() => {});
+                ticketLog.send({ embeds: [embedLog] }).catch(() => {});
               }
             });
         } catch (e) {

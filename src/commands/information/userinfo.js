@@ -118,28 +118,6 @@ module.exports = class extends Command {
     }
 
     const userFlags = (await member.user.fetchFlags()).toArray();
-    const activities = [];
-    for (const activity of member.presence.activities.values()) {
-      switch (activity.type) {
-        case "PLAYING":
-          activities.push(`Playing **${activity.name}**`);
-          break;
-        case "LISTENING":
-          if (member.user.bot)
-            activities.push(`Listening to **${activity.name}**`);
-          else
-            activities.push(
-              `Listening to **${activity.details}** by **${activity.state}**`
-            );
-          break;
-        case "WATCHING":
-          activities.push(`Watching **${activity.name}**`);
-          break;
-        case "STREAMING":
-          activities.push(`Streaming **${activity.name}**`);
-          break;
-      }
-    }
 
     // Trim roles
     let rolesNoob;

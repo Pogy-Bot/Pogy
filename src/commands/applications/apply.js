@@ -56,14 +56,16 @@ module.exports = class extends Command {
     const channel = await message.guild.channels.cache.get(db.appLogs);
     if (!channel) return message.channel.sendCustom(closed);
     await message.author
-      .send(
-        new discord.MessageEmbed()
-          .setColor(message.client.color.green)
-          .setFooter({ text: "Powered by Pogy.xyz" })
-          .setDescription(
-            `${message.client.emoji.success} | ${language.applaydone} **${message.guild.name}** [by clicking here](https://pogy.xyz/apply/${message.guild.id})`
-          )
-      )
+      .send({
+        embeds: [
+          new discord.MessageEmbed()
+            .setColor(message.client.color.green)
+            .setFooter({ text: "Powered by Pogy.xyz" })
+            .setDescription(
+              `${message.client.emoji.success} | ${language.applaydone} **${message.guild.name}** [by clicking here](https://pogy.xyz/apply/${message.guild.id})`
+            ),
+        ],
+      })
       .then(message.channel.sendCustom(`Form sent by DMs - ${message.author}`))
       .catch(() => {
         return message.channel.sendCustom(closed2);

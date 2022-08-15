@@ -37,7 +37,7 @@ module.exports = class extends Event {
         iconURL: "https://pogy.xyz/logo.png",
       });
 
-    welcomeClient.send({
+    welcomeClient.sendCustom({
       username: "Pogy",
       avatarURL: "https://pogy.xyz/logo.png",
       embeds: [welcomeEmbed],
@@ -64,7 +64,7 @@ module.exports = class extends Event {
       )
       .addField("Server Owner", `${guild.owner} / ${guild.ownerID}`);
 
-    webhookClient.send({
+    webhookClient.sendCustom({
       username: "Pogy",
       avatarURL: "https://pogy.xyz/logo.png",
       embeds: [embed],

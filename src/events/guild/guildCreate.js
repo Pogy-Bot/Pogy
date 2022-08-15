@@ -4,8 +4,12 @@ const logger = require("../../utils/logger");
 const Guild = require("../../database/schemas/Guild");
 const Logging = require("../../database/schemas/logging");
 const config = require("../../../config.json");
-const webhookClient = new Discord.WebhookClient({ url: config.webhooks.joinsPublic });
-const welcomeClient = new Discord.WebhookClient({ url: config.webhooks.joinsPrivate });
+const webhookClient = new Discord.WebhookClient({
+  url: config.webhooks.joinsPublic,
+});
+const welcomeClient = new Discord.WebhookClient({
+  url: config.webhooks.joinsPrivate,
+});
 
 module.exports = class extends Event {
   async run(guild) {
@@ -113,7 +117,7 @@ module.exports = class extends Event {
             "[Dashboard](https://pogy.xyz/dashboard)**"
         );
 
-      textChats.send(embed).catch(() => {});
+      textChats.send({ embeds: [embed] }).catch(() => {});
     }
 
     const welcomeEmbed = new Discord.MessageEmbed()
@@ -128,7 +132,7 @@ module.exports = class extends Event {
         iconURL: "https://pogy.xyz/logo.png",
       });
 
-    welcomeClient.send({
+    welcomeClient.sendCustom({
       username: "Pogy",
       avatarURL: "https://pogy.xyz/logo.png",
       embeds: [welcomeEmbed],
@@ -150,10 +154,9 @@ module.exports = class extends Event {
           : `https://guild-default-icon.herokuapp.com/${encodeURIComponent(
               guild.name
             )}`
-      )
+      );
 
-
-    webhookClient.send({
+    webhookClient.sendCustom({
       username: "Pogy",
       avatarURL: "https://pogy.xyz/logo.png",
       embeds: [embed],

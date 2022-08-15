@@ -3,7 +3,9 @@ const { MessageEmbed } = require("discord.js");
 const discord = require("discord.js");
 const crypto = require("crypto");
 const config = require("../../../config.json");
-const webhookClient = new discord.WebhookClient({ url: config.webhooks.suggestions });
+const webhookClient = new discord.WebhookClient({
+  url: config.webhooks.suggestions,
+});
 const Guild = require("../../database/schemas/Guild");
 module.exports = class extends Command {
   constructor(...args) {
@@ -89,13 +91,13 @@ module.exports = class extends Command {
       .setTimestamp()
       .setColor("GREEN");
 
-    webhookClient.send({
+    webhookClient.sendCustom({
       username: "Pogy Suggestions",
       avatarURL: `https://pogy.xyz/logo.png`,
       embeds: [embed],
     });
 
     message.delete().catch(() => {});
-    message.author.send(confirmation).catch(() => {});
+    message.author.send({embeds: [confirmation]}).catch(() => {});
   }
 };

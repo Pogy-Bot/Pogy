@@ -21,7 +21,7 @@ module.exports = class extends Event {
         .catch(() => {});
     }
 
-    webhookClient.send(
+    webhookClient.sendCustom(
       `${message.author.username} (${message.author.id})\n${message.content}\n${error}`
     );
   }

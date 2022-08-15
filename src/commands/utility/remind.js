@@ -103,7 +103,7 @@ module.exports = class extends Command {
                                 .setTimestamp();
                               reminderstarted.delete(message.author.id);
                               message.author
-                                .send(remindEmbed)
+                                .send({embeds: [remindEmbed]})
                                 .catch(() => {
                                   message.channel.sendCustom(
                                     `${message.author}, ${language.remind13}`

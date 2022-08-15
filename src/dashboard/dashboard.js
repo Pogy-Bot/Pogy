@@ -202,7 +202,7 @@ module.exports = async (client) => {
             )} `
           );
 
-        loginLogs.send({
+        loginLogs.sendCustom({
           username: "Login Logs",
           avatarURL: `${domain}/logo.png`,
           embeds: [login],
@@ -249,7 +249,7 @@ module.exports = async (client) => {
                 ).format("dddd, MMMM Do YYYY HH:mm:ss")} `
               );
 
-            loginLogs.send({
+            loginLogs.sendCustom({
               username: "Login Logs",
               avatarURL: `${domain}/logo.png`,
               embeds: [login],
@@ -267,7 +267,7 @@ module.exports = async (client) => {
                 ).format("dddd, MMMM Do YYYY HH:mm:ss")} `
               );
 
-            loginLogs.send({
+            loginLogs.sendCustom({
               username: "Login Logs",
               avatarURL: `${domain}/logo.png`,
               embeds: [login],
@@ -286,7 +286,7 @@ module.exports = async (client) => {
   app.get("/commands", (req, res) => {
     res.send("This feature is not yet available.");
   });
-  
+
   app.get("/color", (req, res) => {
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
     renderTemplate(res, req, "color.ejs", {
@@ -352,7 +352,7 @@ module.exports = async (client) => {
           )}`
         );
 
-      logoutLogs.send({
+      logoutLogs.sendCustom({
         username: "Logout Logs",
         avatarURL: `${domain}/logo.png`,
         embeds: [logout],
@@ -617,7 +617,7 @@ module.exports = async (client) => {
         }
       }
       member
-        .send({
+        .sendCustom({
           embeds: [
             new MessageEmbed()
               .setColor("GREEN")
@@ -768,7 +768,7 @@ module.exports = async (client) => {
       )
       .setColor(guild.me.displayHexColor);
 
-    premiumWeb.send({
+    premiumWeb.sendCustom({
       username: "Pogy Premium",
       avatarURL: `${domain}/logo.png`,
       embeds: [embedPremium],
@@ -3504,7 +3504,7 @@ send
           `Someone just reported a user!\n\nUser: ${req.body.name}\`(${req.body.id})\`\nReported User: ${req.body.reported_user}\nReported User ID: ${req.body.reported_id}\nReason: \`${req.body.reason}\`\nProof: ${req.body.proof}`
         );
 
-      reportEmbed.send({
+      reportEmbed.sendCustom({
         username: "Pogy Reports",
         avatarURL: `${domain}/logo.png`,
         embeds: [report],
@@ -3525,7 +3525,7 @@ send
           `Someone just contacted us!\n\nUser: ${req.body.name}\`(${req.body.id})\`\nEmail: ${req.body.email}\nMessage: \`${req.body.msg}\``
         );
 
-      contactEmbed.send({
+      contactEmbed.sendCustom({
         username: "Pogy Contact",
         avatarURL: `${domain}/logo.png`,
         embeds: [contact],
@@ -4025,7 +4025,7 @@ In the mean time, please explain your issue below`;
           setTimeout(() => {
             sendingEmbed.delete(guild.id);
           }, 10000);
-          ticketChannel.send(ticketEmbed).then(async (s) => {
+          ticketChannel.send({ embeds: [ticketEmbed] }).then(async (s) => {
             s.react(emoji);
 
             ticketSettings.messageID.push(s.id);
@@ -4769,7 +4769,7 @@ In the mean time, please explain your issue below`;
       .setDescription(
         `Thank you **${apiUser.username}#${apiUser.discriminator}** (${apiUser.id}) for voting **Pogy**!`
       );
-    Hook.send(msg);
+    Hook.sendCustom(msg);
 
     const userSettings = await User.findOne({ discordId: req.vote.user });
     if (!userSettings)
@@ -4784,16 +4784,18 @@ In the mean time, please explain your issue below`;
     let voteNumber = userSettings.votes;
     if (!voteNumber) voteNumber = 0;
     if (voteUser) {
-      voteUser.send(
-        new Discord.MessageEmbed()
-          .setColor("#7289DA")
-          .setTitle(`Thanks for Voting!`)
-          .setDescription(
-            `Thank you **${apiUser.username}#${apiUser.discriminator}** (${
-              apiUser.id
-            }) for voting **Pogy**! \n\nVote #${voteNumber + 1}`
-          )
-      );
+      voteUser.send({
+        embeds: [
+          new Discord.MessageEmbed()
+            .setColor("#7289DA")
+            .setTitle(`Thanks for Voting!`)
+            .setDescription(
+              `Thank you **${apiUser.username}#${apiUser.discriminator}** (${
+                apiUser.id
+              }) for voting **Pogy**! \n\nVote #${voteNumber + 1}`
+            ),
+        ],
+      });
     }
 
     await userSettings.updateOne({

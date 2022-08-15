@@ -39,7 +39,7 @@ module.exports = class extends Event {
                     `Hey ${user.username}, Premium in ${guildPremium.name} has Just expired :(\n\n__You can you re-new your server here! [https://pogy.xyz/premium](https://pogy.xyz/premium)__\n\nThank you for purchasing premium Previously! We hope you enjoyed what you purchased.\n\n**- Pogy**`
                   );
 
-                user.send(embed).catch(() => {});
+                user.send({ embeds: [embed] }).catch(() => {});
               }
 
               const rip = new Discord.MessageEmbed()
@@ -54,7 +54,7 @@ module.exports = class extends Event {
                 .setTimestamp();
 
               await premiumrip
-                .send({
+                .sendCustom({
                   username: "Pogy Loose Premium",
                   avatarURL: `${this.client.domain}/logo.png`,
                   embeds: [rip],
@@ -79,7 +79,5 @@ module.exports = class extends Event {
       const Dashboard = require("../dashboard/dashboard");
       Dashboard(this.client);
     }
-
-
   }
 };

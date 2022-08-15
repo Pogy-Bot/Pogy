@@ -208,7 +208,9 @@ module.exports = class extends Event {
             )
             .then((s) => {
               message.delete().catch(() => {});
-              s.delete({ timeout: 4000 }).catch(() => {});
+              setTimeout(() => {
+                s.delete().catch(() => {});
+              }, 4000);
             })
             .catch(() => {});
 

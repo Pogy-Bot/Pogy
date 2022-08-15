@@ -134,7 +134,7 @@ module.exports = class extends Command {
 
     if (guildDB.isPremium == "false") {
       channel
-        .send(embed)
+        .send({embeds: [embed]})
         .catch(() => {
           return message.channel.sendCustom(`${language.suggesting5}`);
         })
@@ -176,7 +176,7 @@ module.exports = class extends Command {
       if (guildDB.suggestion.timestamp == "true") theEmbed.setTimestamp();
 
       channel
-        .send(theEmbed)
+        .send({embeds: [theEmbed]})
         .catch(() => {
           return message.channel.sendCustom(
             `I could not send the suggestion Properly since my embed description either exceeds 2000 characters, or I do not have permissions to talk in the Suggestion Channel. Kindly report that to a staff member.`

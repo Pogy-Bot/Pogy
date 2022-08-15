@@ -158,7 +158,7 @@ module.exports = class extends Command {
                   .setTimestamp()
                   .setColor(color);
 
-                channel.send(logEmbed).catch((e) => {
+                channel.send({embeds: [logEmbed]}).catch((e) => {
                   console.log(e);
                 });
 

@@ -1,5 +1,5 @@
 const Event = require("../../structures/Event");
-const { MessageReaction, User, MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const Db = require("../../packages/reactionrole/models/schema.js");
 const reactionCooldown = new Set();
 const GuildDB = require("../../database/schemas/Guild");
@@ -26,8 +26,6 @@ module.exports = class extends Event {
     const guildDB = await GuildDB.findOne({
       guildId: message.guild.id,
     });
-
-    let prefix = guildDB.prefix;
 
     await Db.findOne(
       {
@@ -71,6 +69,18 @@ module.exports = class extends Event {
           .setFooter({ text: "https://pogy.xyz/" })
           .setColor(message.client.color.green);
 
+        let errorReaction = new MessageEmbed()
+          .setAuthor(
+            "Reaction Error",
+            `https://pogy.xyz/logo.png`,
+            `${message.url}`
+          )
+          .setDescription(
+            `A reaction error has occured!`
+          )
+          .setFooter({ text: "https://pogy.xyz/" })
+          .setColor(message.client.color.green);
+
         if (reactionCooldown.has(user.id)) return;
 
         if (db.option === 1) {
@@ -88,7 +98,7 @@ module.exports = class extends Event {
 
               if (guildDB.reactionDM === true) {
                 if (botCooldown.has(message.guild.id)) return;
-                member.send(remEmbed).catch(() => {});
+                member.send({ embeds: [remEmbed] }).catch(() => {});
                 botCooldown.add(message.guild.id);
                 setTimeout(() => {
                   botCooldown.delete(message.guild.id);
@@ -108,7 +118,7 @@ module.exports = class extends Event {
             setTimeout(() => {
               botCooldown.delete(message.guild.id);
             }, 6000);
-            return member.send(errorReaction).catch(() => {});
+            return member.send({ embeds: [errorReaction] }).catch(() => {});
           }
         }
 
@@ -121,7 +131,7 @@ module.exports = class extends Event {
             ) {
               await member.roles.add(rrRole).catch(() => {});
               if (guildDB.reactionDM === true) {
-                member.send(addEmbed).catch(() => {});
+                member.send({ embeds: [addEmbed] }).catch(() => {});
               }
               reactionCooldown.add(user.id);
               setTimeout(() => {
@@ -140,7 +150,7 @@ module.exports = class extends Event {
             setTimeout(() => {
               botCooldown.delete(message.guild.id);
             }, 6000);
-            return member.send(errorReaction).catch(() => {});
+            return member.send({ embeds: [errorReaction] }).catch(() => {});
           }
         }
       }

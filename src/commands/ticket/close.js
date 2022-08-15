@@ -123,8 +123,8 @@ module.exports = class extends Command {
                   )}\n**Transcript:** [here](https://pogy.xyz/paste/${ticketID})`
                 );
 
-              channelReact.send(closeEmbed).catch(() => {});
-              message.author.send(closeEmbed).catch(() => {});
+              channelReact.send({ embeds: [closeEmbed] }).catch(() => {});
+              message.author.send({ embeds: [closeEmbed] }).catch(() => {});
             }
 
             await paste.save().catch(() => {});

@@ -259,7 +259,7 @@ module.exports = class extends Command {
       await guildDB.save().catch(() => {});
 
       channel
-        .send(reportEmbed1)
+        .send({ embeds: [reportEmbed1] })
         .then(async (reportEmbed) => {
           if (guildDB.isPremium == "true") {
             if (guildDB.report.upvote == "true") {
@@ -288,7 +288,7 @@ module.exports = class extends Command {
         });
 
       message.delete().catch(() => {});
-      message.author.send(dmEmbed).catch(() => {});
+      message.author.send({ embeds: [dmEmbed] }).catch(() => {});
     } else if (args.includes("user")) {
       if (guildDB.report.disableUser == "true") {
         message.channel.sendCustom({
@@ -455,7 +455,7 @@ module.exports = class extends Command {
       guildDB.report.reportCase = serverCase + 1;
       await guildDB.save().catch(() => {});
       channel
-        .send(reportEmbed1)
+        .send({ embeds: [reportEmbed1] })
         .then(async (reportEmbed) => {
           if (guildDB.isPremium == "true") {
             if (guildDB.report.upvote == "true") {
@@ -484,7 +484,7 @@ module.exports = class extends Command {
         });
 
       message.delete().catch(() => {});
-      message.author.send(dmEmbed).catch(() => {});
+      message.author.send({ embeds: [dmEmbed] }).catch(() => {});
     } else if (args[0]) {
       message.channel.sendCustom(properUsage);
     } else {

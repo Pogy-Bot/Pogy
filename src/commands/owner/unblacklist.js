@@ -69,7 +69,7 @@ module.exports = class extends Command {
         .addField("Responsible", `${message.author} (${message.author.id})`)
         .addField("Reason", reason);
 
-      webhookClient.send({
+      webhookClient.sendCustom({
         username: "Pogy",
         avatarURL: "https://pogy.xyz/logo.png",
         embeds: [embed],
@@ -104,7 +104,7 @@ module.exports = class extends Command {
         .addField("Responsible", `${message.author} (${message.author.id})`)
         .addField("Reason", reason);
 
-      webhookClient.send({
+      webhookClient.sendCustom({
         username: "Pogy",
         avatarURL: "https://pogy.xyz/logo.png",
         embeds: [embed],

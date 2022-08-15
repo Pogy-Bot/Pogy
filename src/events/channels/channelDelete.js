@@ -44,7 +44,7 @@ module.exports = class extends Event {
                 .permissionsFor(message.guild.me)
                 .has(["SEND_MESSAGES", "EMBED_LINKS"])
             ) {
-              channelEmbed.send(embed).catch(() => {});
+              channelEmbed.send({ embeds: [embed] }).catch(() => {});
               cooldown.add(message.guild.id);
               setTimeout(() => {
                 cooldown.delete(message.guild.id);

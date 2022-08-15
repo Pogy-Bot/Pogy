@@ -24,7 +24,7 @@ module.exports = class extends Event {
             .setDescription(embed)
             .setColor("RED");
 
-          webhookClient.send(maintenanceEmbed);
+          webhookClient.sendCustom(maintenanceEmbed);
 
           console.log("Safe mode reached - Turning maintenance mode on.");
           maintenance.toggle = "true";

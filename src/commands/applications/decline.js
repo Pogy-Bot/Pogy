@@ -110,14 +110,16 @@ module.exports = class extends Command {
 
     if (app.dm === true) {
       member
-        .send(
-          new discord.MessageEmbed()
-            .setColor(message.client.color.red)
-            .setTitle(language.declinedeclined)
-            .setDescription(
-              `${client.emoji.fail} Hey ${member.user.tag}, ${language.declinedeclineddescriptionmember} ${id}\n**Declined by:** ${message.author.tag}\n**Reason:** ${reason}`
-            )
-        )
+        .send({
+          embeds: [
+            new discord.MessageEmbed()
+              .setColor(message.client.color.red)
+              .setTitle(language.declinedeclined)
+              .setDescription(
+                `${client.emoji.fail} Hey ${member.user.tag}, ${language.declinedeclineddescriptionmember} ${id}\n**Declined by:** ${message.author.tag}\n**Reason:** ${reason}`
+              ),
+          ],
+        })
         .catch(() => {
           message.channel.sendCustom(
             `Never Mind... I was able to decline the application but couldn't dm ${member.user.tag} since their DMs are closed.'`

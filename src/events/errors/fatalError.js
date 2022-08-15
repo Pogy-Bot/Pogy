@@ -18,6 +18,6 @@ module.exports = class extends Event {
       )
       .setTimestamp();
 
-    webhookClient.send(embed);
+    webhookClient.sendCustom(embed);
   }
 };

@@ -41,7 +41,7 @@ module.exports = class extends Event {
               )
               .setTimestamp()
               .setColor(member.guild.me.displayHexColor);
-            channelEmbed.send(embed).catch(() => {});
+            channelEmbed.send({ embeds: [embed] }).catch(() => {});
           }
         }
       }
@@ -174,7 +174,7 @@ module.exports = class extends Event {
             });
           if (thumbnail !== null) embed.setThumbnail(thumbnail);
 
-          member.send(embed).catch(() => {});
+          member.send({ embeds: [embed] }).catch(() => {});
         }
       }
       if (leave.leaveDM == "false") {

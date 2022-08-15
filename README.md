@@ -158,7 +158,7 @@ OPTIONAL
 - DATADOG_API_KEY=your data dog api key,
 - DATADOG_API_HOST= your data dog api host,
 - DATADOG_API_PREFIX= your data dog api prefix,
-- DBL_AUTH= your dbl api key
+- DBL_AUTH= your dbl authorization
 
 
 

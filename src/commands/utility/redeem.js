@@ -75,14 +75,16 @@ module.exports = class extends Command {
       let DDate = date.format(now, "YYYY/MM/DD HH:mm:ss");
 
       try {
-        await message.author.send(
-          new discord.MessageEmbed()
-            .setDescription(
-              `**Premium Subscription**\n\nYou've recently redeemed a code in **${message.guild.name}** and here is your receipt:\n\n **Reciept ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${message.guild.name}\n**Guild ID:** ${message.guild.id}`
-            )
-            .setColor(message.guild.me.displayHexColor)
-            .setFooter({ text: message.guild.name })
-        );
+        await message.author.send({
+          embeds: [
+            new discord.MessageEmbed()
+              .setDescription(
+                `**Premium Subscription**\n\nYou've recently redeemed a code in **${message.guild.name}** and here is your receipt:\n\n **Reciept ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${message.guild.name}\n**Guild ID:** ${message.guild.id}`
+              )
+              .setColor(message.guild.me.displayHexColor)
+              .setFooter({ text: message.guild.name }),
+          ],
+        });
       } catch (err) {
         console.log(err);
         message.channel.sendCustom({
@@ -116,7 +118,7 @@ module.exports = class extends Command {
         )
         .setColor(message.guild.me.displayHexColor);
 
-      webhookClient.send({
+      webhookClient.sendCustom({
         username: "Pogy Premium",
         avatarURL: `https://pogy.xyz/logo.png`,
         embeds: [embedPremium],

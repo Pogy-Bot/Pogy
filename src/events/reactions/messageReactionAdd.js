@@ -107,7 +107,7 @@ module.exports = class extends Event {
               .permissionsFor(message.guild.me)
               .has(["SEND_MESSAGES", "EMBED_LINKS"])
           ) {
-            user.send(slowDownEmbed).catch(() => {});
+            user.send({ embeds: [slowDownEmbed] }).catch(() => {});
             botCooldown.add(message.guild.id);
             setTimeout(() => {
               botCooldown.delete(message.guild.id);
@@ -124,7 +124,7 @@ module.exports = class extends Event {
             ) {
               await member.roles.add(rrRole).catch(() => {});
               if (guildDB.reactionDM === true) {
-                member.send(addEmbed).catch(() => {});
+                member.send({ embeds: [addEmbed] }).catch(() => {});
               }
               reactionCooldown.add(user.id);
               setTimeout(() => {
@@ -143,7 +143,7 @@ module.exports = class extends Event {
             setTimeout(() => {
               botCooldown.delete(message.guild.id);
             }, 6000);
-            return member.send(errorReaction).catch(() => {});
+            return member.send({ embeds: [errorReaction] }).catch(() => {});
           }
         }
 
@@ -156,7 +156,7 @@ module.exports = class extends Event {
             ) {
               await member.roles.add(rrRole).catch(() => {});
               if (guildDB.reactionDM === true) {
-                member.send(addEmbed).catch(() => {});
+                member.send({ embeds: [addEmbed] }).catch(() => {});
               }
               reactionCooldown.add(user.id);
               setTimeout(() => {
@@ -174,7 +174,7 @@ module.exports = class extends Event {
             setTimeout(() => {
               botCooldown.delete(message.guild.id);
             }, 6000);
-            return member.send(errorReaction).catch(() => {});
+            return member.send({ embeds: [errorReaction] }).catch(() => {});
           }
         }
 
@@ -187,7 +187,7 @@ module.exports = class extends Event {
             ) {
               await member.roles.remove(rrRole).catch(() => {});
               if (guildDB.reactionDM === true) {
-                member.send(remEmbed).catch(() => {});
+                member.send({ embeds: [remEmbed] }).catch(() => {});
               }
               reactionCooldown.add(user.id);
               setTimeout(() => {
@@ -205,7 +205,7 @@ module.exports = class extends Event {
             setTimeout(() => {
               botCooldown.delete(message.guild.id);
             }, 6000);
-            return member.send(errorReaction).catch(() => {});
+            return member.send({ embeds: [errorReaction] }).catch(() => {});
           }
         }
 
@@ -219,7 +219,7 @@ module.exports = class extends Event {
               await member.roles.remove(rrRole).catch(() => {});
               reactionCooldown.add(user.id);
               if (guildDB.reactionDM === true) {
-                member.send(remEmbed).catch(() => {});
+                member.send({ embeds: [remEmbed] }).catch(() => {});
               }
               setTimeout(() => {
                 reactionCooldown.delete(user.id);
@@ -236,7 +236,7 @@ module.exports = class extends Event {
             setTimeout(() => {
               botCooldown.delete(message.guild.id);
             }, 6000);
-            return member.send(errorReaction).catch(() => {});
+            return member.send({ embeds: [errorReaction] }).catch(() => {});
           }
         }
 
@@ -254,7 +254,7 @@ module.exports = class extends Event {
                 .catch(() => {});
 
               if (guildDB.reactionDM === true) {
-                member.send(remEmbed).catch(() => {});
+                member.send({ embeds: [remEmbed] }).catch(() => {});
               }
               reactionCooldown.add(user.id);
               setTimeout(() => {
@@ -272,7 +272,7 @@ module.exports = class extends Event {
             setTimeout(() => {
               botCooldown.delete(message.guild.id);
             }, 6000);
-            return member.send(errorReaction).catch(() => {});
+            return member.send({ embeds: [errorReaction] }).catch(() => {});
           }
         }
 
@@ -307,7 +307,7 @@ module.exports = class extends Event {
               await member.roles.add(rrRole).catch(() => {});
 
               if (guildDB.reactionDM === true) {
-                member.send(addEmbed).catch(() => {});
+                member.send({ embeds: [addEmbed] }).catch(() => {});
               }
               reactionCooldown.add(user.id);
               setTimeout(() => {
@@ -325,7 +325,7 @@ module.exports = class extends Event {
             setTimeout(() => {
               botCooldown.delete(message.guild.id);
             }, 6000);
-            return member.send(errorReaction).catch(() => {});
+            return member.send({ embeds: [errorReaction] }).catch(() => {});
           }
         }
       }
@@ -511,24 +511,26 @@ module.exports = class extends Event {
                     }
                   }
 
-                  chan.send(
-                    new discord.MessageEmbed()
-                      .setAuthor(user.tag, user.displayAvatarURL())
+                  chan.send({
+                    embeds: [
+                      new discord.MessageEmbed()
+                        .setAuthor(user.tag, user.displayAvatarURL())
 
-                      .setDescription(
-                        db.ticketWelcomeMessage
-                          .replace(/{user}/g, `${member}`)
-                          .replace(/{user_tag}/g, `${member.tag}`)
-                          .replace(/{user_name}/g, `${member.username}`)
-                          .replace(/{reason}/g, `${member.username}`)
-                          .replace(/{user_ID}/g, `${member.id}`)
-                      )
+                        .setDescription(
+                          db.ticketWelcomeMessage
+                            .replace(/{user}/g, `${member}`)
+                            .replace(/{user_tag}/g, `${member.tag}`)
+                            .replace(/{user_name}/g, `${member.username}`)
+                            .replace(/{reason}/g, `${member.username}`)
+                            .replace(/{user_ID}/g, `${member.id}`)
+                        )
 
-                      .setColor(color)
-                  );
+                        .setColor(color),
+                    ],
+                  });
 
                   chan
-                    .send({
+                    .sendCustom({
                       embeds: [
                         new MessageEmbed()
                           .setDescription(

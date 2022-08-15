@@ -1,5 +1,5 @@
 const Command = require("../../structures/Command");
-const SlayBotDB = require("../../database/schemas/Pogy");
+const NewsSchema = require("../../database/schemas/Pogy");
 
 module.exports = class extends Command {
   constructor(...args) {
@@ -14,25 +14,23 @@ module.exports = class extends Command {
 
   async run(message, args) {
     let news = args.join(" ").split("").join("");
-    if (!SlayBotDB.news)
-      return (
-        (await SlayBotDB.create({
-          news: news,
-          tag: "710465231779790849",
-          time: new Date(),
-        })) +
-        (await SlayBotDB.updateOne({
-          news: news,
-          tag: "710465231779790849",
-          time: new Date(),
-        })) +
-        message.channel.sendCustom(" Updated News!")
-      );
-    await SlayBotDB.updateOne({
-      news: news,
-      tag: "710465231779790849",
-      time: new Date(),
-    });
-    message.channel.sendCustom(" Updated News!");
+    if (!news) return message.channel.send("Please enter news.");
+    const newsDB = await NewsSchema.findOne({});
+    if (!newsDB) {
+      await NewsSchema.create({
+        news: news,
+        time: new Date(),
+      });
+
+      return message.channel.send("News set.");
+    }
+
+    await NewsSchema.findOneAndUpdate(
+      {},
+      {
+        news: news,
+        time: new Date(),
+      }
+    );
   }
 };

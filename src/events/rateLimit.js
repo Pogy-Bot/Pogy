@@ -16,7 +16,7 @@ module.exports = class extends Event {
       .setTimestamp();
 
     setTimeout(function () {
-      webhookClient.send(embed);
+      webhookClient.sendCustom(embed);
       logger.info(`Time out: ${rl.timeout}ms. Limit: ${rl.limit}`, {
         label: "Rate Limit",
       });

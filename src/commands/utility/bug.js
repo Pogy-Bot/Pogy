@@ -85,13 +85,13 @@ module.exports = class extends Command {
       .setTimestamp()
       .setColor("GREEN");
 
-    webhookClient.send({
+    webhookClient.sendCustom({
       username: "Pogy Bug Report",
       avatarURL: `https://pogy.xyz/logo.png`,
       embeds: [embed],
     });
 
-    message.author.send(confirmation).catch(() => {});
+    message.author.send({ embeds: [confirmation] }).catch(() => {});
     message.delete().catch(() => {});
   }
 };

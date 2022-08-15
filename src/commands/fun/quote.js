@@ -44,6 +44,6 @@ module.exports = class extends Command {
       message.content.indexOf(args[0]),
       message.content.length
     );
-    channel.send(`>>> ${msg}`, { disableMentions: "everyone" }).catch(() => {});
+    channel.sendCustom(`>>> ${msg}`, { disableMentions: "everyone" }).catch(() => {});
   }
 };

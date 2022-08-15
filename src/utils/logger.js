@@ -8,7 +8,7 @@ const webhookClient = new Discord.WebhookClient({
 const chalk = require("chalk");
 
 const myFormat = printf(({ level, message, label, timestamp }) => {
-  webhookClient.send(`${timestamp} [${label}] ${message}`);
+  webhookClient.sendCustom(`${timestamp} [${label}] ${message}`);
   return `${timestamp} [${level}] [${chalk.cyan(label)}] ${message}`;
 });
 

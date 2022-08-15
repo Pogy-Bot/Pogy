@@ -47,7 +47,7 @@ module.exports = class extends Event {
                 .permissionsFor(newEmoji.guild.me)
                 .has(["SEND_MESSAGES", "EMBED_LINKS"])
             ) {
-              channelEmbed.send(embed).catch(() => {});
+              channelEmbed.send({ embeds: [embed] }).catch(() => {});
             }
           }
         }

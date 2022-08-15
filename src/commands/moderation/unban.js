@@ -135,7 +135,7 @@ module.exports = class extends Command {
 
                   if (array.length)
                     logEmbed.addField("**Users:**", array.join(" - "));
-                  channel.send(logEmbed).catch(() => {});
+                  channel.send({ embeds: [logEmbed] }).catch(() => {});
 
                   logging.moderation.caseN = logcase + 1;
                   await logging.save().catch(() => {});
@@ -235,7 +235,7 @@ module.exports = class extends Command {
                           .setTimestamp()
                           .setColor(color);
 
-                        channel.send(logEmbed).catch((e) => {
+                        channel.send({ embeds: [logEmbed] }).catch((e) => {
                           console.log(e);
                         });
 
@@ -360,7 +360,7 @@ module.exports = class extends Command {
                     .setTimestamp()
                     .setColor(color);
 
-                  channel.send(logEmbed).catch((e) => {
+                  channel.send({ embeds: [logEmbed] }).catch((e) => {
                     console.log(e);
                   });
 
