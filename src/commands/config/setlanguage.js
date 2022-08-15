@@ -21,7 +21,7 @@ module.exports = class extends Command {
 
     const language = require(`../../data/language/${guildDB.language}.json`);
 
-    let languages = ["english", "french", "spanish"];
+    let languages = ["english", "french", "spanish", "arabic", "polish"];
 
     if (!args[0])
       return message.channel.sendCustom({

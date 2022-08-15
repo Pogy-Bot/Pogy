@@ -4,10 +4,15 @@ const logger = require("../../utils/logger");
 const Guild = require("../../database/schemas/Guild");
 const Logging = require("../../database/schemas/logging");
 const config = require("../../../config.json");
-const webhookClient = new Discord.WebhookClient({ url: config.webhooks.leavesPublic });
-const welcomeClient = new Discord.WebhookClient({ url: config.webhooks.leavesPrivate });
+const welcomeClient = new Discord.WebhookClient({
+  url: config.webhooks.leavesPublic,
+});
+const webhookClient = new Discord.WebhookClient({
+  url: config.webhooks.leavesPrivate,
+});
 module.exports = class extends Event {
   async run(guild) {
+    if (guild.name === undefined) return;
     Guild.findOneAndDelete(
       {
         guildId: guild.id,
@@ -54,7 +59,7 @@ module.exports = class extends Event {
         guild.iconURL({ dynamic: true })
           ? guild.iconURL({ dynamic: true })
           : `https://guild-default-icon.herokuapp.com/${encodeURIComponent(
-              guild.nameAcronym
+              guild.name
             )}`
       )
       .addField("Server Owner", `${guild.owner} / ${guild.ownerID}`);

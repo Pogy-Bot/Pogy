@@ -4,8 +4,8 @@ const logger = require("../../utils/logger");
 const Guild = require("../../database/schemas/Guild");
 const Logging = require("../../database/schemas/logging");
 const config = require("../../../config.json");
-const welcomeClient = new Discord.WebhookClient({ url: config.webhooks.joinsPublic });
-const webhookClient = new Discord.WebhookClient({ url: config.webhooks.joinsPrivate });
+const webhookClient = new Discord.WebhookClient({ url: config.webhooks.joinsPublic });
+const welcomeClient = new Discord.WebhookClient({ url: config.webhooks.joinsPrivate });
 
 module.exports = class extends Event {
   async run(guild) {
@@ -148,7 +148,7 @@ module.exports = class extends Event {
         guild.iconURL({ dynamic: true })
           ? guild.iconURL({ dynamic: true })
           : `https://guild-default-icon.herokuapp.com/${encodeURIComponent(
-              guild.nameAcronym
+              guild.name
             )}`
       )
 

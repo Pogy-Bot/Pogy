@@ -158,7 +158,7 @@ OPTIONAL
 - DATADOG_API_KEY=your data dog api key,
 - DATADOG_API_HOST= your data dog api host,
 - DATADOG_API_PREFIX= your data dog api prefix,
-- DBL_AUTH= your dbl authorization key
+- DBL_AUTH= your dbl api key
 
 
 
@@ -172,6 +172,13 @@ yourdomain/window example https://pogy.xyz/window or http://localhost:3000/windo
 AUTH CLIENT ID
 yourdomain/callback example https://pogy.xyz/callback or http://localhost:3000/callback
 
+
+**TOP.gg** 
+To add top.gg to your site, add `DBL_AUTH` as your dbl api key to the `.env` file. And `yourdomain/dblwebhook` as a webhook url on top.gg's site settings. Example:  `https://yourbot.com/dblwebhook  
+
+
+**Replit**
+To run on replit you must install node js `v.16.9.1` to do so go to bash (the bash terminal on your repl) and paste: `npm init -y && npm i --save-dev node@16.9.0 && npm config set prefix=$(pwd)/node_modules/node && export PATH=$(pwd)/node_modules/node/bin:$PATH`
 
 Pease make sure you have enabled `Privileged Intents` on your Discord [developer portal](https://discordapp.com/developers/applications/). You can find these intents under the "Bot" section, and there are two ticks you have to switch on. For more information on Gateway Intents, check out [this](https://discordjs.guide/popular-topics/intents.html#the-intents-bit-field-wrapper) link.
 

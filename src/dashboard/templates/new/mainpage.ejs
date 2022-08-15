@@ -156,24 +156,51 @@
 <h3 style="font-family: var(--font2); padding-left: 40px">Language</h3>
 <p style="padding-left: 40px">Change the Bot's Language.</p>
    
-      <select class="select" name="language">
-      <% if(settings.language == "english") {%>
-        <option value="english" selected>English ( EN )</option>
-        <option value="french">Francais ( FR )</option>
-        <option value="spanish">Español ( ES )</option>
-       <% } else if(settings.language == "french") {%>
+<select class="select" name="language">
+  <% if(settings.language == "english") {%>
 
-        <option value="english">English  ( EN )</option>
-        <option value="french" selected>French ( FR )</option>
-        <option value="spanish">Español ( ES )</option>
+    <option value="english" selected>English ( EN )</option>
+    <option value="french">Francais ( FR )</option>
+    <option value="spanish">Español ( ES )</option>
+    <option value="arabic">Arabic (AR)</option>
+    <option value="polish">Polish ( PO )</option>
+
+   <% } else if(settings.language == "french") {%>
+
+    <option value="english">English  ( EN )</option>
+    <option value="french" selected>French ( FR )</option>
+    <option value="spanish">Español ( ES )</option>
+    <option value="arabic">Arabic (AR)</option>
+    <option value="polish">Polish ( PO )</option>
 
 <% } else if(settings.language == "spanish") {%>
-        <option value="english">English  ( EN )</option>
-        <option value="french">French ( FR )</option>
-        <option value="spanish" selected>Español ( ES )</option>
+
+    <option value="english">English  ( EN )</option>
+    <option value="french">French ( FR )</option>
+    <option value="spanish" selected>Español ( ES )</option>
+    <option value="polish">Polish ( PO )</option>
+    <option value="arabic">Arabic (AR)</option>
+
+<% } else if(settings.language == "arabic") { %>
+
+    <option value="english">English  ( EN )</option>
+    <option value="french">French ( FR )</option>
+    <option value="spanish">Español ( ES )</option>
+    <option value="polish">Polish ( PO )</option>
+    <option value="arabic" selected>Arabic (AR)</option>
+
+<% } else if(settings.language == "polish") { %>
+
+    <option value="english">English  ( EN )</option>
+    <option value="french">French ( FR )</option>
+    <option value="spanish">Español ( ES )</option>
+    <option value="polish"  selected>Polish ( PO )</option>
+    <option value="arabic">Arabic (AR)</option>
+    
 <% } %>
-      </select>
-  
+  </select>
+
+
 
 <div style="padding-top: 10px"></div>
 

@@ -952,7 +952,7 @@ module.exports = async (client) => {
     }
 
     if (data.language) {
-      const languages = ["english", "french", "spanish"];
+      const languages = ["english", "french", "spanish", "arabic", "polish"];
       let language = data.language;
       if (!language) language = "english";
       if (!languages.includes(language)) language = "english";
