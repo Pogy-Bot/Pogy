@@ -101,17 +101,6 @@ module.exports = class extends Command {
         ],
       });
 
-    if (isCustomEmoji(args[3]))
-      return message.channel.sendCustom({
-        embeds: [
-          new MessageEmbed()
-            .setAuthor(message.author.tag, message.author.displayAvatarURL())
-            .setDescription(`${fail} Do Not use custom Emojis!`)
-            .setFooter({ text: "https://pogy.xyz/" })
-            .setColor(client.color.red),
-        ],
-      });
-
     try {
       await messageID.react(emoji);
     } catch (err) {
@@ -146,18 +135,16 @@ module.exports = class extends Command {
         new MessageEmbed()
           .setAuthor("Reaction Roles", message.guild.iconURL(), messageID.url)
           .setColor(client.color.green)
-          .addField("Channel", channel, true)
-          .addField("Emoji", emoji, true)
-          .addField("Type", option, true)
-          .addField("Message ID", ID, true)
+          .addField("Channel", `${channel}`, true)
+          .addField("Emoji", `${emoji}`, true)
+          .addField("Type", `${option}`, true)
+          .addField("Message ID", `${ID}`, true)
           .addField("Message", `[Jump To Message](${messageID.url})`, true)
-          .addField("Role", role, true)
+          .addField("Role", `${role}`, true)
           .setFooter({ text: "https://pogy.xyz/" }),
       ],
     });
 
-    function isCustomEmoji(emoji) {
-      return emoji.split(":").length == 1 ? false : true;
-    }
+
   }
 };

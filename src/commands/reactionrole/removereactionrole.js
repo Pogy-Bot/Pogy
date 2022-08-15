@@ -83,16 +83,7 @@ module.exports = class extends Command {
         ],
       });
 
-    if (isCustomEmoji(args[2]))
-      return message.channel.sendCustom({
-        embeds: [
-          new MessageEmbed()
-            .setAuthor(message.author.tag, message.author.displayAvatarURL())
-            .setDescription(`${fail} Do Not use custom Emojis!`)
-            .setFooter({ text: "https://pogy.xyz/" })
-            .setColor(client.color.red),
-        ],
-      });
+    
 
     await react.reactionDelete(client, message.guild.id, ID, emoji);
 
@@ -108,8 +99,6 @@ module.exports = class extends Command {
       ],
     });
 
-    function isCustomEmoji(emoji) {
-      return emoji.split(":").length == 1 ? false : true;
-    }
+  
   }
 };

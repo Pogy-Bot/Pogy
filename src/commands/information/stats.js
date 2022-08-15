@@ -73,11 +73,12 @@ module.exports = class extends Command {
      -------
      ${language.pogyOwners}
     • Peter_#4444
+    • Jano#6969
      ${language.pogyDevelopers}
     • Peter_#4444
-     ${language.pogyContributor}
-    • GhostSlayer#0001
-    • ΛCЄ#0001
+    • Jano#6969
+    and
+    pogy.xyz/team
     -------
     `;
     const embed = new MessageEmbed()

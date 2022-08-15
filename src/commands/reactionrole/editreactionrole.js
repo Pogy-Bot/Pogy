@@ -96,11 +96,11 @@ module.exports = class extends Command {
             messageID.url
           )
           .setColor(client.color.green)
-          .addField("Channel", channel, true)
-          .addField("Emoji", emoji, true)
-          .addField("Message ID", ID, true)
+          .addField("Channel", `${channel}`, true)
+          .addField("Emoji", `${emoji}`, true)
+          .addField("Message ID", `${IDBCursor}`, true)
           .addField("Message", `[Jump To Message](${messageID.url})`, true)
-          .addField("Role", role, true)
+          .addField("Role", `${role}`, true)
           .setFooter({ text: "https://pogy.xyz/" }),
       ],
     });
