@@ -34,7 +34,8 @@ const fetch = require("node-fetch");
 const Paste = require("../database/models/transcript.js");
 const moment = require("moment");
 const cooldownEmbed = new Set();
-
+const metrics = require("datadog-metrics");
+const { cpu } = require("node-os-utils");
 const Application = require("../database/models/application/application.js");
 const customCommand = require("../database/schemas/customCommand.js");
 //dont touch here
@@ -283,11 +284,9 @@ module.exports = async (client) => {
 
   // Features list redirect endpoint.
   app.get("/commands", (req, res) => {
-    var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
-    renderTemplate(res, req, "features.ejs", {
-      urlSite: fullUrl,
-    });
+    res.send("This feature is not yet available.");
   });
+  
   app.get("/color", (req, res) => {
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
     renderTemplate(res, req, "color.ejs", {
@@ -2002,65 +2001,64 @@ module.exports = async (client) => {
 
     renderTemplate(res, req, "./new/mainmembers.ejs", {
       guild: guild,
-      members: guild.members.cache.array(),
     });
   });
 
-  app.get("/dashboard/:guildID/members/list", checkAuth, async (req, res) => {
-    const guild = client.guilds.cache.get(req.params.guildID);
-    if (!guild) return res.status(404);
-    if (req.query.fetch) {
-      await guild.fetchMembers();
-    }
-    const totals = guild.members.size;
-    const start = parseInt(req.query.start, 10) || 0;
-    const limit = parseInt(req.query.limit, 10) || 50;
-    let members = guild.members;
+  // app.get("/dashboard/:guildID/members/list", checkAuth, async (req, res) => {
+  //   const guild = client.guilds.cache.get(req.params.guildID);
+  //   if (!guild) return res.status(404);
+  //   if (req.query.fetch) {
+  //     await guild.fetchMembers();
+  //   }
+  //   const totals = guild.members.size;
+  //   const start = parseInt(req.query.start, 10) || 0;
+  //   const limit = parseInt(req.query.limit, 10) || 50;
+  //   let members = guild.members;
 
-    if (req.query.filter && req.query.filter !== "null") {
-      members = members.filter((m) => {
-        m = req.query.filterUser ? m.user : m;
-        return m["displayName"]
-          .toLowerCase()
-          .includes(req.query.filter.toLowerCase());
-      });
-    }
+  //   if (req.query.filter && req.query.filter !== "null") {
+  //     members = members.filter((m) => {
+  //       m = req.query.filterUser ? m.user : m;
+  //       return m["displayName"]
+  //         .toLowerCase()
+  //         .includes(req.query.filter.toLowerCase());
+  //     });
+  //   }
 
-    const memberArray = members.cache.array().slice(start, start + limit);
+  //   const memberArray = members.cache.array().slice(start, start + limit);
 
-    const returnObject = [];
-    for (let i = 0; i < memberArray.length; i++) {
-      const m = memberArray[i];
-      returnObject.push({
-        id: m.id,
-        status: m.user.presence.status,
-        bot: m.user.bot,
-        username: m.user.username,
-        displayName: m.displayName,
-        tag: m.user.tag,
-        discriminator: m.user.discriminator,
-        joinedAt: m.joinedTimestamp,
-        createdAt: m.user.createdTimestamp,
-        highestRole: {
-          hexColor: m.roles.highest.hexColor,
-        },
-        memberFor: moment
-          .duration(Date.now() - m.joinedAt)
-          .format(" D [days], H [hrs], m [mins], s [secs]"),
-        roles: m.roles.cache.map((r) => ({
-          name: r.name,
-          id: r.id,
-          hexColor: r.hexColor,
-        })),
-      });
-    }
-    res.json({
-      total: totals,
-      page: start / limit + 1,
-      pageof: Math.ceil(members.size / limit),
-      members: returnObject,
-    });
-  });
+  //   const returnObject = [];
+  //   for (let i = 0; i < memberArray.length; i++) {
+  //     const m = memberArray[i];
+  //     returnObject.push({
+  //       id: m.id,
+  //       status: m.user.presence.status,
+  //       bot: m.user.bot,
+  //       username: m.user.username,
+  //       displayName: m.displayName,
+  //       tag: m.user.tag,
+  //       discriminator: m.user.discriminator,
+  //       joinedAt: m.joinedTimestamp,
+  //       createdAt: m.user.createdTimestamp,
+  //       highestRole: {
+  //         hexColor: m.roles.highest.hexColor,
+  //       },
+  //       memberFor: moment
+  //         .duration(Date.now() - m.joinedAt)
+  //         .format(" D [days], H [hrs], m [mins], s [secs]"),
+  //       roles: m.roles.cache.map((r) => ({
+  //         name: r.name,
+  //         id: r.id,
+  //         hexColor: r.hexColor,
+  //       })),
+  //     });
+  //   }
+  //   res.json({
+  //     total: totals,
+  //     page: start / limit + 1,
+  //     pageof: Math.ceil(members.size / limit),
+  //     members: returnObject,
+  //   });
+  // });
 
   //automod
   app.get("/dashboard/:guildID/automod", checkAuth, async (req, res) => {
@@ -4824,4 +4822,31 @@ In the mean time, please explain your issue below`;
       label: "Dashboard",
     })
   );
+
+  function collectMemoryStats() {
+    var memUsage = process.memoryUsage();
+    metrics.gauge("memory.rss", memUsage.rss);
+    metrics.gauge("memory.heapTotal", memUsage.heapTotal);
+    metrics.gauge("memory.heapUsed", memUsage.heapUsed);
+    metrics.gauge("CPU USAGE", cpu.usage());
+    metrics.gauge(
+      "Ram Usage",
+      (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)
+    );
+    metrics.gauge("guilds.size", client.guilds.cache.size);
+    metrics.gauge(
+      "users.size",
+      client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
+    );
+    metrics.gauge("ping", client.ws.ping);
+  }
+
+  if (process.env.DATADOG_API_KEY) {
+    metrics.init({
+      apiKey: process.env.DATADOG_API_KEY,
+      host: process.env.DATADOG_API_HOST,
+      prefix: process.env.DATADOG_API_PREFIX,
+    });
+    setInterval(collectMemoryStats, 60000);
+  }
 };

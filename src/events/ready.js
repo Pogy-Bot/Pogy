@@ -4,8 +4,6 @@ const Discord = require("discord.js");
 const config = require("../../config.json");
 const Guild = require("../database/schemas/Guild");
 const { WebhookClient } = require("discord.js");
-const metrics = require("datadog-metrics");
-const { cpu } = require("node-os-utils");
 const premiumrip = new WebhookClient({ url: config.webhooks.premium });
 const Message = require("../utils/other/message");
 module.exports = class extends Event {
@@ -82,31 +80,6 @@ module.exports = class extends Event {
       Dashboard(this.client);
     }
 
-    function collectMemoryStats() {
-      var memUsage = process.memoryUsage();
-      metrics.gauge("memory.rss", memUsage.rss);
-      metrics.gauge("memory.heapTotal", memUsage.heapTotal);
-      metrics.gauge("memory.heapUsed", memUsage.heapUsed);
-      metrics.gauge("CPU USAGE", cpu.usage());
-      metrics.gauge(
-        "Ram Usage",
-        (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)
-      );
-      metrics.gauge("guilds.size", this.client.guilds.cache.size);
-      metrics.gauge(
-        "users.size",
-        this.client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
-      );
-      metrics.gauge("ping", this.client.ws.ping);
-    }
 
-    if (process.env.DATADOG_API_KEY) {
-      metrics.init({
-        apiKey: process.env.DATADOG_API_KEY,
-        host: process.env.DATADOG_API_HOST,
-        prefix: process.env.DATADOG_API_PREFIX,
-      });
-      setInterval(collectMemoryStats, 60000);
-    }
   }
 };

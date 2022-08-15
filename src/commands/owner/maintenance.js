@@ -43,8 +43,7 @@ module.exports = class extends Command {
         });
         newMain.save().catch(() => {});
       }
-      await message.channel.sendCustom("Disabling maintenance Mode");
-      process.exit(1);
+      message.channel.sendCustom("Disabled maintenance Mode");
     } else {
       message.channel.sendCustom("Invalid Response");
     }
