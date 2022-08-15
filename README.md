@@ -91,7 +91,7 @@ With Pogy You can even log everything using webhooks directly from the config fi
 First clone the repo:
 
 ```
-git clone https://github.com/pogy/Pogy.git
+git clone https://github.com/Pogy-Bot/Pogy.git
 ```
 
 After cloning, run an
