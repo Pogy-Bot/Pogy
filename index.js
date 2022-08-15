@@ -1,6 +1,5 @@
 require("dotenv").config();
 const PogyClient = require("./Pogy");
-const config = require("./config.json");
 const logger = require("./src/utils/logger");
 const Pogy = new PogyClient(config);
 
