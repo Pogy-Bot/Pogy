@@ -14,6 +14,7 @@ module.exports = class PogyClient extends Client {
         "GUILD_EMOJIS_AND_STICKERS",
         "GUILD_MESSAGE_REACTIONS",
         "GUILD_VOICE_STATES",
+        "GUILD_PRESENCES",
       ],
       allowedMentions: {
         parse: ["roles", "users", "everyone"],
