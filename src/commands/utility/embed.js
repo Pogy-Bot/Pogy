@@ -33,7 +33,9 @@ module.exports = class extends Command {
             .setDescription(`${message.client.emoji.fail} ${language.embedd1} `)
             .setColor(message.guild.me.displayHexColor)
         )
-        .catch(() => {});
+        .catch((e) => {
+          console.log(e);
+        });
     message.channel
       .sendCustom(
         new MessageEmbed()
@@ -42,10 +44,13 @@ module.exports = class extends Command {
           )
           .setColor(message.guild.me.displayHexColor)
       )
-      .catch(() => {});
+      .catch((e) => {
+        console.log(e);
+      });
 
     message.channel
-      .awaitMessages((m) => m.author.id == message.author.id, {
+      .awaitMessages({
+        filter: (m) => m.author.id === message.author.id,
         max: 1,
         time: 30000,
       })
@@ -53,9 +58,12 @@ module.exports = class extends Command {
         if (collected.first().content.toLowerCase() == "start") {
           embedstarted.add(message.author.id);
           message.delete();
-          message.channel.sendCustom(`${language.embedd3}`).catch(() => {});
+          message.channel.sendCustom(`${language.embedd3}`).catch((e) => {
+            console.log(e);
+          });
           message.channel
-            .awaitMessages((m) => m.author.id == message.author.id, {
+            .awaitMessages({
+              filter: (m) => m.author.id === message.author.id,
               max: 1,
               time: 30000,
             })
@@ -72,11 +80,12 @@ module.exports = class extends Command {
                         .setColor(message.guild.me.displayHexColor)
                     ) + embedstarted.delete(message.author.id)
                   );
+                message.channel.sendCustom(`${language.embedd4}`).catch((e) => {
+                  console.log(e);
+                });
                 message.channel
-                  .sendCustom(`${language.embedd4}`)
-                  .catch(() => {});
-                message.channel
-                  .awaitMessages((m) => m.author.id == message.author.id, {
+                  .awaitMessages({
+                    filter: (m) => m.author.id === message.author.id,
                     max: 1,
                     time: 30000,
                   })
@@ -96,15 +105,15 @@ module.exports = class extends Command {
                       let description = collected.first().content;
                       message.channel
                         .sendCustom(`${language.embedd5}`)
-                        .catch(() => {});
+                        .catch((e) => {
+                          console.log(e);
+                        });
                       message.channel
-                        .awaitMessages(
-                          (m) => m.author.id == message.author.id,
-                          {
-                            max: 1,
-                            time: 30000,
-                          }
-                        )
+                        .awaitMessages({
+                          filter: (m) => m.author.id === message.author.id,
+                          max: 1,
+                          time: 30000,
+                        })
                         .then((collected) => {
                           if (
                             collected.first().content.length < 8 ||
@@ -130,13 +139,17 @@ module.exports = class extends Command {
 
                             message.channel
                               .sendCustom(`${language.embedd6}`)
-                              .catch(() => {});
+                              .catch((e) => {
+                                console.log(e);
+                              });
 
                             message.channel
-                              .awaitMessages(
-                                (m) => m.author.id == message.author.id,
-                                { max: 1, time: 30000 }
-                              )
+                              .awaitMessages({
+                                filter: (m) =>
+                                  m.author.id === message.author.id,
+                                max: 1,
+                                time: 30000,
+                              })
                               .then((collected) => {
                                 if (
                                   rgx.test(collected.first().content) ||
@@ -148,13 +161,17 @@ module.exports = class extends Command {
                                     .content.toLowerCase();
                                   message.channel
                                     .sendCustom(`${language.embedd7}`)
-                                    .catch(() => {});
+                                    .catch((e) => {
+                                      console.log(e);
+                                    });
 
                                   message.channel
-                                    .awaitMessages(
-                                      (m) => m.author.id == message.author.id,
-                                      { max: 1, time: 30000 }
-                                    )
+                                    .awaitMessages({
+                                      filter: (m) =>
+                                        m.author.id === message.author.id,
+                                      max: 1,
+                                      time: 30000,
+                                    })
                                     .then((collected) => {
                                       if (
                                         rgx.test(collected.first().content) ||
@@ -168,14 +185,17 @@ module.exports = class extends Command {
 
                                         message.channel
                                           .sendCustom(`${language.embedd8}`)
-                                          .catch(() => {});
+                                          .catch((e) => {
+                                            console.log(e);
+                                          });
 
                                         message.channel
-                                          .awaitMessages(
-                                            (m) =>
-                                              m.author.id == message.author.id,
-                                            { max: 1, time: 30000 }
-                                          )
+                                          .awaitMessages({
+                                            filter: (m) =>
+                                              m.author.id === message.author.id,
+                                            max: 1,
+                                            time: 30000,
+                                          })
                                           .then((collected) => {
                                             if (
                                               collected.first().content.length <
@@ -221,12 +241,13 @@ module.exports = class extends Command {
                                                 `${language.embedd9}`
                                               );
                                               message.channel
-                                                .awaitMessages(
-                                                  (m) =>
-                                                    m.author.id ==
+                                                .awaitMessages({
+                                                  filter: (m) =>
+                                                    m.author.id ===
                                                     message.author.id,
-                                                  { max: 1, time: 30000 }
-                                                )
+                                                  max: 1,
+                                                  time: 30000,
+                                                })
                                                 .then((collected) => {
                                                   if (
                                                     collected
@@ -272,14 +293,17 @@ module.exports = class extends Command {
                                                       .sendCustom(
                                                         `${language.embedd10}`
                                                       )
-                                                      .catch(() => {});
+                                                      .catch((e) => {
+                                                        console.log(e);
+                                                      });
                                                     message.channel
-                                                      .awaitMessages(
-                                                        (m) =>
-                                                          m.author.id ==
+                                                      .awaitMessages({
+                                                        filter: (m) =>
+                                                          m.author.id ===
                                                           message.author.id,
-                                                        { max: 1, time: 30000 }
-                                                      )
+                                                        max: 1,
+                                                        time: 30000,
+                                                      })
                                                       .then((collected) => {
                                                         if (
                                                           collected
@@ -324,20 +348,21 @@ module.exports = class extends Command {
                                                               .sendCustom(
                                                                 `${language.embedd11}`
                                                               )
-                                                              .catch(() => {});
+                                                              .catch((e) => {
+                                                                console.log(e);
+                                                              });
                                                             //   do stuff
 
                                                             message.channel
-                                                              .awaitMessages(
-                                                                (m) =>
-                                                                  m.author.id ==
+                                                              .awaitMessages({
+                                                                filter: (m) =>
+                                                                  m.author
+                                                                    .id ===
                                                                   message.author
                                                                     .id,
-                                                                {
-                                                                  max: 1,
-                                                                  time: 30000,
-                                                                }
-                                                              )
+                                                                max: 1,
+                                                                time: 30000,
+                                                              })
                                                               .then(
                                                                 (collected) => {
                                                                   let argword =
@@ -504,7 +529,8 @@ module.exports = class extends Command {
                                                                       );
                                                                 }
                                                               )
-                                                              .catch(() => {
+                                                              .catch((e) => {
+                                                                console.log(e);
                                                                 message.channel.sendCustom(
                                                                   new MessageEmbed()
                                                                     .setDescription(
@@ -527,19 +553,20 @@ module.exports = class extends Command {
                                                               .sendCustom(
                                                                 `${language.embedd17}`
                                                               )
-                                                              .catch(() => {});
+                                                              .catch((e) => {
+                                                                console.log(e);
+                                                              });
 
                                                             message.channel
-                                                              .awaitMessages(
-                                                                (m) =>
-                                                                  m.author.id ==
+                                                              .awaitMessages({
+                                                                filter: (m) =>
+                                                                  m.author
+                                                                    .id ===
                                                                   message.author
                                                                     .id,
-                                                                {
-                                                                  max: 1,
-                                                                  time: 30000,
-                                                                }
-                                                              )
+                                                                max: 1,
+                                                                time: 30000,
+                                                              })
                                                               .then(
                                                                 (collected) => {
                                                                   let channel =
@@ -634,7 +661,8 @@ module.exports = class extends Command {
                                                                   );
                                                                 }
                                                               )
-                                                              .catch(() => {
+                                                              .catch((e) => {
+                                                                console.log(e);
                                                                 message.channel
                                                                   .sendCustom(
                                                                     new MessageEmbed()
@@ -670,9 +698,12 @@ module.exports = class extends Command {
                                                                     .displayHexColor
                                                                 )
                                                             )
-                                                            .catch(() => {});
+                                                            .catch((e) => {
+                                                              console.log(e);
+                                                            });
                                                       })
-                                                      .catch(() => {
+                                                      .catch((e) => {
+                                                        console.log(e);
                                                         message.channel.sendCustom(
                                                           new MessageEmbed()
                                                             .setDescription(
@@ -696,9 +727,12 @@ module.exports = class extends Command {
                                                               .displayHexColor
                                                           )
                                                       )
-                                                      .catch(() => {});
+                                                      .catch((e) => {
+                                                        console.log(e);
+                                                      });
                                                 })
-                                                .catch(() => {
+                                                .catch((e) => {
+                                                  console.log(e);
                                                   message.channel
                                                     .sendCustom(
                                                       new MessageEmbed()
@@ -710,7 +744,9 @@ module.exports = class extends Command {
                                                             .displayHexColor
                                                         )
                                                     )
-                                                    .catch(() => {});
+                                                    .catch((e) => {
+                                                      console.log(e);
+                                                    });
                                                   embedstarted.delete(
                                                     message.author.id
                                                   );
@@ -729,12 +765,15 @@ module.exports = class extends Command {
                                                         .displayHexColor
                                                     )
                                                 )
-                                                .catch(() => {});
+                                                .catch((e) => {
+                                                  console.log(e);
+                                                });
                                             embedstarted.delete(
                                               message.author.id
                                             );
                                           })
-                                          .catch(() => {
+                                          .catch((e) => {
+                                            console.log(e);
                                             message.channel
                                               .sendCustom(
                                                 new MessageEmbed()
@@ -746,7 +785,9 @@ module.exports = class extends Command {
                                                       .displayHexColor
                                                   )
                                               )
-                                              .catch(() => {});
+                                              .catch((e) => {
+                                                console.log(e);
+                                              });
                                             embedstarted.delete(
                                               message.author.id
                                             );
@@ -763,10 +804,13 @@ module.exports = class extends Command {
                                                 message.guild.me.displayHexColor
                                               )
                                           )
-                                          .catch(() => {});
+                                          .catch((e) => {
+                                            console.log(e);
+                                          });
                                       embedstarted.delete(message.author.id);
                                     })
-                                    .catch(() => {
+                                    .catch((e) => {
+                                      console.log(e);
                                       message.channel
                                         .sendCustom(
                                           new MessageEmbed()
@@ -777,7 +821,9 @@ module.exports = class extends Command {
                                               message.guild.me.displayHexColor
                                             )
                                         )
-                                        .catch(() => {});
+                                        .catch((e) => {
+                                          console.log(e);
+                                        });
                                       embedstarted.delete(message.author.id);
                                     });
 
@@ -793,10 +839,13 @@ module.exports = class extends Command {
                                           message.guild.me.displayHexColor
                                         )
                                     )
-                                    .catch(() => {});
+                                    .catch((e) => {
+                                      console.log(e);
+                                    });
                                 embedstarted.delete(message.author.id);
                               })
-                              .catch(() => {
+                              .catch((e) => {
+                                console.log(e);
                                 message.channel
                                   .sendCustom(
                                     new MessageEmbed()
@@ -807,7 +856,9 @@ module.exports = class extends Command {
                                         message.guild.me.displayHexColor
                                       )
                                   )
-                                  .catch(() => {});
+                                  .catch((e) => {
+                                    console.log(e);
+                                  });
                                 embedstarted.delete(message.author.id);
                               });
 
@@ -821,10 +872,13 @@ module.exports = class extends Command {
                                   )
                                   .setColor(message.guild.me.displayHexColor)
                               )
-                              .catch(() => {});
+                              .catch((e) => {
+                                console.log(e);
+                              });
                           embedstarted.delete(message.author.id);
                         })
-                        .catch(() => {
+                        .catch((e) => {
+                          console.log(e);
                           message.channel
                             .sendCustom(
                               new MessageEmbed()
@@ -833,7 +887,9 @@ module.exports = class extends Command {
                                 )
                                 .setColor(message.guild.me.displayHexColor)
                             )
-                            .catch(() => {});
+                            .catch((e) => {
+                              console.log(e);
+                            });
                           embedstarted.delete(message.author.id);
                         });
 
@@ -847,10 +903,13 @@ module.exports = class extends Command {
                             )
                             .setColor(message.guild.me.displayHexColor)
                         )
-                        .catch(() => {});
+                        .catch((e) => {
+                          console.log(e);
+                        });
                     embedstarted.delete(message.author.id);
                   })
-                  .catch(() => {
+                  .catch((e) => {
+                    console.log(e);
                     message.channel
                       .sendCustom(
                         new MessageEmbed()
@@ -859,7 +918,9 @@ module.exports = class extends Command {
                           )
                           .setColor(message.guild.me.displayHexColor)
                       )
-                      .catch(() => {});
+                      .catch((e) => {
+                        console.log(e);
+                      });
                     embedstarted.delete(message.author.id);
                   });
 
@@ -867,7 +928,8 @@ module.exports = class extends Command {
               } else message.reply("stop");
               embedstarted.delete(message.author.id);
             })
-            .catch(() => {
+            .catch((e) => {
+              console.log(e);
               message.channel
                 .sendCustom(
                   new MessageEmbed()
@@ -876,7 +938,9 @@ module.exports = class extends Command {
                     )
                     .setColor(message.guild.me.displayHexColor)
                 )
-                .catch(() => {});
+                .catch((e) => {
+                  console.log(e);
+                });
               embedstarted.delete(message.author.id);
             });
 
@@ -890,10 +954,13 @@ module.exports = class extends Command {
               )
               .setColor(message.guild.me.displayHexColor)
           )
-          .catch(() => {});
+          .catch((e) => {
+            console.log(e);
+          });
         embedstarted.delete(message.author.id);
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         message.channel.sendCustom(
           new MessageEmbed()
             .setDescription(

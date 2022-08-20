@@ -352,7 +352,7 @@ module.exports = async (client) => {
           )}`
         );
 
-      logoutLogs.sendCustom({
+      logoutLogs.send({
         username: "Logout Logs",
         avatarURL: `${domain}/logo.png`,
         embeds: [logout],
@@ -771,7 +771,7 @@ module.exports = async (client) => {
       )
       .setColor(guild.me.displayHexColor);
 
-    premiumWeb.sendCustom({
+    premiumWeb.send({
       username: "Pogy Premium",
       avatarURL: `${domain}/logo.png`,
       embeds: [embedPremium],

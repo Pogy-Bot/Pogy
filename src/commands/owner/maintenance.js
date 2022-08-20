@@ -31,8 +31,7 @@ module.exports = class extends Command {
         });
         newMain.save().catch(() => {});
       }
-      await message.channel.sendCustom("Enabling maintenance Mode");
-      process.exit(1);
+      message.channel.sendCustom("Enabled maintenance mode");
     } else if (args[0].toLowerCase() == "disable") {
       if (maintenance) {
         maintenance.toggle = "false";
