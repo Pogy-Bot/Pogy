@@ -311,11 +311,11 @@ module.exports = async (client) => {
   });
 
   app.get("/support", (req, res) => {
-    res.redirect(`${jsonconfig.discord}/duBwdCvCwW`);
+    res.redirect(`${jsonconfig.discord}`);
   });
 
   app.get("/server", (req, res) => {
-    res.redirect(`${jsonconfig.discord}/duBwdCvCwW`);
+    res.redirect(`${jsonconfig.discord}`);
   });
 
   app.get("/invite", function (req, res) {
@@ -435,6 +435,7 @@ module.exports = async (client) => {
           paste: paste.paste,
           id: paste._id,
           db: paste,
+          closedBy: client.users.cache.get(paste.by),
           type: "ticket",
         });
       } else {
@@ -635,7 +636,7 @@ module.exports = async (client) => {
         .catch(() => {});
 
       await form.save().catch(() => {});
-      channel.send(embed);
+      channel.send({ embeds: [embed] });
 
       renderTemplate(res, req, "appealMain.ejs", {
         guild: guild,
@@ -743,14 +744,16 @@ module.exports = async (client) => {
     const now = new Date();
     let DDate = date.format(now, "YYYY/MM/DD HH:mm:ss");
     member
-      .send(
-        new Discord.MessageEmbed()
-          .setDescription(
-            `**Congratulations!**\n\n**${guild.name}** Is now a premium guild! Thanks a ton!\n\nIf you have any questions please contact me [here](https://discord.gg/FqdH4sfKBg)\n\n__**Reciept:**__\n**Reciept ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${guild.name}\n**Guild ID:** ${guild.id}\n\n**Please make sure to keep this information safe, you might need it if you ever wanna refund / transfer servers.**\n\n**Expires At:** ${expires}`
-          )
-          .setColor("GREEN")
-          .setFooter(guild.name)
-      )
+      .send({
+        embeds: [
+          new Discord.MessageEmbed()
+            .setDescription(
+              `**Congratulations!**\n\n**${guild.name}** Is now a premium guild! Thanks a ton!\n\nIf you have any questions please contact me [here](${jsonconfig.discord})\n\n__**Receipt:**__\n**Receipt ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${guild.name}\n**Guild ID:** ${guild.id}\n\n**Please make sure to keep this information safe, you might need it if you ever wanna refund / transfer servers.**\n\n**Expires At:** ${expires}`
+            )
+            .setColor("GREEN")
+            .setFooter(guild.name),
+        ],
+      })
       .catch(() => {});
 
     storedSettings.isPremium = "true";
@@ -764,7 +767,7 @@ module.exports = async (client) => {
 
     const embedPremium = new Discord.MessageEmbed()
       .setDescription(
-        `**Premium Subscription**\n\n**${member.user.tag}** Redeemed a code in **${guild.name}**\n\n **Reciept ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${guild.name}\n**Guild ID:** ${guild.id}\n**Redeemer Tag:** ${member.user.tag}\n**Redeemer ID:** ${member.user.id}\n\n**Expires At:** ${expires}`
+        `**Premium Subscription**\n\n**${member.user.tag}** Redeemed a code in **${guild.name}**\n\n **Receipt ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${guild.name}\n**Guild ID:** ${guild.id}\n**Redeemer Tag:** ${member.user.tag}\n**Redeemer ID:** ${member.user.id}\n\n**Expires At:** ${expires}`
       )
       .setColor(guild.me.displayHexColor);
 
@@ -3431,7 +3434,11 @@ send
       if (cooldownEmbed.has(guild.id))
         return res.status(403).send("Slow Down!");
       try {
-        await channel.send(data);
+        await channel.send({
+          content: data?.content,
+          embeds: data?.embed ? [data?.embed] : [],
+        });
+
         cooldownEmbed.add(guild.id);
         setTimeout(() => {
           cooldownEmbed.delete(guild.id);

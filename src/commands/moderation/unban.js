@@ -129,7 +129,7 @@ module.exports = class extends Command {
                       message.author.displayAvatarURL({ format: "png" })
                     )
                     .addField("Unbanned Users", `${bannedUsersLength}`, true)
-                    .addField("Moderator", message.member, true)
+                    .addField("Moderator", `${message.member}`, true)
                     .setTimestamp()
                     .setColor(color);
 
@@ -230,7 +230,7 @@ module.exports = class extends Command {
                             userrz.displayAvatarURL({ format: "png" })
                           )
                           .addField("User", userrz, true)
-                          .addField("Moderator", message.member, true)
+                          .addField("Moderator", `${message.member}`, true)
                           .setFooter({ text: `ID: ${userrz.id}` })
                           .setTimestamp()
                           .setColor(color);
@@ -354,8 +354,8 @@ module.exports = class extends Command {
                       `Action: \`UnBan\` | ${userr.tag} | Case #${logcase}`,
                       userr.displayAvatarURL({ format: "png" })
                     )
-                    .addField("User", userr, true)
-                    .addField("Moderator", message.member, true)
+                    .addField("User", `${userr}`, true)
+                    .addField("Moderator", `${message.member}`, true)
                     .setFooter({ text: `ID: ${userr.id}` })
                     .setTimestamp()
                     .setColor(color);

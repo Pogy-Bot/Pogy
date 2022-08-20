@@ -65,7 +65,7 @@ module.exports = class extends Command {
       .setTitle("New Suggestion")
       .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
       .setDescription(report)
-      .addField("User", message.member, true)
+      .addField("User", `${message.member}`, true)
       .addField("User username", message.member.user.username, true)
       .addField("User ID", message.member.id, true)
       .addField("User Tag", message.member.user.tag, true)
@@ -93,11 +93,11 @@ module.exports = class extends Command {
 
     webhookClient.sendCustom({
       username: "Pogy Suggestions",
-      avatarURL: `https://pogy.xyz/logo.png`,
+      avatarURL: `https://v2.pogy.xyz/logo.png`,
       embeds: [embed],
     });
 
     message.delete().catch(() => {});
-    message.author.send({embeds: [confirmation]}).catch(() => {});
+    message.author.send({ embeds: [confirmation] }).catch(() => {});
   }
 };

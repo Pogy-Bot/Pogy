@@ -11,11 +11,9 @@
     
    <div class="container-contact">
             <div class="wrap-contact">
-<%
-const closedby = bot.users.cache.get(db.by)
-%>
+
                     <span class="contact-form-title"></span>
-<h4><u>Created at:</u> <%=created %><br><u>Expires &nbsp;&nbsp;at:</u>  <%= expires %><br><u>Closed by:</u> <%= closedby.tag || 'Unknown' %></h4>
+<h4><u>Created at:</u> <%=created %><br><u>Expires &nbsp;&nbsp;at:</u>  <%= expires %><br><u>Closed by:</u> <%= closedBy && closedBy.tag ? closedBy.tag : "Unknown User" %></h4>
 
 <br>
 <div style="">

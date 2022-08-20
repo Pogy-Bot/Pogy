@@ -28,7 +28,7 @@ module.exports = class extends Event {
           if (logging.server_events.role_create == "true") {
             const embed = new discord.MessageEmbed()
               .setDescription(`🗑️ ***Role Deleted***`)
-              .addField("Role Name", role.name, true)
+              .addField("Role Name", `${role.name}`, true)
               .setFooter({ text: `Role ID: ${role.id}` })
               .setTimestamp()
               .setColor(color);

@@ -20,7 +20,6 @@
     "crypto": "^1.0.1",
     "datadog-metrics": "^0.8.2",
     "date-and-time": "^0.14.2",
-    "discord-chatbot": "^2.0.2",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.6",

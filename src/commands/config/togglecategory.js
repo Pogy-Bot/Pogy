@@ -76,7 +76,7 @@ module.exports = class extends Command {
         .setAuthor(message.author.tag, message.guild.iconURL({ dynamic: true }))
         .setDescription(description)
         .addField("Disabled Commands", disabledd, true)
-        .setFooter({ text: "https://pogy.xyz/" })
+        .setFooter({ text: "https://v2.pogy.xyz/" })
         .setTimestamp()
         .setColor(message.client.color.green);
 
@@ -88,7 +88,7 @@ module.exports = class extends Command {
           )
           .setDescription(description)
           .addField("Disabled Commands", `[Too Large to Display]`, true)
-          .setFooter({ text: "https://pogy.xyz/" })
+          .setFooter({ text: "https://v2.pogy.xyz/" })
           .setTimestamp()
           .setColor(message.client.color.green);
         message.channel.sendCustom(errorEmbed).catch(() => {});

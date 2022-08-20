@@ -49,7 +49,6 @@ module.exports = class extends Command {
 
         if (!db) {
           let actualArr = arr.concat(split);
-          console.log(actualArr);
           if (actualArr.length > maxQuestions) {
             return message.channel.sendCustom({
               embeds: [

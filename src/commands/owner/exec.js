@@ -16,12 +16,12 @@ module.exports = class extends Command {
   async run(message, args) {
     if (message.content.includes("config.json"))
       return message.channel.sendCustom(
-        "<:sbdeny:736927045522817106> Due to privacy reasons, we can't show the config.json file."
+        "Due to privacy reasons, we can't show the config.json file."
       );
 
     if (args.length < 1)
       return message.channel.sendCustom(
-        "<:sbdeny:736927045522817106> You have to give me some text to execute!"
+        "You have to give me some text to execute!"
       );
 
     exec(args.join(" "), (error, stdout) => {

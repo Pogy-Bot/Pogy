@@ -49,7 +49,9 @@ module.exports = class extends Command {
       const data = await fetch(
         `https://nekobot.xyz/api/imagegen?type=clyde&text=${text}`
       ).then((res) => res.json());
-      msg.delete({ timeout: 500 });
+      setTimeout(() => {
+        msg.delete();
+      }, 500);
       message.channel.sendCustom({
         embeds: [
           new discord.MessageEmbed()

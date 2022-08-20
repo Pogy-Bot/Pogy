@@ -1,23 +1,21 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-  
   discordId: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   badges: {
-  type: Array,
-  default: []
+    type: Array,
+    default: [],
   },
   rep: {
     type: Number,
     required: false,
   },
   lastVoted: { type: Number },
-  votes: { type: Number }
+  votes: { type: Number },
 });
 
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

@@ -66,7 +66,7 @@ module.exports = class extends Event {
         let addEmbed = new MessageEmbed()
           .setAuthor(
             "Role Added",
-            `https://pogy.xyz/logo.png`,
+            `https://v2.pogy.xyz/logo.png`,
             `${message.url}`
           )
           .setDescription(
@@ -78,7 +78,7 @@ module.exports = class extends Event {
         let remEmbed = new MessageEmbed()
           .setAuthor(
             "Role Removed",
-            `https://pogy.xyz/logo.png`,
+            `https://v2.pogy.xyz/logo.png`,
             `${message.url}`
           )
           .setDescription(
@@ -90,7 +90,7 @@ module.exports = class extends Event {
         let errorReaction = new MessageEmbed()
           .setAuthor(
             "Reaction Role Error",
-            `https://pogy.xyz/logo.png`,
+            `https://v2.pogy.xyz/logo.png`,
             `${message.url}`
           )
           .setDescription(
@@ -428,7 +428,11 @@ module.exports = class extends Event {
                         .setFooter({ text: "https://pogy.xyz/" }),
                     ],
                   })
-                  .then((m) => m.delete({ timeout: 5000 }));
+                  .then((m) => {
+                    setTimeout(() => {
+                      m.delete();
+                    }, 5000);
+                  });
                 ticketCooldownLol.add(user.id);
                 setTimeout(() => {
                   ticketCooldownLol.delete(user.id);
@@ -485,7 +489,6 @@ module.exports = class extends Event {
                 .then(async (chan) => {
                   await chan.permissionOverwrites.edit(user, {
                     VIEW_CHANNEL: true,
-                    READ_MESSAGES: true,
                     SEND_MESSAGES: true,
                     READ_MESSAGE_HISTORY: true,
                     ATTACH_FILES: true,
@@ -529,18 +532,16 @@ module.exports = class extends Event {
                     ],
                   });
 
-                  chan
-                    .sendCustom({
-                      embeds: [
-                        new MessageEmbed()
-                          .setDescription(
-                            `Please use \`${prefix}close\` to close the ticket.`
-                          )
-                          .setColor(message.client.color.red)
-                          .setFooter({ text: "https://pogy.xyz/" }),
-                      ],
-                    })
-                    .setTimestamp();
+                  chan.sendCustom({
+                    embeds: [
+                      new MessageEmbed()
+                        .setDescription(
+                          `Please use \`${prefix}close\` to close the ticket.`
+                        )
+                        .setColor(message.client.color.red)
+                        .setFooter({ text: "https://pogy.xyz/" }),
+                    ],
+                  });
 
                   let color2 = db.ticketLogColor;
                   if (color2 == "#000000") color2 = `#36393f`;
@@ -560,13 +561,15 @@ module.exports = class extends Event {
                     );
 
                   if (ticketLog) {
-                    send(ticketLog, embedLog, {
+                    send(ticketLog, {
+                      embeds: [embedLog],
                       name: `Ticket Logs`,
-                      icon: `https://pogy.xyz/logo.png`,
+                      icon: `https://v2.pogy.xyz/logo.png`,
                     }).catch(() => {});
                   }
                 })
-                .catch(() => {
+                .catch((e) => {
+                  console.log(e);
                   if (
                     !message.channel
                       .permissionsFor(message.guild.me)
@@ -583,7 +586,11 @@ module.exports = class extends Event {
                           ),
                       ],
                     })
-                    .then((m) => m.delete({ timeout: 5000 }))
+                    .then((m) => {
+                      setTimeout(() => {
+                        m.delete();
+                      }, 5000);
+                    })
                     .catch(() => {});
                 });
             }

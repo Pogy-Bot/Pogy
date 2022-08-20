@@ -79,7 +79,7 @@ module.exports = class extends Command {
           embeds: [
             new discord.MessageEmbed()
               .setDescription(
-                `**Premium Subscription**\n\nYou've recently redeemed a code in **${message.guild.name}** and here is your receipt:\n\n **Reciept ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${message.guild.name}\n**Guild ID:** ${message.guild.id}`
+                `**Premium Subscription**\n\nYou've recently redeemed a code in **${message.guild.name}** and here is your receipt:\n\n **Receipt ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${message.guild.name}\n**Guild ID:** ${message.guild.id}`
               )
               .setColor(message.guild.me.displayHexColor)
               .setFooter({ text: message.guild.name }),
@@ -91,7 +91,7 @@ module.exports = class extends Command {
           embeds: [
             new discord.MessageEmbed()
               .setDescription(
-                `**Congratulations!**\n\n**${message.guild.name}** Is now a premium guild! Thanks a ton!\n\nIf you have any questions please contact me [here](https://discord.gg/duBwdCvCwW)\n\n**Could not send your Reciept via dms so here it is:**\n**Reciept ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${message.guild.name}\n**Guild ID:** ${message.guild.id}\n\n**Please make sure to keep this information safe, you might need it if you ever wanna refund / transfer servers.**\n\n**Expires At:** ${expires}`
+                `**Congratulations!**\n\n**${message.guild.name}** Is now a premium guild! Thanks a ton!\n\nIf you have any questions please contact me [here](${config.discord})\n\n**Could not send your Receipt via dms so here it is:**\n**Receipt ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${message.guild.name}\n**Guild ID:** ${message.guild.id}\n\n**Please make sure to keep this information safe, you might need it if you ever wanna refund / transfer servers.**\n\n**Expires At:** ${expires}`
               )
               .setColor(message.guild.me.displayHexColor)
               .setFooter({ text: message.guild.name }),
@@ -114,13 +114,13 @@ module.exports = class extends Command {
 
       const embedPremium = new discord.MessageEmbed()
         .setDescription(
-          `**Premium Subscription**\n\n**${message.author.tag}** Redeemed a code in **${message.guild.name}**\n\n **Reciept ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${message.guild.name}\n**Guild ID:** ${message.guild.id}\n**Redeemer Tag:** ${message.author.tag}\n**Redeemer ID:** ${message.author.id}\n\n**Expires At:** ${expires}`
+          `**Premium Subscription**\n\n**${message.author.tag}** Redeemed a code in **${message.guild.name}**\n\n **Receipt ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${message.guild.name}\n**Guild ID:** ${message.guild.id}\n**Redeemer Tag:** ${message.author.tag}\n**Redeemer ID:** ${message.author.id}\n\n**Expires At:** ${expires}`
         )
         .setColor(message.guild.me.displayHexColor);
 
       webhookClient.sendCustom({
         username: "Pogy Premium",
-        avatarURL: `https://pogy.xyz/logo.png`,
+        avatarURL: `https://v2.pogy.xyz/logo.png`,
         embeds: [embedPremium],
       });
     } else {

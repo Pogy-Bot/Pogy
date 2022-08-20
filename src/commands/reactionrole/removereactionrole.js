@@ -83,8 +83,6 @@ module.exports = class extends Command {
         ],
       });
 
-    
-
     await react.reactionDelete(client, message.guild.id, ID, emoji);
 
     message.channel.sendCustom({
@@ -98,7 +96,5 @@ module.exports = class extends Command {
           .setFooter({ text: "https://pogy.xyz/" }),
       ],
     });
-
-  
   }
 };

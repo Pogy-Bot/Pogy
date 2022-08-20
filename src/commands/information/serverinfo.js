@@ -31,14 +31,10 @@ module.exports = class extends Command {
     const embed = new MessageEmbed()
 
       .setAuthor(message.guild.name, message.guild.iconURL)
-      .addField(`${language.nameS}`, message.guild.name, true)
-      .addField("ID", message.guild.id, true)
-      .addField(
-        `${language.owner}`,
-        `${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`,
-        true
-      )
-      .addField(`${language.region}`, message.guild.region, true)
+      .addField(`${language.nameS}`, `${message.guild.name}`, true)
+      .addField("ID", `${message.guild.id}`, true)
+     
+    
       .addField(
         `${language.serverInfo1}`,
         `${message.guild.members.cache.size} | ${
@@ -53,8 +49,8 @@ module.exports = class extends Command {
         message.guild.verificationLevel,
         true
       )
-      .addField(`${language.channels}`, message.guild.channels.cache.size, true)
-      .addField(`${language.roleCount}`, message.guild.roles.cache.size, true)
+      .addField(`${language.channels}`, `${message.guild.channels.cache.size}`, true)
+      .addField(`${language.roleCount}`, `${message.guild.roles.cache.size}`, true)
       .addField(
         `Created at`,
         `${message.channel.guild.createdAt

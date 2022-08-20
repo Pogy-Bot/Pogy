@@ -48,7 +48,7 @@ module.exports = class extends Event {
         let addEmbed = new MessageEmbed()
           .setAuthor(
             "Role Added",
-            `https://pogy.xyz/logo.png`,
+            `https://v2.pogy.xyz/logo.png`,
             `${message.url}`
           )
           .setDescription(
@@ -60,7 +60,7 @@ module.exports = class extends Event {
         let remEmbed = new MessageEmbed()
           .setAuthor(
             "Role Removed",
-            `https://pogy.xyz/logo.png`,
+            `https://v2.pogy.xyz/logo.png`,
             `${message.url}`
           )
           .setDescription(
@@ -72,12 +72,10 @@ module.exports = class extends Event {
         let errorReaction = new MessageEmbed()
           .setAuthor(
             "Reaction Error",
-            `https://pogy.xyz/logo.png`,
+            `https://v2.pogy.xyz/logo.png`,
             `${message.url}`
           )
-          .setDescription(
-            `A reaction error has occured!`
-          )
+          .setDescription(`A reaction error has occured!`)
           .setFooter({ text: "https://pogy.xyz/" })
           .setColor(message.client.color.green);
 

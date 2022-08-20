@@ -91,8 +91,8 @@ module.exports = class extends Event {
                 `${newState.member.user.tag} | Voice Channel Joined!`,
                 newState.member.user.displayAvatarURL()
               )
-              .addField("member", newState.member, true)
-              .addField("Channel", newChannelName, true)
+              .addField("member", `${newState.member}`, true)
+              .addField("Channel", `${newChannelName}`, true)
               .setColor(colorGreen)
               .setTimestamp()
               .setFooter({ text: `ID: ${newState.member.user.id}` });
@@ -121,8 +121,8 @@ module.exports = class extends Event {
                 `${newState.member.user.tag} | Voice Channel Left!`,
                 newState.member.user.displayAvatarURL()
               )
-              .addField("member", newState.member, true)
-              .addField("Channel", oldChannelName, true)
+              .addField("member", `${newState.member}`, true)
+              .addField("Channel", `${oldChannelName}`, true)
               .setColor(colorRed)
               .setTimestamp()
               .setFooter({ text: `ID: ${newState.member.user.id}` });
@@ -153,8 +153,8 @@ module.exports = class extends Event {
                   `${newState.member.user.tag} | Moved Voice Channels`,
                   newState.member.user.displayAvatarURL()
                 )
-                .addField("Left", oldChannelName, true)
-                .addField("Joined", newChannelName, true)
+                .addField("Left", `${oldChannelName}`, true)
+                .addField("Joined", `${newChannelName}`, true)
                 .setColor(colorYellow)
                 .setTimestamp()
                 .setFooter({ text: `ID: ${newState.member.user.id}` });

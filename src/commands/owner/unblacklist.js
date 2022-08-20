@@ -71,7 +71,7 @@ module.exports = class extends Command {
 
       webhookClient.sendCustom({
         username: "Pogy",
-        avatarURL: "https://pogy.xyz/logo.png",
+        avatarURL: "https://v2.pogy.xyz/logo.png",
         embeds: [embed],
       });
 
@@ -106,7 +106,7 @@ module.exports = class extends Command {
 
       webhookClient.sendCustom({
         username: "Pogy",
-        avatarURL: "https://pogy.xyz/logo.png",
+        avatarURL: "https://v2.pogy.xyz/logo.png",
         embeds: [embed],
       });
     }

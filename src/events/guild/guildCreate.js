@@ -129,12 +129,12 @@ module.exports = class extends Event {
       .addField(`Server ID`, `\`${guild.id}\``, true)
       .setFooter({
         text: `${this.client.guilds.cache.size} guilds `,
-        iconURL: "https://pogy.xyz/logo.png",
+        iconURL: "https://v2.pogy.xyz/logo.png",
       });
 
     welcomeClient.sendCustom({
       username: "Pogy",
-      avatarURL: "https://pogy.xyz/logo.png",
+      avatarURL: "https://v2.pogy.xyz/logo.png",
       embeds: [welcomeEmbed],
     });
 
@@ -158,7 +158,7 @@ module.exports = class extends Event {
 
     webhookClient.sendCustom({
       username: "Pogy",
-      avatarURL: "https://pogy.xyz/logo.png",
+      avatarURL: "https://v2.pogy.xyz/logo.png",
       embeds: [embed],
     });
   }

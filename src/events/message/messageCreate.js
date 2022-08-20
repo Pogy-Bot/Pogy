@@ -47,28 +47,25 @@ module.exports = class extends Event {
 
       if (!message.guild || message.author.bot) return;
 
-      const settings = await Guild.findOne(
-        {
-          guildId: message.guild.id,
-        },
-        async (err, guild) => {
-          try {
-            if (!guild) {
-              await Guild.create({
-                guildId: message.guild.id,
-                prefix: config.prefix,
-                language: "english",
-              });
-            }
-          } catch (e) {
-            //no
-          }
-        }
-      );
+      let settings = await Guild.findOne({
+        guildId: message.guild.id,
+      });
 
-      //if (!settings) return message.channel.sendCustom('Oops, this server was not found in the database. Please try to run the command again now!');
+      if (!settings) {
+        await Guild.create({
+          guildId: message.guild.id,
+          prefix: config.prefix,
+          language: "english",
+        });
+
+        settings = await Guild.findOne({
+          guildId: message.guild.id,
+        });
+      }
 
       if (message.content.match(mentionRegex)) {
+        //if (!settings) return message.channel.sendCustom('Oops, this server was not found in the database. Please try to run the command again now!');
+
         const proofita = `\`\`\`css\n[     Prefix: ${
           settings.prefix || "!"
         }     ]\`\`\``;
@@ -125,7 +122,7 @@ module.exports = class extends Event {
           if (maintenanceCooldown.has(message.author.id)) return;
 
           message.channel.sendCustom(
-            `Pogy is currently undergoing maintenance which won't allow anyone to access Pogy's Commands. Feel free to try again later. For updates: https://discord.gg/FqdH4sfKBg`
+            `Pogy is currently undergoing maintenance which won't allow anyone to access Pogy's Commands. Feel free to try again later. For updates: ${config.discord}`
           );
 
           maintenanceCooldown.add(message.author.id);
@@ -172,9 +169,7 @@ module.exports = class extends Event {
             `${message.author.tag} tried to use "${cmd}" command but the user is blacklisted`,
             { label: "Commands" }
           );
-          return message.channel.sendCustom(
-            `${message.client.emoji.fail} You are blacklisted from the bot :(`
-          );
+          return;
         }
 
         // Check if server is Blacklisted
@@ -183,9 +178,7 @@ module.exports = class extends Event {
             `${message.author.tag} tried to use "${cmd}" command but the guild is blacklisted`,
             { label: "Commands" }
           );
-          return message.channel.sendCustom(
-            `${message.client.emoji.fail} This guild is Blacklisted :(`
-          );
+          return;
         }
 
         let number = Math.floor(Math.random() * 10 + 1);

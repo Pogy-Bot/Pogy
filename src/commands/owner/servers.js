@@ -13,7 +13,7 @@ module.exports = class extends Command {
   }
 
   async run(message) {
-    const servers = message.client.guilds.cache.array().map((guild) => {
+    const servers = message.client.guilds.cache.map((guild) => {
       return `\`${guild.id}\` - **${guild.name}** - \`${guild.memberCount}\` members`;
     });
 
@@ -21,18 +21,18 @@ module.exports = class extends Command {
       .setTitle("Server List")
       .setFooter(
         message.member.displayName,
-        message.author.displayAvatarURL({ dynamic: true })
+        message.author.displayAvatarURL({
+          dynamic: true,
+        })
       )
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
 
     if (servers.length <= 10) {
       const range = servers.length == 1 ? "[1]" : `[1 - ${servers.length}]`;
-      message.channel.sendCustom(
-        embed
-          .setTitle(`Server List ${range}`)
-          .setDescription(servers.join("\n"))
-      );
+      embed.setTitle(`Server List ${range}`).setDescription(servers.join("\n"));
+
+      message.channel.send({ embeds: [embed] });
     } else {
       new ReactionMenu(
         message.client,

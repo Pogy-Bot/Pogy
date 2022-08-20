@@ -512,7 +512,7 @@ module.exports = class extends Command {
 
       embed.setTitle(`Command: ${cmd.name}`);
       embed.setDescription(cmd.description);
-      embed.setThumbnail(`https://pogy.xyz/logo.png`);
+      embed.setThumbnail(`https://v2.pogy.xyz/logo.png`);
       embed.setFooter(
         cmd.disabled ||
           disabledCommands.includes(args[0] || args[0].toLowerCase())

@@ -99,10 +99,10 @@ module.exports = class extends Command {
       .setColor(suggestColor)
       .setTitle(`Guild Suggestions`)
       .setDescription(`**A new User just Suggested!**`)
-      .addField(`${language.report18}`, message.member, true)
-      .addField(`${language.report19}`, message.member.id, true)
-      .addField(`${language.report20}`, message.author.tag, true)
-      .addField(`Channel`, message.channel, true)
+      .addField(`${language.report18}`, `${message.member}`, true)
+      .addField(`${language.report19}`, `${message.member.id}`, true)
+      .addField(`${language.report20}`, `${message.author.tag}`, true)
+      .addField(`Channel`, `${message.channel}`, true)
       .addField(
         `${language.report25}`,
         `${moment(new Date()).format("dddd, MMMM Do YYYY")}`,
@@ -119,9 +119,10 @@ module.exports = class extends Command {
         guildDB.suggestion.suggestionlogChannelID
       );
       if (channelLog) {
-        send(channelLog, log, {
+        send(channelLog, {
+          embeds: [log],
           name: `Suggestion Logs`,
-          icon: `https://pogy.xyz/logo.png`,
+          icon: `https://v2.pogy.xyz/logo.png`,
         }).catch(() => {});
       }
     }
@@ -134,7 +135,7 @@ module.exports = class extends Command {
 
     if (guildDB.isPremium == "false") {
       channel
-        .send({embeds: [embed]})
+        .send({ embeds: [embed] })
         .catch(() => {
           return message.channel.sendCustom(`${language.suggesting5}`);
         })
@@ -176,7 +177,7 @@ module.exports = class extends Command {
       if (guildDB.suggestion.timestamp == "true") theEmbed.setTimestamp();
 
       channel
-        .send({embeds: [theEmbed]})
+        .send({ embeds: [theEmbed] })
         .catch(() => {
           return message.channel.sendCustom(
             `I could not send the suggestion Properly since my embed description either exceeds 2000 characters, or I do not have permissions to talk in the Suggestion Channel. Kindly report that to a staff member.`

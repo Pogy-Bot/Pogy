@@ -27,21 +27,7 @@ module.exports = class extends Command {
 
     const embed = new MessageEmbed()
       .setAuthor(guild.name, guild.iconURL())
-      .addField("Server ID", guild.id, true)
-      .addField(
-        "Owner",
-        `${guild.owner.user.username}#${guild.owner.user.discriminator}`,
-        true
-      )
-      .addField("Owner ID", `${guild.owner.user.id}`, true)
-      .addField(
-        "Owner Joined Discord on",
-        `\`${moment(guild.owner.user.createdAt).format(
-          "MMMM Do YYYY, h:mm:ss a"
-        )}\``,
-        true
-      )
-      .addField("Region", guild.region, true)
+      .addField("Server ID", `${guild.id}`, true)
       .addField(
         "Total | Humans | Bots",
         `${guild.members.cache.size} | ${
@@ -49,9 +35,9 @@ module.exports = class extends Command {
         } | ${guild.members.cache.filter((member) => member.user.bot).size}`,
         true
       )
-      .addField("Verification Level", guild.verificationLevel, true)
-      .addField("Channels", guild.channels.cache.size, true)
-      .addField("Roles", guild.roles.cache.size, true)
+      .addField("Verification Level", `${guild.verificationLevel}`, true)
+      .addField("Channels", `${guild.channels.cache.size}`, true)
+      .addField("Roles", `${guild.roles.cache.size}`, true)
       .addField(
         "Creation Date",
         `${guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(

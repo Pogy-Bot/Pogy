@@ -59,10 +59,10 @@ module.exports = class extends Command {
       .setTitle("Bug Report")
       .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
       .setDescription(report)
-      .addField("User", message.member, true)
-      .addField("User username", message.member.user.username, true)
-      .addField("User ID", message.member.id, true)
-      .addField("User Tag", message.member.user.tag, true)
+      .addField("User", `${message.member}`, true)
+      .addField("User username", `${message.member.user.username}`, true)
+      .addField("User ID", `${message.member.id}`, true)
+      .addField("User Tag", `${message.member.user.tag}`, true)
       .addField("Server", `[${message.guild.name}](${invite || "none "})`, true)
       .addField("Bug Report ID:", `#${id}`, true)
       .setFooter({
@@ -78,8 +78,8 @@ module.exports = class extends Command {
       .setDescription(
         `${language.report3} Support [**Server**](${config.discord})`
       )
-      .addField("Member", message.member, true)
-      .addField("Message", report, true)
+      .addField("Member", `${message.member}`, true)
+      .addField("Message", `${report}`, true)
       .addField("Bug Report ID:", `#${id}`, true)
       .setFooter({ text: "https://pogy.xyz/" })
       .setTimestamp()
@@ -87,7 +87,7 @@ module.exports = class extends Command {
 
     webhookClient.sendCustom({
       username: "Pogy Bug Report",
-      avatarURL: `https://pogy.xyz/logo.png`,
+      avatarURL: `https://v2.pogy.xyz/logo.png`,
       embeds: [embed],
     });
 

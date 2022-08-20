@@ -178,7 +178,7 @@ module.exports = class extends Event {
         }
       }
       if (leave.leaveDM == "false") {
-        if (leave.leaveChannel) {
+        if (leave && leave.leaveChannel) {
           const greetChannel = member.guild.channels.cache.get(
             leave.leaveChannel
           );

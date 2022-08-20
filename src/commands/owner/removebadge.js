@@ -40,7 +40,7 @@ module.exports = class extends Command {
       });
     }
 
-    if (userFind.badges.includes(badge)) {
+    if (userFind.badges && userFind.badges.includes(badge)) {
       let arr = userFind.badges;
       let newArr = removeA(arr, badge);
 

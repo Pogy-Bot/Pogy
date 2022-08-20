@@ -40,12 +40,12 @@ module.exports = class extends Command {
       });
     }
 
-    if (userFind.badges.includes(badge))
-      return message.channel.sendCustom(`He already has that badge.`);
+    if (userFind.badges && userFind.badges.includes(badge))
+      return message.channel.sendCustom(`They already has that badge.`);
 
     userFind.badges.push(badge);
     await userFind.save().catch(() => {});
-    message.channel.sendCustom(`Added ${badge} to the user! `);
+    message.channel.sendCustom(`Added the ${badge} to the user! `);
   }
 };
 

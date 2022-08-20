@@ -172,14 +172,14 @@ module.exports = class extends Command {
                     `Action: \`Kick\` | ${member.user.tag} | Case #${logcase}`,
                     member.user.displayAvatarURL({ format: "png" })
                   )
-                  .addField("User", member, true)
-                  .addField("Moderator", message.member, true)
-                  .addField("Reason", reason, true)
+                  .addField("User", `${member}`, true)
+                  .addField("Moderator", `${message.member}`, true)
+                  .addField("Reason", `${reason}`, true)
                   .setFooter({ text: `ID: ${member.id}` })
                   .setTimestamp()
                   .setColor(color);
 
-                channel.send({embeds: [logEmbed]}).catch(() => {});
+                channel.send({ embeds: [logEmbed] }).catch(() => {});
 
                 logging.moderation.caseN = logcase + 1;
                 await logging.save().catch(() => {});

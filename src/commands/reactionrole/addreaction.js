@@ -144,7 +144,5 @@ module.exports = class extends Command {
           .setFooter({ text: "https://pogy.xyz/" }),
       ],
     });
-
-
   }
 };

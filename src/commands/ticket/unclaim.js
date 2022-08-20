@@ -89,7 +89,7 @@ module.exports = class extends Command {
         message.channel.permissionOverwrites
           .edit(pogy, {
             VIEW_CHANNEL: true,
-            READ_MESSAGES: true,
+
             SEND_MESSAGES: true,
             READ_MESSAGE_HISTORY: true,
             ATTACH_FILES: true,

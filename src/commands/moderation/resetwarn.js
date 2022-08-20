@@ -154,9 +154,9 @@ module.exports = class extends Command {
                     `Action: \`Clear Warn\` | ${mentionedMember.user.tag} | Case #${logcase}`,
                     mentionedMember.user.displayAvatarURL({ format: "png" })
                   )
-                  .addField("User", mentionedMember, true)
-                  .addField("Moderator", message.member, true)
-                  .addField("Reason", reason, true)
+                  .addField("User", `${mentionedMember}`, true)
+                  .addField("Moderator", `${message.member}`, true)
+                  .addField("Reason", `${reason}`, true)
                   .setFooter({ text: `ID: ${mentionedMember.id}` })
                   .setTimestamp()
                   .setColor(color);

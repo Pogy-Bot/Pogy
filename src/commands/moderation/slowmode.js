@@ -204,8 +204,8 @@ module.exports = class extends Command {
                     `Action: \`Slow Mode\` | ${message.author.tag} | Case #${logcase}`,
                     message.author.displayAvatarURL({ format: "png" })
                   )
-                  .addField("User", message.member, true)
-                  .addField("Reason", reason, true)
+                  .addField("User", `${message.member}`, true)
+                  .addField("Reason", `${reason}`, true)
                   .setFooter({ text: `ID: ${message.author.id}` })
                   .setTimestamp()
                   .setColor(color);

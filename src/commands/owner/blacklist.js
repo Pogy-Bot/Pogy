@@ -34,7 +34,7 @@ module.exports = class extends Command {
 
     if (args.length < 1)
       return message.channel.sendCustom(
-        `Please provide me with a user or guild blacklist`
+        `Please provide me with a user or guild blacklist [{prefix} blacklist <user | guild> <actual user or guild>. Example: {prefix} blacklist user @user]`
       );
     if (args.length < 2)
       return message.channel.sendCustom(`Provide me with a user`);
@@ -82,11 +82,11 @@ module.exports = class extends Command {
         .addField("Status", "Added to the blacklist.")
         .addField("User", `${member.user.tag} (${member.id})`)
         .addField("Responsible", `${message.author} (${message.author.id})`)
-        .addField("Reason", reason);
+        .addField("Reason", `${reason}`);
 
       return webhookClient.sendCustom({
         username: "Pogy",
-        avatarURL: `https://pogy.xyz/logo.png`,
+        avatarURL: `https://v2.pogy.xyz/logo.png`,
         embeds: [embed],
       });
     }
@@ -136,7 +136,7 @@ module.exports = class extends Command {
 
       return webhookClient.sendCustom({
         username: "Pogy Blacklists",
-        avatarURL: `https://pogy.xyz/logo.png`,
+        avatarURL: `https://v2.pogy.xyz/logo.png`,
         embeds: [embed],
       });
     }

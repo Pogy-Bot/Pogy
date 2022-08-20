@@ -125,7 +125,11 @@ module.exports = class extends Command {
                     .setFooter({ text: "https://pogy.xyz/" }),
                 ],
               })
-              .then((m) => m.delete({ timeout: 5000 }));
+              .then((m) => {
+                setTimeout(() => {
+                  m.delete();
+                }, 5000);
+              });
           }
 
           message.react(client.emoji.check);
@@ -136,7 +140,7 @@ module.exports = class extends Command {
               if (pogy) {
                 chan.permissionOverwrites.edit(pogy, {
                   VIEW_CHANNEL: true,
-                  READ_MESSAGES: true,
+
                   SEND_MESSAGES: true,
                   READ_MESSAGE_HISTORY: true,
                   ATTACH_FILES: true,
@@ -149,7 +153,7 @@ module.exports = class extends Command {
 
               chan.permissionOverwrites.edit(user, {
                 VIEW_CHANNEL: true,
-                READ_MESSAGES: true,
+
                 SEND_MESSAGES: true,
                 READ_MESSAGE_HISTORY: true,
                 ATTACH_FILES: true,
@@ -158,7 +162,7 @@ module.exports = class extends Command {
               if (ticketRole) {
                 chan.permissionOverwrites.edit(ticketRole, {
                   VIEW_CHANNEL: true,
-                  READ_MESSAGES: true,
+
                   SEND_MESSAGES: true,
                   READ_MESSAGE_HISTORY: true,
                   ATTACH_FILES: true,

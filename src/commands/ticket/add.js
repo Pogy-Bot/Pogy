@@ -72,7 +72,7 @@ module.exports = class extends Command {
 
           message.channel.permissionOverwrites.edit(pogy, {
             VIEW_CHANNEL: true,
-            READ_MESSAGES: true,
+
             SEND_MESSAGES: true,
             READ_MESSAGE_HISTORY: true,
             ATTACH_FILES: true,
@@ -84,7 +84,7 @@ module.exports = class extends Command {
 
           message.channel.permissionOverwrites.edit(author, {
             VIEW_CHANNEL: true,
-            READ_MESSAGES: true,
+
             SEND_MESSAGES: true,
             READ_MESSAGE_HISTORY: true,
             ATTACH_FILES: true,
@@ -92,7 +92,7 @@ module.exports = class extends Command {
 
           message.channel.permissionOverwrites.edit(userToMention.id, {
             VIEW_CHANNEL: true,
-            READ_MESSAGES: true,
+
             SEND_MESSAGES: true,
             READ_MESSAGE_HISTORY: true,
             ATTACH_FILES: true,
@@ -101,7 +101,7 @@ module.exports = class extends Command {
           if (ticketRole) {
             message.channel.permissionOverwrites.edit(ticketRole, {
               VIEW_CHANNEL: true,
-              READ_MESSAGES: true,
+
               SEND_MESSAGES: true,
               READ_MESSAGE_HISTORY: true,
               ATTACH_FILES: true,

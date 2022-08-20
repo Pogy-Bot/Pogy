@@ -221,9 +221,9 @@ module.exports = class extends Command {
                         `Action: \`set Nickname\` | ${member.user.tag} | Case #${logcase}`,
                         member.user.displayAvatarURL({ format: "png" })
                       )
-                      .addField("User", member, true)
-                      .addField("Moderator", message.member, true)
-                      .addField("Reason", reason, true)
+                      .addField("User", `${member}`, true)
+                      .addField("Moderator", `${message.member}`, true)
+                      .addField("Reason", `${reason}`, true)
                       .setFooter({ text: `ID: ${member.id}` })
                       .setTimestamp()
                       .setColor(color);

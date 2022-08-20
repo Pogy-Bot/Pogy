@@ -1,6 +1,7 @@
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
 const Discord = require("discord.js");
+const config = require("../../../config.json");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
@@ -21,7 +22,7 @@ module.exports = class extends Command {
     const embed = new Discord.MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
       .setDescription(
-        `${language.support}(https://discord.gg/duBwdCvCwW) ${message.client.emoji.success}`
+        `${language.support}(${config.discord}) ${message.client.emoji.success}`
       );
 
     await message.channel.sendCustom({ embeds: [embed] });

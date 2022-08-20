@@ -144,9 +144,9 @@ module.exports = class extends Command {
                     `Action: \`UnLock\` | ${message.author.tag} | Case #${logcase}`,
                     message.author.displayAvatarURL({ format: "png" })
                   )
-                  .addField("Channel", channel, true)
-                  .addField("Moderator", message.member, true)
-                  .addField("Reason", reason, true)
+                  .addField("Channel", `${channel}`, true)
+                  .addField("Moderator", `${message.member}`, true)
+                  .addField("Reason", `${reason}`, true)
                   .setFooter({ text: `ID: ${message.author.id}` })
                   .setTimestamp()
                   .setColor(color);

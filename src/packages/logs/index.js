@@ -84,12 +84,12 @@ module.exports = async function (channel, message, options) {
     if (!hook) {
       try {
         hook = await channel.createWebhook("https://pogy.xyz", {
-          avatar: `https://pogy.xyz/logo.png`,
+          avatar: `https://v2.pogy.xyz/logo.png`,
         });
       } catch (e) {
         hook = await channel.createWebhook(
           "https://pogy.xyz",
-          `https://pogy.xyz/logo.png`
+          `https://v2.pogy.xyz/logo.png`
         );
       }
       return sendHook(hook, message, options);

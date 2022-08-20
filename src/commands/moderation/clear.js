@@ -121,7 +121,11 @@ module.exports = class extends Command {
               )
               .setColor(message.guild.me.displayHexColor)
           )
-          .then((msg) => msg.delete({ timeout: 10000 }))
+          .then((msg) => {
+            setTimeout(() => {
+              msg.delete();
+            }, 10000);
+          })
           .catch(() => {});
       } else {
         channel.bulkDelete(messages, true).then((messages) => {
@@ -209,7 +213,7 @@ module.exports = class extends Command {
                       `Action: \`Purge\` | Case #${logcase}`,
                       message.author.displayAvatarURL({ format: "png" })
                     )
-                    .addField("Moderator", message.member, true)
+                    .addField("Moderator", `${message.member}`, true)
                     .setTimestamp()
                     .setFooter({ text: `Responsible ID: ${message.author.id}` })
                     .setColor(color);
@@ -218,7 +222,7 @@ module.exports = class extends Command {
                     logEmbed.addField(field, fields[field], true);
                   }
 
-                  channel.send({embeds: [logEmbed]}).catch(() => {});
+                  channel.send({ embeds: [logEmbed] }).catch(() => {});
 
                   logging.moderation.caseN = logcase + 1;
                   await logging.save().catch(() => {});

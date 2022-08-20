@@ -156,8 +156,8 @@ module.exports = class extends Command {
                         `Action: \`Remove Role\` | ${member.user.tag} | Case #${logcase}`,
                         member.user.displayAvatarURL({ format: "png" })
                       )
-                      .addField("User", member, true)
-                      .addField("Moderator", message.member, true)
+                      .addField("User", `${member}`, true)
+                      .addField("Moderator", `${message.member}`, true)
                       .setFooter({ text: `ID: ${member.id}` })
                       .setTimestamp()
                       .setColor(color);
