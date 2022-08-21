@@ -42,7 +42,7 @@ module.exports = class extends Command {
 
         let slap = new MessageAttachment(image, "slap.png");
 
-        message.channel.sendCustom(slap);
+        message.channel.send({ files: [slap] });
       } else if (message.mentions.users.first() == message.author) {
         const member = this.client.user;
         const mentionedMemberAvatar = member.user.displayAvatarURL({
@@ -61,7 +61,7 @@ module.exports = class extends Command {
 
         let slap = new MessageAttachment(image, "slap.png");
 
-        message.channel.sendCustom(slap);
+        message.channel.send({ files: [slap] });
       } else {
         let member = message.mentions.members.last();
 
@@ -88,7 +88,9 @@ module.exports = class extends Command {
 
         let slap = new MessageAttachment(image, "slap.png");
 
-        message.channel.sendCustom(slap);
+        message.channel.send({
+          files: [slap],
+        });
       }
     } catch (err) {
       message.channel.sendCustom({
