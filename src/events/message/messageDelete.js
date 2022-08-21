@@ -136,7 +136,7 @@ module.exports = class extends Event {
                 .setDescription(
                   `${message.member}'s message got deleted in ${message.channel}`
                 )
-                .addField("Message", message.content);
+                .addField("Message", `${message.content}`);
             } else {
               embed.setDescription(
                 `${message.member} deleted an **embed** in ${message.channel}`

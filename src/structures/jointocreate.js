@@ -10,32 +10,32 @@ module.exports = function (client) {
 
     if (!vcDB) return;
 
-    let voice = vcDB.channelID;
+    let voice = vcDB.channelId;
 
     let category = vcDB.categoryID;
 
     if (!voice || !category) return;
 
-    if (!oldState.channelID && newState.channelID) {
-      if (newState.channelID !== voice) return;
+    if (!oldState.channelId && newState.channelId) {
+      if (newState.channelId !== voice) return;
       jointocreatechannel(newState);
     }
 
-    if (oldState.channelID && !newState.channelID) {
+    if (oldState.channelId && !newState.channelId) {
       if (
         jointocreatemap.get(
-          `tempvoicechannel_${oldState.guild.id}_${oldState.channelID}`
+          `tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`
         )
       ) {
         var vc = oldState.guild.channels.cache.get(
           jointocreatemap.get(
-            `tempvoicechannel_${oldState.guild.id}_${oldState.channelID}`
+            `tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`
           )
         );
 
         if (vc.members.size < 1) {
           jointocreatemap.delete(
-            `tempvoicechannel_${oldState.guild.id}_${oldState.channelID}`
+            `tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`
           );
 
           return vc.delete().catch(() => {});
@@ -43,24 +43,24 @@ module.exports = function (client) {
       }
     }
 
-    if (oldState.channelID && newState.channelID) {
-      if (oldState.channelID !== newState.channelID) {
-        if (newState.channelID === voice) jointocreatechannel(oldState);
+    if (oldState.channelId && newState.channelId) {
+      if (oldState.channelId !== newState.channelId) {
+        if (newState.channelId === voice) jointocreatechannel(oldState);
 
         if (
           jointocreatemap.get(
-            `tempvoicechannel_${oldState.guild.id}_${oldState.channelID}`
+            `tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`
           )
         ) {
           var vc2 = oldState.guild.channels.cache.get(
             jointocreatemap.get(
-              `tempvoicechannel_${oldState.guild.id}_${oldState.channelID}`
+              `tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`
             )
           );
 
           if (vc2.members.size < 1) {
             jointocreatemap.delete(
-              `tempvoicechannel_${oldState.guild.id}_${oldState.channelID}`
+              `tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`
             );
 
             return vc2.delete().catch(() => {});
@@ -81,7 +81,7 @@ module.exports = function (client) {
 
       await user.guild.channels
         .create(`${user.member.user.username}'s Room`, {
-          type: "voice",
+          type: "GUILD_VOICE",
           parent: category,
         })
         .then(async (vc) => {
@@ -110,7 +110,7 @@ module.exports = function (client) {
 
       vcDB
         .updateOne({
-          channelID: null,
+          channelId: null,
           categoryID: null,
         })
         .catch((err) => console.error(err));

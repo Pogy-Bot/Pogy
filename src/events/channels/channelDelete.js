@@ -31,8 +31,8 @@ module.exports = class extends Event {
           if (logging.server_events.channel_delete == "true") {
             const embed = new discord.MessageEmbed()
               .setDescription(`:wastebasket: ***Channel Deleted***`)
-              .addField("Channel Type", message.type, true)
-              .addField("Channel Name", message.name, true)
+              .addField("Channel Type", `${message.type}`, true)
+              .addField("Channel Name", `${message.name}`, true)
               .setFooter({ text: `Channel ID: ${message.id}` })
               .setTimestamp()
               .setColor(color);

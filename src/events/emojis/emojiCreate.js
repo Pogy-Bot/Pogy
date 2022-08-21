@@ -26,8 +26,8 @@ module.exports = class extends Event {
           if (logging.server_events.emoji_update == "true") {
             const embed = new discord.MessageEmbed()
               .setDescription(`🆕 ***Emoji Created***`)
-              .addField("Emoji Name", emoji.name, true)
-              .addField("Emoji", emoji, true)
+              .addField("Emoji Name", `${emoji.name}`, true)
+              .addField("Emoji", `${emoji}`, true)
               .addField("Full ID", `\`<:${emoji.name}:${emoji.id}>\``, true)
               .setFooter({ text: `Emoji ID: ${emoji.id}` })
               .setTimestamp()

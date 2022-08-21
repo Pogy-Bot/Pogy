@@ -49,7 +49,7 @@ module.exports = class extends Event {
             oldparentname = oldState.channel.parent.name;
           if (oldState && oldState.channel && oldState.channel.name)
             oldchannelname = oldState.channel.name;
-          if (oldState && oldState.channelID) oldchanelid = oldState.channelID;
+          if (oldState && oldState.channelId) oldchanelid = oldState.channelId;
 
           let newparentname = "unknown";
           let newchannelname = "unknown";
@@ -63,9 +63,9 @@ module.exports = class extends Event {
             newparentname = newState.channel.parent.name;
           if (newState && newState.channel && newState.channel.name)
             newchannelname = newState.channel.name;
-          if (newState && newState.channelID) newchanelid = newState.channelID;
+          if (newState && newState.channelId) newchanelid = newState.channelId;
 
-          if (oldState.channelID && oldState.channel) {
+          if (oldState.channelId && oldState.channel) {
             if (typeof oldState.channel.parent !== "undefined") {
               oldChannelName = `**Category:** ${oldparentname}\n\t**Name:** ${oldchannelname}\n**ID: **${oldchanelid}`;
             } else {
@@ -74,7 +74,7 @@ module.exports = class extends Event {
           } else {
             oldChannelName = `[Stage Channel]`;
           }
-          if (newState.channelID && newState.channel) {
+          if (newState.channelId && newState.channel) {
             if (typeof newState.channel.parent !== "undefined") {
               newChannelName = `**Category:** ${newparentname}\n\t**Name:** ${newchannelname}\n**ID:** ${newchanelid}`;
             } else {
@@ -85,7 +85,7 @@ module.exports = class extends Event {
           }
 
           // JOINED V12
-          if (!oldState.channelID && newState.channelID) {
+          if (!oldState.channelId && newState.channelId) {
             const joinembed = new discord.MessageEmbed()
               .setAuthor(
                 `${newState.member.user.tag} | Voice Channel Joined!`,
@@ -115,7 +115,7 @@ module.exports = class extends Event {
           }
 
           // LEFT V12
-          if (oldState.channelID && !newState.channelID) {
+          if (oldState.channelId && !newState.channelId) {
             const leaveembed = new discord.MessageEmbed()
               .setAuthor(
                 `${newState.member.user.tag} | Voice Channel Left!`,
@@ -145,9 +145,9 @@ module.exports = class extends Event {
           }
 
           // SWITCH V12
-          if (oldState.channelID && newState.channelID) {
+          if (oldState.channelId && newState.channelId) {
             // False positive check
-            if (oldState.channelID !== newState.channelID) {
+            if (oldState.channelId !== newState.channelId) {
               const moveembed = new discord.MessageEmbed()
                 .setAuthor(
                   `${newState.member.user.tag} | Moved Voice Channels`,

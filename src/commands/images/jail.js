@@ -22,7 +22,9 @@ module.exports = class extends Command {
     let avatar = user.displayAvatarURL({ dynamic: true, format: "png" });
     let image = await Canvacord.Canvas.jail(avatar);
     let attachment = new discord.MessageAttachment(image, "jail.png");
-    message.channel.sendCustom(attachment);
+    message.channel.send({
+      files: [attachment],
+    });
 
     function match(msg, i) {
       if (!msg) return undefined;

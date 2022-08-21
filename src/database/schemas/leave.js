@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const guildConfigSchema = mongoose.Schema({
   guildId: {
     type: mongoose.SchemaTypes.String,
     required: true,
-    unique: true
+    unique: true,
   },
   leaveToggle: {
     type: mongoose.SchemaTypes.String,
@@ -12,82 +12,75 @@ const guildConfigSchema = mongoose.Schema({
   },
   leaveDM: {
     type: mongoose.SchemaTypes.String,
-    default: false
+    default: false,
   },
-  leaveChannel:{
+  leaveChannel: {
     type: mongoose.SchemaTypes.String,
     default: null,
   },
-  leaveMessage:{
+  leaveMessage: {
     type: mongoose.SchemaTypes.String,
     default: `{user_tag} just left {guild}, we now have {memberCount} Members!`,
   },
-  leaveEmbed:{
+  leaveEmbed: {
     type: mongoose.SchemaTypes.String,
     default: false,
   },
 
   embed: {
-
-  title: {
-    type: mongoose.SchemaTypes.String,
-    default: `Goodbye!`,
+    title: {
+      type: mongoose.SchemaTypes.String,
+      default: `Goodbye!`,
     },
-     
-  titleURL: {
-    type: mongoose.SchemaTypes.String,
-    default: ``,
+
+    titleURL: {
+      type: mongoose.SchemaTypes.String,
+      default: ``,
     },
 
     description: {
-    type: mongoose.SchemaTypes.String,
-    default: `{user_tag} just left {guild}, we now have {memberCount} Members!`,
+      type: mongoose.SchemaTypes.String,
+      default: `{user_tag} just left {guild}, we now have {memberCount} Members!`,
     },
     footer: {
-    type: mongoose.SchemaTypes.String,
-    default: ``,
+      type: mongoose.SchemaTypes.String,
+      default: ``,
     },
     footerIcon: {
-    type: mongoose.SchemaTypes.String,
-    default: ``,
+      type: mongoose.SchemaTypes.String,
+      default: ``,
     },
     color: {
-    type: mongoose.SchemaTypes.String,
-    default: `#000000`,
+      type: mongoose.SchemaTypes.String,
+      default: `#000000`,
     },
-    timestamp :{
-    type: mongoose.SchemaTypes.String,
-    default: false,
+    timestamp: {
+      type: mongoose.SchemaTypes.String,
+      default: false,
     },
 
     thumbnail: {
-    type: mongoose.SchemaTypes.String,
-    default: ``,
+      type: mongoose.SchemaTypes.String,
+      default: ``,
     },
 
     author: {
+      name: {
+        type: mongoose.SchemaTypes.String,
+        default: ``,
+      },
 
-    name: {
-    type: mongoose.SchemaTypes.String,
-    default: ``,
-    },
+      url: {
+        type: mongoose.SchemaTypes.String,
+        default: ``,
+      },
 
-    
-    url: {
-    type: mongoose.SchemaTypes.String,
-    default: ``,
+      icon: {
+        type: mongoose.SchemaTypes.String,
+        default: ``,
+      },
     },
-
-    icon: {
-    type: mongoose.SchemaTypes.String,
-    default: ``,
-    },
-    
-    },
-
   },
-
-
 });
 
-module.exports = mongoose.model('leave', guildConfigSchema);
+module.exports = mongoose.model("leave", guildConfigSchema);

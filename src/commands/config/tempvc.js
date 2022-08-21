@@ -39,7 +39,7 @@ module.exports = class extends Command {
           const newGuild = new Vc({
             _id: mongoose.Types.ObjectId(),
             guildId: message.guild.id,
-            channelID: null,
+            channelId: null,
             categoryID: null,
           });
 
@@ -83,10 +83,10 @@ module.exports = class extends Command {
           .setColor(message.guild.me.displayHexColor);
 
       if (
-        !vcDB.channelID ||
+        !vcDB.channelId ||
         !vcDB.categoryID ||
         !vcDB.guildId ||
-        !vcDB.channelID === null
+        !vcDB.channelId === null
       )
         return message.channel.sendCustom({
           embeds: [
@@ -103,7 +103,7 @@ module.exports = class extends Command {
           guildId: message.guild.id,
         },
         async (err, guild) => {
-          let voiceID = guild.channelID;
+          let voiceID = guild.channelId;
           let categoryID = guild.categoryID;
 
           let voice = message.client.channels.cache.get(voiceID);
@@ -115,7 +115,7 @@ module.exports = class extends Command {
           if (!guild) {
             Vc.create({
               guildId: message.guild.id,
-              channelID: null,
+              channelId: null,
               categoryID: null,
             });
 
@@ -123,7 +123,7 @@ module.exports = class extends Command {
           } else {
             guild
               .updateOne({
-                channelID: null,
+                channelId: null,
                 categoryID: null,
               })
               .catch((err) => console.error(err));
@@ -172,7 +172,8 @@ module.exports = class extends Command {
 
         let category = message.guild.channels.cache.find(
           (c) =>
-            c.name.toLowerCase() == "join to create" && c.type == "category"
+            c.name.toLowerCase() == "join to create" &&
+            c.type == "GUILD_CATEGORY"
         );
         setTimeout(async () => {
           if (!category) {
@@ -182,7 +183,7 @@ module.exports = class extends Command {
               .setTimestamp();
             msg.edit({ embeds: [embed] }) +
               message.guild.channels.create(`Join to Create`, {
-                type: "category",
+                type: "GUILD_CATEGORY",
                 permissionOverwrites: [
                   {
                     id: message.guild.id,
@@ -205,7 +206,8 @@ module.exports = class extends Command {
         }, 2000);
 
         let voice = message.guild.channels.cache.find(
-          (c) => c.name.toLowerCase() == "join to create" && c.type == "voice"
+          (c) =>
+            c.name.toLowerCase() == "join to create" && c.type == "GUILD_VOICE"
         );
 
         setTimeout(async () => {
@@ -217,7 +219,7 @@ module.exports = class extends Command {
             msg.edit({ embeds: [embed] });
             +message.guild.channels
               .create("Join to create", {
-                type: "voice",
+                type: "GUILD_VOICE",
                 permissionOverwrites: [
                   {
                     id: message.guild.id,
@@ -262,7 +264,7 @@ module.exports = class extends Command {
                 if (!guild) {
                   Vc.create({
                     guildId: message.guild.id,
-                    channelID: null,
+                    channelId: null,
                     categoryID: null,
                   });
 
@@ -270,7 +272,7 @@ module.exports = class extends Command {
                 } else {
                   guild
                     .updateOne({
-                      channelID: null,
+                      channelId: null,
                       categoryID: null,
                     })
                     .catch((err) => console.error(err));
@@ -310,7 +312,7 @@ module.exports = class extends Command {
                 if (!guild) {
                   Vc.create({
                     guildId: message.guild.id,
-                    channelID: voice.id,
+                    channelId: voice.id,
                     categoryID: category.id,
                   });
 
@@ -318,7 +320,7 @@ module.exports = class extends Command {
                 } else {
                   guild
                     .updateOne({
-                      channelID: voice.id,
+                      channelId: voice.id,
                       categoryID: category.id,
                     })
                     .catch((err) => console.error(err));
@@ -343,7 +345,7 @@ module.exports = class extends Command {
             if (!guild) {
               Vc.create({
                 guildId: message.guild.id,
-                channelID: null,
+                channelId: null,
                 categoryID: null,
               });
 
@@ -351,7 +353,7 @@ module.exports = class extends Command {
             } else {
               guild
                 .updateOne({
-                  channelID: null,
+                  channelId: null,
                   categoryID: null,
                 })
                 .catch((err) => console.error(err));

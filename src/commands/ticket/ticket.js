@@ -135,7 +135,7 @@ module.exports = class extends Command {
           message.react(client.emoji.check);
 
           message.guild.channels
-            .create(chann, { type: "text" })
+            .create(chann, { type: "GUILD_TEXT" })
             .then(async (chan) => {
               if (pogy) {
                 chan.permissionOverwrites.edit(pogy, {
@@ -229,8 +229,8 @@ module.exports = class extends Command {
                   language.ticketEmbedTitleInfo,
                   language.ticketEmbedValueInfo
                     .replace("{user}", `${user}`)
-                    .replace("{chanName}", chan.name)
-                    .replace("{serverCase}", serverCase)
+                    .replace("{chanName}", `${chan.name}`)
+                    .replace("{serverCase}", `${serverCase}`)
                     .replace(
                       "{ticketDate}",
                       moment(new Date()).format("dddd, MMMM Do YYYY")

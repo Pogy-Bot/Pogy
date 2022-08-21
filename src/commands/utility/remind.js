@@ -34,14 +34,14 @@ module.exports = class extends Command {
           message.channel.sendCustom(`${language.remind3}`).catch(() => {});
           let filter2 = (m) => m.author.id == message.author.id;
           message.channel
-            .awaitMessages({ filter2, max: 1, time: 30000 })
+            .awaitMessages({ filter: filter2, max: 1, time: 30000 })
             .then((collected) => {
               if (collected.first().content.length < 1024) {
                 let reminder = collected.first().content;
                 message.channel.sendCustom(`${language.remind4} **[s/m/h/d]**`);
                 let filter3 = (m) => m.author.id == message.author.id;
                 message.channel
-                  .awaitMessages({ filter3, max: 1, time: 30000 })
+                  .awaitMessages({ filter: filter3, max: 1, time: 30000 })
                   .then((collected) => {
                     let valid = collected.first().content;
                     let time = ms(valid);
@@ -61,7 +61,7 @@ module.exports = class extends Command {
                         .catch(() => {});
                       let filter4 = (m) => m.author.id == message.author.id;
                       message.channel
-                        .awaitMessages({ filter4, max: 1, time: 30000 })
+                        .awaitMessages({ filter: filter4, max: 1, time: 30000 })
                         .then((collected) => {
                           if (
                             collected.first().content.toLowerCase() == "yes"
@@ -89,10 +89,10 @@ module.exports = class extends Command {
 
                                 .setAuthor(`${language.remind8}`)
                                 .setDescription(`${language.remind9}`)
-                                .addField(`${language.remind10}`, guild, true)
+                                .addField(`${language.remind10}`, `${guild.name}`, true)
                                 .addField(
                                   `${language.remind11}`,
-                                  reminderTime,
+                                  `${reminderTime}`,
                                   true
                                 )
                                 .addField(

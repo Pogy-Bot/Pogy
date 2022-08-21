@@ -29,11 +29,7 @@ module.exports = function (client) {
       async (err, guild) => {
         try {
           if (!guild) {
-            await Guild.create({
-              guildId: message.guild.id,
-              prefix: config.prefix,
-              language: "english",
-            });
+            return;
           }
         } catch (e) {
           //no
@@ -43,11 +39,40 @@ module.exports = function (client) {
 
     if (!settings) return;
 
-    const mentionRegexPrefix = RegExp(`^<@!?${client.user.id}>`);
+    const afklis = await afk.findOne({
+      userID: message.author.id,
+      serverID: message.guild.id,
+    });
 
     const maintenance = await Maintenance.findOne({
       maintenance: "maintenance",
     });
+    const guildDB = await Guild.findOne({
+      guildId: message.guild.id,
+    });
+
+    let language = require(`../../data/language/english.json`);
+    if (guildDB)
+      language = require(`../../data/language/${guildDB.language}.json`);
+    if (afklis) {
+      if (maintenance && maintenance.toggle == "true") return;
+      let nickname = `${afklis.oldNickname}`;
+      message.member.setNickname(nickname).catch(() => {});
+      await afk.deleteOne({ userID: message.author.id });
+      return message.channel
+        .sendCustom(
+          new discord.MessageEmbed()
+            .setColor("GREEN")
+            .setDescription(`${language.afk7} ${afklis.reason}`)
+        )
+        .then((m) => {
+          setTimeout(() => {
+            m.delete().catch(() => {});
+          }, 10000);
+        });
+    }
+
+    const mentionRegexPrefix = RegExp(`^<@!?${client.user.id}>`);
 
     const userBlacklistSettings = await Blacklist.findOne({
       discordId: message.author.id,
@@ -104,18 +129,10 @@ module.exports = function (client) {
     }
 
     //afk
-    const guildDB = await Guild.findOne({
-      guildId: message.guild.id,
-    });
 
     // Filters
     if (guildDB && (await inviteFilter(message))) return;
     if (guildDB && (await linkFilter(message))) return;
-
-    let language = require(`../../data/language/english.json`);
-
-    if (guildDB)
-      language = require(`../../data/language/${guildDB.language}.json`);
 
     if (message.mentions.members.first()) {
       if (maintenance && maintenance.toggle == "true") return;
@@ -135,29 +152,6 @@ module.exports = function (client) {
             .catch(() => {});
         });
       }
-    }
-
-    const afklis = await afk.findOne({
-      userID: message.author.id,
-      serverID: message.guild.id,
-    });
-
-    if (afklis) {
-      if (maintenance && maintenance.toggle == "true") return;
-      let nickname = `${afklis.oldNickname}`;
-      message.member.setNickname(nickname).catch(() => {});
-      await afk.deleteOne({ userID: message.author.id });
-      return message.channel
-        .sendCustom(
-          new discord.MessageEmbed()
-            .setColor("GREEN")
-            .setDescription(`${language.afk7} ${afklis.reason}`)
-        )
-        .then((m) => {
-          setTimeout(() => {
-            m.delete().catch(() => {});
-          }, 10000);
-        });
     }
 
     let mainPrefix = settings ? settings.prefix : config.prefix;

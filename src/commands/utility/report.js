@@ -233,10 +233,10 @@ module.exports = class extends Command {
       let reportEmbed1 = new MessageEmbed()
         .setAuthor(`${language.report16} (Issue)`)
         .setDescription(`**${language.report17}**`)
-        .addField(`${language.report18}`, message.member, true)
-        .addField(`${language.report19}`, message.member.id, true)
-        .addField(`${language.report20}`, message.author.tag, true)
-        .addField(`${language.report24}`, message.channel, true)
+        .addField(`${language.report18}`, `${message.member}`, true)
+        .addField(`${language.report19}`, `${message.member.id}`, true)
+        .addField(`${language.report20}`, `${message.author.tag}`, true)
+        .addField(`${language.report24}`, `${message.channel}`, true)
         .addField(
           `${language.report25}`,
           `${moment(new Date()).format("dddd, MMMM Do YYYY")}`,
@@ -427,13 +427,13 @@ module.exports = class extends Command {
       let reportEmbed1 = new MessageEmbed()
         .setAuthor(`${language.report16} (User)`)
         .setDescription(`**${language.report17}**`)
-        .addField(`${language.report18}`, message.member, true)
-        .addField(`${language.report19}`, message.member.id, true)
-        .addField(`${language.report20}`, message.author.tag, true)
-        .addField(`${language.report21}`, user, true)
-        .addField(`${language.report22}`, user.id, true)
-        .addField(`${language.report23}`, user.tag, true)
-        .addField(`${language.report24}`, message.channel, true)
+        .addField(`${language.report18}`, `${message.member}`, true)
+        .addField(`${language.report19}`, `${message.member.id}`, true)
+        .addField(`${language.report20}`, `${message.author.tag}`, true)
+        .addField(`${language.report21}`, `${user}`, true)
+        .addField(`${language.report22}`, `${user.id}`, true)
+        .addField(`${language.report23}`, `${user.tag}`, true)
+        .addField(`${language.report24}`, `${message.channel}`, true)
         .addField(
           `${language.report25}`,
           `${moment(new Date()).format("dddd, MMMM Do YYYY")}`,

@@ -66,9 +66,9 @@ module.exports = class extends Command {
       .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
       .setDescription(report)
       .addField("User", `${message.member}`, true)
-      .addField("User username", message.member.user.username, true)
-      .addField("User ID", message.member.id, true)
-      .addField("User Tag", message.member.user.tag, true)
+      .addField("User username", `${message.member.user.username}`, true)
+      .addField("User ID", `${message.member.id}`, true)
+      .addField("User Tag", `${message.member.user.tag}`, true)
       .addField("Server", `[${message.guild.name}](${invite || "none "})`, true)
       .addField("Feedback ID:", `#${id}`, true)
       .setFooter({
@@ -84,8 +84,8 @@ module.exports = class extends Command {
       .setDescription(
         `${language.suggest3} Support [**Server**](${config.discord})`
       )
-      .addField("Member", message.member, true)
-      .addField("Message", report, true)
+      .addField("Member", `${message.member}`, true)
+      .addField("Message", `${report}`, true)
       .addField("Suggestion ID:", `#${id}`, true)
       .setFooter({ text: "https://pogy.xyz/" })
       .setTimestamp()

@@ -94,19 +94,19 @@ module.exports = class extends Command {
           )
           .addField(
             `${language.warnModerator || "unknown"}`,
-            message.guild.members.cache.get(warnDoc.moderator[i]),
+            `${message.guild.members.cache.get(warnDoc.moderator[i])}`,
             true
           )
 
           .addField(
             `${language.warnAction || "unknown"}`,
-            warnDoc.modType[i],
+            `${warnDoc.modType[i]}`,
             true
           ) //it says if its mute or warn or ban etc
 
           .addField(
             `${language.warnReason || "unknown"}`,
-            warnDoc.warnings[i],
+            `${warnDoc.warnings[i]}`,
             true
           )
           .addField(

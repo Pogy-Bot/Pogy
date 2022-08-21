@@ -386,7 +386,7 @@ max-height:200px; background-color: #2f2f2f; color: white;  "  ><%= (leave.leave
 <div id="boxfooter2">
 <br>
 
-<% if(leave.leaveToggle == "true"){ %>
+<% if(leave && leave.leaveToggle == "true"){ %>
                                             <button type="submit" name="leaveDisable" class="btn btn-danger">Disable</button>
                                             <button type="submit" name="leaveUpdate" class="btn btn-primary pull-right">Update</button>
                                         <% } else { %>
@@ -470,7 +470,7 @@ max-height:200px; background-color: #2f2f2f; color: white;  "  ><%= (leave.leave
     </div>
 <br>
 <br>
-<% if(leave.leaveToggle == "true"){ %>
+<% if(leave && leave.leaveToggle == "true"){ %>
                                             <button type="submit" name="leaveDisable" class="btn btn-danger">Disable</button>
                                             <button type="submit" name="leaveUpdateEmbed" class="btn btn-primary pull-right">Update</button>
                                         <% } else { %>

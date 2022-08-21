@@ -229,7 +229,7 @@ module.exports = class extends Command {
                             `Action: \`UnBan\` | ${userrz.tag} | Case #${logcase}`,
                             userrz.displayAvatarURL({ format: "png" })
                           )
-                          .addField("User", userrz, true)
+                          .addField("User", `${userrz}`, true)
                           .addField("Moderator", `${message.member}`, true)
                           .setFooter({ text: `ID: ${userrz.id}` })
                           .setTimestamp()

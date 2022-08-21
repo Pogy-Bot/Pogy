@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const guildConfigSchema = mongoose.Schema({
   guildId: {
     type: mongoose.SchemaTypes.String,
     required: true,
-    unique: true
+    unique: true,
   },
-  channelID: {
+  channelId: {
     type: mongoose.SchemaTypes.String,
     required: false,
   },
@@ -14,7 +14,6 @@ const guildConfigSchema = mongoose.Schema({
     type: mongoose.SchemaTypes.String,
     required: false,
   },
-
 });
 
-module.exports = mongoose.model('Temp Vc', guildConfigSchema);
+module.exports = mongoose.model("Temp Vc", guildConfigSchema);

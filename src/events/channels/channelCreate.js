@@ -32,17 +32,17 @@ module.exports = class extends Event {
           if (color == "#000000") color = message.client.color.green;
 
           if (logging.server_events.channel_created == "true") {
-            if (message.type === "text") {
+            if (message.type === "GUILD_TEXT") {
               const embed = new discord.MessageEmbed()
                 .setDescription(`:pencil: ***Channel Created***`)
-                .addField("Channel", message, true)
-                .addField("Channel Name", message.name, true)
+                .addField("Channel", `${message}`, true)
+                .addField("Channel Name", `${message.name}`, true)
                 .addField("Channel Type", "Text Channel", true)
                 .setFooter({ text: `Channel ID: ${message.id}` })
                 .setTimestamp()
                 .setColor(color);
 
-              if (message.parent && message.type !== "category")
+              if (message.parent && message.type !== "GUILD_CATEGORY")
                 embed.addField(`Parent Name`, message.parent.name);
 
               if (
@@ -61,8 +61,8 @@ module.exports = class extends Event {
             } else {
               const embed = new discord.MessageEmbed()
                 .setDescription(`🆕 ***Channel Created***`)
-                .addField("Channel Name", message.name, true)
-                .addField("Channel Type", message.type, true)
+                .addField("Channel Name", `${message.name}`, true)
+                .addField("Channel Type", `${message.type}`, true)
                 .setFooter({ text: `Channel ID: ${message.id}` })
                 .setTimestamp()
                 .setColor(color);

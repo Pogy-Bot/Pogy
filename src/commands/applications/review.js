@@ -21,6 +21,9 @@ module.exports = class extends Command {
       status: null,
     };
     const results = await Paste.find(conditional);
+    if (!results.length) {
+      return message.channel.send("There are no applications to review.");
+    }
     const array = [];
     if (results && results.length) {
       for (const result of results) {
