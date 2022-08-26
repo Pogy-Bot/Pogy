@@ -16,7 +16,7 @@ module.exports = class extends Event {
     ) {
       message.channel
         .sendCustom(
-          `${message.client.emoji.fail} Hey pogger! An Error just occured, make sure to report it here ${config.discord}!`
+          `${message.client.emoji.fail} Hey pogger! An Error just occured, make sure to report it here! ${config.discord}`
         )
         .catch(() => {});
     }
