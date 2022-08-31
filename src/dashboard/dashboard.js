@@ -16,7 +16,7 @@ const premiumWeb = new Discord.WebhookClient({
 });
 const ejs = require("ejs");
 const ShortUrl = require("../database/models/ShortUrl.js");
-const randoStrings = require("randostrings");
+const randoStrings = require("../packages/randostrings.js");
 const random = new randoStrings();
 const sendingEmbed = new Set();
 const bodyParser = require("body-parser");

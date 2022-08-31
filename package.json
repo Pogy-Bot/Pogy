@@ -44,7 +44,6 @@
     "random": "^2.2.0",
     "random-email": "^1.0.3",
     "randomstrings": "0.0.2",
-    "randostrings": "^0.1.6",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
     "shortid": "^2.2.16",

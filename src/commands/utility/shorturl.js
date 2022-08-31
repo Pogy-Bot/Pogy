@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
 const discord = require("discord.js");
-const randoStrings = require("randostrings");
+const randoStrings = require("../../packages/randostrings.js");
 const random = new randoStrings();
 const talkedRecently = new Set();
 const ShortUrl = require("../../database/models/ShortUrl.js");
