@@ -6,9 +6,18 @@ const Guild = require("../database/schemas/Guild");
 const { WebhookClient } = require("discord.js");
 const premiumrip = new WebhookClient({ url: config.webhooks.premium });
 const Message = require("../utils/other/message");
+const { Handler } = require("discord-slash-command-handler");
 module.exports = class extends Event {
   async run() {
     Message(this.client);
+
+    const handler = new Handler(this.client, {
+      commandFolder: "./src/slash",
+      commandType: "file",
+      allSlash: true,
+      handleSlash: true,
+    });
+
     logger.info(
       `${this.client.user.tag} is ready to serve ${this.client.guilds.cache.size} guilds.`,
       { label: "Ready" }

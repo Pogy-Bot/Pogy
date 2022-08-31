@@ -20,20 +20,22 @@ Pogy.fetchforguild = new Map();
 Pogy.start(process.env.TOKEN);
 
 process.on("unhandledRejection", (reason, p) => {
-  logger.info(`[unhandledRejection] ${reason.message}`, {label: "ERROR"});
+  logger.info(`[unhandledRejection] ${reason.message}`, { label: "ERROR" });
   console.log(reason, p);
 });
 
 process.on("uncaughtException", (err, origin) => {
-  logger.info(`[uncaughtException] ${err.message}`, {label: "ERROR"});
+  logger.info(`[uncaughtException] ${err.message}`, { label: "ERROR" });
   console.log(err, origin);
 });
 
 process.on("uncaughtExceptionMonitor", (err, origin) => {
-  logger.info(`[uncaughtExceptionMonitor] ${err.message}`, {label: "ERROR"});
+  logger.info(`[uncaughtExceptionMonitor] ${err.message}`, { label: "ERROR" });
   console.log(err, origin);
 });
 process.on("multipleResolves", (type, promise, reason) => {
-  logger.info(`[multipleResolves] MULTIPLE RESOLVES`, {label: "ERROR"});
+  logger.info(`[multipleResolves] MULTIPLE RESOLVES`, { label: "ERROR" });
   console.log(type, promise, reason);
 });
+
+
