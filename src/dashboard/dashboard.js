@@ -3459,7 +3459,7 @@ send
       if (!name) return;
       const check = cmdname.toLowerCase();
       if (!check) return;
-      if (client.commands.get(check) || client.aliases.get(check)) return;
+      if (client.botCommands.get(check) || client.aliases.get(check)) return;
       const content = JSON.stringify(data);
       if (!content) return;
       if (storedSettings.isPremium === "false") {

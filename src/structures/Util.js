@@ -65,7 +65,7 @@ module.exports = class Util {
       const command = new File(this.client, name.toLowerCase());
       if (!(command instanceof Command))
         throw new TypeError(`Comamnd ${name} doesnt belong in Commands.`);
-      this.client.commands.set(command.name, command);
+      this.client.botCommands.set(command.name, command);
 
       if (command.aliases.length) {
         for (const alias of command.aliases) {

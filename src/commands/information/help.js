@@ -49,14 +49,14 @@ module.exports = class extends Command {
     if (!args || args.length < 1) {
       let categories;
       categories = this.client.utils.removeDuplicates(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category !== "Owner")
           .map((cmd) => cmd.category)
       );
 
       if (this.client.config.developers.includes(message.author.id))
         categories = this.client.utils.removeDuplicates(
-          this.client.commands.map((cmd) => cmd.category)
+          this.client.botCommands.map((cmd) => cmd.category)
         );
 
       for (const category of categories) {
@@ -93,7 +93,7 @@ module.exports = class extends Command {
     ) {
       embed.setTitle(` ${emojis.altdetector} - Alt Detector`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "alt detector")
           .map(
             (cmd) =>
@@ -128,7 +128,7 @@ module.exports = class extends Command {
 
       embed.setTitle(`${emojis.owner} Owner Commands`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "owner")
           .map(
             (cmd) =>
@@ -162,7 +162,7 @@ module.exports = class extends Command {
     ) {
       embed.setTitle(` ${emojis.applications} - applications`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "applications")
           .map(
             (cmd) =>
@@ -198,7 +198,7 @@ module.exports = class extends Command {
     ) {
       embed.setTitle(` ${emojis.config} - Config`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "config")
           .map(
             (cmd) =>
@@ -232,7 +232,7 @@ module.exports = class extends Command {
     ) {
       embed.setTitle(` ${emojis.utility} - Utility`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "utility")
           .map(
             (cmd) =>
@@ -266,7 +266,7 @@ module.exports = class extends Command {
     ) {
       embed.setTitle(` ${emojis.economy} - Economy`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "economy")
           .map(
             (cmd) =>
@@ -297,7 +297,7 @@ module.exports = class extends Command {
     } else if (args && args[0].toLowerCase() == "fun") {
       embed.setTitle(` ${emojis.fun} - Fun`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "fun")
           .map(
             (cmd) =>
@@ -331,7 +331,7 @@ module.exports = class extends Command {
     ) {
       embed.setTitle(` ${emojis.images} - Image`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "images")
           .map(
             (cmd) =>
@@ -365,7 +365,7 @@ module.exports = class extends Command {
     ) {
       embed.setTitle(` ${emojis.information} - Info`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "information")
           .map(
             (cmd) =>
@@ -399,7 +399,7 @@ module.exports = class extends Command {
     ) {
       embed.setTitle(` ${emojis.moderation} - Moderation`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "moderation")
           .map(
             (cmd) =>
@@ -432,7 +432,7 @@ module.exports = class extends Command {
     ) {
       embed.setTitle(` ${emojis.reactionrole} - Reaction Roles`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "reaction role")
           .map(
             (cmd) =>
@@ -467,7 +467,7 @@ module.exports = class extends Command {
     ) {
       embed.setTitle(` ${emojis.tickets} - Tickets`);
       embed.setDescription(
-        this.client.commands
+        this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "tickets")
           .map(
             (cmd) =>
@@ -497,8 +497,8 @@ module.exports = class extends Command {
       return message.channel.sendCustom({ embeds: [embed] });
     } else {
       const cmd =
-        this.client.commands.get(args[0]) ||
-        this.client.commands.get(this.client.aliases.get(args[0]));
+        this.client.botCommands.get(args[0]) ||
+        this.client.botCommands.get(this.client.aliases.get(args[0]));
 
       if (!cmd)
         return message.channel.sendCustom(

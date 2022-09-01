@@ -397,7 +397,7 @@ module.exports = class extends Command {
                                                                       )
                                                                     );
                                                                   if (
-                                                                    this.client.commands.get(
+                                                                    this.client.botCommands.get(
                                                                       argword.toLowerCase()
                                                                     ) ||
                                                                     this.client.aliases.get(

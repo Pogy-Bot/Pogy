@@ -27,7 +27,7 @@ module.exports = class extends Command {
       return message.channel.sendCustom(`What command do i disable?`);
 
     const command =
-      this.client.commands.get(args[0]) || this.client.aliases.get(args[0]);
+      this.client.botCommands.get(args[0]) || this.client.aliases.get(args[0]);
 
     if (!command || (command && command.category == "Owner"))
       return message.channel.sendCustom("Provide a valid command!");

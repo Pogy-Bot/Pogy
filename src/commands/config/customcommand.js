@@ -71,7 +71,7 @@ module.exports = class extends Command {
         `${message.client.emoji.fail} ${language.cc2}`
       );
 
-    if (this.client.commands.get(namee) || this.client.aliases.get(namee))
+    if (this.client.botCommands.get(namee) || this.client.aliases.get(namee))
       return message.channel.sendCustom(
         `That command is already an existing bot command!`
       );

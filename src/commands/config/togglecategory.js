@@ -38,14 +38,14 @@ module.exports = class extends Command {
       );
 
     const typesMain = message.client.utils.removeDuplicates(
-      message.client.commands
+      message.client.botCommands
         .filter((cmd) => cmd.category !== "Owner")
         .map((cmd) => cmd.category)
     );
 
     const types = typesMain.map((item) => item.toLowerCase());
 
-    const commands = message.client.commands
+    const commands = message.client.botCommands
       .array()
       .filter((c) => c.category.toLowerCase() === type);
 

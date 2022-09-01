@@ -11,7 +11,7 @@ module.exports = class extends Event {
   async run() {
     Message(this.client);
 
-    const handler = new Handler(this.client, {
+    new Handler(this.client, {
       commandFolder: "./src/slash",
       commandType: "file",
       allSlash: true,

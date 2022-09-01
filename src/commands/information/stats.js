@@ -66,7 +66,7 @@ module.exports = class extends Command {
       0
     )}
       ${language.channels} -- ${message.client.channels.cache.size}
-      ${language.pogyCommands} -- ${message.client.commands.size}
+      ${language.pogyCommands} -- ${message.client.botCommands.size}
       Aliases -- ${message.client.aliases.size}
     `;
     const devs = stripIndent`
