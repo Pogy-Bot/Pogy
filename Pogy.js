@@ -33,7 +33,7 @@ module.exports = class PogyClient extends Client {
 
     this.validate(options);
     this.botCommands = new Collection();
-    this.events = new Collection();
+    this.botEvents = new Collection();
     this.aliases = new Collection();
     this.utils = require("./src/utils/utils.js");
     this.mongoose = require("./src/utils/mongoose");

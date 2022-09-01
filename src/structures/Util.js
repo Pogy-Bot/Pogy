@@ -87,7 +87,7 @@ module.exports = class Util {
       const event = new File(this.client, name);
       if (!(event instanceof Event))
         throw new TypeError(`Event ${name} doesn't belong in Events`);
-      this.client.events.set(event.name, event);
+      this.botEvents.set(event.name, event);
       //logger.info(`✅ loaded: ${event.name}`, { label: 'Events' })
       event.emitter[event.type](name, (...args) => event.run(...args));
     }
