@@ -1,210 +1,132 @@
-<h1 align="center">
- <br>
-  <a href="https://github.com/peterhanania"><img src="https://pogy.xyz/thumbnail.png"></a>
-  <br>
-  Pogy the Discord Bot [DJS V13]
- <br>
-</h1>
+पोगी द डिसॉर्डर बॉट [DJS V13]
 
-<h3 align=center>A fully customizable bot built with 147 commands, 11 categories and a dashboard using discord.js v13</h3>
+एक पूरी तरह से अनुकूलन योग्य बॉट जिसे 147 कमांड, 11 श्रेणियों और डिसॉर्ड.जेएस v13 का उपयोग करते हुए एक डैशबोर्ड के साथ बनाया गया है|
 
-<div align=center>
+पोगी के बारे में
+पोगी एक डिस्कॉर्ड बॉट है जिसे हमने ठीक 2 साल पहले बनाया था, कोड टूट गया था इसलिए हमने बग्स को ठीक करने और इसे एक बहुउद्देशीय डिस्कॉर्ड बनाने का फैसला किया।js v13 bot! आधिकारिक बॉट को आमंत्रित करने के लिए आप इस लिंक पर क्लिक कर सकते हैं! साथ ही, आप सहायता के लिए आधिकारिक पोगी के सपोर्ट सर्वर से जुड़ सकते हैं।
+अगर आपको यह संग्रह पसंद आया है, तो बेझिझक एक सितारा छोड़ दें ⭐
 
- <a href="https://github.com/mongodb/mongo">
-    <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white" alt="mongo">
-  </a>
-  
-  <a href="https://github.com/discordjs">
-    <img src="https://img.shields.io/badge/discord.js-v13.6.0-blue.svg?logo=npm" alt="discordjs">
-  </a>
+विशेषताएँ
+147 कमांड और 11 विभिन्न श्रेणियां!
+- ऑल्ट डिटेक्टर: गिल्ड से ऑल्ट्स को ब्लॉक करता है
+- एप्लिकेशन: वेबसाइट से एप्लिकेशन प्रबंधित करें
+- कॉन्फ़िग: सर्वर सेटिंग्स कॉन्फ़िगर करें
+- उपयोगिता: कुछ उपयोगिता आदेश
+- अर्थव्यवस्था: शुरू हुआ लेकिन पूरा नहीं हुआ
+- मज़ा: आपके सर्वर को सक्रिय रखने के लिए ढेर सारे आदेश
+- छवियां: छवि आदेश
+- सूचना: सूचना आदेश
+- मॉडरेशन: मॉड आपके कलह सर्वर को मॉडरेट करने के लिए आदेश देता है
+- प्रतिक्रिया भूमिकाएँ: प्रतिक्रिया भूमिकाएँ
+- टिकट: समर्थन के लिए गिल्ड टिकट
 
-  <a href="https://github.com/peterhanania/Pogy/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/license-Apache%202-blue" alt="license">
-  </a>
+पोगी की वेबसाइट पर निम्नलिखित विशेषताएं भी हैं
 
-</div>
+- टिकट प्रतिलेख + आवेदन प्रतिलेख
+- संपर्क और रिपोर्ट पृष्ठ
+- एम्बेड सहित स्वागत संदेश और विदाई संदेश।
+- पूर्ण अनुकूलन लॉगिंग और मॉडरेशन
+- पूर्ण अनुकूलन सुझाव और सर्वर रिपोर्ट
+- ए बिल्ट इन प्रीमियम सिस्टम
+- रखरखाव मोड में बनाया गया
+- एक सदस्य पृष्ठ
+- ऑटो मॉड, लेवलिंग और कमांड्स (नहीं किया गया)
+- TOP.gg API में निर्मित
 
-<p align="center">
-  <a href="#about">About</a>
-  •
-  <a href="#features">Features</a>
-  •
-  <a href="#installation">Installation</a>
-  •
-  <a href="#setting-up">Setting Up</a>
-  •
-  <a href="#license">License</a>
-  •
-  <a href="#donate">Donate</a>
-  •
-  <a href="#credits">Credits</a>
-</p>
+वेबहुक: (डेवलपर के लिए) पोगी के साथ आप कॉन्फिग फाइल से सीधे वेबहुक का उपयोग करके सब कुछ लॉग कर सकते हैं!
 
-## About
+इंस्टालेशन
+पहले रेपो क्लोन करें: git clone https://github.com/Pogy-Bot/Pogy.git
+क्लोनिंग के बाद, एक रन करें npm install
 
-Pogy is a discord bot that we made exactly 2 years ago, the code was broken so we decided to fix the bugs and make it a multipurpose discord.js v13 bot! You can click [this](https://pogy.xyz/invite) link to invite the official Bot! Also, you can join the official [Pogy's Support Server](https://pogy.xyz/support) for assistance.
+पोगी की स्थापना
+आपका config.json अनुसरण करना चाहिए
 
-If you liked this repository, feel free to leave a star ⭐
+- "डेवलपर्स": डेवलपर्स की आईडी जो स्वामी के आदेशों का उपयोग कर सकते हैं [ARRAY],
+- "स्थिति": आपकी बॉट स्थिति [STRING],
+- "डिसॉर्ड": आपके बॉट का सपोर्ट सर्वर [STRING],
+- "डैशबोर्ड": यदि आप वेबसाइट डैशबोर्ड ["true" / "false"] (STRING) को सक्षम करना चाहते हैं,
+- "सर्वर": आपका समर्थन सर्वर आईडी [STRING],
+- "उपसर्ग": आपका डिफ़ॉल्ट बॉट उपसर्ग [STRING],
 
-## Features
+वेबहुक
+- "लॉग्स": कमांड लॉग के लिए वेबहुक यूआरएल।,
+- "रखरखाव_लॉग": रखरखाव लॉग के लिए वेबहुक यूआरएल (यदि यह स्वचालित रूप से ट्रिगर हो जाता है),
+- "ratelimit_logs": अभुक रूरल रेटलिमिट लॉग के लिए,
+- "ब्लैकलिस्ट": ब्लैकलिस्ट लॉग के लिए वेबहुक URL,
+- "रिपोर्ट": रिपोर्ट लॉग के लिए वेबहुक URL,
+- "संपर्क": संपर्क लॉग के लिए वेबहुक यूआरएल,
+- "बग": बग लॉग के लिए वेबहुक URL,
+- "प्रीमियम": प्रीमियम लॉग के लिए वेबहुक URL, 
+- "सुझाव": सुझाव लॉग के लिए वेबहुक URL,,
+- "वोट": वोट लॉग के लिए वेबहुक यूआरएल,
+- "त्रुटियाँ": त्रुटि लॉग के लिए वेबहुक URL,
+- "प्रमाणीकरण": प्रमाणीकरण लॉग के लिए वेबहुक URL,
+- "जॉइनपब्लिक": वेबहुक यूआरएल सर्वर की घोषणा करने के लिए समर्थन सर्वर में शामिल होता है,
+- "जॉइन प्राइवेट": वेबहुक यूआरएल आपके निजी सर्वर में सर्वर से जुड़ने की घोषणा करने के लिए,
+- "लीव्सपब्लिक": वेबहुक यूआरएल सर्वर की घोषणा करने के लिए समर्थन सर्वर में छोड़ देता है,
+- "लीव्सप्राइवेट": निजी सर्वर में सर्वर की घोषणा करने के लिए वेबहुक यूआरएल,
+- "रखरखाव": यदि यह सीमित दर ["सत्य" / "गलत"] (STRING) प्राप्त करता है, तो रखरखाव मोड को स्वचालित रूप से सक्षम करें।
+- "रखरखाव_सीमा": अनुरक्षण मोड को सक्षम करने के लिए आवश्यक दर-सीमा ट्रिगर की मात्रा [STRING] अनुशंसित [3-10]। उदाहरण "3",
+- "आमंत्रित लिंक": आपका बॉट आमंत्रण लिंक,
 
-**147** commands and **11** different categories!
+एसईओ [SEO]
+- "सक्षम": यदि आप SEO ["true" / "false"] (STRING) को सक्षम करना चाहते हैं,
+- "शीर्षक": आपकी वेबसाइट का SEO शीर्षक [STRING],
+- "विवरण": आपकी वेबसाइट का SEO विवरण [STRING],
 
-- **alt detector:** Blocks alts from the guild
-- **applications:** Manage applications from the website
-- **config:** Configure server settings
-- **utility:** Some utility commands
-- **economy:** Started but not done
-- **fun:** A ton of commands to keep your server active
-- **images:** Image Commands
-- **information:** Information Commands
-- **moderation:** Mod commands to moderate your discord server
-- **reaction roles:** Reaction roles
-- **tickets:** Guild tickets for support
+आपका .env मेल खाना चाहिए
+जिनकी जरूरत है ~
 
-Pogy even has the following features on the website
+- TOKEN = आपका बॉट टोकन
+- MONGO = आपका मोंगो डेटाबेस यूआरएल
+- SECRECT_SESSION = सत्र सुरक्षा के लिए एक रैंडम स्ट्रिंग (उदा. 6B4E8&G#%Z&##bqcyEL5)
+- AUTH_DOMAIN = आपका प्रामाणिक डोमेन (उदा. https://pogy.xyz या http://localhost:3000) अंत में कोई स्लैश नहीं।
+- MAIN_CLINET_ID = the client id of your main application
+- AUTH_CLIENT_ID=आपके प्रमाणन आवेदन की क्लाइंट आईडी
+- AUTH_CLIENT_SECRET= आपके प्रमाणन आवेदन का क्लाइंट रहस्य
+- PORT= आपकी वेबसाइट का पोर्ट | डिफ़ॉल्ट = 3000
 
-- **Ticket Transcripts** + **Application Transcripts**
-- **Contact & Report** page
-- **Welcome messages** and **farewell messages** including embeds.
-- Full customizable **Logging** and **moderation**
-- Full customizable **Suggestions** and **Server Reports**
-- A built in **Premium system**
-- A built in maintenance mode
-- A members Page
-- Auto Mod, Levelling, and Commands ( not done )
-- Built in TOP.gg API
+वैकल्पिक
+- ANALYTICS = आपका गूगल एनालिटिक्स कोड,
+- GOOGLE_SITE_VERIFICATION=आपका Google साइट सत्यापन कोड,
+- DATADOG_API_KEY=आपका डेटा कुत्ता एपीआई कुंजी,
+- DATADOG_API_HOST= आपका डेटा डॉग एपीआई होस्ट,
+- DATADOG_API_PREFIX= आपका डेटा कुत्ता एपीआई उपसर्ग,
+- DBL_AUTH= आपका डीबीएल प्राधिकरण
 
- <h1 align="center">
-  <a href="https://github.com/peterhanania"><img src="https://i.imgur.com/On7mMNg.jpg["></a>
-</h1>
+डिस्कॉर्ड के देव पोर्टल में कॉलबैक इसमें 2 भाग होंगे, मुख्य क्लाइंट आईडी के लिए कॉलबैक, और दूसरा ऑथ क्लाइंट आईडी के लिए। मैंने ऐसा इसलिए किया ताकि मुख्य ग्राहक को सीमित न किया जाए। आप main_client_id और auth_client_id के लिए एक ही आईडी का उपयोग कर सकते हैं और एक ही एप्लिकेशन में 3 कॉलबैक डाल सकते हैं।
 
-**Webhooks: (for Developer)**
-With Pogy You can even log everything using webhooks directly from the config file!
+मुख्य क्लाइंट आईडी आपका डोमेन/धन्यवाद उदाहरण https://pogy.xyz/thanks या http://localhost:3000/thanks yourdomain/window उदाहरण https://pogy.xyz/window या http://localhost:3000/window
 
-<h1 align="center">
-  <a href="https://github.com/peterhanania"><img src="https://i.imgur.com/vbGuLdL.jpg"></a>
-</h1>
+ऑथ क्लाइंट आईडी योरडोमेन/कॉलबैक उदाहरण https://pogy.xyz/callback या http://localhost:3000/callback
 
-## Installation
+TOP.gg अपनी साइट में top.gg जोड़ने के लिए, DBL_AUTH को अपनी dbl api कुंजी के रूप में .env फ़ाइल में जोड़ें। और yourdomain/dblwebhook एक webhook url के रूप में top.gg की साइट सेटिंग पर। उदाहरण: `https://yourbot.com/dblwebhook
 
-First clone the repo:
+प्रतिकृति पर चलाने के लिए आपको नोड जेएस v.16.9.1 स्थापित करना होगा ऐसा करने के लिए बैश (आपके उत्तर पर बैश टर्मिनल) पर जाएं और पेस्ट करें: npm init -y && npm i --save-dev node@16.9.0 && एनपीएम कॉन्फिग सेट प्रीफिक्स = $ (पीडब्ल्यूडी) / नोड_मॉड्यूल्स / नोड && एक्सपोर्ट पाथ = $ (पीडब्ल्यूडी) / नोड_मॉड्यूल्स / नोड / बिन: $ पाथ
 
-```
-git clone https://github.com/Pogy-Bot/Pogy.git
-```
+कृपया सुनिश्चित करें कि आपने अपने डिस्कॉर्ड डेवलपर पोर्टल पर विशेषाधिकार प्राप्त इरादों को सक्षम किया है। आप "बीओटी" अनुभाग के तहत इन इरादों को पा सकते हैं, और दो टिक हैं जिन्हें आपको चालू करना है। गेटवे इंटेंट के बारे में अधिक जानकारी के लिए, इस लिंक को देखें।
 
-After cloning, run an
+आप बॉट को npm start के साथ लॉन्च कर सकते हैं
 
-```
-npm install
-```
+महत्वपूर्ण नोट: मदद के लिए सपोर्ट सर्वर से जुड़ने से पहले, गाइड को ध्यान से पढ़ें।
 
-## Setting Up
+इमोजी
+- आप इमोजी को इसमें बदल सकते हैं:
+ 1. assets/emojis.json
+ 2. data/emoji.js
 
-Your `config.json` should follow
+रंग
+- आप data/colors.js में रंग बदल सकते हैं
 
-- "developers": ID of Developers who can use the owner commands [ARRAY],
-- "status": Your bot Status [STRING],
-- "discord": Your bot's Support Server [STRING],
-- "dashboard": If you want to enable the website dashboard ["true" / "false"] (STRING),
-- "server": Your support server id [STRING],
-- "prefix": Your default bot prefix [STRING],
-  
-Webhooks
-- "logs": Webhook URL for command logs.,
--  "maintenance_logs": Webhook URL for maintenance logs (if it gets triggered automatically),
--  "ratelimit_logs": Webhook URL for ratelimit logs,
-- "blacklist": Webhook URL for blacklist logs,
--  "report": Webhook URL for report logs,
--  "contact": Webhook URL for contact logs,
--  "bugs": Webhook URL for bugs logs,
--  "premium": Webhook URL for premium logs,
--  "suggestions": Webhook URL for suggestions logs,,
--  "votes": Webhook URL for votes logs,
--  "errors": Webhook URL for errors logs,
--  "auth": Webhook URL for auth logs,
--  "joinsPublic": Webhook URL to announce server joins in the support server,
--  "joinsPrivate": Webhook URL to announce server joins in your private server,
--  "leavesPublic": Webhook URL to announce server leaves in the support server,
--  "leavesPrivate": Webhook URL to announce server leaves in the private server,
--  "maintenance": Automatically enable maintenance mode if it gets rate limited ["true" / "false"] (STRING),
--  "maintenance_threshold": The amount of ratelimit triggers needed to enable maintenance mode [STRING] recommended [3-10]. Example "3",
--  "invite_link": Your bot's invite link,
+लाइसेंस
+- अपाचे लाइसेंस लाइसेंस के तहत जारी किया गया।
 
-SEO
--  "enabled": if you want to enable SEO ["true" / "false"] (STRING),
--  "title": Your website's SEO title [STRING],
--  "description": Your website's SEO description [STRING],
+दान देना
+- आप यहां क्लिक करके पोगी दान कर सकते हैं और इसे पहले से कहीं ज्यादा मजबूत बना सकते हैं!
 
-##
+क्रेडिट
+पुराने क्रेडिट 
 
-
-Your `.env` should match
-
-THE ONES NEEDED
-- TOKEN=YOUR BOT TOKEN
-- MONGO=YOUR MONGO DATABASE URL
-- SESSION_SECRET=A RANDOM STRING FOR SESSION SECURITY (Ex. 6B4E8&G#%Z&##bqcyEL5)
-- AUTH_DOMAIN=Your Auth Domain (Ex. https://pogy.xyz or http://localhost:3000) no slash at the end.
-- MAIN_CLIENT_ID=the client id of your main application
-- AUTH_CLIENT_ID=the client id of your auth application
-- AUTH_CLIENT_SECRET= the client secret of your auth application
-- PORT= the port of your website | default=3000
-
-OPTIONAL
-- ANALYTICS=your google analytics code,
-- GOOGLE_SITE_VERIFICATION=your google site verification code,
-- DATADOG_API_KEY=your data dog api key,
-- DATADOG_API_HOST= your data dog api host,
-- DATADOG_API_PREFIX= your data dog api prefix,
-- DBL_AUTH= your dbl authorization
-
-
-
-**The callbacks in Discord's dev portal**
-This will have 2 parts, callback for the main client ID, and the other for the auth client ID. I did this so that the main client doesn't get ratelimited. You can use the same Id for main_client_id and auth_client_id and put the 3 callbacks in the same application.
-
-MAIN CLIENT ID
-yourdomain/thanks example https://pogy.xyz/thanks or http://localhost:3000/thanks
-yourdomain/window example https://pogy.xyz/window or http://localhost:3000/window
-
-AUTH CLIENT ID
-yourdomain/callback example https://pogy.xyz/callback or http://localhost:3000/callback
-
-
-**TOP.gg** 
-To add top.gg to your site, add `DBL_AUTH` as your dbl api key to the `.env` file. And `yourdomain/dblwebhook` as a webhook url on top.gg's site settings. Example:  `https://yourbot.com/dblwebhook  
-
-
-**Replit**
-To run on replit you must install node js `v.16.9.1` to do so go to bash (the bash terminal on your repl) and paste: `npm init -y && npm i --save-dev node@16.9.0 && npm config set prefix=$(pwd)/node_modules/node && export PATH=$(pwd)/node_modules/node/bin:$PATH`
-
-Pease make sure you have enabled `Privileged Intents` on your Discord [developer portal](https://discordapp.com/developers/applications/). You can find these intents under the "Bot" section, and there are two ticks you have to switch on. For more information on Gateway Intents, check out [this](https://discordjs.guide/popular-topics/intents.html#the-intents-bit-field-wrapper) link.
-
-You can launch the bot with `npm start`
-
-**Important Note:** Before you join the support server for help, read the guide carefully.
-
-### Emojis
-
-- You can change the emojis in: <br>
-  1- `assets/emojis.json` <br>
-  2- `data/emoji.js`
-
-### Colors
-
-- You can change the colors in `data/colors.js`
-
-## License
-
-Released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) license.
-
-## Donate
-
-You can donate Pogy and make it stronger than ever [by clicking here](https://paypal.me/pogybot)!
-
-## Credits
-[Old Credits](https://github.com/peterhanania/pogy#credits)
-- Peter Hanania [DJS Rewrite] - [github.com/peterhanania](github.com/peterhanania)
-- JANO [DJS Rewrite] - [github.com/wlegit](github.com/wlegit)
+- पीटर हनानिया [डीजेएस पुनर्लेखन] - github.com/peterhanania
+- जानो [डीजेएस पुनर्लेखन] - github.com/wlegit
