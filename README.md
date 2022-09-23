@@ -8,6 +8,9 @@
 
 <h3 align=center>A fully customizable bot built with 147 commands, 11 categories and a dashboard using discord.js v13</h3>
 
+[README-hindi.md](/README-hi-HI.md)
+[README-polish](/README-pl-PL.md)
+
 <div align=center>
 
  <a href="https://github.com/mongodb/mongo">
