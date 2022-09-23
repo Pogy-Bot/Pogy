@@ -17,7 +17,7 @@
  <a href="https://github.com/mongodb/mongo">
     <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white" alt="mongo">
   </a>
-
+  
   <a href="https://github.com/discordjs">
     <img src="https://img.shields.io/badge/discord.js-v13.6.0-blue.svg?logo=npm" alt="discordjs">
   </a>
@@ -179,7 +179,6 @@ yourdomain/callback example https://pogy.xyz/callback or http://localhost:3000/c
 
 **TOP.gg**
 To add top.gg to your site, add `DBL_AUTH` as your dbl api key to the `.env` file. And `yourdomain/dblwebhook` as a webhook url on top.gg's site settings. Example:  `https://yourbot.com/dblwebhook
-
 
 **Replit**
 To run on replit you must install node js `v.16.9.1` to do so go to bash (the bash terminal on your repl) and paste: `npm init -y && npm i --save-dev node@16.9.0 && npm config set prefix=$(pwd)/node_modules/node && export PATH=$(pwd)/node_modules/node/bin:$PATH`
