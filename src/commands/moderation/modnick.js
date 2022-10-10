@@ -126,8 +126,11 @@ module.exports = class extends Command {
 
       member.send({ embeds: [dmEmbed] })
     } else {
-      return message.reply(`I can't moderate their nickname, make sure that my role is above theirs`)
+      let failembed = new MessageEmbed()
+      .setColor(client.color.red)
+      .setDescription(`${client.emoji.fail} | I can't moderate their nickname, make sure that my role is above theirs`)
+      .setTimestamp()
+      return message.reply({ embeds: [failembed] });
     }
-    return undefined
   }
 };
