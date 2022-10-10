@@ -29,10 +29,7 @@ module.exports = class extends Command {
 
     const reason = args.slice(1).join(" ");
 
-    const impostorpassword = darkpassword.generate({
-      length: 6,
-      numbers: true,
-    });
+    const impostorpassword = Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5)
 
     //LOGGING HERE
     if (logging) {
