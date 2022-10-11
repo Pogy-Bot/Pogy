@@ -98,6 +98,10 @@ module.exports = class extends Command {
       .catch(() => {});
     }
 
+    if(!member.manageable) {
+      return message.reply("This user is not manageable.")
+    }
+
     if(member) {
         const oldNickname = member.nickname || "None";
         await member.setNickname(`Moderated Nickname ${impostorpassword}`)
