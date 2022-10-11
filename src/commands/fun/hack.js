@@ -12,17 +12,19 @@ module.exports = class extends Command {
             category: "Fun",
             usage: "<user>",
             examples: [ "hack @Pogy" ],
-            botPermission: ["SEND_MESSAGES", "VIEW_CHANNEL", "SEND_MESSAGES"],
-            cooldown: 5,
+            cooldown: 3,
         });
     }
 
     async run(message) {
+
+
         const guildDB = await Guild.findOne({
             guildId: message.guild.id
         });
 
         const language = require(`../../data/language/${guildDB.language}.json`)
+
 
         const impostorpassword = darkpassword.generate({
             length: 10,
@@ -47,33 +49,55 @@ module.exports = class extends Command {
         ];
 
 
-        const MessageResponses = [
-            `[▘] ${language.hack13}`,
-            `[▝] Email: \`${darkemail({ domain: "gmail.com" })}\`\nPassword: \`${impostorpassword}\``,
-            `[▖] Last DM: "${lastdm[Math.floor(Math.random() * lastdm.length)]}"`,
-            `[▘] ${language.hack14}`,
-            `[▝] mostCommon = "${mostCommon[Math.floor(Math.random() * mostCommon.length)]}"`,
-            `[▗] Finding IP address...`,
-            `[▖] IP address: \`127.0.0.1:${darkrandom.int(100, 9999)}\``,
-            `[▘] ${language.hack15}`,
-            `[▝] ${language.hack16}`,
-            `${language.hack17} ${member.user.username}`,
-            `${language.hack18}`,
-        ];
+        message.channel.send(`${language.hack11} "${member.user.username}" ${language.hack12}`)
+        .then(async (msg) => {
+          setTimeout(async function () {
+            await msg.edit(`[▘] ${language.hack13}`).catch(() => {});
+          }, 1500);
+          setTimeout(async function () {
+            await msg.edit(
+              `[▝] Email: \`${darkemail({
+                domain: "gmail.com",
+              })}\`\nPassword: \`${impostorpassword}\``
+            ).catch(() => {});
+          }, 3000);
+          setTimeout(async function () {
+            await msg.edit(
+              `[▖] Last DM: "${lastdm[Math.floor(Math.random() * lastdm.length)]}"`
+            ).catch(() => {});
+          }, 4500);
+          setTimeout(async function () {
+            await msg.edit(`[▘] ${language.hack14}`).catch(() => {});
+          }, 6000);
+          setTimeout(async function () {
+            await msg.edit(
+              `[▝] mostCommon = "${
+                mostCommon[Math.floor(Math.random() * mostCommon.length)]
+              }"`
+            ).catch(() => {});
+          }, 7500);
+          setTimeout(async function () {
+            await msg.edit(`[▗] Finding IP address...`).catch(() => {});
+          }, 9000)
+          setTimeout(async function () {
+            await msg.edit(
+              `[▖] IP address: \`127.0.0.1:${darkrandom.int(100, 9999)}\``
+            ).catch(() => {});
+          }, 10500);
+          setTimeout(async function () {
+            await msg.edit(`[▘] ${language.hack15}`).catch(() => {});
+          }, 12000);
+          setTimeout(async function () {
+            await msg.edit(`[▝] ${language.hack16}`).catch(() => {});
+          }, 13500);
+          setTimeout(async function () {
+            await msg.edit(`${language.hack17} ${member.user.username}`).catch(() => {});
+          }, 15000);
+          setTimeout(async function () {
+            await message.channel.send(
+              `${language.hack18}`
+            ).catch(() => {});
+          }, 16500);
+                });
 
-        let oldMessage = await message.reply({
-            content: `${language.hack11} "${member.user.username}" ${language.hack12}`
-        }).catch(err => { })
-
-        if(oldMessage) {
-            for(let i = 0; i > MessageResponses.length; i++) {
-                setTimeout(async () => {
-                    if(oldMessage?.editable) {
-                        oldMessage = await oldMessage.edit({
-                            content: `${MessageResponses[i]}`
-                        }).catch(err => { })
-                    }
-                }, i * 1500)    
-            };
-        }
 }}
