@@ -1,12 +1,14 @@
-const { Client, Collection } = require("discord.js"); // discord.js required for main functions
-const Util = require("./src/structures/Util"); // Needed for utils, do not remove this important file or part of code.
-const config = require("./config.json"); // config.json, create new file called this with template code or rename the file
-const { status } = config; // used for activities to be shown
+const { Client, Collection } = require("discord.js");
+const Util = require("./src/structures/Util");
+const config = require("./config.json");
+const fs = require("node:fs");
+const path = require("node:path");
+const { status } = config;
 
 module.exports = class PogyClient extends Client {
   constructor(options = {}) {
     super({
-      partials: ["MESSAGE", "CHANNEL", "REACTION", "GUILD_MEMBER", "USER"], // partials for client, DO NOT EDIT.
+      partials: ["MESSAGE", "CHANNEL", "REACTION", "GUILD_MEMBER", "USER"],
       intents: [
         "GUILDS",
         "GUILD_MEMBERS",
@@ -15,24 +17,24 @@ module.exports = class PogyClient extends Client {
         "GUILD_MESSAGE_REACTIONS",
         "GUILD_VOICE_STATES",
         "GUILD_PRESENCES",
-      ], // intents required for client, DO NOT EDIT THESE.
+      ],
       allowedMentions: {
         parse: ["roles", "users", "everyone"],
         repliedUser: true,
       },
       presence: {
-        status: "online", // can be "online", "dnd", "idle"
+        status: "online",
         activities: [
           {
-            type: "WATCHING", // can be "WATCHING", "STREAMING" (url required for stream status), "PLAYING", or "LISTENING"
-            name: status, // must be a string
+            type: "WATCHING",
+            name: status,
           },
         ],
       },
     });
-    // main bot code, DO NOT EDIT.
     this.validate(options);
     this.botCommands = new Collection();
+    this.slashCommands = new Collection();
     this.botEvents = new Collection();
     this.aliases = new Collection();
     this.utils = require("./src/utils/utils.js");
