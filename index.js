@@ -1,11 +1,12 @@
 require("dotenv").config();
 const PogyClient = require("./Pogy");
 const config = require("./config.json");
-const fs = require("node:fs");
 const deploy = require("./src/deployCommands.js");
 const path = require("node:path");
 const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
+const fs = require("node:fs");
+const path = require("node:path");
 const Pogy = new PogyClient(config);
 
 const color = require("./src/data/colors");
