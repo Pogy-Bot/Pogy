@@ -3,16 +3,19 @@ const path = require("node:path");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 const { clientId } = require("../config.json")
+const { green } = require("colors");
 
 
 const commands = [];
-const commandsPath = path.join(__dirname, 'slashCommands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
+const commandFolders = fs.readdirSync("./src/slashCommands");
 
-for (const file of commandFiles) {
-  const filePath = path.join(commandsPath, file);
-  const command = require(filePath);
-  commands.push(command.data.toJSON());
+for(const folder of commandFolders) {
+  const commandFiles = fs.readdirSync(`./src/slashCommands/${folder}`).filter((file) => file.endsWith(".js"));
+
+  for(const file of commandFiles) {
+    const command = require(`./slashCommands/${folder}/${file}`);
+    commands.push(command.data.toJSON());
+  }
 }
 
 

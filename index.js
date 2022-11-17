@@ -19,13 +19,16 @@ const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
 
 client.slashCommands = new Collection();
-const commandsPath = path.join(__dirname, "src/slashCommands");
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
+const commandsFolders = fs.readdirSync("/src/slashCommands");
 
-for (const file of commandFiles) {
-  const filePath = path.join(commandsPath, file);
-  const slashCommand = require(filePath);
-  client.slashCommands.set(slashCommand.data.name, slashCommand);
+for (const folder of commandsFolders) {
+  const commandFiles = fs.readdirSync(`./src/slashCommands/${folder}`).filter((file) => file.endsWith(".js"));
+
+  for(const file of commandFiles) {
+    const slashCommand = require(`./src/slashCommands/${folder}/${file}`);
+    client.slashCommands.set(slashCommand.data.name, slashCommand);
+    Promise.resolve(command);
+  }
 }
 
 client.on('interactionCreate', async interaction => {
