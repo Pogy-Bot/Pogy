@@ -1,6 +1,7 @@
+
 <h1 align="center">
  <br>
-  <a href="https://github.com/peterhanania"><img src="https://pogy.xyz/thumbnail.png"></a>
+  <a href="https://github.com/peterhanania"><img src="https://dev.pogy.gg/favicon.ico"></a>
   <br>
   Pogy the Discord Bot [DJS V13]
  <br>
@@ -42,6 +43,9 @@
   •
   <a href="#credits">Credits</a>
 </p>
+
+## Community Updates
+[Pogy + Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
 
 ## About
 
@@ -113,7 +117,7 @@ Your `config.json` should follow
 - "dashboard": If you want to enable the website dashboard ["true" / "false"] (STRING),
 - "server": Your support server id [STRING],
 - "prefix": Your default bot prefix [STRING],
-  
+
 Webhooks
 - "logs": Webhook URL for command logs.,
 -  "maintenance_logs": Webhook URL for maintenance logs (if it gets triggered automatically),
@@ -176,9 +180,8 @@ AUTH CLIENT ID
 yourdomain/callback example https://pogy.xyz/callback or http://localhost:3000/callback
 
 
-**TOP.gg** 
-To add top.gg to your site, add `DBL_AUTH` as your dbl api key to the `.env` file. And `yourdomain/dblwebhook` as a webhook url on top.gg's site settings. Example:  `https://yourbot.com/dblwebhook  
-
+**TOP.gg**
+To add top.gg to your site, add `DBL_AUTH` as your dbl api key to the `.env` file. And `yourdomain/dblwebhook` as a webhook url on top.gg's site settings. Example:  `https://yourbot.com/dblwebhook
 
 **Replit**
 To run on replit you must install node js `v.16.9.1` to do so go to bash (the bash terminal on your repl) and paste: `npm init -y && npm i --save-dev node@16.9.0 && npm config set prefix=$(pwd)/node_modules/node && export PATH=$(pwd)/node_modules/node/bin:$PATH`
