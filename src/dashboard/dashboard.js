@@ -63,6 +63,21 @@ const port = process.env.PORT || 3000;
 const app = express();
 app.use(express.static("src/dashboard/static"));
 
+const {verify} = require("hcaptcha");
+
+const hcaptcha_secret = '';
+const token = '';
+
+verify(hcaptcha_secret, token)
+.then((data) => {
+  if (data.success === true) {
+    console.log("success!", data);
+  } else {
+    console.log("verification failed");
+  }
+})
+.catch(console.error);
+
 module.exports = async (client) => {
   const dataDir = path.resolve(`${process.cwd()}${path.sep}src/dashboard`);
   const templateDir = path.resolve(`${dataDir}${path.sep}templates`);
