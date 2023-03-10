@@ -72,6 +72,7 @@ module.exports = {
           })
           .catch(() => {});
       } else {
+        interaction.reply({ content: "Complete.", ephemeral: true })
         channel.bulkDelete(messages, true).then((messages) => {
           const embed = new MessageEmbed()
 
@@ -96,7 +97,7 @@ module.exports = {
           }
 
           interaction
-            .reply({ embeds: [embed] })
+            .channel.send({ embeds: [embed] })
             .then(async () => {
               if (logging && logging.moderation.delete_reply === "true") {
                 setTimeout(() => {
