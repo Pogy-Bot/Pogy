@@ -1,7 +1,7 @@
 
 <h1 align="center">
  <br>
-  <a href="https://github.com/peterhanania"><img src="https://pogy.xyz/thumbnail.png"></a>
+  <a href="https://github.com/peterhanania"><img src="https://dev.pogy.gg/favicon.ico"></a>
   <br>
   Pogy the Discord Bot [DJS V13]
  <br>
@@ -43,6 +43,9 @@
   •
   <a href="#credits">Credits</a>
 </p>
+
+## Community Updates
+[Pogy + Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
 
 ## About
 
