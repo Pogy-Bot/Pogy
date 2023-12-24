@@ -4,3 +4,4 @@ config.json
 node_modules
 .env
 package-lock.json
+src/data/users.json
