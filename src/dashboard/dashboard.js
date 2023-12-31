@@ -282,9 +282,9 @@ module.exports = async (client) => {
     }
   );
 
-  // Features list redirect endpoint.
+  // commands
   app.get("/commands", (req, res) => {
-    res.send("This feature is not yet available.");
+    renderTemplate(res, req, "commands.ejs"); // made comamnds page work
   });
 
   app.get("/color", (req, res) => {
