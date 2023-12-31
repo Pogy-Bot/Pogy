@@ -22,7 +22,7 @@ module.exports = class RankCommand extends Command {
 
   async run(message, args) {
     try {
-      const userData = require('Path to your data file'); // Load user data
+      const userData = require('replace with real  users.json file'); // Load user data
       const targetUser = message.mentions.users.first() || message.author;
       const user = userData.users[targetUser.id];
 
@@ -42,7 +42,7 @@ module.exports = class RankCommand extends Command {
       ctx.fillStyle = '#FFFFFF';
       ctx.font = 'bold 30px Arial';
       ctx.textAlign = "left";
-      ctx.fillText(targetUser.username, 260, 50);
+      ctx.fillText(targetUser.username, 260, 100);
 
       // Level
       ctx.font = 'bold 40px Arial';
