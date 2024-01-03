@@ -1,3 +1,5 @@
+const fs = require("node:fs");
+const path = require("node:path");
 const Profile = require("../database/models/economy/profile.js");
 /**
  * Capitalizes a string
@@ -33,6 +35,20 @@ function trimArray(arr, maxLen = 10) {
   }
   return arr;
 }
+
+module.exports.getAllFiles = function getAllFiles(dirPath, arrayOfFiles)
+  {
+    const files = fs.readdirSync(dirPath);
+
+    arrayOfFiles = arrayOfFiles || [];
+    files.forEach(function (file) {
+      if (fs.statSync(dirPath + "/" + file).isDirectory())
+        arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
+      else arrayOfFiles.push(path.join(dirPath, "/", file));
+    });
+
+    return arrayOfFiles;
+  };
 
 /**
  * Trims joined array to specified size

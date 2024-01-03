@@ -11,7 +11,7 @@ module.exports = {
   .setName("warnpurge")
   .setDescription("Warns a user and removes their messages")
   .addUserOption((option) => option.setName("member").setDescription("The member to warn").setRequired(true))
-  .addNumberOption((option) => option.setName("amount").setDescription("The amount of messages to purge").setRequired(true))
+  .addIntegerOption((option) => option.setName("amount").setDescription("The amount of messages to purge").setRequired(true))
   .addStringOption((option) => option.setName("reason").setDescription("The reason to warn the user")),
 
   async execute(interaction) {

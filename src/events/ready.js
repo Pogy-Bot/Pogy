@@ -12,15 +12,8 @@ module.exports = class extends Event {
   async run() {
     Message(this.client);
 
-    new Handler(this.client, {
-      commandFolder: "./src/slash",
-      commandType: "file",
-      allSlash: true,
-      handleSlash: true,
-    }); // Slash command handler, your choice if you want to remove this, best if you dont.
-
     logger.info(
-      `${this.client.user.tag} is ready to serve ${this.client.guilds.cache.size} guilds.`,
+      `${this.client.user.tag} is ready to serve ${this.client.guilds.cache.size} guilds with ${this.client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)} members.`,
       { label: "Ready" }
     );
 

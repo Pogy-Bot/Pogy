@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 const Logging = require("../../database/schemas/logging.js");
+let messageDisplay = "messages";
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -72,12 +73,16 @@ module.exports = {
           })
           .catch(() => {});
       } else {
-        interaction.reply({ content: "Complete.", ephemeral: true })
+        if(messages == 1) {
+          messageDisplay = "message";
+        } else {
+          messageDisplay = "messages";
+        }
         channel.bulkDelete(messages, true).then((messages) => {
           const embed = new MessageEmbed()
 
             .setDescription(
-              `${success} | Successfully deleted **${messages.size}** message(s)`
+              `${success} | Successfully deleted **${messages.size}** ${messageDisplay}`
             )
 
             .setColor(interaction.client.color.green);
@@ -97,15 +102,7 @@ module.exports = {
           }
 
           interaction
-            .channel.send({ embeds: [embed] })
-            .then(async () => {
-              if (logging && logging.moderation.delete_reply === "true") {
-                setTimeout(() => {
-                  interaction.deleteReply().catch(() => {});
-                }, 5000);
-              }
-            })
-            .catch(() => {});
+            .reply({ embeds: [embed], ephemeral: true });
         });
       }
     } catch (err) {

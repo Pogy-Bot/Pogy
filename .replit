@@ -1,2 +1,7 @@
 language = "nodejs"
 run = "npm start"
+
+hidden = [".config", "package-lock.json"]
+
+[nix]
+channel = "stable-22_11"

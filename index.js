@@ -6,7 +6,6 @@ const path = require("node:path");
 const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
-const path = require("node:path");
 const Pogy = new PogyClient(config);
 
 const color = require("./src/data/colors");
@@ -20,7 +19,7 @@ const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
 
 client.slashCommands = new Collection();
-const commandsFolders = fs.readdirSync("/src/slashCommands");
+const commandsFolders = fs.readdirSync("./src/slashCommands");
 
 for (const folder of commandsFolders) {
   const commandFiles = fs.readdirSync(`./src/slashCommands/${folder}`).filter((file) => file.endsWith(".js"));
@@ -28,7 +27,7 @@ for (const folder of commandsFolders) {
   for(const file of commandFiles) {
     const slashCommand = require(`./src/slashCommands/${folder}/${file}`);
     client.slashCommands.set(slashCommand.data.name, slashCommand);
-    Promise.resolve(command);
+    Promise.resolve(slashCommand);
   }
 }
 
