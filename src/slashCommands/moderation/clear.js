@@ -21,6 +21,7 @@ module.exports = {
       const amount = interaction.options.getString("amount")
       const member = interaction.options.getMember("member")
       const channel = interaction.options.getChannel("channel") || interaction.guild.channels.cache.get(interaction.channel.id);
+      interaction.deferReply({ ephemeral: true });
 
       if(amount < 0 || amount > 100) {
         let invalidamount = new MessageEmbed()
@@ -37,15 +38,7 @@ module.exports = {
           text: "https://mee8.ml/" 
         })
         .setColor(client.color.red)
-        return interaction.reply({ embeds: [invalidamount] })
-        .then(async () => {
-          if (logging && logging.moderation.delete_reply === "true") {
-            setTimeout(() => {
-              interaction.deleteReply().catch(() => {});
-            }, 5000)
-          }
-        })
-        .catch(() => {});
+        return interaction.editReply({ embeds: [invalidamount], ephemeral: true })
       }
 
       let messages;
@@ -56,7 +49,7 @@ module.exports = {
       } else messages = amount;
 
       if (messages.size === 0) {
-        interaction.reply({ embeds: [
+        interaction.editReply({ embeds: [
           new MessageEmbed()
           .setDescription(
             `
@@ -64,14 +57,9 @@ module.exports = {
             `
           )
           .setColor(interaction.client.color.red)
-        ]
+        ],
+        ephemeral: true
       })
-        .then(async () => {
-            setTimeout(() => {
-              interaction.deleteReply();
-            }, 10000);
-          })
-          .catch(() => {});
       } else {
         if(messages == 1) {
           messageDisplay = "message";
@@ -102,7 +90,7 @@ module.exports = {
           }
 
           interaction
-            .reply({ embeds: [embed], ephemeral: true });
+            .editReply({ embeds: [embed], ephemeral: true });
         });
       }
     } catch (err) {
