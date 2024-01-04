@@ -24,35 +24,39 @@ module.exports = {
   .setDescription("Emojify a text")
   .addStringOption((option) => option.setName("message").setDescription("The message to make big").setRequired(true)),
   async execute(interaction) {
-    const guildDB = await Guild.findOne({
-      guildId: interaction.guild.id,
-    });
-
-    const language = require(`../../data/language/${guildDB.language}.json`);
-
-    let text = interaction.options.getString("message")
-
-    if(!text) {
-      return interaction.reply({ content: `${language.emojify}` });
-    }
-
-    const emojified = text
-    .toString()
-    .toLowerCase()
-    .split("")
-    .map((letter) => {
-      if (/[a-z]/g.test(letter)) {
-        return `:regional_indicator_${letter}:`;
-      } else if (specialCodes[letter]) {
-        return `${specialCodes[letter]}`;
+    try {
+      const guildDB = await Guild.findOne({
+        guildId: interaction.guild.id,
+      });
+  
+      const language = require(`../../data/language/${guildDB.language}.json`);
+  
+      let text = interaction.options.getString("message")
+  
+      if(!text) {
+        return interaction.reply({ content: `${language.emojify}` });
       }
-      return letter;
-    })
-    .join("")
-    .replace(/,/g, " ");
-
-    interaction.reply({ content: emojified }).catch(() => {
-      interaction.reply({ content: `${language.emojifyError}` }).catch(() => {});
-    });
+  
+      const emojified = text
+      .toString()
+      .toLowerCase()
+      .split("")
+      .map((letter) => {
+        if (/[a-z]/g.test(letter)) {
+          return `:regional_indicator_${letter}:`;
+        } else if (specialCodes[letter]) {
+          return `${specialCodes[letter]}`;
+        }
+        return letter;
+      })
+      .join("")
+      .replace(/,/g, " ");
+  
+      interaction.reply({ content: emojified }).catch(() => {
+        interaction.reply({ content: `${language.emojifyError}` }).catch(() => {});
+      });
+    } catch {
+      interaction.reply({ content: `This command cannot be used in Direct Messages.`, ephemeral: true });
+    }
   }
 };

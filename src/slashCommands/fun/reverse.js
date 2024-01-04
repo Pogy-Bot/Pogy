@@ -8,12 +8,6 @@ module.exports = {
   .setDescription("Reverses a message")
   .addStringOption((option) => option.setName("message").setDescription("The message to reverse").setRequired(true)),
   async execute(interaction) {
-    const guildDB = await Guild.findOne({
-      guildId: interaction.guild.id,
-    });
-
-    const language = require(`../../data/language/${guildDB.language}.json`);
-
     const text = interaction.options.getString("message")
     const converted = text.split("").reverse().join("");
     interaction.reply({ embeds: [

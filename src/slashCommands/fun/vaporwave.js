@@ -8,12 +8,6 @@ module.exports = {
   .setDescription("Vaporwave a text")
   .addStringOption((option) => option.setName("message").setDescription("The message").setRequired(true)),
   async execute(interaction) {
-    const guildDB = await Guild.findOne({
-      guildId: interaction.guild.id,
-    });
-
-    const language = require(`../../data/language/${guildDB.language}.json`);
-
     const vaporwave = interaction.options.getString("message")
 
     const vaporwavefield = vaporwave.toString().split("").map((char) => {
