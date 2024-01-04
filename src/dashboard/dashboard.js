@@ -3164,6 +3164,7 @@ send
         return;
       }
 
+      let message;
       const checkEmoji = data.emoji;
 
       let emoji;
