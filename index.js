@@ -67,5 +67,3 @@ process.on("multipleResolves", (type, promise, reason) => {
   logger.info(`[multipleResolves] MULTIPLE RESOLVES`, { label: "ERROR" });
   console.log(type, promise, reason);
 });
-
-
