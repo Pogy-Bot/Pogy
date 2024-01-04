@@ -3164,31 +3164,6 @@ send
         return;
       }
 
-      let message;
-      if (data.messageID) {
-        try {
-          const emojimessage = await channel.messages.fetch(data.messageID);
-          message = emojimessage;
-        } catch {
-          renderTemplate(res, req, "./new/mainreactionroles.ejs", {
-            guild: guild,
-            alert: `Please Provide me with a valid message ID`,
-            emojiArray: EmojiArray,
-            settings: storedSettings,
-          });
-          return;
-        }
-      } else {
-        renderTemplate(res, req, "./new/mainreactionroles.ejs", {
-          guild: guild,
-          alert: `Please Provide me with a valid message ID`,
-          emojiArray: EmojiArray,
-          settings: storedSettings,
-        });
-
-        return;
-      }
-
       const checkEmoji = data.emoji;
 
       let emoji;
