@@ -376,6 +376,9 @@ module.exports = async (client) => {
   app.get("/premium", (req, res) => {
     renderTemplate(res, req, "premium.ejs");
   });
+  app.get("/changelog", (req, res) => {
+    renderTemplate(res, req, "changelog.ejs");
+  });
 
   // Index endpoint.
   app.get("/", (req, res) => {
