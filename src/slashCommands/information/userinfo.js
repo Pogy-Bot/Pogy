@@ -26,9 +26,13 @@ const flags = {
 
 module.exports = {
   data: new SlashCommandBuilder()
-  .setName("userinfo")
-  .setDescription("View the info of a user")
-  .addUserOption((option) => option.setName("member").setDescription("The member")),
+    .setName("userinfo")
+    .setDescription("View the info of a user")
+    .addUserOption((option) =>
+      option
+        .setName("member")
+        .setDescription("The member"),
+    ),
   async execute(interaction) {
     const guildDB = await Guild.findOne({
       guildId: interaction.guild.id,
@@ -38,7 +42,7 @@ module.exports = {
 
     let member = interaction.options.getMember("member") || interaction.member;
 
-    if(!member) {
+    if (!member) {
       try {
         member = await interaction.guild.members.fetch(member);
       } catch {
@@ -125,30 +129,37 @@ module.exports = {
     if (!member.roles.cache.size || member.roles.cache.size - 1 < 1)
       roles = `\`None\``;
     const embed = new MessageEmbed()
-    .setAuthor({
-      name: `${member.user.tag}`,
-      iconURL: member.user.displayAvatarURL({ dynamic: true })
-    })
-    .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-    .setFooter({ text: `ID: ${member.id}` })
-    .setTimestamp()
-    .setColor(member.displayHexColor)
-    .setDescription(
-      `**• ${language.userh}** \`${member.user.username}\` | \`#${
-        member.user.discriminator
-      }\`\n** • ID:** \`${member.id}\`\n**• ${
-        language.joinedDiscord
-      }** \`${moment(member.user.createdAt).format("MMMM Do YYYY, h:mm:ss a")}\`\n**• ${language.joinedServer}** \`${moment(member.joinedAt).format("MMMM Do YYYY, h:mm:ss a")}\`\n**• Roles [${roles.length || "0"}]: ** ${
-        rolesNoob || `\`${language.noRoles}\``
-      }\n\n**• ${language.badgeslmao}** ${userFlags.map((flag) => flags[flag]).join("\n") || `\`${language.noBadge}\``}\n**• ${language.botBadges}** ${
-        badge || `\`None\``
-      }\n**• Last 5 Nicknames:**\n\`\`\`${
-        nickname || `No Nicknames Tracked`
-      }\`\`\`**• Last 5 Tags:**\n\`\`\`${
-        usernames || `No Tags Tracked`
-      }\`\`\` `
-    );
+      .setAuthor({
+        name: `${member.user.tag}`,
+        iconURL: member.user.displayAvatarURL({ dynamic: true }),
+      })
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+      .setFooter({ text: `ID: ${member.id}` })
+      .setTimestamp()
+      .setColor(member.displayHexColor)
+      .setDescription(
+        `**• ${language.userh}** \`${member.user.username}\` | \`#${
+          member.user.discriminator
+        }\`\n** • ID:** \`${member.id}\`\n**• ${
+          language.joinedDiscord
+        }** \`${moment(member.user.createdAt).format(
+          "MMMM Do YYYY, h:mm:ss a",
+        )}\`\n**• ${language.joinedServer}** \`${moment(member.joinedAt).format(
+          "MMMM Do YYYY, h:mm:ss a",
+        )}\`\n**• Roles [${roles.length || "0"}]: ** ${
+          rolesNoob || `\`${language.noRoles}\``
+        }\n\n**• ${language.badgeslmao}** ${
+          userFlags.map((flag) => flags[flag]).join("\n") ||
+          `\`${language.noBadge}\``
+        }\n**• ${language.botBadges}** ${
+          badge || `\`None\``
+        }\n**• Last 5 Nicknames:**\n\`\`\`${
+          nickname || `No Nicknames Tracked`
+        }\`\`\`**• Last 5 Tags:**\n\`\`\`${
+          usernames || `No Tags Tracked`
+        }\`\`\` `,
+      );
 
-      interaction.reply({ embeds: [embed] });
-  }
+    interaction.reply({ embeds: [embed] });
+  },
 };
