@@ -4,8 +4,7 @@ config.json
 node_modules
 .env
 package-lock.json
-<<<<<<< HEAD
 src/data/users.json
-=======
+src/commands/utility/rank.js
 src/data/users.json
->>>>>>> 085f538 (few things)
+package-lock.json
