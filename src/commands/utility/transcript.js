@@ -2,6 +2,7 @@ const Command = require("../../structures/Command");
 const { MessageAttachment } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
+const discordTranscripts = require("@krayon/discord-html-transcripts");
 
 module.exports = class extends Command {
   constructor(...args) {
@@ -28,63 +29,75 @@ module.exports = class extends Command {
         return message.reply("Please provide a valid text channel.");
       }
 
-      // Fetch messages and generate transcript
-      const fetchedMessages = await channel.messages.fetch({ limit: 100 });
+      let fetchedMessages = await channel.messages.fetch({ limit: 100 });
+      let lastMessageID = fetchedMessages.lastKey();
+      let transcriptMessages = [];
 
-      // Handle undefined or non-iterable fetchedMessages
-      if (!fetchedMessages || !fetchedMessages.size) {
-        return message.reply("Error: No messages found in the channel.");
+      while (fetchedMessages.size > 0 && transcriptMessages.length < 1000) {
+        transcriptMessages.push(
+          ...fetchedMessages.map((msg) => ({
+            content: msg.content || "(No content)",
+            createdAt: msg.createdAt,
+            username: msg.author.username,
+          }))
+        );
+
+        fetchedMessages = await channel.messages.fetch({ limit: 100, before: lastMessageID });
+        lastMessageID = fetchedMessages.lastKey();
       }
 
-      const messages = fetchedMessages.map((msg) => {
-        return {
-          content: msg.content || "(No content)",
-          createdAt: msg.createdAt ? msg.createdAt.toUTCString() : "(No date)",
-          username: msg.author.username,
-        };
-      });
-
-      // Generate HTML content for transcript with usernames and Pogy-themed dark layout
-      const transcriptContent = messages.map((msg) => {
+      // Generate HTML content for transcript with dark-themed layout
+      const transcriptContent = transcriptMessages.map((msg) => {
         return `
           <div class="message-item">
-            <span class="timestamp">${msg.createdAt}</span>
-            <span class="username">${msg.username}</span>
-            <span class="message-content">${msg.content}</span>
+            <div class="message-header">
+              <span class="username">${msg.username}</span>
+              <span class="timestamp">${msg.createdAt}</span>
+            </div>
+            <div class="message-content">${msg.content}</div>
           </div>
         `;
       });
 
-      // HTML content with Pogy-themed dark styling for longer lines
       const htmlContent = `
-        <!DOCTYPE html>
-        <html lang="en">
+        <html>
           <head>
-            <title>Channel Transcript</title>
             <style>
               body {
-                background-color: #292b2f;
+                background-color: #36393f;
                 color: #fff;
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 20px;
               }
-              .message-item {
-                border-bottom: 1px solid #586265;
-                padding: 10px 0;
+              .transcript {
+                width: 80%;
+                margin: 20px auto;
               }
-              .timestamp {
-                color: #72767d;
-                margin-right: 10px;
+              .message-item {
+                border: 1px solid #586265;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                padding: 10px;
+                background-color: #2f3136;
+              }
+              .message-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 5px;
+                color: #7289da;
               }
               .username {
-                color: #7289da;
                 font-weight: bold;
-                margin-right: 5px;
+              }
+              .timestamp {
+                color: #b9bbbe;
               }
               .message-content {
-                margin-left: 5px;
+                white-space: pre-wrap;
                 word-wrap: break-word;
+                overflow-wrap: break-word;
               }
             </style>
           </head>
@@ -96,7 +109,7 @@ module.exports = class extends Command {
         </html>
       `;
 
-      // Create a temporary file for the HTML content
+      // Create temporary file
       const filePath = path.join(__dirname, "transcript.html");
       fs.writeFileSync(filePath, htmlContent);
 
@@ -105,9 +118,10 @@ module.exports = class extends Command {
         return message.reply("Error: Transcript file not found.");
       }
 
-      // Create and send the transcript file as an attachment
+      // Create and send attachment using MessageAttachment
       const attachment = new MessageAttachment(filePath, "transcript.html");
-      await message.channel.send({ content: "Transcript generated!", files: [attachment] });
+      const filePathToSend = attachment.path;
+      await message.channel.send({ content: "Transcript generated!", files: [filePathToSend] });
 
       // Delete temporary file
       fs.unlinkSync(filePath);
