@@ -40,7 +40,7 @@ module.exports = {
           .setTitle(`${fail} Set Nickname Error`)
           .setDescription("Please provide a valid user")
           .setTimestamp()
-          .setFooter({ text: "https://mee8.ml" })
+          .setFooter({ text: "https://Pogy.ml" })
           .setColor(client.color.red);
         return interaction
           .reply({ embeds: [usernotfound] })
@@ -63,7 +63,7 @@ module.exports = {
           .setTitle(`${fail} Set Nickname Error`)
           .setDescription("You can't change your own nickname!")
           .setTimestamp()
-          .setFooter({ text: "https://mee8.ml" })
+          .setFooter({ text: "https://Pogy.ml" })
           .setColor(client.color.red);
         return interaction
           .reply({ embeds: [setnickerror] })
@@ -91,7 +91,7 @@ module.exports = {
             "The provided user has either an equal or higher role.",
           )
           .setTimestamp()
-          .setFooter({ text: "https://mee8.ml" })
+          .setFooter({ text: "https://Pogy.ml" })
           .setColor(client.color.red);
         return interaction
           .reply({ embeds: [rolesmatch] })
@@ -157,7 +157,7 @@ module.exports = {
                   `Please ensure my role is above the provided user's role.`,
                 )
                 .setTimestamp()
-                .setFooter({ text: "https://mee8.ml/" })
+                .setFooter({ text: "https://Pogy.ml/" })
                 .setColor(client.color.red),
             ],
           });

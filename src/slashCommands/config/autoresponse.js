@@ -31,7 +31,7 @@ module.exports = {
       })
       .setDescription(`${language.properusage} \`${prefix}autoresponse <command-name> <text-reply>\`\n\n${language.example} \`${prefix}autoresponse ping pong\``)
       .setTimestamp()
-      .setFooter({ text: "https://mee8.ml/" })
+      .setFooter({ text: "https://Pogy.ml/" })
       .setColor(interaction.guild.me.displayHexColor)
       return interaction.reply({ embeds: [embed] })
       .then(async () => {
@@ -54,7 +54,7 @@ module.exports = {
       })
       .setDescription(`${language.properusage} \`${prefix}autoresponse <command-name> <text-reply>\`\n\n${language.example} \`${prefix}autoresponse ping pong\``)
       .setTimestamp()
-      .setFooter({ text: "https://mee8.ml/" })
+      .setFooter({ text: "https://Pogy.ml/" })
       .setColor(interaction.guild.me.displayHexColor)
       return interaction.reply({ embeds: [embed] })
       .then(async () => {
@@ -81,7 +81,7 @@ module.exports = {
           embeds: [
             new MessageEmbed()
             .setColor(interaction.guild.me.displayHexColor)
-            .setDescription(`${interaction.client.emoji.fail} | Auto Response Limit Reached **(10)**\n\n[Upgrade to Premium here for unlimited commands](https://mee8.ml/premium)`)
+            .setDescription(`${interaction.client.emoji.fail} | Auto Response Limit Reached **(10)**\n\n[Upgrade to Premium here for unlimited commands](https://Pogy.ml/premium)`)
           ], ephemeral: true
         });
 
@@ -105,7 +105,7 @@ module.exports = {
               })
               .setDescription(`**${language.cc3}** ${name}\n\nDelete the following auto response using \`${prefix}deleteresponse <command-name>\``)
               .setTimestamp()
-              .setFooter({ text: "https://mee8.ml" })
+              .setFooter({ text: "https://Pogy.ml" })
               .setColor(interaction.guild.me.displayHexColor),
             ], ephemeral: true
           });

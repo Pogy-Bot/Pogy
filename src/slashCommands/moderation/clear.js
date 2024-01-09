@@ -44,7 +44,7 @@ module.exports = {
           .setDescription(`Please Provide a message count between 1 - 100!`)
           .setTimestamp()
           .setFooter({
-            text: "https://mee8.ml/",
+            text: "https://Pogy.ml/",
           })
           .setColor(client.color.red);
         return interaction.editReply({

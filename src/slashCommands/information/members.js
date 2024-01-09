@@ -25,7 +25,7 @@ module.exports = {
       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
     })
     .setDescription(`${language.members2.replace(/{prefix}/g, `${prefix}`)}`)
-    .setFooter({ text: "https://mee8.ml/" })
+    .setFooter({ text: "https://Pogy.ml/" })
     .setColor(interaction.guild.me.displayHexColor);
 
     if(!role) return interaction.reply({ embeds: [embedValid] });

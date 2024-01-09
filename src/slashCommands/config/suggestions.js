@@ -24,7 +24,7 @@ module.exports = {
     let properUsage = new MessageEmbed()
     .setColor(interaction.client.color.red)
     .setDescription(`${language.suggesting7.replace(/{prefix}/g, `${prefix}`)}`)
-    .setFooter({ text: "https://mee8.ml" });
+    .setFooter({ text: "https://Pogy.ml" });
 
     if (option.length < 1) {
       return interaction.reply({ embeds: [properUsage] });
@@ -37,7 +37,7 @@ module.exports = {
           new MessageEmbed()
           .setColor(interaction.client.color.red)
           .setDescription(`${interaction.client.emoji.fail} | ${language.suggesting8}`)
-          .setFooter({ text: "https://mee8.ml" }),
+          .setFooter({ text: "https://Pogy.ml" }),
         ], ephemeral: true
       });
       await Guild.findOne(
@@ -53,7 +53,7 @@ module.exports = {
               new MessageEmbed()
               .setColor(interaction.client.color.green)
               .setDescription(`${interaction.client.emoji.success} | ${language.suggesting9}`)
-              .setFooter({ text: "https://mee8.ml" }),
+              .setFooter({ text: "https://Pogy.ml" }),
             ], ephemeral: true
           });
         }
@@ -69,7 +69,7 @@ module.exports = {
           new MessageEmbed()
           .setColor(interaction.client.color.red)
           .setDescription(`${fail} | ${channel} ${language.suggesting10}`)
-          .setFooter({ text: "https://mee8.ml" }),
+          .setFooter({ text: "https://Pogy.ml" }),
         ], ephemeral: true
       });
       await Guild.findOne(
@@ -99,7 +99,7 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ format: "png" })
             })
             .setDescription(`${fail} Staff can't approve or decline suggestions in this guild.`)
-            .setFooter({ text: "https://mee8.ml" })
+            .setFooter({ text: "https://Pogy.ml" })
             .setTimestamp()
             .setColor("RED"),
           ],
@@ -114,7 +114,7 @@ module.exports = {
             iconURL: interaction.user.displayAvatarURL({ format: "png" })
           })
           .setDescription(`${fail} | ${language.suggesting1}`)
-          .setFooter({ text: "https://mee8.ml" })
+          .setFooter({ text: "https://Pogy.ml" })
           .setTimestamp()
           .setColor("RED"),
         ], ephemeral: true
@@ -131,7 +131,7 @@ module.exports = {
             iconURL: interaction.user.displayAvatarURL({ format: "png" })
           })
           .setDescription(`${fail} | ${language.suggesting12}`)
-          .setFooter({ text: "https://mee8.ml" })
+          .setFooter({ text: "https://Pogy.ml" })
           .setTimestamp()
           .setColor("RED"),
         ],
@@ -147,7 +147,7 @@ module.exports = {
             iconURL: interaction.user.displayAvatarURL({ format: "png" })
           })
           .setDescription(`${fail} | ${language.suggesting12}`)
-          .setFooter({ text: "https://mee8.ml" })
+          .setFooter({ text: "https://Pogy.ml" })
           .setTimestamp()
           .setColor("RED"),
         ], ephemeral: true
@@ -164,7 +164,7 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ format: "png" })
             })
             .setDescription(`${fail} | ${language.suggesting13}`)
-            .setFooter({ text: "https://mee8.ml" })
+            .setFooter({ text: "https://Pogy.ml" })
             .setTimestamp()
             .setColor("RED"),
           ], ephemeral: true
@@ -184,7 +184,7 @@ module.exports = {
                 iconURL: interaction.user.displayAvatarURL({ format: "png" })
               })
               .setDescription(`${fail} | ${language.suggesting15}`)
-              .setFooter({ text: "https://mee8.ml" })
+              .setFooter({ text: "https://Pogy.ml" })
               .setTimestamp()
               .setColor("RED"),
             ], ephemeral: true
@@ -198,7 +198,7 @@ module.exports = {
                 iconURL: interaction.user.displayAvatarURL({ format: "png" })
               })
               .setDescription(`${fail} | ${language.suggesting16}`)
-              .setFooter({ text: "https://mee8.ml" })
+              .setFooter({ text: "https://Pogy.ml" })
               .setTimestamp()
               .setColor("RED"),
             ], ephemeral: true
@@ -219,7 +219,7 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ format: "png" })
             })
             .setDescription(`${fail} | ${language.suggesting17}`)
-            .setFooter({ text: "https://mee8.ml" })
+            .setFooter({ text: "https://Pogy.ml" })
             .setTimestamp()
             .setColor("RED"),
           ],
@@ -240,7 +240,7 @@ module.exports = {
             iconURL: interaction.user.displayAvatarURL({ format: "png" })
           })
           .setDescription(`${interaction.client.emoji.success} | ${language.suggesting20} ${channel}\n\n__**${language.reason}**__ ${acceptReason}`)
-          .setFooter({ text: "https://mee8.ml" })
+          .setFooter({ text: "https://Pogy.ml" })
           .setTimestamp()
           .setColor("GREEN"),
         ],
@@ -260,7 +260,7 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ format: "png" })
             })
             .setDescription(`${fail} | Staff con't approve or decline suggestions in this guild.`)
-            .setFooter({ text: "https://mee8.ml" })
+            .setFooter({ text: "https://Pogy.ml" })
             .setTimestamp()
             .setColor("RED"),
           ],
@@ -275,7 +275,7 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ format: "png" })
             })
             .setDescription(`${fail} | ${language.suggesting1}`)
-            .setFooter({ text: "https://mee8.ml" })
+            .setFooter({ text: "https://Pogy.ml" })
             .setTimestamp()
             .setColor("RED"),
           ],
@@ -292,7 +292,7 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ format: "png" })
             })
             .setDescription(`${fail} | ${language.suggesting2}`)
-            .setFooter({ text: "https://mee8.ml" })
+            .setFooter({ text: "https://Pogy.ml" })
             .setTimestamp()
             .setColor("RED"),
           ],
@@ -308,7 +308,7 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ format: "png" })
             })
             .setDescription(`${fail} | ${language.suggesting12}`)
-            .setFooter({ text: "https://mee8.ml" })
+            .setFooter({ text: "https://Pogy.ml" })
             .setTimestamp()
             .setColor("RED"),
           ],
@@ -325,7 +325,7 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ format: "png" })
             })
             .setDescription(`${fail} | ${language.suggesting13}`)
-            .setFooter({ text: "https://mee8.ml" })
+            .setFooter({ text: "https://Pogy.ml" })
             .setTimestamp()
             .setColor("RED"),
           ],
@@ -343,7 +343,7 @@ module.exports = {
                 iconURL: interaction.user.displayAvatarURL({ format: "png" })
               })
               .setDescription(`${fail} | ${language.suggesting15}`)
-              .setFooter({ text: "https://mee8.ml" })
+              .setFooter({ text: "https://Pogy.ml" })
               .setTimestamp()
               .setColor("RED"),
             ],
@@ -357,7 +357,7 @@ module.exports = {
                 iconURL: interaction.user.displayAvatarURL({ format: "png" })
               })
               .setDescription(`${fail} | ${language.suggesting16}`)
-              .setFooter({ text: "https://mee8.ml" })
+              .setFooter({ text: "https://Pogy.ml" })
               .setTimestamp()
               .setColor("RED"),
             ],
@@ -379,7 +379,7 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ format: "png" })
             })
             .setDescription(`${fail} | ${language.suggesting17}`)
-            .setFooter({ text: "https://mee8.ml" })
+            .setFooter({ text: "https://Pogy.ml" })
             .setTimestamp()
             .setColor("RED"),
           ],
@@ -394,7 +394,7 @@ module.exports = {
             iconURL: interaction.user.displayAvatarURL({ format: "png" })
           })
           .setDescription(`${interaction.client.emoji.success} | ${language.suggesting24} ${channel}\n\n__**${language.reason}**__ ${acceptReason}`)
-          .setFooter({ text: "https://mee8.ml" })
+          .setFooter({ text: "https://Pogy.ml" })
           .setTimestamp()
           .setColor("GREEN"),
         ],

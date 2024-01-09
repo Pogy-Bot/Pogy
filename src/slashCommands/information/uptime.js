@@ -5,7 +5,7 @@ const Guild = require("../../database/schemas/Guild");
 module.exports = {
   data: new SlashCommandBuilder()
   .setName("uptime")
-  .setDescription("Sends MEE8's uptime!"),
+  .setDescription("Sends Pogy's uptime!"),
   async execute(interaction) {
     const guildDB = await Guild.findOne({
       guildId: interaction.guild.id,
@@ -39,7 +39,7 @@ module.exports = {
     // const date = moment().subtract(days, 'ms').format('dddd, MMMM Do YYYY');
     const embed = new MessageEmbed()
     .setDescription(`${language.uptime1} \`${uptime}\`.`)
-    .setFooter({ text: `https://mee8.ml` })
+    .setFooter({ text: `https://Pogy.ml` })
     .setColor(interaction.guild.me.displayHexColor);
     interaction.reply({ embeds: [embed] });
   }

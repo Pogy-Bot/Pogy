@@ -49,7 +49,7 @@ module.exports = {
           })
           .setDescription(`${fail} | I can't view the provided channel!`)
           .setTimestamp()
-          .setFooter({ text: "https://mee8.ml/" })
+          .setFooter({ text: "https://Pogy.ml/" })
           .setColor(interaction.guild.me.displayHexColor);
         return interaction
           .reply({ embeds: [channelerror] })
@@ -74,7 +74,7 @@ module.exports = {
             `${fail} | Please provide a rate limit between 0 and 59 seconds`,
           )
           .setTimestamp()
-          .setFooter({ text: "https://mee8.ml/" })
+          .setFooter({ text: "https://Pogy.ml/" })
           .setColor(interaction.guild.me.displayHexColor);
         return interaction
           .reply({ embeds: [embed] })
@@ -99,7 +99,7 @@ module.exports = {
             `${fail} | Please provide a rate limit between 0 and 59 seconds`,
           )
           .setTimestamp()
-          .setFooter({ text: "https://mee8.ml/" })
+          .setFooter({ text: "https://Pogy.ml/" })
           .setColor(interaction.guild.me.displayHexColor);
         return interaction
           .reply({ embeds: [embed] })

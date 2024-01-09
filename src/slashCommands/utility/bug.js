@@ -10,7 +10,7 @@ const crypto = require("crypto");
 module.exports = {
   data: new SlashCommandBuilder()
   .setName("reportbug")
-  .setDescription("Report bugs to MEE8!")
+  .setDescription("Report bugs to Pogy!")
   .addStringOption((option) => option.setName("text").setDescription("The text").setRequired(true)),
   async execute(interaction) {
     const guildDB = await Guild.findOne({
@@ -87,13 +87,13 @@ module.exports = {
     .addField("Member", `${interaction.member}`, true)
     .addField("Message", `${report}`, true)
     .addField("Bug Report ID:", `#${id}`, true)
-    .setFooter({ text: "https://mee8.ml" })
+    .setFooter({ text: "https://Pogy.ml" })
     .setTimestamp()
     .setColor("GREEN");
 
     webhookClient.sendCustom({
-      username: "MEE8 Bug Report",
-      avatarURL: `https://mee8.ml/logo.png`,
+      username: "Pogy Bug Report",
+      avatarURL: `https://Pogy.ml/logo.png`,
       embeds: [embed],
     });
 

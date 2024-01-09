@@ -6,7 +6,7 @@ const ms = require("ms");
 module.exports = {
   data: new SlashCommandBuilder()
   .setName("vote")
-  .setDescription("MEE8s vote page"),
+  .setDescription("Pogys vote page"),
   async execute(interaction) {
     let user = await User.findOne({
       discordId: interaction.user.id
@@ -30,13 +30,13 @@ module.exports = {
     await interaction.reply({
       embeds: [
         new MessageEmbed()
-.setDescription(`__**discordbotlist.com**__\n${checkDBLVote ? `\`In ${ms(user.lastVoted - Date.now() + DBL_INTERVAL, { long: true })}\`` : "[`Available Now!`](https://discordbotlist.com/bots/mee8-3175)"}\n\n__**Rewards:**__\n`)
+.setDescription(`__**discordbotlist.com**__\n${checkDBLVote ? `\`In ${ms(user.lastVoted - Date.now() + DBL_INTERVAL, { long: true })}\`` : "[`Available Now!`](https://discordbotlist.com/bots/Pogy-3175)"}\n\n__**Rewards:**__\n`)
         .setAuthor({
           name: `${interaction.user.tag}`,
           iconURL: interaction.user.displayAvatarURL({ dynamic: true })
         })
         .setColor(interaction.guild.me.displayHexColor)
-        .setFooter({ text: "https://mee8.ml" })
+        .setFooter({ text: "https://Pogy.ml" })
         .setTimestamp(),
       ],
     });
