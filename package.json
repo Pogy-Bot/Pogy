@@ -7,21 +7,25 @@
   },
   "devDependencies": {
     "eslint": "^7.6.0",
-    "eslint-config-tesseract": "^0.0.3"
+    "eslint-config-tesseract": "^0.0.3",
+    "node": "^16.9.0"
   },
   "dependencies": {
-    "@krayon/discord-html-transcripts": "^2.8.3",
+    "@discordjs/builders": "^0.3.0",
+    "@discordjs/rest": "^0.3.0",
     "@top-gg/sdk": "^3.0.8",
+    "axios": "^1.5.0",
     "body-parser": "^1.19.0",
     "canvacord": "^5.0.8",
-    "canvas": "^2.9.3",
+    "canvas": "^2.11.2",
     "chalk": "^4.1.0",
+    "colors": "^1.4.0",
     "common-tags": "^1.8.0",
     "connect-mongo": "^4.4.1",
     "crypto": "^1.0.1",
     "datadog-metrics": "^0.8.2",
     "date-and-time": "^0.14.2",
-    "discord-canvas": "^1.5.2",
+    "discord-api-types": "^0.37.11",
     "discord-slash-command-handler": "^3.2.3",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.1",
@@ -64,5 +68,13 @@
   "author": "",
   "license": "ISC",
   "keywords": [],
-  "description": ""
+  "description": "<h1 align=\"center\">  <br>   <a href=\"https://github.com/peterhanania\"><img src=\"https://dev.pogy.gg/favicon.ico\"></a>   <br>   Pogy the Discord Bot [DJS V13]  <br> </h1>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eYuM-coder/Pogy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eYuM-coder/Pogy/issues"
+  },
+  "homepage": "https://github.com/eYuM-coder/Pogy#readme"
 }

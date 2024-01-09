@@ -14,6 +14,7 @@ const Strategy = require("./passport").Strategy;
 const premiumWeb = new Discord.WebhookClient({
   url: jsonconfig.webhooks.premium,
 });
+const send = require(`../packages/logs/index.js`);
 const ejs = require("ejs");
 const ShortUrl = require("../database/models/ShortUrl.js");
 const randoStrings = require("../packages/randostrings.js");
@@ -3211,15 +3212,6 @@ send
           });
           return;
         }
-      } else {
-        renderTemplate(res, req, "./new/mainreactionroles.ejs", {
-          guild: guild,
-          alert: `Please Provide me with a valid message ID`,
-          emojiArray: EmojiArray,
-          settings: storedSettings,
-        });
-
-        return;
       }
 
       const checkEmoji = data.emoji;
