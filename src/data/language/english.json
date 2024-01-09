@@ -154,7 +154,7 @@
 
 "managemessages":"Hey.. This feature is only available for members with **Manage Messages**",
 "notaccessible":"This channel is not accessible for me",
-"whatdoIsay":"Write that again, but provide me with a text!",
+"whatdoIsay":"Write that again, but provide me with text to say!",
 "sendmessages":"I do not have permission to send messages!",
 "userSendMessages":"You do not have permission to send message into the provided channel",
 "coiniflippedacoinfor":"I Flipped a Coin For",

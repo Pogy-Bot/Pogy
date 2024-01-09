@@ -24,11 +24,11 @@ module.exports = class extends Command {
     const text = args.join(" ");
     const converted = text.split("").reverse().join("");
     message.channel
-      .sendCustom(
-        new discord.MessageEmbed()
-          .setDescription(`\u180E${converted}`)
-          .setColor(message.client.color.blue)
-      )
-      .catch(() => {});
+    .sendCustom(
+      new discord.MessageEmbed()
+        .setDescription(`\u180E${converted}`)
+        .setColor(message.client.color.blue)
+    )
+    .catch(() => {});
   }
 };
