@@ -7,8 +7,7 @@
   },
   "devDependencies": {
     "eslint": "^7.6.0",
-    "eslint-config-tesseract": "^0.0.3",
-    "node": "^16.9.0"
+    "eslint-config-tesseract": "^0.0.3"
   },
   "dependencies": {
     "@discordjs/builders": "^0.3.0",
