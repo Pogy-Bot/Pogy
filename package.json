@@ -61,7 +61,8 @@
     "voucher-code-generator": "^1.1.1",
     "winston": "^3.3.3",
     "zalgo": "0.0.1",
-    "zalgolize": "^1.2.4"
+    "zalgolize": "^1.2.4",
+    "zlib": "^1.0.5"
   },
   "name": "pogy",
   "version": "1.0.0",
