@@ -12,6 +12,5 @@ channel = "stable-22_11"
 language = "nodejs"
 
 [deployment]
-deploymentTarget = "static"
-ignorePorts = false
-publicDir = "./"
+deploymentTarget = "cloudrun"
+run = ["sh", "-c", "npm run dev"]

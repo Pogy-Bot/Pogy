@@ -18,21 +18,78 @@ let client = Pogy;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
 
+function wait(seconds) {
+  const waitTime = seconds * 1000;
+  return new Promise(resolve => {
+    setTimeout(resolve, waitTime);
+  })
+}
+
+// Load user data from the JSON file
+const userData = require("./src/data/users.json");
+
+client.on("messageCreate", async (message) => {
+  if (message.author.bot) return;
+
+  const userId = message.author.id;
+  const guildId = message.guild.id;
+
+  // Check if the guild exists in userData, if not, initialize it
+  if (!userData.guilds[guildId]) {
+    userData.guilds[guildId] = {
+      users: {},
+    };
+  }
+
+  if (!userData.guilds[guildId].users[userId]) {
+    userData.guilds[guildId].users[userId] = {
+      xp: 0,
+      level: 1,
+    };
+  }
+
+  // Increment XP for the user in the specific guild
+  userData.guilds[guildId].users[userId].xp += Math.floor(Math.random() * 15) + 10;
+
+  const nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+
+  // Check for level-up logic
+  const xpNeededForNextLevel = userData.guilds[guildId].users[userId].level * nextLevelXP;
+  if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
+    userData.guilds[guildId].users[userId].level += 1;
+    message.channel.send(
+      `${message.author.username} has leveled up to level ${userData.guilds[guildId].users[userId].level}!`,
+    );
+  }
+
+  // Save updated data back to the JSON file
+  fs.writeFile(
+    "./src/data/users.json",
+    JSON.stringify(userData, null, 2),
+    (err) => {
+      if (err) console.error("Error writing file:", err);
+    },
+  );
+});
+
+
 client.slashCommands = new Collection();
 const commandsFolders = fs.readdirSync("./src/slashCommands");
 
 for (const folder of commandsFolders) {
-  const commandFiles = fs.readdirSync(`./src/slashCommands/${folder}`).filter((file) => file.endsWith(".js"));
+  const commandFiles = fs
+    .readdirSync(`./src/slashCommands/${folder}`)
+    .filter((file) => file.endsWith(".js"));
 
-  for(const file of commandFiles) {
+  for (const file of commandFiles) {
     const slashCommand = require(`./src/slashCommands/${folder}/${file}`);
     client.slashCommands.set(slashCommand.data.name, slashCommand);
     Promise.resolve(slashCommand);
   }
 }
 
-client.on('interactionCreate', async interaction => {
-  if(!interaction.isCommand()) return;
+client.on("interactionCreate", async (interaction) => {
+  if (!interaction.isCommand()) return;
 
   const slashCommand = client.slashCommands.get(interaction.commandName);
 
@@ -41,7 +98,10 @@ client.on('interactionCreate', async interaction => {
   try {
     await slashCommand.execute(interaction);
   } catch (error) {
-    await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+    await interaction.reply({
+      content: "There was an error while executing this command!",
+      ephemeral: true,
+    });
   }
 });
 
@@ -68,5 +128,3 @@ process.on("multipleResolves", (type, promise, reason) => {
   logger.info(`[multipleResolves] MULTIPLE RESOLVES`, { label: "ERROR" });
   console.log(type, promise, reason);
 });
-
-
