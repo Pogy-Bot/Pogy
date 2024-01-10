@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { MessageEmbed, MessageActionRow , MessageButton} = require('discord.js');
 const PogyClient = require("./Pogy");
 const config = require("./config.json");
 const deploy = require("./src/deployCommands.js");
@@ -39,6 +40,23 @@ client.on('messageCreate', message => {
     userData.users[userId].background = 'https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg'; // Replace with your default background URL
   }
 
+  const levelbed = new MessageEmbed()
+    .setColor(color.blue)
+    .setTitle('Level Up!')
+    .setAuthor(message.author.username, message.author.displayAvatarURL())
+    .setDescription(`You have reached level ${userData.users[userId].level}!`)
+    .setFooter(`XP: ${userData.users[userId].xp}/${userData.users[userId].level * 75}`)
+    
+  const row = new MessageActionRow().addComponents(
+
+    new MessageButton()
+      .setCustomId('levelup')
+      .setLabel('Level Up')
+      .setStyle('SUCCESS')
+
+  )
+
+
   // Increment XP for the user
   userData.users[userId].xp += 1;
 
@@ -46,9 +64,9 @@ client.on('messageCreate', message => {
   const xpNeededForNextLevel = userData.users[userId].level * 75;
   if (userData.users[userId].xp >= xpNeededForNextLevel) {
     userData.users[userId].level += 1;
-    message.channel.send(`${message.author.username} has leveled up to level ${userData.users[userId].level}!`);
+    message.channel.send({embeds : [levelbed]});
   }
-
+ 
   // Save updated data back to the JSON file
   fs.writeFile('./src/data/users.json', JSON.stringify(userData, null, 2), err => {
     if (err) console.error('Error writing file:', err);
