@@ -3,8 +3,6 @@ src/assets/logs/Pogy.log
 config.json
 node_modules
 .env
-package-lock.json
 src/data/users.json
-package.json
 .replit
 replit.nix
