@@ -18,18 +18,25 @@ let client = Pogy;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
 
+
 // Load user data from the JSON file
 let userData = require('./src/data/users.json');
 
 client.on('messageCreate', message => {
   if (message.author.bot) return;
 
-  const userId = message.author.id;
+  const userId = message.author.id; // Define userId here
   if (!userData.users[userId]) {
     userData.users[userId] = {
       xp: 0,
-      level: 1
+      level: 1,
+      username: message.author.username // Save the username in the userData
     };
+  }
+
+  // If the background URL is not set, save it
+  if (!userData.users[userId].background) {
+    userData.users[userId].background = 'https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg'; // Replace with your default background URL
   }
 
   // Increment XP for the user
@@ -47,6 +54,7 @@ client.on('messageCreate', message => {
     if (err) console.error('Error writing file:', err);
   });
 });
+
 client.slashCommands = new Collection();
 const commandsFolders = fs.readdirSync("./src/slashCommands");
 
