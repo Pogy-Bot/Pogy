@@ -12,7 +12,6 @@ const Pogy = new PogyClient(config);
 const { Distube } = require('distube');
 const { Player } = require('discord-player');
 const color = require("./src/data/colors");
-const buttonHandler = require('./src/handlers/button.js');
 Pogy.color = color;
 
 const emoji = require("./src/data/emoji");
@@ -66,31 +65,6 @@ client.on('messageCreate', message => {
     }
 });
 
-const moreinfo = new MessageEmbed()
-  .setColor(color.blue)
-  .setTitle('More Info')
-  .setURL("https://pogy.xyz/invite")
-  .setThumbnail(message.client.user.displayAvatarURL())
-  .setDescription("Pogy is a music bot with a lot of features. You can invite Pogy to your server by clicking the button below")
-client.on('interactionCreate', async interaction => {
-  if (!interaction.isButton()) return;
-
-  try {
-      if (interaction.customId === 'support') {
-          await interaction.reply({ embeds: [moreinfo] });
-      } else if (interaction.customId === 'button2') {
-          // Perform different actions for button 2
-
-          /// this isnt done yet just commiting
-      } else {
-          await interaction.reply('Unknown button clicked.');
-      }
-  } catch (error) {
-      console.error('Error handling button interaction:', error);
-      await interaction.reply({ content: 'An error occurred.', ephemeral: true });
-  }
-});
-
 
   // Increment XP for the user
   userData.users[userId].xp += 1;
@@ -137,12 +111,46 @@ client.on('interactionCreate', async interaction => {
 
 // mem leak fix
 client.setMaxListeners(20);
+/* 
+  This is where you should add all button handler stuff
+  this is the first one i have added
+*/
+const moreinfo = new MessageEmbed()
+  .setColor(color.blue)
+  .setTitle('More Info')
+  .setURL("https://pogy.xyz/invite")
+  .setDescription("Pogy is a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below")
+  .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
+  .addField("Invite Pogy", "https://pogy.xyz/invite")
+  .addField("Support Server", "https://discord.gg/pogy")
+  .addField("Vote Pogy", "https://top.gg/bot/880243836830652958/vote")
 
-client.on('interactionCreate', async (interaction) => {
-  if (interaction.isButton()) {
-    buttonHandler.handleButton(interaction);
+  const invitebutton = new MessageActionRow()
+  .addComponents(
+    new MessageButton()
+      .setLabel("Invite Pogy")
+      .setStyle("LINK")
+      .setURL("https://pogy.xyz/invite"),
+  )
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isButton()) return;
+
+  try {
+      if (interaction.customId === 'support') {
+          await interaction.reply({ embeds: [moreinfo], components: [invitebutton] });
+      } else if (interaction.customId === 'button2') {
+          await interaction.reply({ content: 'Button 2 clicked!', ephemeral: true });
+          
+      } else {
+          await interaction.reply('Unknown button clicked.');
+      }
+  } catch (error) {
+      console.error('Error handling button interaction:', error);
+      await interaction.reply({ content: 'An error occurred.', ephemeral: true });
   }
 });
+// End button stuff
+
 
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
