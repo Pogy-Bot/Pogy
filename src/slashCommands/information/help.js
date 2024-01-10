@@ -65,7 +65,7 @@ module.exports = {
     );
 
     let embed = new MessageEmbed()
-    .setTitle(`MEE8's slash commands`)
+    .setTitle(`Pogy's slash commands`)
     .setDescription(`Choose a category from the list below`)
     .addFields(
       { name: `${emojis.config} Config`, value: "Config Category", inline: true },
@@ -74,7 +74,7 @@ module.exports = {
       { name: `${emojis.moderation} Moderation`, value: "Moderation Category", inline: true },
       { name: `${emojis.owner} Owner`, value: "Owner Category", inline: true },
       { name: `${emojis.utility} Utility`, value: "Utility Category", inline: true },
-      { name: "\u200b", value: "**[Invite](https://invite.mee8.ml) | " + "[Support Server](https://mee8.ml/support) | " + "[Dashboard](https://mee8.ml/dashboard)**" }
+      { name: "\u200b", value: "**[Invite](https://invite.Pogy.ml) | " + "[Support Server](https://Pogy.ml/support) | " + "[Dashboard](https://Pogy.ml/dashboard)**" }
     )
     .setColor("GREEN")
     .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
@@ -82,7 +82,7 @@ module.exports = {
     
     let editEmbed = new MessageEmbed()
       .addFields(
-          { name: "\u200b", value: "**[Invite](https://invite.mee8.ml) | " + "[Support Server](https://mee8.ml/support) | " + "[Dashboard](https://mee8.ml/dashboard)**" }
+          { name: "\u200b", value: "**[Invite](https://invite.Pogy.ml) | " + "[Support Server](https://Pogy.ml/support) | " + "[Dashboard](https://Pogy.ml/dashboard)**" }
         )
       .setTimestamp();
 

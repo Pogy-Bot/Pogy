@@ -45,6 +45,8 @@
 </p>
 
 ## Community Updates
+[Pogy + More dashboard pages and commands by Hotsuop](https://github.com/hotsu0p/Pogy)
+
 [Pogy + Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
 
 ## About
@@ -206,11 +208,15 @@ You can launch the bot with `npm start`
 
 Released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) license.
 
+## Support
+[Click here for the support server](https://v2.pogy.xyz/support)
+
 ## Donate
 
 You can donate Pogy and make it stronger than ever [by clicking here](https://paypal.me/pogybot)!
 
 ## Credits
 [Old Credits](https://github.com/peterhanania/pogy#credits)
-- Peter Hanania [DJS Rewrite] - [github.com/peterhanania](github.com/peterhanania)
-- JANO [DJS Rewrite] - [github.com/wlegit](github.com/wlegit)
+- Peter Hanania [DJS Rewrite] - [github.com/peterhanania](https://github.com/peterhanania)
+- JANO [DJS Rewrite] - [github.com/wlegit](https://github.com/wlegit)
+- Hotsuop [Added commands & Commands] - [https://github.com/hotsu0p](https://github.com/hotsu0p)

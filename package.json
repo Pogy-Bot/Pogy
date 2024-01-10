@@ -71,10 +71,10 @@
   "description": "<h1 align=\"center\">  <br>   <a href=\"https://github.com/peterhanania\"><img src=\"https://dev.pogy.gg/favicon.ico\"></a>   <br>   Pogy the Discord Bot [DJS V13]  <br> </h1>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eYuM-coder/MEE8.git"
+    "url": "git+https://github.com/eYuM-coder/Pogy.git"
   },
   "bugs": {
-    "url": "https://github.com/eYuM-coder/MEE8/issues"
+    "url": "https://github.com/eYuM-coder/Pogy/issues"
   },
-  "homepage": "https://github.com/eYuM-coder/MEE8#readme"
+  "homepage": "https://github.com/eYuM-coder/Pogy#readme"
 }

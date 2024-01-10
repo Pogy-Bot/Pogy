@@ -17,7 +17,7 @@ module.exports = {
         const embed = new MessageEmbed()
         .setDescription(`Pinging...`)
         .setColor(client.color.red)
-        .setFooter({ text: `Powered by https://mee8.ml/` });
+        .setFooter({ text: `Powered by https://Pogy.ml/` });
 
         const msg = await interaction.reply({ embeds: [embed], fetchReply: true });
 

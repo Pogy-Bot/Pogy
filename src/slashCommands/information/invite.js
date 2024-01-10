@@ -5,7 +5,7 @@ const Guild = require("../../database/schemas/Guild");
 module.exports = {
   data: new SlashCommandBuilder()
   .setName("invite")
-  .setDescription("Sends you the invite to MEE8's support server or the bots invite"),
+  .setDescription("Sends you the invite to Pogy's support server or the bots invite"),
   async execute(interaction) {
     const guildDB = await Guild.findOne({
       guildId: interaction.guild.id,

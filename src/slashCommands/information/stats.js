@@ -86,7 +86,7 @@ module.exports = {
       { name: `${language.pogyTeam}`, value: `\`\`\`css\n${devs}\`\`\``, inline: true },
       { name: `${language.pogyStats}`, value: `\`\`\`css\n${serverStats}\`\`\``}
     )
-    .setFooter({ text: `https://mee8.ml` })
+    .setFooter({ text: `https://Pogy.ml` })
     .setTimestamp()
     .setColor(interaction.guild.me.displayHexColor);
     interaction.reply({ embeds: [embed] });

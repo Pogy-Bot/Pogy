@@ -28,7 +28,7 @@ module.exports = {
         })
         .setDescription(`${language.properusage} \`${prefix}deletecommand <command-name>\`\n\n${language.example} \`${prefix}deletecommand pog\``)
         .setTimestamp()
-        .setFooter({ text: "https://mee8.ml" }),
+        .setFooter({ text: "https://Pogy.ml" }),
       ],
     })
     .setColor(interaction.guild.me.displayHexColor);
@@ -53,7 +53,7 @@ module.exports = {
               .setTitle(`${interaction.client.emoji.success} Delete Command`)
               .setDescription(`${language.deletecmd1} **${name}**`)
               .setTimestamp()
-              .setFooter({ text: "https://mee8.ml" }),
+              .setFooter({ text: "https://Pogy.ml" }),
             ],
           });
         } else {

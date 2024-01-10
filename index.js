@@ -18,6 +18,7 @@ let client = Pogy;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
 
+<<<<<<< HEAD
 function wait(seconds) {
   const waitTime = seconds * 1000;
   return new Promise(resolve => {
@@ -73,6 +74,37 @@ client.on("messageCreate", async (message) => {
 });
 
 
+=======
+// Load user data from the JSON file
+let userData = require('./src/data/users.json');
+
+client.on('messageCreate', message => {
+  if (message.author.bot) return;
+
+  const userId = message.author.id;
+  if (!userData.users[userId]) {
+    userData.users[userId] = {
+      xp: 0,
+      level: 1
+    };
+  }
+
+  // Increment XP for the user
+  userData.users[userId].xp += 1;
+
+  // Check for level-up logic
+  const xpNeededForNextLevel = userData.users[userId].level * 75;
+  if (userData.users[userId].xp >= xpNeededForNextLevel) {
+    userData.users[userId].level += 1;
+    message.channel.send(`${message.author.username} has leveled up to level ${userData.users[userId].level}!`);
+  }
+
+  // Save updated data back to the JSON file
+  fs.writeFile('./src/data/users.json', JSON.stringify(userData, null, 2), err => {
+    if (err) console.error('Error writing file:', err);
+  });
+});
+>>>>>>> 1fb43df5c22729642c114bf11fa5beaf5d965ff1
 client.slashCommands = new Collection();
 const commandsFolders = fs.readdirSync("./src/slashCommands");
 
@@ -127,4 +159,8 @@ process.on("uncaughtExceptionMonitor", (err, origin) => {
 process.on("multipleResolves", (type, promise, reason) => {
   logger.info(`[multipleResolves] MULTIPLE RESOLVES`, { label: "ERROR" });
   console.log(type, promise, reason);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 1fb43df5c22729642c114bf11fa5beaf5d965ff1

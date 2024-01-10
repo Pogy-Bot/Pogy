@@ -45,7 +45,7 @@ module.exports = {
     let properUsage = new MessageEmbed()
     .setColor(interaction.guild.me.displayHexColor)
     .setDescription(`${language.tempvc1.replace(/{prefix}/g, `${prefix}`)}`)
-    .setFooter({ text: "https://mee8.ml" });
+    .setFooter({ text: "https://Pogy.ml" });
 
     if (toggle.length < 1) {
       return interaction.reply({ embeds: [properUsage] });
@@ -62,7 +62,7 @@ module.exports = {
           .setTitle(`${fail} | ${language.missingUser}`)
           .setDescription(`${language.tempvc2}`)
           .setTimestamp()
-          .setFooter({ text: "https://mee8.ml" }),
+          .setFooter({ text: "https://Pogy.ml" }),
         ],
       })
       .setColor(interaction.guild.me.displayHexColor);
@@ -72,7 +72,7 @@ module.exports = {
           new MessageEmbed()
           .setColor(interaction.client.color.red)
           .setDescription(`${interaction.client.emoji.fail} | ${language.tempvc3}`)
-          .setFooter({ text: "https://mee8.ml" }),
+          .setFooter({ text: "https://Pogy.ml" }),
         ],
       });
       await Vc.findOne(
@@ -110,7 +110,7 @@ module.exports = {
               new MessageEmbed()
               .setColor(interaction.client.color.green)
               .setDescription(`${interaction.client.emoji.success} | ${language.tempvc4}`)
-              .setFooter({ text: "https://mee8.ml" }),
+              .setFooter({ text: "https://Pogy.ml" }),
             ], ephemeral: true
           });
         }
@@ -127,7 +127,7 @@ module.exports = {
           .setTitle(`${fail} ${language.missingUser}`)
           .setDescription(`${language.tempvc2}`)
           .setTimestamp()
-          .setFooter({ text: "https://mee8.ml" }),
+          .setFooter({ text: "https://Pogy.ml" }),
         ], ephemeral: true
       })
       .setColor(interaction.guild.me.displayHexColor);
@@ -146,7 +146,7 @@ module.exports = {
         setTimeout(async () => {
           if (!category) {
             await embed.setDescription(`**${language.tempvc7}**`)
-            .setFooter({ text: `MEE8 v2.5` })
+            .setFooter({ text: `Pogy v2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] }) + interaction.guild.channels.create(`Join to Create`, {
               type: "GUILD_CATEGORY",
@@ -164,7 +164,7 @@ module.exports = {
             return;
           } else {
             embed.setDescription(`**${language.tempvc8}**\n\nID: ${category.id}`)
-            .setFooter({ text: `MEE8 v2.5` })
+            .setFooter({ text: `Pogy v2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] });
           }
@@ -175,7 +175,7 @@ module.exports = {
         setTimeout(async () => {
           if (!voice) {
             await embed.setDescription(`**${language.tempvc9}**`)
-            .setFooter({ text: `MEE8 v2.5` })
+            .setFooter({ text: `Pogy v2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] }) + interaction.guild.channels.create("Join to create", {
               type: "GUILD_VOICE",
@@ -198,7 +198,7 @@ module.exports = {
             return;
           } else {
             embed.setDescription(`**${language.tempvc10}**\n\nID: ${voice.id}`)
-            .setFooter({ text: `MEE8 v2.5` })
+            .setFooter({ text: `Pogy v2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] })
           }
@@ -208,7 +208,7 @@ module.exports = {
           if (!voice || !category) {
             embed.setAuthor(`Setup Fail`)
             .setDescription(`${language.tempvc11.replace(/{prefix}/g, `${prefix}`)}`)
-            .setFooter({ text: `MEE8 v2.5` })
+            .setFooter({ text: `Pogy v2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] });
             await Vc.findOne(
@@ -243,9 +243,9 @@ module.exports = {
             })
             .catch(() => {});
             voice.setParent(category.id);
-            embed.setAuthor(`${language.tempvc12}`, `https://mee8.ml/logo.png`, `${channelInv}`)
+            embed.setAuthor(`${language.tempvc12}`, `https://Pogy.ml/logo.png`, `${channelInv}`)
             .setDescription(`**${language.tempvc13}** ${category.name}\n**${language.tempvc13} ID:** ${category.id}\n\n**${language.tempvc14}** ${voice.name}\n**${language.tempvc14} ID:** ${voice.id}\n\n${language.tempvc15} \`${prefix}tempvc off\``)
-            .setFooter({ text: `MEE8 v2.5` })
+            .setFooter({ text: `Pogy v2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] });
             if (channelInv && channelVoice)
