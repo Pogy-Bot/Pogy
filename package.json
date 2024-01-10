@@ -13,6 +13,7 @@
   "dependencies": {
     "@discordjs/builders": "^0.3.0",
     "@discordjs/rest": "^0.3.0",
+    "@discordjs/voice": "^0.16.1",
     "@top-gg/sdk": "^3.0.8",
     "axios": "^1.5.0",
     "body-parser": "^1.19.0",
@@ -26,8 +27,10 @@
     "datadog-metrics": "^0.8.2",
     "date-and-time": "^0.14.2",
     "discord-api-types": "^0.37.11",
+    "discord-player": "^6.6.7",
     "discord-slash-command-handler": "^3.2.3",
     "discord.js": "^13.6.0",
+    "distube": "^4.1.1",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.6",
     "express": "^4.17.1",

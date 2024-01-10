@@ -1,5 +1,6 @@
 const Command = require("../../structures/Command");
 const { createCanvas, loadImage } = require('canvas');
+const { MessageAttachment, MessageActionRow, MessageButton } = require("discord.js");
 const Discord = require("discord.js");
 const userData = require('/home/vboxuser/Pogy-1/src/data/users.json');
 
@@ -83,7 +84,7 @@ module.exports = class RankCommand extends Command {
       ctx.roundRect(200, 250, progressWidth, 15, 7, true, false);
 
       const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank.png');
-      message.channel.send({ files: [attachment] });
+      message.channel.send({ files: [attachment]});
     } catch (error) {
       console.error("Error occurred:", error);
       message.reply('An error occurred while generating the rank card.');

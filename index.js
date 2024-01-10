@@ -1,3 +1,4 @@
+// Imports lol
 require("dotenv").config();
 const { MessageEmbed, MessageActionRow , MessageButton} = require('discord.js');
 const PogyClient = require("./Pogy");
@@ -8,8 +9,10 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
-
+const { Distube } = require('distube');
+const { Player } = require('discord-player');
 const color = require("./src/data/colors");
+const buttonHandler = require('./src/handlers/button.js');
 Pogy.color = color;
 
 const emoji = require("./src/data/emoji");
@@ -18,7 +21,7 @@ Pogy.emoji = emoji;
 let client = Pogy;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
-
+// end imports
 
 // Load user data from the JSON file
 let userData = require('./src/data/users.json');
@@ -55,6 +58,38 @@ client.on('messageCreate', message => {
       .setStyle('SUCCESS')
 
   )
+  client.on('interactionCreate', async interaction => {
+    if (!interaction.isButton()) return;
+
+    if (interaction.customId === 'levelup') { // Assuming this is the correct customId
+        await interaction.reply('Button clicked!');
+    }
+});
+
+const moreinfo = new MessageEmbed()
+  .setColor(color.blue)
+  .setTitle('More Info')
+  .setURL("https://pogy.xyz/invite")
+  .setThumbnail(message.client.user.displayAvatarURL())
+  .setDescription("Pogy is a music bot with a lot of features. You can invite Pogy to your server by clicking the button below")
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isButton()) return;
+
+  try {
+      if (interaction.customId === 'support') {
+          await interaction.reply({ embeds: [moreinfo] });
+      } else if (interaction.customId === 'button2') {
+          // Perform different actions for button 2
+
+          /// this isnt done yet just commiting
+      } else {
+          await interaction.reply('Unknown button clicked.');
+      }
+  } catch (error) {
+      console.error('Error handling button interaction:', error);
+      await interaction.reply({ content: 'An error occurred.', ephemeral: true });
+  }
+});
 
 
   // Increment XP for the user
@@ -64,7 +99,7 @@ client.on('messageCreate', message => {
   const xpNeededForNextLevel = userData.users[userId].level * 75;
   if (userData.users[userId].xp >= xpNeededForNextLevel) {
     userData.users[userId].level += 1;
-    message.channel.send({embeds : [levelbed]});
+    message.channel.send({embeds : [levelbed], components : [row]});
   }
  
   // Save updated data back to the JSON file
@@ -97,6 +132,15 @@ client.on('interactionCreate', async interaction => {
     await slashCommand.execute(interaction);
   } catch (error) {
     await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+  }
+});
+
+// mem leak fix
+client.setMaxListeners(20);
+
+client.on('interactionCreate', async (interaction) => {
+  if (interaction.isButton()) {
+    buttonHandler.handleButton(interaction);
   }
 });
 
