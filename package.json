@@ -7,7 +7,8 @@
   },
   "devDependencies": {
     "eslint": "^7.6.0",
-    "eslint-config-tesseract": "^0.0.3"
+    "eslint-config-tesseract": "^0.0.3",
+    "node": "^16.9.0"
   },
   "dependencies": {
     "@discordjs/builders": "^0.3.0",
@@ -16,7 +17,7 @@
     "axios": "^1.5.0",
     "body-parser": "^1.19.0",
     "canvacord": "^5.0.8",
-    "canvas": "^2.11.2",
+    "canvas": "^2.9.3",
     "chalk": "^4.1.0",
     "colors": "^1.4.0",
     "common-tags": "^1.8.0",
