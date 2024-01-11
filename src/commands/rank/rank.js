@@ -4,11 +4,15 @@ const Discord = require("discord.js");
 const userData = require('../../data/users.json');
 
 // Calculate the required XP for a certain level
-function calculateRequiredXP(level, guildId, userId) {
+function calculateRequiredXP(level) {
   const baseXP = 75;
   const increment = level * 75;
-  const xpNeeded = (userData.guilds[guildId].users[userId].level - 1) * increment
-  return baseXP + xpNeeded;
+  const xpNeeded = (level) * increment;
+  if(level === 0) {
+    return baseXP + xpNeeded;
+  } else {
+    return xpNeeded;
+  }
 }
 
 module.exports = class RankCommand extends Command {
@@ -54,8 +58,8 @@ module.exports = class RankCommand extends Command {
       const levelText = `Level ${user.level}`;
       ctx.fillText(levelText, 700, 100);
 
-      const requiredXPForCurrentLevel = calculateRequiredXP(user.level, guild.id, targetUser.id);
-      const requiredXPForNextLevel = calculateRequiredXP(user.level + 1, guild.id, targetUser.id);
+      const requiredXPForCurrentLevel = calculateRequiredXP(user.level - 1);
+      const requiredXPForNextLevel = calculateRequiredXP(user.level);
       const progressBarWidth = 600;
       const progressWidth = ((user.xp - requiredXPForCurrentLevel) / (requiredXPForNextLevel - requiredXPForCurrentLevel)) * progressBarWidth;
 

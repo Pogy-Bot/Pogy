@@ -15,7 +15,8 @@ module.exports = class LeaderboardCommand extends Command {
 
   async run(message) {
     try {
-      const users = Object.values(userData.users);
+      const guild = message.guild;
+      const users = Object.values(userData.guilds[guild.id].users);
       const sortedUsers = users.sort((a, b) => b.level - a.level).slice(0, 10); // Sort users by level and take the top 10
 
       const leaderboardEmbed = new Discord.MessageEmbed()
@@ -25,19 +26,18 @@ module.exports = class LeaderboardCommand extends Command {
 
       for (let i = 0; i < sortedUsers.length; i++) {
         const user = sortedUsers[i];
-        const member = message.guild.members.cache.get(user.id); // Get the member from the cache
+        let member;
 
-        if (member) {
-          leaderboardEmbed.addField(
-            `#${i + 1} - ${member.user.tag}`,
-            `Level: ${user.level}`
-          );
-        } else {
-          leaderboardEmbed.addField(
-            `#${i + 1} - Unknown`,
-            `Level: ${user.level}`
-          );
+        try {
+          member = await message.guild.members.fetch(parseInt(users[i]).id ); // Get the member from the cache
+        } catch (error) {
+          console.error("Error fetching member:", error);
         }
+
+        leaderboardEmbed.addField(
+          `#${i + 1} - ${member ? `${user.username}` : 'Unknown'}`,
+          `Level: ${user.level}`
+        );
       }
 
       message.channel.send({ embeds: [leaderboardEmbed] });

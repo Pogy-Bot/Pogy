@@ -8,6 +8,7 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
+let messageCreateEventFired = false;
 
 const color = require("./src/data/colors");
 Pogy.color = color;
@@ -23,75 +24,90 @@ jointocreate(client);
 const userData = require("./src/data/users.json");
 
 client.on("messageCreate", async (message) => {
-  if (message.author.bot) return;
+  if (message.author.bot) {
+    return;
+  } else {
+    let delay =
+      userData.guilds[message.guild.id].users[message.author.id].messageTimeout;
+    if (delay >= Date.now() + 60000) {
+      if (message.author.bot) return;
 
-  const userId = message.author.id;
-  const guildId = message.guild.id;
+      const userId = message.author.id;
+      const guildId = message.guild.id;
 
-  // Check if the guild exists in userData, if not, initialize it
-  if (!userData.guilds[guildId]) {
-    userData.guilds[guildId] = {
-      users: {},
-    };
-  }
+      // Check if the guild exists in userData, if not, initialize it
+      if (!userData.guilds[guildId]) {
+        userData.guilds[guildId] = {
+          users: {},
+        };
+      }
 
-  if (!userData.guilds[guildId].users[userId]) {
-    userData.guilds[guildId].users[userId] = {
-      xp: 0,
-      level: 1,
-    };
-  }
+      if (!userData.guilds[guildId].users[userId]) {
+        userData.guilds[guildId].users[userId] = {
+          xp: 0,
+          level: 1,
+          messageTimeout: Date.now() - 60000, // Set the initial messageTimeout to 1 minute ago
+          username: message.author.username,
+        };
+      }
 
-  if (!userData.guilds[guildId].users[userId].background) {
-    userData.guilds[guildId].users[userId].background =
-      "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
-  }
+      if (!userData.guilds[guildId].users[userId].background) {
+        userData.guilds[guildId].users[userId].background =
+          "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
+      }
 
-  // Increment XP for the user in the specific guild
-  userData.guilds[guildId].users[userId].xp +=
-    Math.floor(Math.random() * 15) + 10;
+      //if(!userData.guilds[guildId].users[userId].messageTimeout)
 
-  const nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+      // Increment XP for the user in the specific guild
+      userData.guilds[guildId].users[userId].xp +=
+        Math.floor(Math.random() * 15) + 10;
 
-  // Check for level-up logic
-  const xpNeededForNextLevel =
-    userData.guilds[guildId].users[userId].level * nextLevelXP;
-  if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
-    userData.guilds[guildId].users[userId].level += 1;
+      let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
 
-    const levelbed = new MessageEmbed()
-      .setColor(color.blue)
-      .setTitle("Level Up!")
-      .setAuthor(message.author.username, message.author.displayAvatarURL())
-      .setDescription(
-        `You have reached level ${userData.guilds[guildId].users[userId].level}!`,
-      )
-      .setFooter(
-        `XP: ${userData.guilds[guildId].users[userId].xp}/${
-          userData.guilds[guildId].users[userId].level * nextLevelXP
-        }`,
+      // Check for level-up logic
+      let xpNeededForNextLevel =
+        userData.guilds[guildId].users[userId].level * nextLevelXP;
+      if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
+        userData.guilds[guildId].users[userId].level += 1;
+        nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+        xpNeededForNextLevel =
+          userData.guilds[guildId].users[userId].level * nextLevelXP;
+
+        const levelbed = new MessageEmbed()
+          .setColor(color.blue)
+          .setTitle("Level Up!")
+          .setAuthor(message.author.username, message.author.displayAvatarURL())
+          .setDescription(
+            `You have reached level ${userData.guilds[guildId].users[userId].level}!`,
+          )
+          .setFooter(
+            `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`,
+          );
+
+        const row = new MessageActionRow().addComponents(
+          new MessageButton()
+            .setCustomId("levelup")
+            .setLabel("Level Up")
+            .setStyle("SUCCESS"),
+        );
+        message.channel.send({
+          embeds: [levelbed],
+          components: [row],
+        });
+      }
+
+      // Save updated data back to the JSON file
+      fs.writeFile(
+        "./src/data/users.json",
+        JSON.stringify(userData, null, 2),
+        (err) => {
+          if (err) console.error("Error writing file:", err);
+        },
       );
-
-    const row = new MessageActionRow().addComponents(
-      new MessageButton()
-        .setCustomId("levelup")
-        .setLabel("Level Up")
-        .setStyle("SUCCESS"),
-    );
-    message.channel.send({
-      embeds: [levelbed],
-      components: [row],
-    });
+    } else {
+      return;
+    }
   }
-
-  // Save updated data back to the JSON file
-  fs.writeFile(
-    "./src/data/users.json",
-    JSON.stringify(userData, null, 2),
-    (err) => {
-      if (err) console.error("Error writing file:", err);
-    },
-  );
 });
 
 client.slashCommands = new Collection();
