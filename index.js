@@ -10,8 +10,13 @@ const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
 const { Distube } = require('distube');
+const Command = require("./src/structures/Command");
 const { Player } = require('discord-player');
 const color = require("./src/data/colors");
+const Guild = require("./src/database/schemas/Guild");
+const { stripIndent } = require("common-tags");
+const emojis = require("./src/assets/emojis.json");
+
 Pogy.color = color;
 
 const emoji = require("./src/data/emoji");
@@ -132,15 +137,20 @@ const moreinfo = new MessageEmbed()
       .setStyle("LINK")
       .setURL("https://pogy.xyz/invite"),
   )
-  
+  const infobutton = new MessageEmbed()
+  .setTitle(`Info`)
+  .setDescription(" hello there poger. If you want more info on this bot you can check out the github repo or join the support server")
+  .setURL("https://github.com/hotsu0p/Pogy/")
+  .addField("Github Repo", "https://github.com/hotsu0p/Pogy/")
+
 client.on('interactionCreate', async interaction => {
   if (!interaction.isButton()) return;
 
   try {
       if (interaction.customId === 'support') {
           await interaction.reply({ embeds: [moreinfo], components: [invitebutton] });
-      } else if (interaction.customId === 'button2') {
-          await interaction.reply({ content: 'Button 2 clicked!', ephemeral: true });
+      } else if (interaction.customId === 'info') {
+          await interaction.reply({ embeds: [infobutton] });
           
       } else {
           await interaction.reply('Unknown button clicked.');
@@ -150,43 +160,7 @@ client.on('interactionCreate', async interaction => {
       await interaction.reply({ content: 'An error occurred.', ephemeral: true });
   }
 });
-const discord_giveaway = require("discord-giveaway");
-// Requires Manager from discord-giveaways
-const { GiveawaysManager } = require('discord-giveaways');
-const manager = new GiveawaysManager(client, {
-    storage: './giveaways.json',
-    default: {
-        botsCanWin: false,
-        embedColor: '#FF0000',
-        embedColorEnd: '#000000',
-        reaction: '🎉'
-    }
-});
-// We now have a giveawaysManager property to access the manager everywhere!
-client.giveawaysManager = manager;
-client.on('interactionCreate', (interaction) => {
-  const ms = require('ms');
 
-  if (interaction.isChatInputCommand() && interaction.commandName === 'start') {
-      // /start 2d 1 Awesome prize!
-      // Will create a giveaway with a duration of two days, with one winner and the prize will be "Awesome prize!"
-
-      const duration = interaction.options.getString('duration');
-      const winnerCount = interaction.options.getInteger('winners');
-      const prize = interaction.options.getString('prize');
-
-      client.giveawaysManager
-          .start(interaction.channel, {
-              duration: ms(duration),
-              winnerCount,
-              prize
-          })
-          .then((data) => {
-              console.log(data); // {...} (messageId, end date and more)
-          });
-      // And the giveaway has started!
-  }
-});
 
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
