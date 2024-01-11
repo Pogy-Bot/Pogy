@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const PogyClient = require("./Pogy");
 const config = require("./config.json");
 const deploy = require("./src/deployCommands.js");
@@ -41,18 +42,46 @@ client.on("messageCreate", async (message) => {
     };
   }
 
+  if (!userData.guilds[guildId].users[userId].background) {
+    userData.guilds[guildId].users[userId].background =
+      "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
+  }
+
   // Increment XP for the user in the specific guild
-  userData.guilds[guildId].users[userId].xp += Math.floor(Math.random() * 15) + 10;
+  userData.guilds[guildId].users[userId].xp +=
+    Math.floor(Math.random() * 15) + 10;
 
   const nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
 
   // Check for level-up logic
-  const xpNeededForNextLevel = userData.guilds[guildId].users[userId].level * nextLevelXP;
+  const xpNeededForNextLevel =
+    userData.guilds[guildId].users[userId].level * nextLevelXP;
   if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
     userData.guilds[guildId].users[userId].level += 1;
-    message.channel.send(
-      `${message.author.username} has leveled up to level ${userData.guilds[guildId].users[userId].level}!`,
+
+    const levelbed = new MessageEmbed()
+      .setColor(color.blue)
+      .setTitle("Level Up!")
+      .setAuthor(message.author.username, message.author.displayAvatarURL())
+      .setDescription(
+        `You have reached level ${userData.guilds[guildId].users[userId].level}!`,
+      )
+      .setFooter(
+        `XP: ${userData.guilds[guildId].users[userId].xp}/${
+          userData.guilds[guildId].users[userId].level * nextLevelXP
+        }`,
+      );
+
+    const row = new MessageActionRow().addComponents(
+      new MessageButton()
+        .setCustomId("levelup")
+        .setLabel("Level Up")
+        .setStyle("SUCCESS"),
     );
+    message.channel.send({
+      embeds: [levelbed],
+      components: [row],
+    });
   }
 
   // Save updated data back to the JSON file
