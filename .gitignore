@@ -4,3 +4,8 @@ config.json
 node_modules
 .env
 package-lock.json
+src/data/users.json
+src/commands/utility/rank.js
+src/data/users.json
+package-lock.json
+config.json

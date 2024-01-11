@@ -21,7 +21,7 @@ module.exports = class extends Command {
       description: "Create a reaction role",
       category: "Reaction Role",
       cooldown: 3,
-      usage: "<channel> <messageID> <role> <emoji> (option)",
+      usage: "[channel] <messageID> <role> <emoji> (option)",
       userPermission: ["MANAGE_GUILD"],
     });
   }
@@ -31,9 +31,7 @@ module.exports = class extends Command {
     let fail = message.client.emoji.fail;
 
     let channel =
-      message.mentions.channels.first() ||
-      message.guild.channels.cache.get(args[0]) ||
-      message.guild.channels.cache.find((ch) => ch.name === args[0]);
+      message.mentions.channels.first() || message.channel;
     if (!channel)
       return message.channel.sendCustom({
         embeds: [
