@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
 const { stripIndent } = require("common-tags");
+const { MessageButton, MessageActionRow } = require("discord.js");
 const emojis = require("../../assets/emojis.json");
 
 module.exports = class extends Command {
@@ -40,6 +41,19 @@ module.exports = class extends Command {
       tickets: `${emojis.tickets}`,
       owner: `${emojis.owner}`,
     };
+    const helpinfobutton = new MessageActionRow()
+       .addComponents(
+       new MessageButton()
+        .setLabel("Invite Pogy")
+        .setStyle("LINK")
+        .setURL("https://pogy.xyz/invite"),
+
+
+      new MessageButton()
+        .setCustomId("info")
+        .setLabel("More info")
+        .setStyle("SECONDARY") // can be "PRIMARY", "SECONDARY", "SUCCESS", "DANGER", "LINK", "INFO"
+      )
 
     const green = "<:purple:826033456207233045>";
     const red = "<:redsquare:803527843661217802>";
@@ -86,7 +100,7 @@ module.exports = class extends Command {
           "[Support Server](https://pogy.xyz/support) | " +
           "[Dashboard](https://pogy.xyz/dashboard)**"
       );
-      return message.channel.sendCustom({ embeds: [embed] });
+      return message.channel.sendCustom({ embeds: [embed] , components: [helpinfobutton] });
     } else if (
       (args && args.join(" ").toLowerCase() == "alt detector") ||
       (args && args[0].toLowerCase() == "alt")
@@ -119,7 +133,7 @@ module.exports = class extends Command {
           "[Support Server](https://pogy.xyz/support) | " +
           "[Dashboard](https://pogy.xyz/dashboard)**"
       );
-      return message.channel.sendCustom({ embeds: [embed] });
+      return message.channel.sendCustom({ embeds: [embed] ,componenets: [helpinfobutton]});
     } else if (args && args[0].toLowerCase() == "owner") {
       if (!this.client.config.developers.includes(message.author.id))
         return message.channel.sendCustom(

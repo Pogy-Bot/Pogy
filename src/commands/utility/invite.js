@@ -1,6 +1,7 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
+const client = require("/home/vboxuser/Pogy-1/index.js");
 
 module.exports = class extends Command {
   constructor(...args) {
@@ -17,12 +18,12 @@ module.exports = class extends Command {
     const guildDB = await Guild.findOne({
       guildId: message.guild.id,
     });
-
+    
     const language = require(`../../data/language/${guildDB.language}.json`);
 
     const embed = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
-      .setTitle(language.inviteTitle)
+      .setTitle('Invite Pogy')
       .setURL("https://pogy.xyz/invite")
       .setThumbnail(message.client.user.displayAvatarURL())
       .setDescription(language.invite)
@@ -32,8 +33,18 @@ module.exports = class extends Command {
         new MessageButton()
           .setLabel("Invite Pogy")
           .setStyle("LINK")
-          .setURL("https://pogy.xyz/invite")
-      );
+          .setURL("https://pogy.xyz/invite"),
+
+
+        new MessageButton()
+          .setCustomId("support")
+          .setLabel("More info")
+          .setStyle("SECONDARY") // can be "PRIMARY", "SECONDARY", "SUCCESS", "DANGER", "LINK", "INFO"
+        )
+      
+      
+
+
 
     await message.channel.send({ embeds: [embed], components: [row] });
   }

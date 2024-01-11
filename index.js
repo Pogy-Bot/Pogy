@@ -1,3 +1,4 @@
+// Imports lol
 require("dotenv").config();
 const { MessageEmbed, MessageActionRow , MessageButton} = require('discord.js');
 const PogyClient = require("./Pogy");
@@ -8,8 +9,14 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
-
+const { Distube } = require('distube');
+const Command = require("./src/structures/Command");
+const { Player } = require('discord-player');
 const color = require("./src/data/colors");
+const Guild = require("./src/database/schemas/Guild");
+const { stripIndent } = require("common-tags");
+const emojis = require("./src/assets/emojis.json");
+
 Pogy.color = color;
 
 const emoji = require("./src/data/emoji");
@@ -18,7 +25,7 @@ Pogy.emoji = emoji;
 let client = Pogy;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
-
+// end imports
 
 // Load user data from the JSON file
 let userData = require('./src/data/users.json');
@@ -55,6 +62,13 @@ client.on('messageCreate', message => {
       .setStyle('SUCCESS')
 
   )
+  client.on('interactionCreate', async interaction => {
+    if (!interaction.isButton()) return;
+
+    if (interaction.customId === 'levelup') { // Assuming this is the correct customId
+        await interaction.reply('Button clicked!');
+    }
+});
 
 
   // Increment XP for the user
@@ -64,7 +78,7 @@ client.on('messageCreate', message => {
   const xpNeededForNextLevel = userData.users[userId].level * 75;
   if (userData.users[userId].xp >= xpNeededForNextLevel) {
     userData.users[userId].level += 1;
-    message.channel.send({embeds : [levelbed]});
+    message.channel.send({embeds : [levelbed], components : [row]});
   }
  
   // Save updated data back to the JSON file
@@ -99,6 +113,54 @@ client.on('interactionCreate', async interaction => {
     await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
   }
 });
+
+// mem leak fix
+client.setMaxListeners(20);
+/* 
+  This is where you should add all button handler stuff
+  this is the first one i have added
+*/
+const moreinfo = new MessageEmbed()
+  .setColor(color.blue)
+  .setTitle('More Info')
+  .setURL("https://pogy.xyz/invite")
+  .setDescription("Pogy is a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below")
+  .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
+  .addField("Invite Pogy", "https://pogy.xyz/invite")
+  .addField("Support Server", "https://discord.gg/pogy")
+  .addField("Vote Pogy", "https://top.gg/bot/880243836830652958/vote")
+
+  const invitebutton = new MessageActionRow()
+  .addComponents(
+    new MessageButton()
+      .setLabel("Invite Pogy")
+      .setStyle("LINK")
+      .setURL("https://pogy.xyz/invite"),
+  )
+  const infobutton = new MessageEmbed()
+  .setTitle(`Info`)
+  .setDescription(" hello there poger. If you want more info on this bot you can check out the github repo or join the support server")
+  .setURL("https://github.com/hotsu0p/Pogy/")
+  .addField("Github Repo", "https://github.com/hotsu0p/Pogy/")
+
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isButton()) return;
+
+  try {
+      if (interaction.customId === 'support') {
+          await interaction.reply({ embeds: [moreinfo], components: [invitebutton] });
+      } else if (interaction.customId === 'info') {
+          await interaction.reply({ embeds: [infobutton] });
+          
+      } else {
+          await interaction.reply('Unknown button clicked.');
+      }
+  } catch (error) {
+      console.error('Error handling button interaction:', error);
+      await interaction.reply({ content: 'An error occurred.', ephemeral: true });
+  }
+});
+
 
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
