@@ -206,7 +206,7 @@ You can launch the bot with `npm start`
 
 ## License
 
-Released under the [MIT License]() license.
+Released under the [MIT License] license.
 
 ## Support
 [Click here for the support server](https://v2.pogy.xyz/support)
