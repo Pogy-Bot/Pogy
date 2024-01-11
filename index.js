@@ -132,6 +132,7 @@ const moreinfo = new MessageEmbed()
       .setStyle("LINK")
       .setURL("https://pogy.xyz/invite"),
   )
+  
 client.on('interactionCreate', async interaction => {
   if (!interaction.isButton()) return;
 
@@ -149,8 +150,43 @@ client.on('interactionCreate', async interaction => {
       await interaction.reply({ content: 'An error occurred.', ephemeral: true });
   }
 });
-// End button stuff
+const discord_giveaway = require("discord-giveaway");
+// Requires Manager from discord-giveaways
+const { GiveawaysManager } = require('discord-giveaways');
+const manager = new GiveawaysManager(client, {
+    storage: './giveaways.json',
+    default: {
+        botsCanWin: false,
+        embedColor: '#FF0000',
+        embedColorEnd: '#000000',
+        reaction: '🎉'
+    }
+});
+// We now have a giveawaysManager property to access the manager everywhere!
+client.giveawaysManager = manager;
+client.on('interactionCreate', (interaction) => {
+  const ms = require('ms');
 
+  if (interaction.isChatInputCommand() && interaction.commandName === 'start') {
+      // /start 2d 1 Awesome prize!
+      // Will create a giveaway with a duration of two days, with one winner and the prize will be "Awesome prize!"
+
+      const duration = interaction.options.getString('duration');
+      const winnerCount = interaction.options.getInteger('winners');
+      const prize = interaction.options.getString('prize');
+
+      client.giveawaysManager
+          .start(interaction.channel, {
+              duration: ms(duration),
+              winnerCount,
+              prize
+          })
+          .then((data) => {
+              console.log(data); // {...} (messageId, end date and more)
+          });
+      // And the giveaway has started!
+  }
+});
 
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
