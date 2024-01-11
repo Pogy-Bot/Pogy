@@ -21,6 +21,9 @@
           <a href="/commands" class="nav-link">Commands</a>
         </li>
         <li class="nav-list-item">
+          <a href="/manage" class="nav-link">Manage</a>
+        </li>
+        <li class="nav-list-item">
           <a style="color: red" href="/logout" class="nav-link">Logout</a>
         </li>
       </ul>
@@ -33,6 +36,9 @@
     </li>
     <li>
       <a href="<%=domain%>/commands" target="_blank" rel="noopener">Commands</a>
+    </li>
+    <li>
+      <a href="<%=domain%>/manage" target="_blank" rel="noopener">Manage</a>
     </li>
     <% if (user.avatar) { avatar = "https://cdn.discordapp.com/avatars/" +
     user.id + "/" + user.avatar + ".png?size=128"; } else { avatar =
@@ -52,6 +58,9 @@
     </li>
     <li>
       <a href="<%=domain%>/commands" target="_blank" rel="noopener">Commands</a>
+    </li>
+    <li>
+      <a href="<%=domain%>/manage" target="_blank" rel="noopener">Manage</a>
     </li>
     <li><a href="<%=domain%>/login">Login</a></li>
     <% } %>

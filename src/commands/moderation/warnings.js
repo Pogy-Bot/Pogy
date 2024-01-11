@@ -45,7 +45,10 @@ module.exports = class extends Command {
       return message.channel.sendCustom({
         embeds: [
           new discord.MessageEmbed()
-            .setAuthor(message.author.tag, message.author.avatarURL())
+            .setAuthor({
+              name: message.author.tag, 
+              iconURL: message.author.displayAvatarURL({ dynamic: true }),
+            })
             .setDescription(
               `${message.client.emoji.fail} | **${mentionedMember.user.tag}** ${language.warningsNoError}`
             )
@@ -70,10 +73,10 @@ module.exports = class extends Command {
     const count = warnDoc.warnings.length;
 
     const embed = new MessageEmbed()
-      .setAuthor(
-        mentionedMember.user.tag,
-        mentionedMember.user.displayAvatarURL({ dynamic: true })
-      )
+      .setAuthor({
+        name: mentionedMember.user.tag,
+        iconURL: mentionedMember.user.displayAvatarURL({ dynamic: true }),
+      })
       .setFooter({
         text: message.member.displayName,
         iconURL: message.author.displayAvatarURL({ dynamic: true }),
@@ -132,10 +135,10 @@ module.exports = class extends Command {
     else {
       let n = 0;
       const json = embed
-        .setFooter(
-          `${language.warnExpire}\n` + message.member.displayName,
-          message.author.displayAvatarURL({ dynamic: true })
-        )
+        .setFooter({
+          text: `${language.warnExpire}\n` + message.member.displayName,
+          iconURL: message.author.displayAvatarURL({ dynamic: true }),
+        })
         .toJSON();
 
       const first = () => {

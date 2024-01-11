@@ -3,4 +3,13 @@ src/assets/logs/Pogy.log
 config.json
 node_modules
 .env
+src/data/users.json
+<<<<<<< HEAD
+.replit
+replit.nix
+=======
+src/commands/utility/rank.js
+src/data/users.json
 package-lock.json
+config.json
+>>>>>>> 4659eedb4c034860a3cc261d48c558abe80b6671

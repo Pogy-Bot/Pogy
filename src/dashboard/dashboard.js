@@ -14,6 +14,7 @@ const Strategy = require("./passport").Strategy;
 const premiumWeb = new Discord.WebhookClient({
   url: jsonconfig.webhooks.premium,
 });
+const send = require(`../packages/logs/index.js`);
 const ejs = require("ejs");
 const ShortUrl = require("../database/models/ShortUrl.js");
 const randoStrings = require("../packages/randostrings.js");
@@ -282,9 +283,9 @@ module.exports = async (client) => {
     }
   );
 
-  // Features list redirect endpoint.
+  // commands
   app.get("/commands", (req, res) => {
-    res.send("This feature is not yet available.");
+    renderTemplate(res, req, "commands.ejs"); // made comamnds page work
   });
 
   app.get("/color", (req, res) => {
@@ -305,7 +306,12 @@ module.exports = async (client) => {
   app.get("/variables", (req, res) => {
     renderTemplate(res, req, "variables.ejs");
   });
-
+  app.get("/transcript", (req, res) => {
+    renderTemplate(res, req, "maintranscript.ejs");
+  });
+  app.get("/manage", (req, res) => {
+    renderTemplate(res, req, "manage.ejs");
+  });
   app.get("/embeds", (req, res) => {
     renderTemplate(res, req, "embeds.ejs");
   });
@@ -370,6 +376,9 @@ module.exports = async (client) => {
 
   app.get("/premium", (req, res) => {
     renderTemplate(res, req, "premium.ejs");
+  });
+  app.get("/changelog", (req, res) => {
+    renderTemplate(res, req, "changelog.ejs");
   });
 
   // Index endpoint.
@@ -1104,7 +1113,32 @@ module.exports = async (client) => {
         appSettings.dm = false;
       }
     }
+    const DiscordTranscripts = require('discord-transcripts');
 
+    
+    app.get('/dashboard/transcript/:serverId/:channelId', async (req, res) => {
+        try {
+            
+            const { serverId, channelId } = req.params;
+    
+            // Replace 'YOUR_DISCORD_BOT_TOKEN' with your actual bot token
+            const botToken = 'YOUR_DISCORD_BOT_TOKEN';
+    
+            // Initialize the DiscordTranscripts with the bot token
+            const transcripts = new DiscordTranscripts(botToken);
+    
+            // Fetch the channel's transcript for the provided server and channel IDs
+            const transcript = await transcripts.getChannelTranscript(serverId, channelId);
+    
+            // Render your transcript page using 'transcript' data
+            res.render('transcript', { transcript });
+        } catch (error) {
+            console.error('Error fetching transcript:', error);
+            // Handle the error, redirect, or render an error page
+            res.status(500).send('Error fetching transcript');
+        }
+    });
+    
     await appSettings.save().catch(() => {});
     renderTemplate(res, req, "./new/mainapp.ejs", {
       guild: guild,
@@ -3178,15 +3212,6 @@ send
           });
           return;
         }
-      } else {
-        renderTemplate(res, req, "./new/mainreactionroles.ejs", {
-          guild: guild,
-          alert: `Please Provide me with a valid message ID`,
-          emojiArray: EmojiArray,
-          settings: storedSettings,
-        });
-
-        return;
       }
 
       const checkEmoji = data.emoji;

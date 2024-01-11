@@ -143,7 +143,7 @@
 
   "managemessages":"Hola ... Esta función solo está disponible para miembros con **Manage Messages**",
   "notaccessible":"Este canal no es accesible para mí",
-  "whatdoIsay":"Escribe eso de nuevo, ¡pero dame un mensaje de texto!",
+  "whatdoIsay":"Escribe eso de nuevo, ¡pero dame un texto para decirlo!",
   "sendmessages":"Je n'ai pas la permission d'envoyer des messages!",
   "userSendMessages":"No tienes permiso para enviar mensajes al canal proporcionado.",
 
