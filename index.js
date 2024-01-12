@@ -9,9 +9,6 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
-const { Distube } = require('distube');
-const Command = require("./src/structures/Command");
-const { Player } = require('discord-player');
 let messageCreateEventFired = false;
 
 const color = require("./src/data/colors");
@@ -36,19 +33,32 @@ client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
   } else {
-    let delay =
-      userData.guilds[message.guild.id].users[message.author.id].messageTimeout;
-    if (delay >= Date.now() + 60000) {
-      const userId = message.author.id;
-      const guildId = message.guild.id;
+    const guildId = message.guild?.id; // Safely get guild ID using optional chaining
 
-      // Check if the guild exists in userData, if not, initialize it
+    if (!guildId) {
+      console.error("Guild ID is undefined");
+      return;
+    }
+
+    // Ensure userData.guilds is defined
+    if (!userData.guilds) {
+      userData.guilds = {};
+    }
+
+    let delay =
+      userData.guilds[guildId]?.users[message.author.id]?.messageTimeout;
+
+    // Check if delay is undefined or greater than or equal to Date.now() + 60
+    if (delay === undefined || delay >= Date.now() + 60) {
+      const userId = `${message.author.id}`;
+      // Ensure userData.guilds[guildId] is defined
       if (!userData.guilds[guildId]) {
         userData.guilds[guildId] = {
           users: {},
         };
       }
 
+      // Ensure userData.guilds[guildId].users[userId] is defined
       if (!userData.guilds[guildId].users[userId]) {
         userData.guilds[guildId].users[userId] = {
           xp: 0,
@@ -81,19 +91,22 @@ client.on("messageCreate", async (message) => {
         const levelbed = new MessageEmbed()
           .setColor(color.blue)
           .setTitle("Level Up!")
-          .setAuthor(message.author.username, message.author.displayAvatarURL())
+          .setAuthor(
+            message.author.username,
+            message.author.displayAvatarURL()
+          )
           .setDescription(
-            `You have reached level ${userData.guilds[guildId].users[userId].level}!`,
+            `You have reached level ${userData.guilds[guildId].users[userId].level}!`
           )
           .setFooter(
-            `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`,
+            `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`
           );
 
         const row = new MessageActionRow().addComponents(
           new MessageButton()
             .setCustomId("levelup")
             .setLabel("Level Up")
-            .setStyle("SUCCESS"),
+            .setStyle("SUCCESS")
         );
         message.channel.send({
           embeds: [levelbed],
