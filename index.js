@@ -39,8 +39,6 @@ client.on("messageCreate", async (message) => {
     let delay =
       userData.guilds[message.guild.id].users[message.author.id].messageTimeout;
     if (delay >= Date.now() + 60000) {
-      if (message.author.bot) return;
-
       const userId = message.author.id;
       const guildId = message.guild.id;
 
@@ -65,8 +63,6 @@ client.on("messageCreate", async (message) => {
           "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
       }
 
-      //if(!userData.guilds[guildId].users[userId].messageTimeout)
-
       // Increment XP for the user in the specific guild
       userData.guilds[guildId].users[userId].xp +=
         Math.floor(Math.random() * 15) + 10;
@@ -111,107 +107,18 @@ client.on("messageCreate", async (message) => {
         JSON.stringify(userData, null, 2),
         (err) => {
           if (err) console.error("Error writing file:", err);
-        },
-      );
+        });
     } else {
       return;
     }
   }
-
-  // If the background URL is not set, save it
-  if (!userData.users[userId].background) {
-    userData.users[userId].background = 'https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg'; // Replace with your default background URL
-  }
-
-  const levelbed = new MessageEmbed()
-    .setColor(color.blue)
-    .setTitle('Level Up!')
-    .setAuthor(message.author.username, message.author.displayAvatarURL())
-    .setDescription(`You have reached level ${userData.users[userId].level}!`)
-    .setFooter(`XP: ${userData.users[userId].xp}/${userData.users[userId].level * 75}`)
-    
-  const row = new MessageActionRow().addComponents(
-
-    new MessageButton()
-      .setCustomId('levelup')
-      .setLabel('Level Up')
-      .setStyle('SUCCESS')
-
-  )
-  client.on('interactionCreate', async interaction => {
-    if (!interaction.isButton()) return;
-
-    if (interaction.customId === 'levelup') { // Assuming this is the correct customId
-        await interaction.reply('Button clicked!');
-    }
 });
 
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isButton()) return;
 
-  // Increment XP for the user
-  userData.users[userId].xp += 1;
-
-  // Check for level-up logic
-  const xpNeededForNextLevel = userData.users[userId].level * 75;
-  if (userData.users[userId].xp >= xpNeededForNextLevel) {
-    userData.users[userId].level += 1;
-    message.channel.send({embeds : [levelbed], components : [row]});
-  }
- 
-  // Save updated data back to the JSON file
-  fs.writeFile('./src/data/users.json', JSON.stringify(userData, null, 2), err => {
-    if (err) console.error('Error writing file:', err);
-  });
-      //if(!userData.guilds[guildId].users[userId].messageTimeout)
-
-      // Increment XP for the user in the specific guild
-      userData.guilds[guildId].users[userId].xp +=
-        Math.floor(Math.random() * 15) + 10;
-
-      let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
-
-      // Check for level-up logic
-      let xpNeededForNextLevel =
-        userData.guilds[guildId].users[userId].level * nextLevelXP;
-      if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
-        userData.guilds[guildId].users[userId].level += 1;
-        nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
-        xpNeededForNextLevel =
-          userData.guilds[guildId].users[userId].level * nextLevelXP;
-
-        const levelbed = new MessageEmbed()
-          .setColor(color.blue)
-          .setTitle("Level Up!")
-          .setAuthor(message.author.username, message.author.displayAvatarURL())
-          .setDescription(
-            `You have reached level ${userData.guilds[guildId].users[userId].level}!`,
-          )
-          .setFooter(
-            `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`,
-          );
-
-        const row = new MessageActionRow().addComponents(
-          new MessageButton()
-            .setCustomId("levelup")
-            .setLabel("Level Up")
-            .setStyle("SUCCESS"),
-        );
-        message.channel.send({
-          embeds: [levelbed],
-          components: [row],
-        });
-      }
-
-      // Save updated data back to the JSON file
-      fs.writeFile(
-        "./src/data/users.json",
-        JSON.stringify(userData, null, 2),
-        (err) => {
-          if (err) console.error("Error writing file:", err);
-        },
-      );
-    } else {
-      return;
-    }
+  if (interaction.customId === 'levelup') {
+    await interaction.reply('Button clicked!');
   }
 });
 
@@ -246,6 +153,7 @@ client.on("interactionCreate", async (interaction) => {
 
 // mem leak fix
 client.setMaxListeners(20);
+
 /* 
   This is where you should add all button handler stuff
   this is the first one i have added
@@ -258,39 +166,38 @@ const moreinfo = new MessageEmbed()
   .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
   .addField("Invite Pogy", "https://pogy.xyz/invite")
   .addField("Support Server", "https://discord.gg/pogy")
-  .addField("Vote Pogy", "https://top.gg/bot/880243836830652958/vote")
+  .addField("Vote Pogy", "https://top.gg/bot/880243836830652958/vote");
 
-  const invitebutton = new MessageActionRow()
+const invitebutton = new MessageActionRow()
   .addComponents(
     new MessageButton()
       .setLabel("Invite Pogy")
       .setStyle("LINK")
       .setURL("https://pogy.xyz/invite"),
-  )
-  const infobutton = new MessageEmbed()
+  );
+
+const infobutton = new MessageEmbed()
   .setTitle(`Info`)
   .setDescription(" hello there poger. If you want more info on this bot you can check out the github repo or join the support server")
   .setURL("https://github.com/hotsu0p/Pogy/")
-  .addField("Github Repo", "https://github.com/hotsu0p/Pogy/")
+  .addField("Github Repo", "https://github.com/hotsu0p/Pogy/");
 
 client.on('interactionCreate', async interaction => {
   if (!interaction.isButton()) return;
 
   try {
-      if (interaction.customId === 'support') {
-          await interaction.reply({ embeds: [moreinfo], components: [invitebutton] });
-      } else if (interaction.customId === 'info') {
-          await interaction.reply({ embeds: [infobutton] });
-          
-      } else {
-          await interaction.reply('Unknown button clicked.');
-      }
+    if (interaction.customId === 'support') {
+      await interaction.reply({ embeds: [moreinfo], components: [invitebutton] });
+    } else if (interaction.customId === 'info') {
+      await interaction.reply({ embeds: [infobutton] });
+    } else {
+      await interaction.reply('Unknown button clicked.');
+    }
   } catch (error) {
-      console.error('Error handling button interaction:', error);
-      await interaction.reply({ content: 'An error occurred.', ephemeral: true });
+    console.error('Error handling button interaction:', error);
+    await interaction.reply({ content: 'An error occurred.', ephemeral: true });
   }
 });
-
 
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
@@ -311,6 +218,7 @@ process.on("uncaughtExceptionMonitor", (err, origin) => {
   logger.info(`[uncaughtExceptionMonitor] ${err.message}`, { label: "ERROR" });
   console.log(err, origin);
 });
+
 process.on("multipleResolves", (type, promise, reason) => {
   logger.info(`[multipleResolves] MULTIPLE RESOLVES`, { label: "ERROR" });
   console.log(type, promise, reason);
