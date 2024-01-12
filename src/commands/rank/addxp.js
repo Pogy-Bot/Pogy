@@ -1,6 +1,6 @@
 // AddXPCommand.js
 const Command = require("../../structures/Command");
-const userData = require('/home/vboxuser/Pogy-1/src/data/users.json'); // Replace with your path
+const userData = require('../../data/users.json'); // Replace with your path
 const fs = require('fs');
 
 module.exports = class AddXPCommand extends Command {
@@ -34,7 +34,7 @@ module.exports = class AddXPCommand extends Command {
     // Save updated data back to the JSON file
     // (Assuming your code for saving data is similar to what you provided previously)
     // Replace this with your logic to save updated data to the JSON file
-    fs.writeFile('/home/vboxuser/Pogy-1/src/data/users.json', JSON.stringify(userData, null, 2), (err) => {
+    fs.writeFile('../../data/users.json', JSON.stringify(userData, null, 2), (err) => {
      if (err) console.error('Error writing file:', err);
     });
 

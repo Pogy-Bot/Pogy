@@ -1,6 +1,6 @@
 const Command = require("../../structures/Command");
 const { createCanvas, loadImage } = require('canvas');
-const { MessageAttachment, MessageActionRow, MessageButton } = require("discord.js");
+const { MessageAttachment } = require("discord.js");
 const Discord = require("discord.js");
 const userData = require('../../data/users.json');
 
@@ -9,7 +9,7 @@ function calculateRequiredXP(level) {
   const baseXP = 75;
   const increment = level * 75;
   const xpNeeded = (level) * increment;
-  if(level === 0) {
+  if (level === 0) {
     return baseXP + xpNeeded;
   } else {
     return xpNeeded;
@@ -31,7 +31,7 @@ module.exports = class RankCommand extends Command {
     try {
       const targetUser = message.mentions.users.first() || message.author;
       const guild = message.guild;
-      const user = userData.guilds[guild.id].users[targetUser.id];
+      const user = userData.guilds[guild.id]?.users[targetUser.id];
 
       if (!user) {
         return message.reply('User not found.');
@@ -45,12 +45,12 @@ module.exports = class RankCommand extends Command {
       const background = await loadImage(backgroundURL);
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-
       // Draw user details
       ctx.fillStyle = '#FFFFFF';
       ctx.font = 'bold 36px Arial';
       ctx.textAlign = "left";
       ctx.fillText(targetUser.username, 200, 100);
+
       // Avatar
       const avatar = await loadImage(targetUser.displayAvatarURL({ format: 'png', size: 128 }));
       ctx.drawImage(avatar, 50, 50, 140, 150);
@@ -93,7 +93,7 @@ module.exports = class RankCommand extends Command {
       ctx.roundRect(200, 250, progressWidth, 15, 7, true, false);
 
       const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank.png');
-      message.channel.send({ files: [attachment]});
+      message.channel.send({ files: [attachment] });
     } catch (error) {
       console.error("Error occurred:", error);
       message.reply('An error occurred while generating the rank card.');
