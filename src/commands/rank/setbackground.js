@@ -1,6 +1,6 @@
 const Command = require("../../structures/Command");
-const userData = require('../../data/users.json');
-const fs = require('fs');
+const userData = require("../../data/users.json");
+const fs = require("fs");
 
 module.exports = class BackgroundCommand extends Command {
   constructor(...args) {
@@ -10,7 +10,7 @@ module.exports = class BackgroundCommand extends Command {
       category: "Configuration",
       cooldown: 3,
       usage: "<background URL>",
-      guildOnly: true
+      guildOnly: true,
     });
   }
 
@@ -24,12 +24,18 @@ module.exports = class BackgroundCommand extends Command {
     userData.users[userId].background = backgroundURL;
 
     // Save updated data back to the JSON file
-    fs.writeFile('/home/vboxuser/Pogy-1/src/data/users.json', JSON.stringify(userData, null, 2), err => {
-      if (err) {
-        console.error('Error writing file:', err);
-        return message.reply('An error occurred while saving the background preference.');
+    fs.writeFile(
+      "/home/vboxuser/Pogy-1/src/data/users.json",
+      JSON.stringify(userData, null, 2),
+      (err) => {
+        if (err) {
+          console.error("Error writing file:", err);
+          return message.reply(
+            "An error occurred while saving the background preference."
+          );
+        }
+        message.reply("Background preference saved successfully!");
       }
-      message.reply('Background preference saved successfully!');
-    });
+    );
   }
 };

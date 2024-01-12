@@ -1,6 +1,6 @@
 const Command = require("../../structures/Command");
 const Discord = require("discord.js");
-const userData = require('../../data/users.json');
+const userData = require("../../data/users.json");
 
 module.exports = class LeaderboardCommand extends Command {
   constructor(...args) {
@@ -9,7 +9,7 @@ module.exports = class LeaderboardCommand extends Command {
       description: "Display the server's leaderboard based on levels.",
       category: "Utility",
       cooldown: 5,
-      guildOnly: true
+      guildOnly: true,
     });
   }
 
@@ -29,13 +29,13 @@ module.exports = class LeaderboardCommand extends Command {
         let member;
 
         try {
-          member = await message.guild.members.fetch(parseInt(users[i]).id ); // Get the member from the cache
+          member = await message.guild.members.fetch(parseInt(users[i]).id); // Get the member from the cache
         } catch (error) {
           console.error("Error fetching member:", error);
         }
 
         leaderboardEmbed.addField(
-          `#${i + 1} - ${member ? `${user.username}` : 'Unknown'}`,
+          `#${i + 1} - ${member ? `${user.username}` : "Unknown"}`,
           `Level: ${user.level}`
         );
       }
@@ -43,7 +43,7 @@ module.exports = class LeaderboardCommand extends Command {
       message.channel.send({ embeds: [leaderboardEmbed] });
     } catch (error) {
       console.error("Error occurred:", error);
-      message.reply('An error occurred while fetching the leaderboard.');
+      message.reply("An error occurred while fetching the leaderboard.");
     }
   }
 };
