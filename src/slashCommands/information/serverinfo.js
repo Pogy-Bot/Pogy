@@ -28,7 +28,7 @@ module.exports = {
     .addFields(
       { name: `${language.nameS}`, value: `${interaction.guild.name}`, inline: true },
   { name: "ID", value: `${interaction.guild.id}`, inline: true },
-      { name: `${language.sercerInfo1}`, value: `${interaction.guild.members.cache.size} | ${interaction.guild.members.cache.filter((member) => !member.user.bot).size} | ${interaction.guild.members.cache.filter((member) => member.user.bot).size}`, inline: true },
+      { name: `${language.serverInfo1}`, value: `${interaction.guild.members.cache.size} | ${interaction.guild.members.cache.filter((member) => !member.user.bot).size} | ${interaction.guild.members.cache.filter((member) => member.user.bot).size}`, inline: true },
       { name: `${language.verificationLevel}`, value: `${interaction.guild.verificationLevel}`, inline: true },
       { name: `${language.channels}`, value: `${interaction.guild.channels.cache.size}`, inline: true },
       { name: `${language.roleCount}`, value: `${interaction.guild.roles.cache.size}`, inline: true },
