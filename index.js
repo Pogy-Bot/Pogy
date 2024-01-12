@@ -84,11 +84,16 @@ client.on("messageCreate", async (message) => {
         .setAuthor(message.author.username, message.author.displayAvatarURL())
         .setDescription(`You have reached level ${userData.guilds[guildId].users[userId].level}!`)
         .setFooter(`XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`);
-
+        const checkxpembed = new MessageEmbed()
+        .setColor(color.blue)
+        .setTitle("Your xp!")
+        .setAuthor(message.author.username, message.author.displayAvatarURL())
+        .setDescription(`XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`)
+        .setFooter(`message.authour.username: ${userData.guilds[guildId].users[userId].username}`);
       const row = new MessageActionRow().addComponents(
         new MessageButton()
           .setCustomId("levelup")
-          .setLabel("Level Up")
+          .setLabel("Whats my xp?")
           .setStyle("SUCCESS")
       );
 
@@ -114,7 +119,10 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.isButton()) return;
 
   if (interaction.customId === "levelup") {
-    await interaction.reply("Button clicked!");
+    await interaction.reply({
+      embeds: [checkxpembed],
+      components: [row],
+    });;
   }
 });
 
