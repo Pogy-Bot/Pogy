@@ -7,7 +7,6 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
-let messageCreateEventFired = false;
 
 const color = require("./src/data/colors");
 const Guild = require("./src/database/schemas/Guild");
@@ -30,99 +29,89 @@ const userData = require("./src/data/users.json");
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
-  }
+  } else {
+    const guildId = message.guild?.id; // Safely get guild ID using optional chaining
 
-  const guildId = message.guild?.id;
+    if (!guildId) {
+      console.error("Guild ID is undefined");
+      return;
+    }
 
-  if (!guildId) {
-    console.error("Guild ID is undefined");
-    return;
-  }
+    const userId = `${message.author.id}`;
 
-  if (!userData.guilds) {
-    userData.guilds = {};
-  }
+    // Ensure userData.guilds is defined
+    if (!userData.guilds) {
+      userData.guilds = {};
+    }
 
-  const userId = message.author.id;
-
-  let delay = userData.guilds[guildId]?.users[userId]?.messageTimeout;
-
-  if (delay === undefined || delay <= Date.now() - 60000) {
+    // Ensure userData.guilds[guildId] is defined
     if (!userData.guilds[guildId]) {
       userData.guilds[guildId] = {
         users: {},
       };
     }
 
+    // Ensure userData.guilds[guildId].users[userId] is defined
     if (!userData.guilds[guildId].users[userId]) {
       userData.guilds[guildId].users[userId] = {
         xp: 0,
         level: 1,
-        messageTimeout: Date.now(), // Set the initial messageTimeout to now
+        messageTimeout: Date.now(), // Set the initial messageTimeout to the current time
         username: message.author.username,
       };
     }
 
     if (!userData.guilds[guildId].users[userId].background) {
       userData.guilds[guildId].users[userId].background =
-        "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg";
+        "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
     }
 
-    userData.guilds[guildId].users[userId].xp += Math.floor(Math.random() * 15) + 10;
+    // Increment XP for the user in the specific guild
+    userData.guilds[guildId].users[userId].xp +=
+      Math.floor(Math.random() * 15) + 10;
 
     let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
-    let xpNeededForNextLevel = userData.guilds[guildId].users[userId].level * nextLevelXP;
 
+    // Check for level-up logic
+    let xpNeededForNextLevel =
+      userData.guilds[guildId].users[userId].level * nextLevelXP;
     if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
       userData.guilds[guildId].users[userId].level += 1;
       nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
-      xpNeededForNextLevel = userData.guilds[guildId].users[userId].level * nextLevelXP;
+      xpNeededForNextLevel =
+        userData.guilds[guildId].users[userId].level * nextLevelXP;
 
       const levelbed = new MessageEmbed()
         .setColor(color.blue)
         .setTitle("Level Up!")
         .setAuthor(message.author.username, message.author.displayAvatarURL())
-        .setDescription(`You have reached level ${userData.guilds[guildId].users[userId].level}!`)
-        .setFooter(`XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`);
-        const checkxpembed = new MessageEmbed()
-        .setColor(color.blue)
-        .setTitle("Your xp!")
-        .setAuthor(message.author.username, message.author.displayAvatarURL())
-        .setDescription(`XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`)
-        .setFooter(`message.authour.username: ${userData.guilds[guildId].users[userId].username}`);
+        .setDescription(
+          `You have reached level ${userData.guilds[guildId].users[userId].level}!`
+        )
+        .setFooter(
+          `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`
+        );
+
       const row = new MessageActionRow().addComponents(
         new MessageButton()
           .setCustomId("levelup")
-          .setLabel("Whats my xp?")
+          .setLabel("Level Up")
           .setStyle("SUCCESS")
       );
-
       message.channel.send({
         embeds: [levelbed],
         components: [row],
       });
     }
 
-    userData.guilds[guildId].users[userId].messageTimeout = Date.now();
-
+    // Save updated data back to the JSON file
     fs.writeFile(
       "./src/data/users.json",
       JSON.stringify(userData, null, 2),
       (err) => {
         if (err) console.error("Error writing file:", err);
-      });
-  }
-});
-
-
-client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isButton()) return;
-
-  if (interaction.customId === "levelup") {
-    await interaction.reply({
-      embeds: [checkxpembed],
-      components: [row],
-    });;
+      }
+    );
   }
 });
 
@@ -177,6 +166,14 @@ const moreinfo = new MessageEmbed()
   .addField("Support Server", "https://discord.gg/pogy")
   .addField("Vote Pogy", "https://top.gg/bot/880243836830652958/vote");
 
+const levelupbutton = new MessageEmbed()
+  .setColor(color.blue)
+  .setTitle("Level Up")
+  .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
+  .setDescription(
+    `Hm this doesnt seem to do much. But you can click it anyways`
+  );
+
 const invitebutton = new MessageActionRow().addComponents(
   new MessageButton()
     .setLabel("Invite Pogy")
@@ -203,6 +200,8 @@ client.on("interactionCreate", async (interaction) => {
       });
     } else if (interaction.customId === "info") {
       await interaction.reply({ embeds: [infobutton] });
+    } else if (interaction.customId === "levelup") {
+      await interaction.reply({ embeds: [levelupbutton] });
     } else {
       await interaction.reply("Unknown button clicked.");
     }
