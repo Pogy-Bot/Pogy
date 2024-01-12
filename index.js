@@ -1,6 +1,6 @@
 // Imports lol
 require("dotenv").config();
-const { MessageEmbed, MessageActionRow , MessageButton} = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const PogyClient = require("./Pogy");
 const config = require("./config.json");
 const deploy = require("./src/deployCommands.js");
@@ -12,6 +12,8 @@ const Pogy = new PogyClient(config);
 const { Distube } = require('distube');
 const Command = require("./src/structures/Command");
 const { Player } = require('discord-player');
+let messageCreateEventFired = false;
+
 const color = require("./src/data/colors");
 const Guild = require("./src/database/schemas/Guild");
 const { stripIndent } = require("common-tags");
@@ -28,18 +30,92 @@ jointocreate(client);
 // end imports
 
 // Load user data from the JSON file
-let userData = require('./src/data/users.json');
+const userData = require("./src/data/users.json");
 
-client.on('messageCreate', message => {
-  if (message.author.bot) return;
+client.on("messageCreate", async (message) => {
+  if (message.author.bot) {
+    return;
+  } else {
+    let delay =
+      userData.guilds[message.guild.id].users[message.author.id].messageTimeout;
+    if (delay >= Date.now() + 60000) {
+      if (message.author.bot) return;
 
-  const userId = message.author.id; // Define userId here
-  if (!userData.users[userId]) {
-    userData.users[userId] = {
-      xp: 0,
-      level: 1,
-      username: message.author.username // Save the username in the userData
-    };
+      const userId = message.author.id;
+      const guildId = message.guild.id;
+
+      // Check if the guild exists in userData, if not, initialize it
+      if (!userData.guilds[guildId]) {
+        userData.guilds[guildId] = {
+          users: {},
+        };
+      }
+
+      if (!userData.guilds[guildId].users[userId]) {
+        userData.guilds[guildId].users[userId] = {
+          xp: 0,
+          level: 1,
+          messageTimeout: Date.now() - 60000, // Set the initial messageTimeout to 1 minute ago
+          username: message.author.username,
+        };
+      }
+
+      if (!userData.guilds[guildId].users[userId].background) {
+        userData.guilds[guildId].users[userId].background =
+          "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
+      }
+
+      //if(!userData.guilds[guildId].users[userId].messageTimeout)
+
+      // Increment XP for the user in the specific guild
+      userData.guilds[guildId].users[userId].xp +=
+        Math.floor(Math.random() * 15) + 10;
+
+      let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+
+      // Check for level-up logic
+      let xpNeededForNextLevel =
+        userData.guilds[guildId].users[userId].level * nextLevelXP;
+      if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
+        userData.guilds[guildId].users[userId].level += 1;
+        nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+        xpNeededForNextLevel =
+          userData.guilds[guildId].users[userId].level * nextLevelXP;
+
+        const levelbed = new MessageEmbed()
+          .setColor(color.blue)
+          .setTitle("Level Up!")
+          .setAuthor(message.author.username, message.author.displayAvatarURL())
+          .setDescription(
+            `You have reached level ${userData.guilds[guildId].users[userId].level}!`,
+          )
+          .setFooter(
+            `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`,
+          );
+
+        const row = new MessageActionRow().addComponents(
+          new MessageButton()
+            .setCustomId("levelup")
+            .setLabel("Level Up")
+            .setStyle("SUCCESS"),
+        );
+        message.channel.send({
+          embeds: [levelbed],
+          components: [row],
+        });
+      }
+
+      // Save updated data back to the JSON file
+      fs.writeFile(
+        "./src/data/users.json",
+        JSON.stringify(userData, null, 2),
+        (err) => {
+          if (err) console.error("Error writing file:", err);
+        },
+      );
+    } else {
+      return;
+    }
   }
 
   // If the background URL is not set, save it
@@ -85,23 +161,77 @@ client.on('messageCreate', message => {
   fs.writeFile('./src/data/users.json', JSON.stringify(userData, null, 2), err => {
     if (err) console.error('Error writing file:', err);
   });
+      //if(!userData.guilds[guildId].users[userId].messageTimeout)
+
+      // Increment XP for the user in the specific guild
+      userData.guilds[guildId].users[userId].xp +=
+        Math.floor(Math.random() * 15) + 10;
+
+      let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+
+      // Check for level-up logic
+      let xpNeededForNextLevel =
+        userData.guilds[guildId].users[userId].level * nextLevelXP;
+      if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
+        userData.guilds[guildId].users[userId].level += 1;
+        nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+        xpNeededForNextLevel =
+          userData.guilds[guildId].users[userId].level * nextLevelXP;
+
+        const levelbed = new MessageEmbed()
+          .setColor(color.blue)
+          .setTitle("Level Up!")
+          .setAuthor(message.author.username, message.author.displayAvatarURL())
+          .setDescription(
+            `You have reached level ${userData.guilds[guildId].users[userId].level}!`,
+          )
+          .setFooter(
+            `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`,
+          );
+
+        const row = new MessageActionRow().addComponents(
+          new MessageButton()
+            .setCustomId("levelup")
+            .setLabel("Level Up")
+            .setStyle("SUCCESS"),
+        );
+        message.channel.send({
+          embeds: [levelbed],
+          components: [row],
+        });
+      }
+
+      // Save updated data back to the JSON file
+      fs.writeFile(
+        "./src/data/users.json",
+        JSON.stringify(userData, null, 2),
+        (err) => {
+          if (err) console.error("Error writing file:", err);
+        },
+      );
+    } else {
+      return;
+    }
+  }
 });
 
 client.slashCommands = new Collection();
 const commandsFolders = fs.readdirSync("./src/slashCommands");
 
 for (const folder of commandsFolders) {
-  const commandFiles = fs.readdirSync(`./src/slashCommands/${folder}`).filter((file) => file.endsWith(".js"));
+  const commandFiles = fs
+    .readdirSync(`./src/slashCommands/${folder}`)
+    .filter((file) => file.endsWith(".js"));
 
-  for(const file of commandFiles) {
+  for (const file of commandFiles) {
     const slashCommand = require(`./src/slashCommands/${folder}/${file}`);
     client.slashCommands.set(slashCommand.data.name, slashCommand);
     Promise.resolve(slashCommand);
   }
 }
 
-client.on('interactionCreate', async interaction => {
-  if(!interaction.isCommand()) return;
+client.on("interactionCreate", async (interaction) => {
+  if (!interaction.isCommand()) return;
 
   const slashCommand = client.slashCommands.get(interaction.commandName);
 

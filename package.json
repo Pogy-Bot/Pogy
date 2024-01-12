@@ -20,7 +20,7 @@
     "body-parser": "^1.19.0",
     "canvacord": "^5.0.8",
     "canvafy": "^7.0.4",
-    "canvas": "^2.11.2",
+    "canvas": "^2.9.3",
     "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.12",
     "colors": "^1.4.0",
@@ -77,7 +77,8 @@
     "weky": "^3.1.8",
     "winston": "^3.3.3",
     "zalgo": "0.0.1",
-    "zalgolize": "^1.2.4"
+    "zalgolize": "^1.2.4",
+    "zlib": "^1.0.5"
   },
   "name": "pogy",
   "version": "1.0.0",

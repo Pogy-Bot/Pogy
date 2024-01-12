@@ -2,13 +2,18 @@ const Command = require("../../structures/Command");
 const { createCanvas, loadImage } = require('canvas');
 const { MessageAttachment, MessageActionRow, MessageButton } = require("discord.js");
 const Discord = require("discord.js");
-const userData = require('/home/vboxuser/Pogy-1/src/data/users.json');
+const userData = require('../../data/users.json');
 
 // Calculate the required XP for a certain level
 function calculateRequiredXP(level) {
-  const baseXP = 100;
-  const increment = 150;
-  return baseXP + (level - 1) * increment;
+  const baseXP = 75;
+  const increment = level * 75;
+  const xpNeeded = (level) * increment;
+  if(level === 0) {
+    return baseXP + xpNeeded;
+  } else {
+    return xpNeeded;
+  }
 }
 
 module.exports = class RankCommand extends Command {
@@ -25,7 +30,8 @@ module.exports = class RankCommand extends Command {
   async run(message) {
     try {
       const targetUser = message.mentions.users.first() || message.author;
-      const user = userData.users[targetUser.id];
+      const guild = message.guild;
+      const user = userData.guilds[guild.id].users[targetUser.id];
 
       if (!user) {
         return message.reply('User not found.');
@@ -53,8 +59,8 @@ module.exports = class RankCommand extends Command {
       const levelText = `Level ${user.level}`;
       ctx.fillText(levelText, 700, 100);
 
-      const requiredXPForCurrentLevel = calculateRequiredXP(user.level);
-      const requiredXPForNextLevel = calculateRequiredXP(user.level + 1);
+      const requiredXPForCurrentLevel = calculateRequiredXP(user.level - 1);
+      const requiredXPForNextLevel = calculateRequiredXP(user.level);
       const progressBarWidth = 600;
       const progressWidth = ((user.xp - requiredXPForCurrentLevel) / (requiredXPForNextLevel - requiredXPForCurrentLevel)) * progressBarWidth;
 
@@ -62,6 +68,9 @@ module.exports = class RankCommand extends Command {
       ctx.font = '24px Arial';
       ctx.fillText(`Current XP: ${user.xp}`, 200, 150);
       ctx.fillText(`XP till Level Up: ${requiredXPForNextLevel - user.xp}`, 200, 200);
+
+      ctx.font = '24px Arial';
+      ctx.fillText(`Total XP: ${user.xp}/${requiredXPForNextLevel}`, 250, 250);
 
       // Rounded progress bar
       ctx.roundRect = function (x, y, width, height, radius, fill, stroke) {

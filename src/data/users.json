@@ -1,17 +1,22 @@
 {
-  "users": {
-    "969655699154042940": {
-      "xp": 288,
-      "level": 4,
-      "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
-    },
-    "1166777971433029717": {
-      "xp": 3,
-      "level": 1
-    },
-    "1166814532329554081": {
-      "xp": 7,
-      "level": 1
+  "guilds": {
+    "1147423890574934079": {
+      "users": {
+        "1067137336674107453": {
+          "xp": 96,
+          "level": 2,
+          "messageTimeout": 1705014434047,
+          "username": "theeyum",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "969655699154042940": {
+          "xp": 46,
+          "level": 1,
+          "messageTimeout": 1705014604473,
+          "username": "hotsuop",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        }
+      }
     }
   }
 }

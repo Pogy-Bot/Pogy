@@ -1,5 +1,5 @@
 const Command = require("../../structures/Command");
-const userData = require('/home/vboxuser/Pogy-1/src/data/users.json');
+const userData = require('../../data/users.json');
 const fs = require('fs');
 
 module.exports = class BackgroundCommand extends Command {
