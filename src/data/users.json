@@ -3,9 +3,27 @@
     "1182740492644003910": {
       "users": {
         "969655699154042940": {
-          "xp": 358,
-          "level": 3,
+          "xp": 1966,
+          "level": 6,
           "messageTimeout": 100,
+          "username": "hotsuop",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "1166777971433029717": {
+          "xp": 37,
+          "level": 1,
+          "messageTimeout": 1705111962082,
+          "username": "m0rpheusdreamweaver",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        }
+      }
+    },
+    "1157042943673237504": {
+      "users": {
+        "969655699154042940": {
+          "xp": 68,
+          "level": 1,
+          "messageTimeout": 1705110795862,
           "username": "hotsuop",
           "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
         }

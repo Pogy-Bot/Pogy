@@ -22,8 +22,8 @@ module.exports = class LeaderboardCommand extends Command {
       const leaderboardEmbed = new Discord.MessageEmbed()
         .setColor("#0099ff")
         .setTitle("Server Leaderboard")
-        .setDescription("Top 10 Users based on Levels:");
-
+        .setDescription("Top 10 Users based on Levels:")
+        .setFooter("Levels are calculated based on XP.");
       for (let i = 0; i < sortedUsers.length; i++) {
         const user = sortedUsers[i];
         let member;

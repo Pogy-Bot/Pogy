@@ -30,6 +30,7 @@
     "datadog-metrics": "^0.8.2",
     "date-and-time": "^0.14.2",
     "discord-api-types": "^0.37.11",
+    "discord-buttons": "^4.0.0-deprecated",
     "discord-gamecord": "^4.4.1",
     "discord-player": "^6.6.7",
     "discord-slash-command-handler": "^3.2.3",
