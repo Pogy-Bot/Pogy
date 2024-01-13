@@ -172,7 +172,8 @@ const levelupbutton = new MessageEmbed()
   .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
   .setDescription(
     `Hm this doesnt seem to do much. But you can click it anyways`
-  );
+  )
+  .setURL("https://pogy.xyz/invite");
 
 const invitebutton = new MessageActionRow().addComponents(
   new MessageButton()
@@ -202,6 +203,96 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply({ embeds: [infobutton] });
     } else if (interaction.customId === "levelup") {
       await interaction.reply({ embeds: [levelupbutton] });
+    } else if (
+      interaction.customId === "rock" ||
+      interaction.customId === "paper" ||
+      interaction.customId === "scissors"
+    ) {
+      const userChoice = interaction.customId;
+      const botChoice = ["rock", "paper", "scissors"][
+        Math.floor(Math.random() * 3)
+      ];
+
+      const emojis = {
+        rock: "✊",
+        paper: "✋",
+        scissors: "✌️",
+      };
+
+      const resultEmbed = new MessageEmbed()
+        .setColor("#00FF00")
+        .setTitle("Rock Paper Scissors")
+        .setDescription(
+          `You chose ${emojis[userChoice]}, and the bot chose ${emojis[botChoice]}.`
+        );
+
+      let resultMessage;
+      if (userChoice === botChoice) {
+        resultMessage = "It's a tie!";
+        resultEmbed.setColor("#FFFF00");
+      } else {
+        const userWins =
+          (userChoice === "rock" && botChoice === "scissors") ||
+          (userChoice === "paper" && botChoice === "rock") ||
+          (userChoice === "scissors" && botChoice === "paper");
+        resultMessage = userWins ? "You win!" : "You lose!";
+        resultEmbed.addField(
+          "Result",
+          `${resultMessage} ${emojis[userChoice]} beats ${emojis[botChoice]}`
+        );
+        if (userWins) {
+          resultEmbed.setColor("#00FF00");
+        } else {
+          resultEmbed.setColor("#FF0000");
+        }
+      }
+
+      const playAgainButton = new MessageButton()
+        .setCustomId("playagain")
+        .setLabel("Play Again")
+        .setStyle("PRIMARY");
+
+      const buttonRow = new MessageActionRow().addComponents(playAgainButton);
+
+      await interaction.reply({
+        embeds: [resultEmbed],
+        components: [buttonRow],
+      });
+    } else if (interaction.customId === "playagain") {
+      // Start a new game
+      const gameEmbed = new MessageEmbed()
+        .setColor("#0080FF")
+        .setTitle("Rock Paper Scissors")
+        .setDescription("Choose your move!");
+
+      const rockButton = new MessageButton()
+        .setCustomId("rock")
+        .setLabel("Rock")
+        .setEmoji("✊")
+        .setStyle("SUCCESS");
+
+      const paperButton = new MessageButton()
+        .setCustomId("paper")
+        .setLabel("Paper")
+        .setEmoji("✋")
+        .setStyle("SUCCESS");
+
+      const scissorsButton = new MessageButton()
+        .setCustomId("scissors")
+        .setLabel("Scissors")
+        .setEmoji("✌️")
+        .setStyle("SUCCESS");
+
+      const buttonRow = new MessageActionRow().addComponents(
+        rockButton,
+        paperButton,
+        scissorsButton
+      );
+
+      await interaction.update({
+        embeds: [gameEmbed],
+        components: [buttonRow],
+      });
     } else {
       await interaction.reply("Unknown button clicked.");
     }
