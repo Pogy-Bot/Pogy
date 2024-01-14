@@ -272,8 +272,11 @@ client.on("interactionCreate", async (interaction) => {
       });
     } else if (interaction.customId === "info") {
       await interaction.reply({ embeds: [infobutton] });
+    } else if (interaction.customId === "info") {
+      await interaction.reply({ embeds: [] });
     } else if (interaction.customId === "levelup") {
       await interaction.reply({ embeds: [levelupbutton] });
+      
     } else if (
       interaction.customId === "rock" ||
       interaction.customId === "paper" ||
@@ -372,7 +375,6 @@ client.on("interactionCreate", async (interaction) => {
     await interaction.reply({ content: "An error occurred.", ephemeral: true });
   }
 });
-
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
 
