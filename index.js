@@ -261,6 +261,7 @@ const infobutton = new MessageEmbed()
   .setURL("https://github.com/hotsu0p/Pogy/")
   .addField("Github Repo", "https://github.com/hotsu0p/Pogy/");
 
+
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isButton()) return;
 
@@ -272,16 +273,26 @@ client.on("interactionCreate", async (interaction) => {
       });
     } else if (interaction.customId === "info") {
       await interaction.reply({ embeds: [infobutton] });
-    } else if (interaction.customId === "info") {
-      await interaction.reply({ embeds: [] });
     } else if (interaction.customId === "levelup") {
       await interaction.reply({ embeds: [levelupbutton] });
-      
+    } else if (interaction.customId === "rerole") {
+      // Handle rerole button click
+      const members = interaction.guild.members.cache;
+      const newRandomUser = members.random();
+
+      const newEmbed = new MessageEmbed()
+        .setTitle("New Random User")
+        .setDescription(`**User:** <@${newRandomUser.user.tag}>`)
+        .setColor("RANDOM")
+        .setFooter({ text: `Requested by ${interaction.user.username}` });
+
+      await interaction.update({ embeds: [newEmbed] });
     } else if (
       interaction.customId === "rock" ||
       interaction.customId === "paper" ||
       interaction.customId === "scissors"
     ) {
+      // Rock, paper, scissors game logic
       const userChoice = interaction.customId;
       const botChoice = ["rock", "paper", "scissors"][
         Math.floor(Math.random() * 3)
@@ -375,6 +386,7 @@ client.on("interactionCreate", async (interaction) => {
     await interaction.reply({ content: "An error occurred.", ephemeral: true });
   }
 });
+
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
 

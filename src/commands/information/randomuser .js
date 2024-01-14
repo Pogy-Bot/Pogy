@@ -1,5 +1,5 @@
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const Command = require("../../structures/Command");
-const { MessageEmbed, Interaction } = require("discord.js");
 
 module.exports = class extends Command {
   constructor(...args) {
@@ -19,6 +19,20 @@ module.exports = class extends Command {
 
     const members = message.guild.members.cache;
     const user = members.random();
-    message.channel.send(`<@${user.user.id}>`);
+    const userembed = new MessageEmbed()
+      .setTitle("Random User")
+      .setDescription(`**User:** <@${user.user.id}>`)
+      .setColor("RANDOM")
+      .setFooter({ text: `Requested by ${message.author.username}` });
+
+    const rerolebtn = new MessageButton()
+      .setCustomId("rerole")
+      .setLabel("Rerole")
+      .setStyle("PRIMARY")
+      .setEmoji("🔄");
+
+    const rerole = new MessageActionRow().addComponents(rerolebtn);
+
+    message.channel.send({ embeds: [userembed], components: [rerole] });
   }
 };
