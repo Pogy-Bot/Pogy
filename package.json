@@ -48,6 +48,7 @@
     "intl": "^1.2.5",
     "logs.chat": "^1.0.3",
     "memorystore": "^1.6.5",
+    "modmail.djs": "^1.1.0",
     "moment": "^2.27.0",
     "moment-duration-format": "^2.3.2",
     "monafy": "^0.0.1",

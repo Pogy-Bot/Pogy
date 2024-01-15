@@ -552,7 +552,6 @@ client.on("interactionCreate", async (interaction) => {
     await interaction.reply({ content: "An error occurred.", ephemeral: true });
   }
 });
-
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
 
