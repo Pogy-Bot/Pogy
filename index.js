@@ -3,6 +3,7 @@ require("dotenv").config();
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const PogyClient = require("./Pogy");
 const config = require("./config.json");
+const axios = require("axios");
 const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
@@ -22,6 +23,51 @@ let client = Pogy;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
 // end imports
+
+// getPlayerData function with base64 encoding
+async function getPlayerData(username) {
+  try {
+    console.log(`Fetching UUID for ${username}`);
+    const responseUUID = await axios.get(
+      `https://api.mojang.com/users/profiles/minecraft/${username}`
+    );
+
+    // Check if the player was found
+    if (!responseUUID.data) {
+      console.log("Player not found");
+      return null;
+    }
+
+    const uuid = responseUUID.data.id;
+    console.log(`UUID for ${username}: ${uuid}`);
+
+    console.log(`Fetching skin for UUID: ${uuid}`);
+    const responseSkin = await axios.get(
+      `https://api.mineatar.io/head/${uuid}`,
+      { responseType: "arraybuffer" }
+    );
+
+    // Check if the skin was found
+    if (!responseSkin.data) {
+      console.log("Skin not found");
+      return null;
+    }
+
+    console.log("Skin found");
+    const skinUrl = `data:image/png;base64,${Buffer.from(
+      responseSkin.data,
+      "binary"
+    ).toString("base64")}`;
+
+    return {
+      uuid,
+      skinUrl,
+    };
+  } catch (error) {
+    console.error("Error:", error.message);
+    return null;
+  }
+}
 
 // Load user data from the JSON file
 const userData = require("./src/data/users.json");
@@ -261,11 +307,10 @@ const infobutton = new MessageEmbed()
   .setURL("https://github.com/hotsu0p/Pogy/")
   .addField("Github Repo", "https://github.com/hotsu0p/Pogy/");
 
-
 client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isButton()) return;
-
   try {
+    if (!interaction.isButton()) return;
+
     if (interaction.customId === "support") {
       await interaction.reply({
         embeds: [moreinfo],
@@ -275,6 +320,51 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply({ embeds: [infobutton] });
     } else if (interaction.customId === "levelup") {
       await interaction.reply({ embeds: [levelupbutton] });
+      /*    } else if (buttonId === 'head') {
+      // Get player data based on the stored currentUsername
+      const playerData = await getPlayerData(currentUsername);
+
+      if (playerData) {
+          const skinUrl = playerData.skinUrl;
+
+          const embed = new MessageEmbed()
+              .setTitle(`${currentUsername}'s Head`)
+              .setImage(skinUrl) // Use full skinUrl for head view
+              .setColor('#00FF00')
+              .setFooter(`UUID: ${playerData.uuid}`);
+
+          await interaction.update({ embeds: [embed] });
+      } else {
+          await interaction.reply({
+              content: 'Error fetching player data.',
+              ephemeral: true
+          });
+      }
+  } else if (buttonId === 'body') {
+      // Get player data based on the stored currentUsername
+      const playerData = await getPlayerData(currentUsername);
+
+      if (playerData) {
+          const skinUrl = playerData.skinUrl;
+
+          const embed = new MessageEmbed()
+              .setTitle(`${currentUsername}'s Body`)
+              .setImage(skinUrl) // Use full skinUrl for body view
+              .setColor('#00FF00')
+              .setFooter(`UUID: ${playerData.uuid}`);
+
+          await interaction.update({ embeds: [embed] });
+      } else {
+          await interaction.reply({
+              content: 'Error fetching player data.',
+              ephemeral: true
+          });
+      }
+  } else if (buttonId === 'full') {
+      // Run the command again to display the full skin
+      // You can use the previous stored currentUsername without fetching data again
+      const command = require('./getskin.js');
+      await command.run(interaction.message);
     } else if (interaction.customId === "rerole") {
       // Handle rerole button click
       const members = interaction.guild.members.cache;
@@ -282,9 +372,85 @@ client.on("interactionCreate", async (interaction) => {
 
       const newEmbed = new MessageEmbed()
         .setTitle("New Random User")
-        .setDescription(`**User:** <@${newRandomUser.user.tag}>`)
+        .setDescription(`**User:** <@${newRandomUser.user.id}>`)
         .setColor("RANDOM")
-        .setFooter({ text: `Requested by ${interaction.user.username}` });
+        .setFooter(`Requested by ${interaction.user.username}`);
+
+      await interaction.update({ embeds: [newEmbed] });
+
+
+    }else if (
+        interaction.customId === "head" ||
+        interaction.customId === "body" ||
+        interaction.customId === "full"
+      ) {
+        const username = "mcmaster10033"; // Replace with the username you want to fetch
+      
+        // Get player data based on the selected body part
+        const playerData = await getPlayerData(username);
+      
+        if (playerData) {
+          const skinUrl = playerData.skinUrl;
+      
+          // Truncate skinUrl if it exceeds Discord's limit
+          const truncatedSkinUrl = skinUrl.slice(0, 2048);
+      
+          // Embed based on the selected body part
+          const embed = new MessageEmbed()
+            .setTitle(`Player Skin - ${interaction.customId}`)
+            .setDescription(`**User:** <@${username}>`)
+            .setImage(truncatedSkinUrl) // Use the truncated skinUrl
+            .setColor("RANDOM")
+            .setFooter(`Requested by ${interaction.user.username}`);
+      
+          await interaction.update({ embeds: [embed] });
+        } else {
+          await interaction.reply({
+            content: "Error fetching player data.",
+            ephemeral: true,
+          });
+        } */
+    } else if (
+      interaction.customId === "head" ||
+      interaction.customId === "body" ||
+      interaction.customId === "full"
+    ) {
+      const username = "mcmaster10033"; // Replace with the username you want to fetch
+
+      // Get player data based on the selected body part
+      const playerData = await getPlayerData(username);
+
+      if (playerData) {
+        const skinUrl = playerData.skinUrl;
+
+        // Truncate skinUrl if it exceeds Discord's limit
+        const truncatedSkinUrl = skinUrl.slice(0, 2048);
+
+        // Embed based on the selected body part
+        const embed = new MessageEmbed()
+          .setTitle(`Player Skin - ${interaction.customId}`)
+          .setDescription(`**User:** <@${username}>`)
+          .setImage(truncatedSkinUrl) // Use the truncated skinUrl
+          .setColor("RANDOM")
+          .setFooter(`Requested by ${interaction.user.username}`);
+
+        await interaction.update({ embeds: [embed] });
+      } else {
+        await interaction.reply({
+          content: "Error fetching player data.",
+          ephemeral: true,
+        });
+      }
+    } else if (interaction.customId === "rerole") {
+      // Handle rerole button click
+      const members = interaction.guild.members.cache;
+      const newRandomUser = members.random();
+
+      const newEmbed = new MessageEmbed()
+        .setTitle("New Random User")
+        .setDescription(`**User:** <@${newRandomUser.user.id}>`)
+        .setColor("RANDOM")
+        .setFooter(`Requested by ${interaction.user.username}`);
 
       await interaction.update({ embeds: [newEmbed] });
     } else if (
