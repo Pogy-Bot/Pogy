@@ -13,45 +13,45 @@ module.exports = class extends Command {
     });
   }
 
-    async run(message, args) {
-        const guildDB = await Guild.findOne({
-            guildId: message.guild.id,
-        });
+  async run(message, args) {
+    const guildDB = await Guild.findOne({
+      guildId: message.guild.id,
+    });
 
-        const language = require(`../../data/language/${guildDB.language}.json`);
+    const language = require(`../../data/language/${guildDB.language}.json`);
 
-        const invites = await message.guild.invites.fetch();
+    const invites = await message.guild.invites.fetch();
 
-        const inviteCounts = {};
+    const inviteCounts = {};
 
-        invites.forEach(invite => {
-            const { uses, inviter } = invite;
-            const { username, discriminator } = inviter;
+    invites.forEach((invite) => {
+      const { uses, inviter } = invite;
+      const { username, discriminator } = inviter;
 
-            const name = `${username}#${discriminator}`;
+      const name = `${username}#${discriminator}`;
 
-            inviteCounts[name] = (inviteCounts[name] || 0);
-        });
+      inviteCounts[name] = inviteCounts[name] || 0;
+    });
 
-        let leaderboard = "";
+    let leaderboard = "";
 
-        Object.keys(inviteCounts)
-            .sort((a, b) => inviteCounts[b] - inviteCounts[a])
-            .forEach((name, index) => {
-                leaderboard += `${index + 1}. ${name}: ${inviteCounts[name]}\n`;
-            });
+    Object.keys(inviteCounts)
+      .sort((a, b) => inviteCounts[b] - inviteCounts[a])
+      .forEach((name, index) => {
+        leaderboard += `${index + 1}. ${name}: ${inviteCounts[name]}\n`;
+      });
 
-        // Fixed error    
+    // Fixed error
 
-        const embed = new MessageEmbed()
-            .setColor(message.guild.me.displayHexColor)
-            .setTitle(`${message.guild.name} Invite leaderboard`)
-            .setFooter(message.client.user.username, message.client.user.displayAvatarURL())
-            .setDescription(leaderboard);
+    const embed = new MessageEmbed()
+      .setColor(message.guild.me.displayHexColor)
+      .setTitle(`${message.guild.name} Invite leaderboard`)
+      .setFooter(
+        message.client.user.username,
+        message.client.user.displayAvatarURL()
+      )
+      .setDescription(leaderboard);
 
-        await message.channel.sendCustom({ embeds: [embed] });
-    }
-
-
-
+    await message.channel.sendCustom({ embeds: [embed] });
+  }
 };

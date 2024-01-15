@@ -37,11 +37,15 @@ module.exports = class extends Command {
     const hideStatus = true;
 
     try {
-      const response = await fetch(`https://discord-activity.deno.dev/api/${userId}?bgColor=${bgColor}&borderRadius=${borderRadius}&idleMessage=${idleMessage}&hideStatus=${hideStatus}`);
+      const response = await fetch(
+        `https://discord-activity.deno.dev/api/${userId}?bgColor=${bgColor}&borderRadius=${borderRadius}&idleMessage=${idleMessage}&hideStatus=${hideStatus}`
+      );
 
       if (!response.ok) {
         console.error(`Error: ${response.status} - ${response.statusText}`);
-        return message.reply(`Failed to fetch user activity. (${response.status} - ${response.statusText})`);
+        return message.reply(
+          `Failed to fetch user activity. (${response.status} - ${response.statusText})`
+        );
       }
 
       const svgImage = await response.text();
