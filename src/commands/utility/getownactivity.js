@@ -1,6 +1,7 @@
 const Command = require("../../structures/Command");
 const fetch = require("node-fetch");
-const { MessageEmbed, User } = require("discord.js");
+const { MessageEmbed, MessageAttachment } = require("discord.js");
+const convertSvgToPng = require("convert-svg-to-png");
 
 module.exports = class extends Command {
   constructor(...args) {
@@ -10,14 +11,13 @@ module.exports = class extends Command {
       category: "Utility",
       cooldown: 5,
       usage: "[user_mention_or_id]",
-      args: false, // Allow the command to be used without specifying a user
+      args: false,
     });
   }
 
   async run(message, args) {
     let userId;
 
-    // Check if a user mention or ID is provided as an argument
     if (args.length > 0) {
       const mention = args[0];
       const userIdMatch = mention.match(/^<@!?(\d+)>$/);
@@ -25,10 +25,10 @@ module.exports = class extends Command {
       if (userIdMatch) {
         userId = userIdMatch[1];
       } else {
-        userId = mention; // Assume it's a user ID
+        userId = mention;
       }
     } else {
-      userId = message.author.id; // Default to the author's ID if no argument is provided
+      userId = message.author.id;
     }
 
     const bgColor = "1b1c1e";
@@ -44,14 +44,24 @@ module.exports = class extends Command {
         return message.reply(`Failed to fetch user activity. (${response.status} - ${response.statusText})`);
       }
 
+      const svgImage = await response.text();
       const link = response.url;
 
+      // Convert SVG to PNG
+      const pngBuffer = await convertSvgToPng.convert(svgImage, {
+        height: 250,
+        width: 512,
+      });
+      const attachment = new MessageAttachment(pngBuffer, "user_activity.png");
+
+      // Create and send the embed with the converted image
       const embed = new MessageEmbed()
         .setTitle("Discord Activity")
         .setDescription(`[Click here to view the activity](${link})`)
-        .setColor("#7289DA");
+        .setColor("#7289DA")
+        .setImage(`attachment://user_activity.png`); // Attach the image to the embed
 
-      message.reply({ embeds: [embed] });
+      message.reply({ embeds: [embed], files: [attachment] });
     } catch (error) {
       console.error("Error fetching user activity:", error);
       message.reply("Failed to fetch user activity.");
