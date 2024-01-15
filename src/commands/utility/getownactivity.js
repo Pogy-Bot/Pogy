@@ -49,7 +49,7 @@ module.exports = class extends Command {
 
       // Convert SVG to PNG
       const pngBuffer = await convertSvgToPng.convert(svgImage, {
-        height: 250,
+        height: 225,
         width: 512,
       });
       const attachment = new MessageAttachment(pngBuffer, "user_activity.png");
