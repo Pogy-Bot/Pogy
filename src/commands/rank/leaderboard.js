@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
 const Discord = require("discord.js");
 const userData = require("../../data/users.json");
-
+const guildData = require("../../data/users.json");
 module.exports = class LeaderboardCommand extends Command {
   constructor(...args) {
     super(...args, {
@@ -18,6 +18,9 @@ module.exports = class LeaderboardCommand extends Command {
       const guild = message.guild;
       const users = Object.values(userData.guilds[guild.id].users);
       const sortedUsers = users.sort((a, b) => b.level - a.level).slice(0, 10); // Sort users by level and take the top 10
+      if (guildData[guildId] && guildData[guildId].levelingEnabled === false) {
+        return message.reply("Leveling is disabled for this server.");
+      }
 
       const leaderboardEmbed = new Discord.MessageEmbed()
         .setColor("#0099ff")

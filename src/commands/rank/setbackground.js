@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
 const userData = require("../../data/users.json");
 const fs = require("fs");
-
+const guildData = require("../../data/users.json");
 module.exports = class BackgroundCommand extends Command {
   constructor(...args) {
     super(...args, {
@@ -16,6 +16,10 @@ module.exports = class BackgroundCommand extends Command {
 
   run(message, args) {
     const backgroundURL = args[0];
+    if (guildData[guildId] && guildData[guildId].levelingEnabled === false) {
+      return message.reply("Leveling is disabled for this server.");
+    }
+
     if (!backgroundURL) {
       return message.reply("Please provide a background URL.");
     }

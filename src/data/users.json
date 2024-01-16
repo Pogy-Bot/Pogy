@@ -3,7 +3,7 @@
     "1182740492644003910": {
       "users": {
         "969655699154042940": {
-          "xp": 5332,
+          "xp": 5815,
           "level": 9,
           "messageTimeout": 100,
           "username": "hotsuop",
@@ -21,13 +21,55 @@
     "1157042943673237504": {
       "users": {
         "969655699154042940": {
-          "xp": 68,
-          "level": 1,
+          "xp": 321,
+          "level": 3,
           "messageTimeout": 1705110795862,
           "username": "hotsuop",
           "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
         }
       }
+    },
+    "1191545603650490518": {
+      "users": {
+        "969655699154042940": {
+          "xp": 1100,
+          "level": 4,
+          "messageTimeout": 1705351305202,
+          "username": "hotsuop",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "961930771344523264": {
+          "xp": 1045,
+          "level": 4,
+          "messageTimeout": 1705351309671,
+          "username": "cj_foryou",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "727154675496779826": {
+          "xp": 591,
+          "level": 3,
+          "messageTimeout": 1705351358796,
+          "username": "cps_gaming",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "1007075904314429500": {
+          "xp": 278,
+          "level": 2,
+          "messageTimeout": 1705351667467,
+          "username": "dtblocker",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "1093137664171061271": {
+          "xp": 202,
+          "level": 2,
+          "messageTimeout": 1705351734449,
+          "username": "jack_dalton134",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        }
+      }
     }
+  },
+  "1182740492644003910": {
+    "levelingEnabled": false
   }
 }

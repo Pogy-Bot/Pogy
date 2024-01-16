@@ -70,16 +70,24 @@ async function getPlayerData(username) {
 }
 
 // Load user data from the JSON file
+
 const userData = require("./src/data/users.json");
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
   } else {
-    const guildId = message.guild?.id; // Safely get guild ID using optional chaining
+    const guildId = message.guild?.id;
 
     if (!guildId) {
       console.error("Guild ID is undefined");
+      return;
+    }
+
+    const guildConfig = getGuildConfig(guildId);
+
+    // Check if leveling is enabled for this guild
+    if (!guildConfig.levelingEnabled) {
       return;
     }
 
@@ -94,6 +102,7 @@ client.on("messageCreate", async (message) => {
     if (!userData.guilds[guildId]) {
       userData.guilds[guildId] = {
         users: {},
+        levelingEnabled: true, // Add a new property to enable/disable leveling
       };
     }
 
@@ -128,7 +137,7 @@ client.on("messageCreate", async (message) => {
         userData.guilds[guildId].users[userId].level * nextLevelXP;
 
       const levelbed = new MessageEmbed()
-        .setColor(color.blue)
+        .setColor("#3498db")
         .setTitle("Level Up!")
         .setAuthor(message.author.username, message.author.displayAvatarURL())
         .setDescription(
@@ -160,6 +169,18 @@ client.on("messageCreate", async (message) => {
     );
   }
 });
+
+// Function to get guild configuration, create if not exists
+function getGuildConfig(guildId) {
+  if (!userData.guilds[guildId]) {
+    userData.guilds[guildId] = {
+      users: {},
+      levelingEnabled: true, // Add a new property to enable/disable leveling
+    };
+  }
+  return userData.guilds[guildId];
+}
+
 
 client.slashCommands = new Collection();
 const commandsFolders = fs.readdirSync("./src/slashCommands");
@@ -550,6 +571,35 @@ client.on("interactionCreate", async (interaction) => {
   } catch (error) {
     console.error("Error handling button interaction:", error);
     await interaction.reply({ content: "An error occurred.", ephemeral: true });
+  }
+});
+
+const { EmojiBackup } = require('discord.emoji-backup');
+const backup = new EmojiBackup();
+client.on('message', async msg => {
+  if (msg.author.bot || !msg.guild) return;
+  if (!msg.content.startsWith('!')) return;
+  const args = msg.content.slice('!'.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+  if (command === 'create') {
+      // Create a backup
+      await backup.create(msg.guild).then(console.log);
+  }
+  if (command === 'load-nodelete') {
+      // Load a backup without deleting all emojis
+      const backupid = args.join(' ');
+      await backup.load(msg.guild, backupid);
+  }
+  if (command === 'load-delete') {
+      // Load a backup with deleting all emojis
+      const backupid = args.join(' ');
+      await backup.load(msg.guild, backupid, { deleteAll: true });
+  }
+  if (command === 'list') {
+      // List all of backups
+      const list = await backup.list();
+      console.log(list);
+      msg.channel.send(`\`\`\`js\n${JSON.stringify(list, null, 2)}\`\`\``);
   }
 });
 Pogy.react = new Map();

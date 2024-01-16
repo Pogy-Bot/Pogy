@@ -3,7 +3,7 @@ const { createCanvas, loadImage } = require("canvas");
 const { MessageAttachment } = require("discord.js");
 const Discord = require("discord.js");
 const userData = require("../../data/users.json");
-
+const guildData = require("../../data/users.json");
 // Calculate the required XP for a certain level
 function calculateRequiredXP(level) {
   const baseXP = 75;
@@ -32,7 +32,9 @@ module.exports = class RankCommand extends Command {
       const targetUser = message.mentions.users.first() || message.author;
       const guild = message.guild;
       const user = userData.guilds[guild.id]?.users[targetUser.id];
-
+      if (guildData[guild.id] && guildData[guild.id].levelingEnabled === false) {
+        return message.reply("Leveling is disabled for this server.");
+      }
       if (!user) {
         return message.reply("User not found.");
       }
