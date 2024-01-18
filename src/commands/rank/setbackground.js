@@ -16,7 +16,10 @@ module.exports = class BackgroundCommand extends Command {
 
   run(message, args) {
     const backgroundURL = args[0];
-    if (guildData[guildId] && guildData[guildId].levelingEnabled === false) {
+    const targetUser = message.mentions.users.first() || message.author;
+    const guild = message.guild;
+    const user = userData.guilds[guild.id]?.users[targetUser.id];
+    if (guildData[guild.id] && guildData[guild.id].levelingEnabled === false) {
       return message.reply("Leveling is disabled for this server.");
     }
 

@@ -23,7 +23,7 @@ module.exports = class WordScrambleCommand extends Command {
       const questionEmbed = {
         color: "#00FF00",
         title: "Word Scramble",
-        description: `Unscramble the following word:\n\n**${scrambledWord}**`,
+        description: `Unscramble the following word:\n\n**${words.randomIndex}**`,
         footer: {
           text: "Reply with your answer. You have 15 seconds.",
         },

@@ -1,9 +1,9 @@
 const Command = require("../../structures/Command");
 const { createCanvas, loadImage } = require("canvas");
-const { MessageAttachment } = require("discord.js");
-const Discord = require("discord.js");
+const { MessageAttachment, MessageEmbed } = require("discord.js");
 const userData = require("../../data/users.json");
 const guildData = require("../../data/users.json");
+
 // Calculate the required XP for a certain level
 function calculateRequiredXP(level) {
   const baseXP = 75;
@@ -32,9 +32,11 @@ module.exports = class RankCommand extends Command {
       const targetUser = message.mentions.users.first() || message.author;
       const guild = message.guild;
       const user = userData.guilds[guild.id]?.users[targetUser.id];
+
       if (guildData[guild.id] && guildData[guild.id].levelingEnabled === false) {
         return message.reply("Leveling is disabled for this server.");
       }
+
       if (!user) {
         return message.reply("User not found.");
       }
@@ -63,7 +65,7 @@ module.exports = class RankCommand extends Command {
 
       ctx.font = "bold 48px Arial";
       const levelText = `Level ${user.level}`;
-      ctx.fillText(levelText, 700, 100);
+      ctx.fillText(levelText, 670, 100);
 
       const requiredXPForCurrentLevel = calculateRequiredXP(user.level - 1);
       const requiredXPForNextLevel = calculateRequiredXP(user.level);
@@ -110,7 +112,7 @@ module.exports = class RankCommand extends Command {
       ctx.save();
       ctx.roundRect(200, 250, progressWidth, 15, 7, true, false);
 
-      const attachment = new Discord.MessageAttachment(
+      const attachment = new MessageAttachment(
         canvas.toBuffer(),
         "rank.png"
       );

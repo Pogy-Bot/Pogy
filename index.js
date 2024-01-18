@@ -8,12 +8,12 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
-
+const LevelRoleCommand = require("./src/commands/rank/levelrole");
+const path = require("path");
 const color = require("./src/data/colors");
 const Guild = require("./src/database/schemas/Guild");
 const { stripIndent } = require("common-tags");
 const emojis = require("./src/assets/emojis.json");
-
 Pogy.color = color;
 
 const emoji = require("./src/data/emoji");
@@ -23,7 +23,7 @@ let client = Pogy;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
 // end imports
-
+const userData = require("./src/data/users.json");
 // getPlayerData function with base64 encoding
 async function getPlayerData(username) {
   try {
@@ -71,100 +71,121 @@ async function getPlayerData(username) {
 
 // Load user data from the JSON file
 
-const userData = require("./src/data/users.json");
-
+// This assumes you have a function getGuildConfig defined in your levelUtils
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
-  } else {
-    const guildId = message.guild?.id;
+  }
 
-    if (!guildId) {
-      console.error("Guild ID is undefined");
-      return;
-    }
+  const guildId = message.guild?.id;
 
-    const guildConfig = getGuildConfig(guildId);
+  if (!guildId) {
+    console.error("Guild ID is undefined");
+    return;
+  }
 
-    // Check if leveling is enabled for this guild
-    if (!guildConfig.levelingEnabled) {
-      return;
-    }
+  const guildConfig = getGuildConfig(guildId);
+  const userId = message.author.id;
 
-    const userId = `${message.author.id}`;
+  // Load user data from file
+  const userDataPath = "./src/data/users.json";
+  let userData = {};
+  try {
+    const userDataFileContent = fs.readFileSync(userDataPath, "utf-8");
+    userData = JSON.parse(userDataFileContent);
+  } catch (error) {
+    console.error("Error reading user data file:", error);
+  }
 
-    // Ensure userData.guilds is defined
-    if (!userData.guilds) {
-      userData.guilds = {};
-    }
+  // Ensure userData.guilds is defined
+  if (!userData.guilds) {
+    userData.guilds = {};
+  }
 
-    // Ensure userData.guilds[guildId] is defined
-    if (!userData.guilds[guildId]) {
-      userData.guilds[guildId] = {
-        users: {},
-        levelingEnabled: true, // Add a new property to enable/disable leveling
-      };
-    }
+  // Ensure userData.guilds[guildId] is defined
+  if (!userData.guilds[guildId]) {
+    userData.guilds[guildId] = {
+      users: {},
+      levelingEnabled: true,
+    };
+  }
 
-    // Ensure userData.guilds[guildId].users[userId] is defined
-    if (!userData.guilds[guildId].users[userId]) {
-      userData.guilds[guildId].users[userId] = {
-        xp: 0,
-        level: 1,
-        messageTimeout: Date.now(), // Set the initial messageTimeout to the current time
-        username: message.author.username,
-      };
-    }
+  // Ensure userData.guilds[guildId].users[userId] is defined
+  if (!userData.guilds[guildId].users[userId]) {
+    userData.guilds[guildId].users[userId] = {
+      xp: 0,
+      level: 1,
+      messageTimeout: Date.now(),
+      username: message.author.username,
+    };
+  }
 
-    if (!userData.guilds[guildId].users[userId].background) {
-      userData.guilds[guildId].users[userId].background =
-        "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
-    }
+  if (!userData.guilds[guildId].users[userId].background) {
+    userData.guilds[guildId].users[userId].background =
+      "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg";
+  }
 
-    // Increment XP for the user in the specific guild
-    userData.guilds[guildId].users[userId].xp +=
-      Math.floor(Math.random() * 15) + 10;
+  // Increment XP for the user in the specific guild
+  userData.guilds[guildId].users[userId].xp +=
+    Math.floor(Math.random() * 15) + 10;
 
-    let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+  let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
 
-    // Check for level-up logic
-    let xpNeededForNextLevel =
+  // Check for level-up logic
+  let xpNeededForNextLevel =
+    userData.guilds[guildId].users[userId].level * nextLevelXP;
+
+  if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
+    userData.guilds[guildId].users[userId].level += 1;
+    nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+    xpNeededForNextLevel =
       userData.guilds[guildId].users[userId].level * nextLevelXP;
-    if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
-      userData.guilds[guildId].users[userId].level += 1;
-      nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
-      xpNeededForNextLevel =
-        userData.guilds[guildId].users[userId].level * nextLevelXP;
 
-      const levelbed = new MessageEmbed()
-        .setColor("#3498db")
-        .setTitle("Level Up!")
-        .setAuthor(message.author.username, message.author.displayAvatarURL())
-        .setDescription(
-          `You have reached level ${userData.guilds[guildId].users[userId].level}!`
-        )
-        .setFooter(
-          `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`
-        );
+    // Get the role ID for the current user's level
+    const roleForLevel = getRoleForLevel(
+      userData.guilds[guildId].users[userId].level,
+      guildId,
+      userId,
+      userData
+    );
 
-      const row = new MessageActionRow().addComponents(
-        new MessageButton()
-          .setCustomId("levelup")
-          .setLabel("Level Up")
-          .setStyle("SUCCESS")
-      );
-      message.channel.send({
-        embeds: [levelbed],
-        components: [row],
-      });
+    // Add the role to the user if a valid role ID is found
+    if (roleForLevel) {
+      const member = message.guild.members.cache.get(userId);
+      const role = message.guild.roles.cache.get(roleForLevel);
+      if (member && role) {
+        await member.roles.add(role);
+      }
     }
+
+    const levelbed = new MessageEmbed()
+      .setColor("#3498db")
+      .setTitle("Level Up!")
+      .setAuthor(message.author.username, message.author.displayAvatarURL())
+      .setDescription(
+        `You have reached level ${userData.guilds[guildId].users[userId].level}!`
+      )
+      .setFooter(
+        `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`
+      );
+
+    const row = new MessageActionRow().addComponents(
+      new MessageButton()
+        .setCustomId("levelup")
+        .setLabel("Level Up")
+        .setStyle("SUCCESS")
+    );
+    message.channel.send({
+      embeds: [levelbed],
+      components: [row],
+    });
 
     // Save updated data back to the JSON file
     fs.writeFile(
-      "./src/data/users.json",
+      userDataPath,
       JSON.stringify(userData, null, 2),
       (err) => {
-        if (err) console.error("Error writing file:", err);
+        if (err) console.error("Error writing user data file:", err);
       }
     );
   }
@@ -181,6 +202,31 @@ function getGuildConfig(guildId) {
   return userData.guilds[guildId];
 }
 
+// Function to get role ID for the current user's level
+function getRoleForLevel(level, guildId, userId, userData) {
+  if (!userData.guilds[guildId]?.users[userId]) {
+    return null;
+  }
+
+  const { levelUpRoles } = userData.guilds[guildId];
+
+  if (!levelUpRoles) {
+    return null;
+  }
+
+  // Find the role ID for the current user's level
+  const roleForLevel = levelUpRoles.find((role) => role.level === level);
+
+  // If roleForLevel is found, return its roleId; otherwise, use the default mapping
+  return roleForLevel?.roleId || getRoleIdForLevel(level, guildId, userData);
+}
+
+// Default role ID mapping (replace with your actual role IDs)
+function getRoleIdForLevel(level, guildId, userData) {
+  // Retrieve role IDs from the JSON file based on the guild and level
+  const guildRoles = userData.guilds[guildId]?.levelUpRoles || {};
+  return guildRoles[level]?.roleId || null;
+}
 
 client.slashCommands = new Collection();
 const commandsFolders = fs.readdirSync("./src/slashCommands");
@@ -341,127 +387,6 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply({ embeds: [infobutton] });
     } else if (interaction.customId === "levelup") {
       await interaction.reply({ embeds: [levelupbutton] });
-      /*    } else if (buttonId === 'head') {
-      // Get player data based on the stored currentUsername
-      const playerData = await getPlayerData(currentUsername);
-
-      if (playerData) {
-          const skinUrl = playerData.skinUrl;
-
-          const embed = new MessageEmbed()
-              .setTitle(`${currentUsername}'s Head`)
-              .setImage(skinUrl) // Use full skinUrl for head view
-              .setColor('#00FF00')
-              .setFooter(`UUID: ${playerData.uuid}`);
-
-          await interaction.update({ embeds: [embed] });
-      } else {
-          await interaction.reply({
-              content: 'Error fetching player data.',
-              ephemeral: true
-          });
-      }
-  } else if (buttonId === 'body') {
-      // Get player data based on the stored currentUsername
-      const playerData = await getPlayerData(currentUsername);
-
-      if (playerData) {
-          const skinUrl = playerData.skinUrl;
-
-          const embed = new MessageEmbed()
-              .setTitle(`${currentUsername}'s Body`)
-              .setImage(skinUrl) // Use full skinUrl for body view
-              .setColor('#00FF00')
-              .setFooter(`UUID: ${playerData.uuid}`);
-
-          await interaction.update({ embeds: [embed] });
-      } else {
-          await interaction.reply({
-              content: 'Error fetching player data.',
-              ephemeral: true
-          });
-      }
-  } else if (buttonId === 'full') {
-      // Run the command again to display the full skin
-      // You can use the previous stored currentUsername without fetching data again
-      const command = require('./getskin.js');
-      await command.run(interaction.message);
-    } else if (interaction.customId === "rerole") {
-      // Handle rerole button click
-      const members = interaction.guild.members.cache;
-      const newRandomUser = members.random();
-
-      const newEmbed = new MessageEmbed()
-        .setTitle("New Random User")
-        .setDescription(`**User:** <@${newRandomUser.user.id}>`)
-        .setColor("RANDOM")
-        .setFooter(`Requested by ${interaction.user.username}`);
-
-      await interaction.update({ embeds: [newEmbed] });
-
-
-    }else if (
-        interaction.customId === "head" ||
-        interaction.customId === "body" ||
-        interaction.customId === "full"
-      ) {
-        const username = "mcmaster10033"; // Replace with the username you want to fetch
-      
-        // Get player data based on the selected body part
-        const playerData = await getPlayerData(username);
-      
-        if (playerData) {
-          const skinUrl = playerData.skinUrl;
-      
-          // Truncate skinUrl if it exceeds Discord's limit
-          const truncatedSkinUrl = skinUrl.slice(0, 2048);
-      
-          // Embed based on the selected body part
-          const embed = new MessageEmbed()
-            .setTitle(`Player Skin - ${interaction.customId}`)
-            .setDescription(`**User:** <@${username}>`)
-            .setImage(truncatedSkinUrl) // Use the truncated skinUrl
-            .setColor("RANDOM")
-            .setFooter(`Requested by ${interaction.user.username}`);
-      
-          await interaction.update({ embeds: [embed] });
-        } else {
-          await interaction.reply({
-            content: "Error fetching player data.",
-            ephemeral: true,
-          });
-        } */
-    } else if (
-      interaction.customId === "head" ||
-      interaction.customId === "body" ||
-      interaction.customId === "full"
-    ) {
-      const username = "mcmaster10033"; // Replace with the username you want to fetch
-
-      // Get player data based on the selected body part
-      const playerData = await getPlayerData(username);
-
-      if (playerData) {
-        const skinUrl = playerData.skinUrl;
-
-        // Truncate skinUrl if it exceeds Discord's limit
-        const truncatedSkinUrl = skinUrl.slice(0, 2048);
-
-        // Embed based on the selected body part
-        const embed = new MessageEmbed()
-          .setTitle(`Player Skin - ${interaction.customId}`)
-          .setDescription(`**User:** <@${username}>`)
-          .setImage(truncatedSkinUrl) // Use the truncated skinUrl
-          .setColor("RANDOM")
-          .setFooter(`Requested by ${interaction.user.username}`);
-
-        await interaction.update({ embeds: [embed] });
-      } else {
-        await interaction.reply({
-          content: "Error fetching player data.",
-          ephemeral: true,
-        });
-      }
     } else if (interaction.customId === "rerole") {
       // Handle rerole button click
       const members = interaction.guild.members.cache;

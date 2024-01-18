@@ -16,6 +16,10 @@
           "username": "m0rpheusdreamweaver",
           "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
         }
+      },
+      "levelUpRole": {
+        "roleId": "1187032637110497360",
+        "level": 13
       }
     },
     "1157042943673237504": {
@@ -67,9 +71,38 @@
           "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
         }
       }
+    },
+    "1157305478855016491": {
+      "users": {
+        "969655699154042940": {
+          "xp": 27085,
+          "level": 20,
+          "messageTimeout": 1705438093244,
+          "username": "hotsuop",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        }
+      },
+      "levelingEnabled": true,
+      "levelUpRole": {
+        "roleId": "1167485978278121603",
+        "level": 18
+      },
+      "levelUpRoles": [
+        {
+          "level": 20,
+          "roleId": "1167485978278121603"
+        }
+      ]
     }
   },
   "1182740492644003910": {
+    "levelingEnabled": true
+  },
+  "969655699154042940": {
+    "xp": 2000,
+    "level": 1
+  },
+  "1191545603650490518": {
     "levelingEnabled": false
   }
 }
