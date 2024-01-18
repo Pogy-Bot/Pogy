@@ -176,7 +176,21 @@
 <br>
 <br>
 
-
+<div class="glow"></div>
+<style>
+    .glow {
+        width: 80%;
+        height: 60px;
+        background: linear-gradient(90deg, #dd4949, #5e40e4);
+        position: absolute;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        border-radius: 50%;
+        transform: translateY(-20%);
+        filter: blur(160px);
+    }
+</style>
 
 
 <div class="content-container">
@@ -347,7 +361,11 @@ background: rgba(0, 0, 0, 0.9);
 /* .product-row .product-image:hover {
 	transform: scale(1.1);
 } */
-
+body {
+        background: linear-gradient(to right, #1c1c1d, #182848);
+        font-family: Arial, sans-serif;
+        color: #ffffff;
+    }
 @keyframes goUpandDown {
   0% {
     -webkit-transform: translatey(+60px);
@@ -729,3 +747,19 @@ var random = randomNum(parseInt(size2), parseInt(max));
 <script src='https://github.hubspot.com/odometer/odometer.js'></script>
 <%- include("partials/mainfooter") %>
 <%- include("partials/footer") %>
+<div class="glow"></div>
+<style>
+    .glow {
+    width: 100vw; /* Use 100% of the viewport width */
+    height: 60px;
+    background: linear-gradient(90deg, #dd4949, #5e40e4);
+    position: fixed; /* Use fixed positioning to make it cover the entire viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    transform: translateY(-20%);
+    filter: blur(160px);
+    z-index: -1; /* Put it behind other content */
+}
+</style>
