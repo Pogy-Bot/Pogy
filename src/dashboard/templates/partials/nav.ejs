@@ -1,4 +1,21 @@
 <nav class="nav" role="navigation">
+  <style>
+    .name {
+        position: relative;
+        display: inline-block;
+    }
+
+    .name:hover::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(61, 57, 57, 0.5);
+        border-radius: 50%;
+        z-index: -1; 
+</style>
   <span class="logo"
     ><a href="<%=domain%>" rel="noopener" aria-label="Open home page"
       ><span class="name"
@@ -258,7 +275,19 @@
   .nav-list-item {
     padding: 10px 0;
   }
-
+  nav.glow{
+    width: 100vw; /* Use 100% of the viewport width */
+    height: 60px;
+    background: linear-gradient(90deg, #dd4949, #5e40e4);
+    position: fixed; /* Use fixed positioning to make it cover the entire viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    transform: translateY(-20%);
+    filter: blur(160px);
+    z-index: -1; /* Put it behind other content */
+  }
   .nav-link {
     color: #fff;
     font-size: 22px;

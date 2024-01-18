@@ -1,206 +1,121 @@
-<<<<<<< HEAD
-<%- include("partials/head", { bot, user, path, title: "Pogy - Commands" }) %>
-<style>
-  body {
-    background-color: #333;
-    color: #fff;
-    font-family: Arial, sans-serif;
-  }
+<!DOCTYPE html>
+<html lang="en">
 
-  /*command list */
-  .commands-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pogy - Commands</title>
+  <style>
+    body {
+      background-color: #333;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
 
-  .command-card {
-    background-color: #444;
-    padding: 15px;
-    border-radius: 10px;
-    width: 280px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
+    /*command list */
+    .commands-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
 
-  .command-card:hover {
-    transform: translateY(-5px);
-  }
+    .command-card {
+      background-color: #444;
+      padding: 15px;
+      border-radius: 10px;
+      width: 280px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-  .command-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
+    .command-card:hover {
+      transform: translateY(-5px);
+    }
 
-  .command-description {
-    font-size: 14px;
-  }
+    .command-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-  /*server selector */
-  .server-selector {
-    margin-top: 20px;
-  }
+    .command-description {
+      font-size: 14px;
+      position: relative;
+    }
 
-  .server-selector .server-btn {
-    padding: 10px 20px;
-    margin: 5px;
-    background-color: #444;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #fff;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-  }
+    /*server selector */
+    .server-selector {
+      margin-top: 20px;
+    }
 
-  .server-selector .server-btn:hover {
-    background-color: #555;
-    cursor: pointer;
-  }
-</style>
-<div class="content">
-  <h2>List of Commands</h2>
-  
-  <!--command list -->
-  <div class="commands-list" id="commandsList">
-    <div class="command-card">
-      <div class="command-title">p!help</div>
-      <div class="command-description">Display list of available commands</div>
-    </div>
-    <div class="command-card">
-      <div class="command-title">p!kick @user</div>
-      <div class="command-description">Kick a user from the server</div>
-    </div>
-    <div class="command-card">
-      <div class="command-title">p!ban @user</div>
-      <div class="command-description">Ban a user from the server</div>
-    </div>
-    <!-- Add more commands here -->
-  </div>
+    .server-selector .server-btn {
+      padding: 10px 20px;
+      margin: 5px;
+      background-color: #444;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-decoration: none;
+      color: #fff;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
 
-  <!-- Server Selector -->
-  <div class="server-selector">
-    <h2>Select a Server to Go to the Dashboard</h2>
-    <div class="servers">
-      <% user.guilds.forEach(guild => { %>
-        <% if (!bot.guilds.cache.get(guild.id)) { return } %>
-        <% if (guild.icon) {
-          iconurl = "https://cdn.discordapp.com/icons/" + guild.id + "/" + guild.icon + ".png??size=512";
-        } else {
-          iconurl = "https://cdn.glitch.com/82fe990a-7942-42e3-9790-39807ccdb9f6%2Ficon-404-dark.png?v=1602427904949";
-        } %>
-        <a class="server-btn" href="/dashboard/<%= guild.id %>">
-          <img class="server-icon" src="<%= iconurl %>" alt="<%= guild.name %>" />
-          <p class="guild-name"><%= guild.name %></p>
-        </a>
-      <% }); %>
-    </div>
-  </div>
+    .server-selector .server-btn:hover {
+      background-color: #555;
+      cursor: pointer;
+    }
 
-  <%- include("partials/footer") %>
-</div>
-=======
-<%- include("partials/head", { bot, user, path, title: "Pogy - Commands" }) %>
-<style>
-  body {
-    background-color: #333;
-    color: #fff;
-    font-family: Arial, sans-serif;
-  }
+    .server-icon {
+      width: 75px;
+      height: 75px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 
-  /*command list */
-  .commands-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
+</head>
+<body>
+    <div class="content">
+        <h2>List of Commands</h2>
 
-  .command-card {
-    background-color: #444;
-    padding: 15px;
-    border-radius: 10px;
-    width: 280px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
+        <!-- Command List -->
+        <div class="commands-list">
+            <div class="command-card">
+                <div class="command-title">p!help</div>
+                <div class="command-description">Display list of available commands</div>
+            </div>
+            <div class="command-card">
+                <div class="command-title">p!kick @user</div>
+                <div class="command-description">Kick a user from the server</div>
+            </div>
+            <div class="command-card">
+                <div class="command-title">p!ban @user</div>
+                <div class="command-description">Ban a user from the server</div>
+            </div>
+            <!-- Add more commands here -->
+        </div>
 
-  .command-card:hover {
-    transform: translateY(-5px);
-  }
+        <!-- Server Selector -->
+        <div class="server-selector">
+          <h2>Select a Server to Go to the Dashboard</h2>
+          <div class="servers">
+            <% user.guilds.forEach(guild => { %>
+              <% if (!bot.guilds.cache.get(guild.id)) { return } %>
+              <% if (guild.icon) {
+                iconurl = "https://cdn.discordapp.com/icons/" + guild.id + "/" + guild.icon + ".png??size=512";
+              } else {
+                iconurl = "https://cdn.glitch.com/82fe990a-7942-42e3-9790-39807ccdb9f6%2Ficon-404-dark.png?v=1602427904949";
+              } %>
+              <a class="server-btn" href="/dashboard/<%= guild.id %>">
+                <img class="server-icon" src="<%= iconurl %>" alt="<%= guild.name %>" />
+                <p class="guild-name"><%= guild.name %></p>
+              </a>
+            <% }); %>
+          </div>
+        </div>
 
-  .command-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
-  .command-description {
-    font-size: 14px;
-  }
-
-  /*server selector */
-  .server-selector {
-    margin-top: 20px;
-  }
-
-  .server-selector .server-btn {
-    padding: 10px 20px;
-    margin: 5px;
-    background-color: #444;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #fff;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-  }
-
-  .server-selector .server-btn:hover {
-    background-color: #555;
-    cursor: pointer;
-  }
-</style>
-<div class="content">
-  <h2>List of Commands</h2>
-  
-  <!--command list -->
-  <div class="commands-list" id="commandsList">
-    <div class="command-card">
-      <div class="command-title">p!help</div>
-      <div class="command-description">Display list of available commands</div>
-    </div>
-    <div class="command-card">
-      <div class="command-title">p!kick @user</div>
-      <div class="command-description">Kick a user from the server</div>
-    </div>
-    <div class="command-card">
-      <div class="command-title">p!ban @user</div>
-      <div class="command-description">Ban a user from the server</div>
-    </div>
-    <!-- Add more commands here -->
-  </div>
-
-  <!-- Server Selector -->
-  <div class="server-selector">
-    <h2>Select a Server to Go to the Dashboard</h2>
-    <div class="servers">
-      <% user.guilds.forEach(guild => { %>
-        <% if (!bot.guilds.cache.get(guild.id)) { return } %>
-        <% if (guild.icon) {
-          iconurl = "https://cdn.discordapp.com/icons/" + guild.id + "/" + guild.icon + ".png??size=512";
-        } else {
-          iconurl = "https://cdn.glitch.com/82fe990a-7942-42e3-9790-39807ccdb9f6%2Ficon-404-dark.png?v=1602427904949";
-        } %>
-        <a class="server-btn" href="/dashboard/<%= guild.id %>">
-          <img class="server-icon" src="<%= iconurl %>" alt="<%= guild.name %>" />
-          <p class="guild-name"><%= guild.name %></p>
-        </a>
-      <% }); %>
-    </div>
-  </div>
-
-  <%- include("partials/footer") %>
-</div>
+        <%- include("partials/footer") %>
+        </div>
+</body>
+</html>
