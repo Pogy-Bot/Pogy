@@ -1,13 +1,14 @@
+# Pogy the Discord Bot [DJS V13] 🤖
 
-<h1 align="center">
- <br>
+<p align="center">
+  <br>
   <a href="https://github.com/peterhanania"><img src="https://dev.pogy.gg/favicon.ico"></a>
   <br>
-  Pogy the Discord Bot [DJS V13]
- <br>
-</h1>
+  Pogy, a fully customizable bot built with 147 commands, 11 categories, and a dashboard using discord.js v13 🚀
+  <br>
+</p>
 
-<h3 align=center>A fully customizable bot built with 147 commands, 11 categories and a dashboard using discord.js v13</h3>
+<h3 align=center>Explore the possibilities with Pogy! 🌐</h3>
 
 [README-hindi.md](/README-hi-HI.md)
 [README-polish](/README-pl-PL.md)
@@ -44,23 +45,23 @@
   <a href="#credits">Credits</a>
 </p>
 
-## Community Updates
+## Community Updates 🌟
 [Pogy + More dashboard pages and commands by Hotsuop](https://github.com/hotsu0p/Pogy)
 
 [Pogy + Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
-## Docs
-Coming soon !
 
+## Docs 📚
+Coming soon!
 
-## About
+## About 🤔
 
-Pogy is a discord bot that we made exactly 2 years ago, the code was broken so we decided to fix the bugs and make it a multipurpose discord.js v13 bot! You can click [this](https://pogy.xyz/invite) link to invite the official Bot! Also, you can join the official [Pogy's Support Server](https://pogy.xyz/support) for assistance.
+Pogy is a discord bot that we made exactly 2 years ago, the code was broken, so we decided to fix the bugs and make it a multipurpose discord.js v13 bot! You can click [this](https://pogy.xyz/invite) link to invite the official Bot! Also, you can join the official [Pogy's Support Server](https://pogy.xyz/support) for assistance.
 
 If you liked this repository, feel free to leave a star ⭐
 
-## Features
+## Features 🚀
 
-**147** commands and **11** different categories!
+**147** commands and **11** different categories! 🎉
 
 - **alt detector:** Blocks alts from the guild
 - **applications:** Manage applications from the website
@@ -74,18 +75,18 @@ If you liked this repository, feel free to leave a star ⭐
 - **reaction roles:** Reaction roles
 - **tickets:** Guild tickets for support
 
-Pogy even has the following features on the website
+Pogy even has the following features on the website 🌐
 
 - **Ticket Transcripts** + **Application Transcripts**
 - **Contact & Report** page
 - **Welcome messages** and **farewell messages** including embeds.
 - Full customizable **Logging** and **moderation**
 - Full customizable **Suggestions** and **Server Reports**
-- A built in **Premium system**
-- A built in maintenance mode
+- A built-in **Premium system**
+- A built-in maintenance mode
 - A members Page
-- Auto Mod, Levelling, and Commands ( not done )
-- Built in TOP.gg API
+- Auto Mod, Leveling, and Commands ( not done )
+- Built-in TOP.gg API
 
  <h1 align="center">
   <a href="https://github.com/peterhanania"><img src="https://i.imgur.com/On7mMNg.jpg["></a>
@@ -98,21 +99,14 @@ With Pogy You can even log everything using webhooks directly from the config fi
   <a href="https://github.com/peterhanania"><img src="https://i.imgur.com/vbGuLdL.jpg"></a>
 </h1>
 
-## Installation
+## Installation 🛠️
 
 First clone the repo:
 
-```
-git clone https://github.com/Pogy-Bot/Pogy.git
-```
+`git clone https://github.com/Pogy-Bot/Pogy.git`
 
-After cloning, run an
-
-```
-npm install
-```
-
-## Setting Up
+Then run `Npm i` or `Npm install`
+## Setting Up ⚙️
 
 Your `config.json` should follow
 
@@ -197,28 +191,28 @@ You can launch the bot with `npm start`
 
 **Important Note:** Before you join the support server for help, read the guide carefully.
 
-### Emojis
+### Emojis 🎨
 
 - You can change the emojis in: <br>
   1- `assets/emojis.json` <br>
   2- `data/emoji.js`
 
-### Colors
+### Colors 🌈
 
 - You can change the colors in `data/colors.js`
 
-## License
+## License 📜
 
 Released under the [MIT License]() license.
 
-## Support
+## Support 🤝
 [Click here for the support server](https://v2.pogy.xyz/support)
 
-## Donate
+## Donate 💸
 
 You can donate Pogy and make it stronger than ever [by clicking here](https://paypal.me/pogybot)!
 
-## Credits
+## Credits 🙌
 [Old Credits](https://github.com/peterhanania/pogy#credits)
 - Peter Hanania [DJS Rewrite] - [github.com/peterhanania](https://github.com/peterhanania)
 - JANO [DJS Rewrite] - [github.com/wlegit](https://github.com/wlegit)
