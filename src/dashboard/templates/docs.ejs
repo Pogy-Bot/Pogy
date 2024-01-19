@@ -1,0 +1,81 @@
+<%- include("partials/head", { bot, user, path, description, title: "Pogy - FAQ", url, image }) %>
+
+<h2 style="padding-top: 100px; text-align: center; font-size: 26px">
+  Frequently Asked Questions
+</h2>
+
+<div style="visibility: hidden; position: absolute; width: 0px; height: 0px">
+  <!-- SVG symbols for expand and close icons -->
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <symbol viewBox="0 0 24 24" id="expand-more">
+      <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+      <path d="M0 0h24v24H0z" fill="none" />
+    </symbol>
+    <symbol viewBox="0 0 24 24" id="close">
+      <path
+        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+      />
+      <path d="M0 0h24v24H0z" fill="none" />
+    </symbol>
+  </svg>
+</div>
+
+<details>
+  <summary>
+    How do I change the bot Prefix?
+    <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" />
+    </svg>
+    <svg class="control-icon control-icon-close" width="24" height="24" role="presentation">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" />
+    </svg>
+  </summary>
+  <p>
+    You can change Pogy's default Prefix with
+    <code style="color: rebeccapurple">p!setPrefix &lt;new Prefix&gt;</code> or
+    by heading to the dashboard's main settings page.
+  </p>
+</details>
+
+<details>
+  <summary>
+    How do I invite Pogy to my Server?
+    <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" />
+    </svg>
+    <svg class="control-icon control-icon-close" width="24" height="24" role="presentation">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" />
+    </svg>
+  </summary>
+  <p>
+    Simply visit <a href="https://invite.pogy.xyz">https://pogy.xyz</a> in your
+    browser, then authorize the application.
+  </p>
+</details>
+
+<details>
+  <summary>
+    How do I use the embed Builder?
+    <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" />
+    </svg>
+    <svg class="control-icon control-icon-close" width="24" height="24" role="presentation">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" />
+    </svg>
+  </summary>
+  <p>
+    First, simply fill out the embed that you want, then press on the send
+    button which is located at the bottom right of the page. Once clicked, you
+    will have the option of sending it to a channel of your choice, to save it
+    as a custom command, or send it as a webhook.
+  </p>
+</details>
+
+<br />
+<br />
+<%- include("partials/mainfooter") %>
+<%- include("partials/footer") %>
+
+<style>
+  /* Your custom styles go here */
+</style>

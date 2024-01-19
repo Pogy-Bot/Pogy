@@ -298,6 +298,9 @@ module.exports = async (client) => {
   app.get("/faq", (req, res) => {
     renderTemplate(res, req, "faq.ejs");
   });
+  app.get("/docs", (req, res) => {
+    renderTemplate(res, req, "docs.ejs");
+  });
 
   app.get("/stats", (req, res) => {
     renderTemplate(res, req, "stats.ejs");
@@ -1113,32 +1116,33 @@ module.exports = async (client) => {
         appSettings.dm = false;
       }
     }
-    const DiscordTranscripts = require('discord-transcripts');
+    const DiscordTranscripts = require("discord-transcripts");
 
-    
-    app.get('/dashboard/transcript/:serverId/:channelId', async (req, res) => {
-        try {
-            
-            const { serverId, channelId } = req.params;
-    
-            // Replace 'YOUR_DISCORD_BOT_TOKEN' with your actual bot token
-            const botToken = 'YOUR_DISCORD_BOT_TOKEN';
-    
-            // Initialize the DiscordTranscripts with the bot token
-            const transcripts = new DiscordTranscripts(botToken);
-    
-            // Fetch the channel's transcript for the provided server and channel IDs
-            const transcript = await transcripts.getChannelTranscript(serverId, channelId);
-    
-            // Render your transcript page using 'transcript' data
-            res.render('transcript', { transcript });
-        } catch (error) {
-            console.error('Error fetching transcript:', error);
-            // Handle the error, redirect, or render an error page
-            res.status(500).send('Error fetching transcript');
-        }
+    app.get("/dashboard/transcript/:serverId/:channelId", async (req, res) => {
+      try {
+        const { serverId, channelId } = req.params;
+
+        // Replace 'YOUR_DISCORD_BOT_TOKEN' with your actual bot token
+        const botToken = "YOUR_DISCORD_BOT_TOKEN";
+
+        // Initialize the DiscordTranscripts with the bot token
+        const transcripts = new DiscordTranscripts(botToken);
+
+        // Fetch the channel's transcript for the provided server and channel IDs
+        const transcript = await transcripts.getChannelTranscript(
+          serverId,
+          channelId
+        );
+
+        // Render your transcript page using 'transcript' data
+        res.render("transcript", { transcript });
+      } catch (error) {
+        console.error("Error fetching transcript:", error);
+        // Handle the error, redirect, or render an error page
+        res.status(500).send("Error fetching transcript");
+      }
     });
-    
+
     await appSettings.save().catch(() => {});
     renderTemplate(res, req, "./new/mainapp.ejs", {
       guild: guild,
