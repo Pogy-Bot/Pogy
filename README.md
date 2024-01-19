@@ -48,6 +48,9 @@
 [Pogy + More dashboard pages and commands by Hotsuop](https://github.com/hotsu0p/Pogy)
 
 [Pogy + Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
+## Docs
+Coming soon !
+
 
 ## About
 
