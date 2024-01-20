@@ -2,7 +2,7 @@
  <br>
   <a href="https://github.com/peterhanania"><img src="https://394wkx-3000.csb.app//thumbnail.png"></a>
   <br>
-  Pogy the Discord Bot [DJS V13]
+  the Discord Bot [DJS V13]
  <br>
 </h1>
 
@@ -42,7 +42,7 @@
 
 ## Pogy
 
-Pogy to bot discord, który jest tworzony od 2 lat. Kod był zepsuty, więc postanowiliśmy naprawić błędy i zrobić z niego wielofunkcyjnego bota w bibliotece discord.js v13! Kliknij [tutaj](https://394wkx-3000.csb.app//invite) aby zaprosić oficjalnego bota na swój serwer! Również możesz dołączyć na officjalny [Serwer wspracia Pogy](https://394wkx-3000.csb.app//support) aby otrzymać pomoc.
+to bot discord, który jest tworzony od 2 lat. Kod był zepsuty, więc postanowiliśmy naprawić błędy i zrobić z niego wielofunkcyjnego bota w bibliotece discord.js v13! Kliknij [tutaj](https://394wkx-3000.csb.app//invite) aby zaprosić oficjalnego bota na swój serwer! Również możesz dołączyć na officjalny [Serwer wspracia Pogy](https://394wkx-3000.csb.app//support) aby otrzymać pomoc.
 
 Jeżeli spodobało ci się repozytorium, zostaw po sobie gwiazdke ⭐
 
@@ -62,7 +62,7 @@ Jeżeli spodobało ci się repozytorium, zostaw po sobie gwiazdke ⭐
 - **reaction roles:** Reaction roles
 - **tickets:** System ticketów.
 
-- Pogy posiada następujące funckje na stronie
+- posiada następujące funckje na stronie
 
 - **Zapisy ticketów** + **Zapisy aplikacji**
 - **Kontakt & Zgłoszenia**
@@ -80,7 +80,7 @@ Jeżeli spodobało ci się repozytorium, zostaw po sobie gwiazdke ⭐
 </h1>
 
 **Webhooki: (dla developerów)**
-Dzięki Pogy możesz nawet zapisywać wszystko za pomocą webhooków bezpośrednio z pliku konfiguracyjnego!
+Dzięki możesz nawet zapisywać wszystko za pomocą webhooków bezpośrednio z pliku konfiguracyjnego!
 
 <h1 align="center">
   <a href="https://github.com/peterhanania"><img src="https://i.imgur.com/vbGuLdL.jpg"></a>
@@ -203,7 +203,7 @@ Wydany na licencji [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
 
 ## Wesprzyj
 
-Możesz przekazać Pogy i uczynić ją silniejszą niż kiedykolwiek [klikając tutaj](https://paypal.me/pogybot)!
+Możesz przekazać i uczynić ją silniejszą niż kiedykolwiek [klikając tutaj](https://paypal.me/pogybot)!
 
 ## Autorzy
 [Stare kredyty](https://github.com/peterhanania/pogy#credits)

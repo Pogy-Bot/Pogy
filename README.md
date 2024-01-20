@@ -1,4 +1,4 @@
-# Pogy the Discord Bot [DJS V13] 🤖
+# the Discord Bot [DJS V13] 🤖
 
 <p align="center">
   <br>
@@ -46,16 +46,16 @@
 </p>
 
 ## Community Updates 🌟
-[Pogy + More dashboard pages and commands by Hotsuop](https://github.com/hotsu0p/Pogy)
+[+ More dashboard pages and commands by Hotsuop](https://github.com/hotsu0p/Pogy)
 
-[Pogy + Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
+[+ Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
 
 ## Docs 📚
 Coming soon!
 
 ## About 🤔
 
-Pogy is a discord bot that we made exactly 2 years ago, the code was broken, so we decided to fix the bugs and make it a multipurpose discord.js v13 bot! You can click [this](https://394wkx-3000.csb.app//invite) link to invite the official Bot! Also, you can join the official [Pogy's Support Server](https://394wkx-3000.csb.app//support) for assistance.
+is a discord bot that we made exactly 2 years ago, the code was broken, so we decided to fix the bugs and make it a multipurpose discord.js v13 bot! You can click [this](https://394wkx-3000.csb.app//invite) link to invite the official Bot! Also, you can join the official [Pogy's Support Server](https://394wkx-3000.csb.app//support) for assistance.
 
 If you liked this repository, feel free to leave a star ⭐
 
@@ -75,7 +75,7 @@ If you liked this repository, feel free to leave a star ⭐
 - **reaction roles:** Reaction roles
 - **tickets:** Guild tickets for support
 
-Pogy even has the following features on the website 🌐
+even has the following features on the website 🌐
 
 - **Ticket Transcripts** + **Application Transcripts**
 - **Contact & Report** page
@@ -93,7 +93,7 @@ Pogy even has the following features on the website 🌐
 </h1>
 
 **Webhooks: (for Developer)**
-With Pogy You can even log everything using webhooks directly from the config file!
+With You can even log everything using webhooks directly from the config file!
 
 <h1 align="center">
   <a href="https://github.com/peterhanania"><img src="https://i.imgur.com/vbGuLdL.jpg"></a>
@@ -210,7 +210,7 @@ Released under the [MIT License]() license.
 
 ## Donate 💸
 
-You can donate Pogy and make it stronger than ever [by clicking here](https://paypal.me/pogybot)!
+You can donate and make it stronger than ever [by clicking here](https://paypal.me/pogybot)!
 
 ## Credits 🙌
 [Old Credits](https://github.com/peterhanania/pogy#credits)

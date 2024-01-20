@@ -86,7 +86,7 @@ module.exports = class extends Command {
       .setColor("GREEN");
 
     webhookClient.sendCustom({
-      username: "Pogy Bug Report",
+      username: "ChaoticBug Report",
       avatarURL: `https://v2.pogy.xyz/logo.png`,
       embeds: [embed],
     });

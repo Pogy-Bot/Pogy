@@ -92,7 +92,7 @@ module.exports = {
     .setColor("GREEN");
 
     webhookClient.sendCustom({
-      username: "Pogy Bug Report",
+      username: "ChaoticBug Report",
       avatarURL: `https://Pogy.ml/logo.png`,
       embeds: [embed],
     });

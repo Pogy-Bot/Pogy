@@ -146,7 +146,7 @@ module.exports = {
         setTimeout(async () => {
           if (!category) {
             await embed.setDescription(`**${language.tempvc7}**`)
-            .setFooter({ text: `Pogy v2.5` })
+            .setFooter({ text: `Chaoticv2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] }) + interaction.guild.channels.create(`Join to Create`, {
               type: "GUILD_CATEGORY",
@@ -164,7 +164,7 @@ module.exports = {
             return;
           } else {
             embed.setDescription(`**${language.tempvc8}**\n\nID: ${category.id}`)
-            .setFooter({ text: `Pogy v2.5` })
+            .setFooter({ text: `Chaoticv2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] });
           }
@@ -175,7 +175,7 @@ module.exports = {
         setTimeout(async () => {
           if (!voice) {
             await embed.setDescription(`**${language.tempvc9}**`)
-            .setFooter({ text: `Pogy v2.5` })
+            .setFooter({ text: `Chaoticv2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] }) + interaction.guild.channels.create("Join to create", {
               type: "GUILD_VOICE",
@@ -198,7 +198,7 @@ module.exports = {
             return;
           } else {
             embed.setDescription(`**${language.tempvc10}**\n\nID: ${voice.id}`)
-            .setFooter({ text: `Pogy v2.5` })
+            .setFooter({ text: `Chaoticv2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] })
           }
@@ -208,7 +208,7 @@ module.exports = {
           if (!voice || !category) {
             embed.setAuthor(`Setup Fail`)
             .setDescription(`${language.tempvc11.replace(/{prefix}/g, `${prefix}`)}`)
-            .setFooter({ text: `Pogy v2.5` })
+            .setFooter({ text: `Chaoticv2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] });
             await Vc.findOne(
@@ -245,7 +245,7 @@ module.exports = {
             voice.setParent(category.id);
             embed.setAuthor(`${language.tempvc12}`, `https://Pogy.ml/logo.png`, `${channelInv}`)
             .setDescription(`**${language.tempvc13}** ${category.name}\n**${language.tempvc13} ID:** ${category.id}\n\n**${language.tempvc14}** ${voice.name}\n**${language.tempvc14} ID:** ${voice.id}\n\n${language.tempvc15} \`${prefix}tempvc off\``)
-            .setFooter({ text: `Pogy v2.5` })
+            .setFooter({ text: `Chaoticv2.5` })
             .setTimestamp();
             interaction.editReply({ embeds: [embed] });
             if (channelInv && channelVoice)

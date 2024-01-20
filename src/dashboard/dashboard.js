@@ -784,7 +784,7 @@ module.exports = async (client) => {
       .setColor(guild.me.displayHexColor);
 
     premiumWeb.send({
-      username: "Pogy Premium",
+      username: "ChaoticPremium",
       avatarURL: `${domain}/logo.png`,
       embeds: [embedPremium],
     });
@@ -3535,13 +3535,13 @@ send
 
       const report = new MessageEmbed()
         .setColor("GREEN")
-        .setTitle(`Pogy Reports`)
+        .setTitle(`ChaoticReports`)
         .setDescription(
           `Someone just reported a user!\n\nUser: ${req.body.name}\`(${req.body.id})\`\nReported User: ${req.body.reported_user}\nReported User ID: ${req.body.reported_id}\nReason: \`${req.body.reason}\`\nProof: ${req.body.proof}`
         );
 
       reportEmbed.sendCustom({
-        username: "Pogy Reports",
+        username: "ChaoticReports",
         avatarURL: `${domain}/logo.png`,
         embeds: [report],
       });
@@ -3562,7 +3562,7 @@ send
         );
 
       contactEmbed.sendCustom({
-        username: "Pogy Contact",
+        username: "ChaoticContact",
         avatarURL: `${domain}/logo.png`,
         embeds: [contact],
       });

@@ -58,7 +58,7 @@ module.exports = class extends Event {
 
               await premiumrip
                 .sendCustom({
-                  username: "Pogy Loose Premium",
+                  username: "ChaoticLoose Premium",
                   avatarURL: `${this.client.domain}/logo.png`,
                   embeds: [rip],
                 })

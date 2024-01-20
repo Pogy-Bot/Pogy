@@ -343,7 +343,7 @@ const moreinfo = new MessageEmbed()
   .setTitle("More Info")
   .setURL("https://394wkx-3000.csb.app//invite")
   .setDescription(
-    "Pogy is a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below"
+    "Chaoticis a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below"
   )
   .setFooter("Pogy", "https://394wkx-3000.csb.app//assets/images/pogy.png")
   .addField("Invite Pogy", "https://394wkx-3000.csb.app//invite")

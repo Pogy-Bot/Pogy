@@ -29,7 +29,7 @@ module.exports = class extends Event {
       .setColor(`RED`)
       .setTitle("Leave Server")
       .setThumbnail(`https://394wkx-3000.csb.app//logo`)
-      .setDescription(`Pogy left a Server!`)
+      .setDescription(`Chaoticleft a Server!`)
       .addField(`Server Name`, `\`${guild.name}\``, true)
       .addField(`Server ID`, `\`${guild.id}\``, true)
       .setFooter({

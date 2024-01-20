@@ -67,7 +67,7 @@ module.exports = class extends Command {
         let ticketCategory = message.guild.channels.cache.get(db.categoryID);
         let ticketLog = message.guild.channels.cache.get(db.ticketModlogID);
 
-        let pogy = message.guild.me;
+        let Chaotic= message.guild.me;
         let everyone = message.guild.roles.everyone;
 
         let user = message.author;

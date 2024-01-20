@@ -122,7 +122,7 @@ module.exports = class extends Event {
           if (maintenanceCooldown.has(message.author.id)) return;
 
           message.channel.sendCustom(
-            `Pogy is currently undergoing maintenance which won't allow anyone to access Pogy's Commands. Feel free to try again later. For updates: ${config.discord}`
+            `Chaoticis currently undergoing maintenance which won't allow anyone to access Pogy's Commands. Feel free to try again later. For updates: ${config.discord}`
           );
 
           maintenanceCooldown.add(message.author.id);
@@ -191,7 +191,7 @@ module.exports = class extends Event {
                 message.author
               }\n\n${
                 number === 1
-                  ? "*Did You know that Pogy has its own dashboard? `https://394wkx-3000.csb.app//dashboard`*"
+                  ? "*Did You know that Chaotichas its own dashboard? `https://394wkx-3000.csb.app//dashboard`*"
                   : ""
               }${
                 number === 2

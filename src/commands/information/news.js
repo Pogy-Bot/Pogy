@@ -28,7 +28,7 @@ module.exports = class extends Command {
 
     let embed = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
-      .setTitle(`Pogy News`)
+      .setTitle(`ChaoticNews`)
       .setDescription(
         `***__${language.datePublished}__ ${moment(guildDB.time).format(
           "dddd, MMMM Do YYYY"

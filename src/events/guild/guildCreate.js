@@ -124,7 +124,7 @@ module.exports = class extends Event {
       .setColor(`PURPLE`)
       .setTitle("New Server")
       .setThumbnail(`https://394wkx-3000.csb.app//logo`)
-      .setDescription(`Pogy was added to a new Server!`)
+      .setDescription(`Chaoticwas added to a new Server!`)
       .addField(`Server Name`, `\`${guild.name}\``, true)
       .addField(`Server ID`, `\`${guild.id}\``, true)
       .setFooter({
