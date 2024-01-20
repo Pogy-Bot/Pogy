@@ -41,19 +41,17 @@ module.exports = class extends Command {
       tickets: `${emojis.tickets}`,
       owner: `${emojis.owner}`,
     };
-    const helpinfobutton = new MessageActionRow()
-       .addComponents(
-       new MessageButton()
+    const helpinfobutton = new MessageActionRow().addComponents(
+      new MessageButton()
         .setLabel("Invite Pogy")
         .setStyle("LINK")
         .setURL("https://394wkx-3000.csb.app//invite"),
 
-
       new MessageButton()
         .setCustomId("info")
         .setLabel("More info")
-        .setStyle("SECONDARY") // can be "PRIMARY", "SECONDARY", "SUCCESS", "DANGER", "LINK", "INFO"
-      )
+        .setStyle("SECONDARY"), // can be "PRIMARY", "SECONDARY", "SUCCESS", "DANGER", "LINK", "INFO"
+    );
 
     const green = "<:purple:826033456207233045>";
     const red = "<:redsquare:803527843661217802>";
@@ -65,21 +63,21 @@ module.exports = class extends Command {
       categories = this.client.utils.removeDuplicates(
         this.client.botCommands
           .filter((cmd) => cmd.category !== "Owner")
-          .map((cmd) => cmd.category)
+          .map((cmd) => cmd.category),
       );
 
       if (this.client.config.developers.includes(message.author.id))
         categories = this.client.utils.removeDuplicates(
-          this.client.botCommands.map((cmd) => cmd.category)
+          this.client.botCommands.map((cmd) => cmd.category),
         );
 
       for (const category of categories) {
         embed.addField(
           `${emoji[category.split(" ").join("").toLowerCase()]} **${capitalize(
-            category
+            category,
           )}**`,
           `\`${prefix}help ${category.toLowerCase()}\``,
-          true
+          true,
         );
       }
       embed.setTitle(`Pogy's Command List`);
@@ -98,9 +96,12 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
-      return message.channel.sendCustom({ embeds: [embed] , components: [helpinfobutton] });
+      return message.channel.sendCustom({
+        embeds: [embed],
+        components: [helpinfobutton],
+      });
     } else if (
       (args && args.join(" ").toLowerCase() == "alt detector") ||
       (args && args[0].toLowerCase() == "alt")
@@ -117,9 +118,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(9 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
 
       embed.setFooter({
@@ -131,13 +132,16 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
-      return message.channel.sendCustom({ embeds: [embed] ,componenets: [helpinfobutton]});
+      return message.channel.sendCustom({
+        embeds: [embed],
+        componenets: [helpinfobutton],
+      });
     } else if (args && args[0].toLowerCase() == "owner") {
       if (!this.client.config.developers.includes(message.author.id))
         return message.channel.sendCustom(
-          `${message.client.emoji.fail} | You are not allowed to view this category`
+          `${message.client.emoji.fail} | You are not allowed to view this category`,
         );
 
       embed.setTitle(`${emojis.owner} Owner Commands`);
@@ -152,9 +156,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
 
       embed.setFooter({
@@ -167,7 +171,7 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -186,9 +190,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
 
       embed.setFooter({
@@ -202,7 +206,7 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
 
       return message.channel.sendCustom({ embeds: [embed] });
@@ -222,9 +226,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(14 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
 
       embed.setFooter({
@@ -237,7 +241,7 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -256,9 +260,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(10 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
 
       embed.setFooter({
@@ -271,7 +275,7 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -290,9 +294,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(9 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
 
       embed.setFooter({
@@ -305,7 +309,7 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (args && args[0].toLowerCase() == "fun") {
@@ -321,9 +325,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(10 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
 
       embed.setFooter({
@@ -336,7 +340,7 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -355,9 +359,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(14 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
 
       embed.setFooter({
@@ -370,7 +374,7 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -389,9 +393,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
 
       embed.setFooter({
@@ -404,7 +408,7 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -423,9 +427,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
       embed.setFooter({
         text: `Requested by ${message.author.username}`,
@@ -437,7 +441,7 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -456,9 +460,9 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(12 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
 
       embed.setFooter({
@@ -471,7 +475,7 @@ module.exports = class extends Command {
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
 
       return message.channel.sendCustom({ embeds: [embed] });
@@ -491,15 +495,15 @@ module.exports = class extends Command {
                   : green
               } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${
                 cmd.description
-              }`
+              }`,
           )
-          .join("\n")
+          .join("\n"),
       );
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
           "[Support Server](https://394wkx-3000.csb.app//support) | " +
-          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
+          "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
       );
       embed.setFooter({
         text: `Requested by ${message.author.username}`,
@@ -516,12 +520,12 @@ module.exports = class extends Command {
 
       if (!cmd)
         return message.channel.sendCustom(
-          `${message.client.emoji.fail} Could not find the Command you're looking for`
+          `${message.client.emoji.fail} Could not find the Command you're looking for`,
         );
 
       if (cmd.category === "Owner")
         return message.channel.sendCustom(
-          `${message.client.emoji.fail} Could not find the Command you're looking for`
+          `${message.client.emoji.fail} Could not find the Command you're looking for`,
         );
 
       embed.setTitle(`Command: ${cmd.name}`);
@@ -532,7 +536,7 @@ module.exports = class extends Command {
           disabledCommands.includes(args[0] || args[0].toLowerCase())
           ? "This command is currently disabled."
           : message.member.displayName,
-        message.author.displayAvatarURL({ dynamic: true })
+        message.author.displayAvatarURL({ dynamic: true }),
       );
 
       embed.addField("Usage", `\`${cmd.usage}\``, true);
@@ -542,7 +546,7 @@ module.exports = class extends Command {
         embed.addField(
           "Aliases",
           cmd.aliases.map((alias) => `\`${alias}\``, true).join(", "),
-          true
+          true,
         );
       if (cmd.cooldown && cmd.cooldown > 1)
         embed.addField("Cooldown", `\`${cmd.cooldown}s\``, true);
@@ -551,7 +555,7 @@ module.exports = class extends Command {
           "__**Examples**__",
           cmd.examples
             .map((example) => `<:purple:826033456207233045> \`${example}\``)
-            .join("\n")
+            .join("\n"),
         );
 
       return message.channel.sendCustom({ embeds: [embed] });

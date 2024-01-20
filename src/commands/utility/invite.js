@@ -1,7 +1,7 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
-const client = require("/home/vboxuser/Pogy-3/index.js");
+const client = require("/workspaces/workspace/index.js");
 
 module.exports = class extends Command {
   constructor(...args) {
@@ -29,7 +29,7 @@ module.exports = class extends Command {
       .setDescription(language.invite)
       .setFooter(
         message.client.user.username,
-        message.client.user.displayAvatarURL()
+        message.client.user.displayAvatarURL(),
       );
     const row = new MessageActionRow().addComponents(
       new MessageButton()
@@ -40,7 +40,7 @@ module.exports = class extends Command {
       new MessageButton()
         .setCustomId("support")
         .setLabel("More info")
-        .setStyle("SECONDARY") // can be "PRIMARY", "SECONDARY", "SUCCESS", "DANGER", "LINK", "INFO"
+        .setStyle("SECONDARY"), // can be "PRIMARY", "SECONDARY", "SUCCESS", "DANGER", "LINK", "INFO"
     );
 
     await message.channel.send({ embeds: [embed], components: [row] });
