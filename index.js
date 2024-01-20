@@ -341,29 +341,29 @@ client.setMaxListeners(20);
 const moreinfo = new MessageEmbed()
   .setColor(color.blue)
   .setTitle("More Info")
-  .setURL("https://pogy.xyz/invite")
+  .setURL("https://394wkx-3000.csb.app//invite")
   .setDescription(
     "Pogy is a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below"
   )
-  .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
-  .addField("Invite Pogy", "https://pogy.xyz/invite")
+  .setFooter("Pogy", "https://394wkx-3000.csb.app//assets/images/pogy.png")
+  .addField("Invite Pogy", "https://394wkx-3000.csb.app//invite")
   .addField("Support Server", "https://discord.gg/pogy")
   .addField("Vote Pogy", "https://top.gg/bot/880243836830652958/vote");
 
 const levelupbutton = new MessageEmbed()
   .setColor(color.blue)
   .setTitle("Level Up")
-  .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
+  .setFooter("Pogy", "https://394wkx-3000.csb.app//assets/images/pogy.png")
   .setDescription(
     `Hm this doesnt seem to do much. But you can click it anyways`
   )
-  .setURL("https://pogy.xyz/invite");
+  .setURL("https://394wkx-3000.csb.app//invite");
 
 const invitebutton = new MessageActionRow().addComponents(
   new MessageButton()
     .setLabel("Invite Pogy")
     .setStyle("LINK")
-    .setURL("https://pogy.xyz/invite")
+    .setURL("https://394wkx-3000.csb.app//invite")
 );
 
 const infobutton = new MessageEmbed()

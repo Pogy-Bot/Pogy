@@ -46,7 +46,7 @@ module.exports = class extends Command {
        new MessageButton()
         .setLabel("Invite Pogy")
         .setStyle("LINK")
-        .setURL("https://pogy.xyz/invite"),
+        .setURL("https://394wkx-3000.csb.app//invite"),
 
 
       new MessageButton()
@@ -97,8 +97,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       return message.channel.sendCustom({ embeds: [embed] , components: [helpinfobutton] });
     } else if (
@@ -130,8 +130,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       return message.channel.sendCustom({ embeds: [embed] ,componenets: [helpinfobutton]});
     } else if (args && args[0].toLowerCase() == "owner") {
@@ -166,8 +166,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -201,8 +201,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
 
       return message.channel.sendCustom({ embeds: [embed] });
@@ -236,8 +236,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -270,8 +270,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -304,8 +304,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (args && args[0].toLowerCase() == "fun") {
@@ -335,8 +335,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -369,8 +369,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -403,8 +403,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -436,8 +436,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -470,8 +470,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
 
       return message.channel.sendCustom({ embeds: [embed] });
@@ -498,8 +498,8 @@ module.exports = class extends Command {
       embed.addField(
         "\u200b",
         "**[Invite](https://invite.pogy.xyz) | " +
-          "[Support Server](https://pogy.xyz/support) | " +
-          "[Dashboard](https://pogy.xyz/dashboard)**"
+          "[Support Server](https://394wkx-3000.csb.app//support) | " +
+          "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
       );
       embed.setFooter({
         text: `Requested by ${message.author.username}`,

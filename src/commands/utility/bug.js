@@ -81,7 +81,7 @@ module.exports = class extends Command {
       .addField("Member", `${message.member}`, true)
       .addField("Message", `${report}`, true)
       .addField("Bug Report ID:", `#${id}`, true)
-      .setFooter({ text: "https://pogy.xyz/" })
+      .setFooter({ text: "https://394wkx-3000.csb.app//" })
       .setTimestamp()
       .setColor("GREEN");
 

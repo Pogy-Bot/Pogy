@@ -108,13 +108,13 @@ module.exports = class extends Event {
       const embed = new Discord.MessageEmbed()
         .setColor("PURPLE")
         .setDescription(
-          `Hey Poggers! I'm **Pogy**.\n\nThank you for inviting me to your server as it means a lot to us! You can get started with [\`p!help\`](https://pogy.xyz) & customise your server settings by accessing the Dashboard [\`here\`](https://pogy.xyz/dashboard/${guild.id}).\n\n__**Current News**__\n\`\`\`\nWe are currently giving premium to all servers until 1000 guilds! If interested Please visit https://pogy.xyz/redeem\`\`\`\n\nAgain, thank you for inviting me! (this server is now very pog)\n**- Pogy**`
+          `Hey Poggers! I'm **Pogy**.\n\nThank you for inviting me to your server as it means a lot to us! You can get started with [\`p!help\`](https://394wkx-3000.csb.app/) & customise your server settings by accessing the Dashboard [\`here\`](https://394wkx-3000.csb.app//dashboard/${guild.id}).\n\n__**Current News**__\n\`\`\`\nWe are currently giving premium to all servers until 1000 guilds! If interested Please visit https://394wkx-3000.csb.app//redeem\`\`\`\n\nAgain, thank you for inviting me! (this server is now very pog)\n**- Pogy**`
         )
         .addField(
           "\u200b",
           "**[Invite](https://invite.pogy.xyz) | " +
-            "[Support Server](https://pogy.xyz/support) | " +
-            "[Dashboard](https://pogy.xyz/dashboard)**"
+            "[Support Server](https://394wkx-3000.csb.app//support) | " +
+            "[Dashboard](https://394wkx-3000.csb.app//dashboard)**"
         );
 
       textChats.send({ embeds: [embed] }).catch(() => {});
@@ -123,7 +123,7 @@ module.exports = class extends Event {
     const welcomeEmbed = new Discord.MessageEmbed()
       .setColor(`PURPLE`)
       .setTitle("New Server")
-      .setThumbnail(`https://pogy.xyz/logo`)
+      .setThumbnail(`https://394wkx-3000.csb.app//logo`)
       .setDescription(`Pogy was added to a new Server!`)
       .addField(`Server Name`, `\`${guild.name}\``, true)
       .addField(`Server ID`, `\`${guild.id}\``, true)

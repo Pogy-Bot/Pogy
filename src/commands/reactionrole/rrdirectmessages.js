@@ -37,7 +37,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setColor(message.guild.me.displayHexColor)
             .setDescription(
-              `${fail} Slow down here, the current command is only for premium guilds.\n\n[Check Premium Here](https://pogy.xyz/premium)`
+              `${fail} Slow down here, the current command is only for premium guilds.\n\n[Check Premium Here](https://394wkx-3000.csb.app//premium)`
             ),
         ],
       });
@@ -48,7 +48,7 @@ module.exports = class extends Command {
       .setDescription(
         `__**Proper Usage**__\n\n\`1-\` ${prefix}rrdm on\n\`2-\` ${prefix}rrdm off`
       )
-      .setFooter({ text: "https://pogy.xyz/" });
+      .setFooter({ text: "https://394wkx-3000.csb.app//" });
 
     if (args.length < 1) {
       return message.channel.sendCustom(properUsage);
@@ -70,7 +70,7 @@ module.exports = class extends Command {
                       message.author.displayAvatarURL()
                     )
                     .setDescription(`${fail} DMs are already disabled`)
-                    .setFooter({ text: "https://pogy.xyz/" }),
+                    .setFooter({ text: "https://394wkx-3000.csb.app//" }),
                 ],
               })
               .setColor(client.color.red);
@@ -87,7 +87,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${success} Reaction Role DMs have been disabled!`)
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(client.color.red),
         ],
       });
@@ -106,7 +106,7 @@ module.exports = class extends Command {
                     message.author.displayAvatarURL()
                   )
                   .setDescription(`${fail} DMs are already enabled`)
-                  .setFooter({ text: "https://pogy.xyz/" })
+                  .setFooter({ text: "https://394wkx-3000.csb.app//" })
                   .setColor(client.color.red),
               ],
             });
@@ -126,7 +126,7 @@ module.exports = class extends Command {
                 .setDescription(
                   `${success} Reaction Role DMs have been enabled!`
                 )
-                .setFooter({ text: "https://pogy.xyz/" })
+                .setFooter({ text: "https://394wkx-3000.csb.app//" })
                 .setColor(client.color.red),
             ],
           });

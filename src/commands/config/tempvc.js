@@ -58,7 +58,7 @@ module.exports = class extends Command {
     let properUsage = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
       .setDescription(`${language.tempvc1.replace(/{prefix}/g, `${prefix}`)}`)
-      .setFooter({ text: "https://pogy.xyz/" });
+      .setFooter({ text: "https://394wkx-3000.csb.app//" });
 
     if (args.length < 1) {
       return message.channel.sendCustom(properUsage);
@@ -77,7 +77,7 @@ module.exports = class extends Command {
                 .setTitle(`${fail} ${language.missingUser} `)
                 .setDescription(`${language.tempvc2}`)
                 .setTimestamp()
-                .setFooter({ text: "https://pogy.xyz/" }),
+                .setFooter({ text: "https://394wkx-3000.csb.app//" }),
             ],
           })
           .setColor(message.guild.me.displayHexColor);
@@ -95,7 +95,7 @@ module.exports = class extends Command {
               .setDescription(
                 `${message.client.emoji.fail} ${language.tempvc3}`
               )
-              .setFooter({ text: "https://pogy.xyz/" }),
+              .setFooter({ text: "https://394wkx-3000.csb.app//" }),
           ],
         });
       await Vc.findOne(
@@ -136,7 +136,7 @@ module.exports = class extends Command {
                 .setDescription(
                   `${message.client.emoji.success} ${language.tempvc4}`
                 )
-                .setFooter({ text: "https://pogy.xyz/" }),
+                .setFooter({ text: "https://394wkx-3000.csb.app//" }),
             ],
           });
         }
@@ -155,7 +155,7 @@ module.exports = class extends Command {
                 .setTitle(`${fail} ${language.missingUser} `)
                 .setDescription(`${language.tempvc2}`)
                 .setTimestamp()
-                .setFooter({ text: "https://pogy.xyz/" }),
+                .setFooter({ text: "https://394wkx-3000.csb.app//" }),
             ],
           })
           .setColor(message.guild.me.displayHexColor);

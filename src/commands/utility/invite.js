@@ -24,7 +24,7 @@ module.exports = class extends Command {
     const embed = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
       .setTitle("Invite Pogy")
-      .setURL("https://pogy.xyz/invite")
+      .setURL("https://394wkx-3000.csb.app//invite")
       .setThumbnail(message.client.user.displayAvatarURL())
       .setDescription(language.invite)
       .setFooter(
@@ -35,7 +35,7 @@ module.exports = class extends Command {
       new MessageButton()
         .setLabel("Invite Pogy")
         .setStyle("LINK")
-        .setURL("https://pogy.xyz/invite"),
+        .setURL("https://394wkx-3000.csb.app//invite"),
 
       new MessageButton()
         .setCustomId("support")

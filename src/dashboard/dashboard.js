@@ -610,7 +610,7 @@ module.exports = async (client) => {
                 "dddd, MMMM Do YYYY HH:mm:ss"
               )}`
             )
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor("GREEN");
         } else {
           form.paste.push(`Question #${i + 1} - ${db.questions[i]}`);
@@ -625,7 +625,7 @@ module.exports = async (client) => {
                 "dddd, MMMM Do YYYY HH:mm:ss"
               )}`
             )
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor("GREEN");
         }
       }
@@ -634,7 +634,7 @@ module.exports = async (client) => {
           embeds: [
             new MessageEmbed()
               .setColor("GREEN")
-              .setFooter({ text: `Powered by https://pogy.xyz` })
+              .setFooter({ text: `Powered by https://394wkx-3000.csb.app/` })
               .setTitle(`Application #${ticketID}`)
               .setDescription(
                 `Hey ${
@@ -857,7 +857,7 @@ module.exports = async (client) => {
 
     renderTemplate(res, req, "./new/mainpage.ejs", {
       guild: guild,
-      alert: `Dashboard was made by https://pogy.xyz`,
+      alert: `Dashboard was made by https://394wkx-3000.csb.app/`,
       join1: join1.length || 0,
       join2: join2.length || 0,
       leave1: leave1.length || 0,

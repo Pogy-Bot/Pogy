@@ -191,7 +191,7 @@ module.exports = class extends Event {
                 message.author
               }\n\n${
                 number === 1
-                  ? "*Did You know that Pogy has its own dashboard? `https://pogy.xyz/dashboard`*"
+                  ? "*Did You know that Pogy has its own dashboard? `https://394wkx-3000.csb.app//dashboard`*"
                   : ""
               }${
                 number === 2
@@ -228,7 +228,7 @@ module.exports = class extends Event {
                   .join(" - ")}**`
               )
               .setTimestamp()
-              .setFooter("https://pogy.xyz")
+              .setFooter("https://394wkx-3000.csb.app/")
               .setColor(message.guild.me.displayHexColor);
             return message.channel.sendCustom(embed).catch(() => {});
           }
@@ -254,7 +254,7 @@ module.exports = class extends Event {
                   .join("\n")}**`
               )
               .setTimestamp()
-              .setFooter("https://pogy.xyz")
+              .setFooter("https://394wkx-3000.csb.app/")
               .setColor(message.guild.me.displayHexColor);
             return message.channel.sendCustom(embed).catch(() => {});
           }

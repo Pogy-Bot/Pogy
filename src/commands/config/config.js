@@ -27,47 +27,47 @@ module.exports = class extends Command {
           .setTitle(`${language.serversettings1}`)
           .addField(
             `Main Settings`,
-            `[\`Click here\`](https://pogy.xyz/dashboard/${message.guild.id})`,
+            `[\`Click here\`](https://394wkx-3000.csb.app//dashboard/${message.guild.id})`,
             true
           )
           .addField(
             `Welcome & Leave`,
-            `[\`Click here\`](https://pogy.xyz/dashboard/${message.guild.id}/welcome)`,
+            `[\`Click here\`](https://394wkx-3000.csb.app//dashboard/${message.guild.id}/welcome)`,
             true
           )
           .addField(
             `Logging`,
-            `[\`Click here\`](https://pogy.xyz/dashboard/${message.guild.id}/logging)`,
+            `[\`Click here\`](https://394wkx-3000.csb.app//dashboard/${message.guild.id}/logging)`,
             true
           )
           .addField(
             `Autorole`,
-            `[\`Click here\`](https://pogy.xyz/dashboard/${message.guild.id}/autorole)`,
+            `[\`Click here\`](https://394wkx-3000.csb.app//dashboard/${message.guild.id}/autorole)`,
             true
           )
           .addField(
             `Alt Detector`,
-            `[\`Click here\`](https://pogy.xyz/dashboard/${message.guild.id}/altdetector)`,
+            `[\`Click here\`](https://394wkx-3000.csb.app//dashboard/${message.guild.id}/altdetector)`,
             true
           )
           .addField(
             `Tickets`,
-            `[\`Click here\`](https://pogy.xyz/dashboard/${message.guild.id}/tickets)`,
+            `[\`Click here\`](https://394wkx-3000.csb.app//dashboard/${message.guild.id}/tickets)`,
             true
           )
           .addField(
             `Suggestions`,
-            `[\`Click here\`](https://pogy.xyz/dashboard/${message.guild.id}/Suggestions)`,
+            `[\`Click here\`](https://394wkx-3000.csb.app//dashboard/${message.guild.id}/Suggestions)`,
             true
           )
           .addField(
             `Server Reports`,
-            `[\`Click here\`](https://pogy.xyz/dashboard/${message.guild.id}/reports)`,
+            `[\`Click here\`](https://394wkx-3000.csb.app//dashboard/${message.guild.id}/reports)`,
             true
           )
           .addField(
             `Automod`,
-            `[\`Click here\`](https://pogy.xyz/dashboard/${message.guild.id}/automod)`,
+            `[\`Click here\`](https://394wkx-3000.csb.app//dashboard/${message.guild.id}/automod)`,
             true
           )
 
