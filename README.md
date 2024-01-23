@@ -49,10 +49,12 @@
 [+ More dashboard pages and commands by Hotsuop](https://github.com/hotsu0p/Pogy)
 
 [+ Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
-
+## Latest commit!
+added mute and unmute and quarinnte commands!
 ## Docs 📚
-Coming soon!
-
+https://394wkx-3000.csb.app/docs
+*these are pretty old for now*
+*will update later*
 ## About 🤔
 
 is a discord bot that we made exactly 2 years ago, the code was broken, so we decided to fix the bugs and make it a multipurpose discord.js v13 bot! You can click [this](https://394wkx-3000.csb.app//invite) link to invite the official Bot! Also, you can join the official [Pogy's Support Server](https://394wkx-3000.csb.app//support) for assistance.
