@@ -202,7 +202,10 @@ You can launch the bot with `npm start`
 - You can change the colors in `data/colors.js`
 
 ## License 📜
+ Copyright Statement: Do not copy this website, if the code is found to be duplicated, reproduced,
+    or copied we will fine you a minimum of $250,000 and criminal charges may be pressed.
 
+    CopyOurCodeWeWillSendYouToJesus(C)2023ThisIsOurHardWork.
 Released under the [MIT License]() license.
 
 ## Support 🤝
