@@ -50,7 +50,8 @@
 
 [+ Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
 ## Latest commit!
-added mute and unmute and quarinnte commands!
+✨added commands lock and unlock
+*https://394wkx-3000.csb.app/changelog*
 ## Docs 📚
 https://394wkx-3000.csb.app/docs
 *these are pretty old for now*
