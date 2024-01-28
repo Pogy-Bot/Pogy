@@ -13,14 +13,14 @@ module.exports = class EmptyCommand extends Command {
 
   async run(message) {
     const { Prodia } = require("prodia.js");
-    const prodia = new Prodia(""); // API KEY HERE
-
+    const prodia = new Prodia("e53c8afb-bf1e-4ca7-a760-ba1fa4083ddd"); // API KEY HERE
+    
     (async () => {
-      const prompt2 = message.content.split("");
+      const input2 = message.content.split(" ")[0];
       const cfg_scale2 = message.content.split("")[1];
       const steps2 = message.content.split("")[2];
       const generate = await prodia.generateImage({
-        prompt: prompt2[1],
+        prompt: input2,
         model: "absolutereality_v181.safetensors [3d9d4d2b]",
         negative_prompt: "BadDream, (UnrealisticDream:1.3)",
         sampler: "DPM++ SDE Karras",
@@ -33,7 +33,6 @@ module.exports = class EmptyCommand extends Command {
         new Promise((resolve) => setTimeout(resolve, 250));
 
         const job = await prodia.getJob(generate.job);
-
         if (job.status === "succeeded") {
         const embed = new MessageEmbed()
         .setAuthor("Requested by " + message.author.username)
