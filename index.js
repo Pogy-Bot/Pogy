@@ -57,8 +57,6 @@ client.on("messageCreate", async (message) => {
           "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
       }
 
-      //if(!userData.guilds[guildId].users[userId].messageTimeout)
-
       // Increment XP for the user in the specific guild
       userData.guilds[guildId].users[userId].xp +=
         Math.floor(Math.random() * 15) + 10;
