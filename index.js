@@ -8,7 +8,6 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
-let messageCreateEventFired = false;
 
 const color = require("./src/data/colors");
 Pogy.color = color;
