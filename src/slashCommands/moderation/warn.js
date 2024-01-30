@@ -4,6 +4,9 @@ const Guild = require("../../database/schemas/Guild.js");
 const warnModel = require("../../database/models/moderation.js");
 const discord = require("discord.js");
 const randoStrings = require("../../packages/randostrings.js");
+/**
+ * Instantiates a new randoStrings object to generate random strings.
+ */
 const random = new randoStrings();
 const Logging = require("../../database/schemas/logging");
 

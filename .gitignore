@@ -6,3 +6,8 @@ node_modules
 src/data/users.json
 .replit
 replit.nix
+src/commands/utility/rank.js
+src/data/users.json
+package-lock.json
+config.json
+json.sqlite

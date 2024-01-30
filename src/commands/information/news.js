@@ -28,15 +28,15 @@ module.exports = class extends Command {
 
     let embed = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
-      .setTitle(`Pogy News`)
+      .setTitle(`ChaoticNews`)
       .setDescription(
         `***__${language.datePublished}__ ${moment(guildDB.time).format(
           "dddd, MMMM Do YYYY"
         )}*** *__[\`(${moment(
           guildDB.time
-        ).fromNow()})\`](https://pogy.xyz)__*\n\n ${guildDB.news}`
+        ).fromNow()})\`](https://394wkx-3000.csb.app/)__*\n\n ${guildDB.news}`
       )
-      .setFooter({ text: "https://pogy.xyz/" })
+      .setFooter({ text: "https://394wkx-3000.csb.app//" })
       .setTimestamp();
 
     message.channel.sendCustom({ embeds: [embed] }).catch(() => {

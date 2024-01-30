@@ -1,22 +1,116 @@
 {
   "guilds": {
-    "1147423890574934079": {
+    "1182740492644003910": {
       "users": {
+<<<<<<< HEAD
         "1067137336674107453": {
           "xp": 109,
           "level": 2,
           "messageTimeout": 1706635124539,
           "username": "theeyum",
+=======
+        "969655699154042940": {
+          "xp": 5815,
+          "level": 9,
+          "messageTimeout": 100,
+          "username": "hotsuop",
+>>>>>>> 1fbf9bc4db1ea165e06af7b255f260d76997bcff
           "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
         },
-        "969655699154042940": {
-          "xp": 46,
+        "1166777971433029717": {
+          "xp": 37,
           "level": 1,
-          "messageTimeout": 1705014604473,
+          "messageTimeout": 1705111962082,
+          "username": "m0rpheusdreamweaver",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        }
+      },
+      "levelUpRole": {
+        "roleId": "1187032637110497360",
+        "level": 13
+      }
+    },
+    "1157042943673237504": {
+      "users": {
+        "969655699154042940": {
+          "xp": 321,
+          "level": 3,
+          "messageTimeout": 1705110795862,
           "username": "hotsuop",
           "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
         }
       }
+    },
+    "1191545603650490518": {
+      "users": {
+        "969655699154042940": {
+          "xp": 1100,
+          "level": 4,
+          "messageTimeout": 1705351305202,
+          "username": "hotsuop",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "961930771344523264": {
+          "xp": 1045,
+          "level": 4,
+          "messageTimeout": 1705351309671,
+          "username": "cj_foryou",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "727154675496779826": {
+          "xp": 591,
+          "level": 3,
+          "messageTimeout": 1705351358796,
+          "username": "cps_gaming",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "1007075904314429500": {
+          "xp": 301,
+          "level": 3,
+          "messageTimeout": 1705351667467,
+          "username": "dtblocker",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "1093137664171061271": {
+          "xp": 202,
+          "level": 2,
+          "messageTimeout": 1705351734449,
+          "username": "jack_dalton134",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        }
+      }
+    },
+    "1157305478855016491": {
+      "users": {
+        "969655699154042940": {
+          "xp": 27085,
+          "level": 20,
+          "messageTimeout": 1705438093244,
+          "username": "hotsuop",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        }
+      },
+      "levelingEnabled": true,
+      "levelUpRole": {
+        "roleId": "1167485978278121603",
+        "level": 18
+      },
+      "levelUpRoles": [
+        {
+          "level": 20,
+          "roleId": "1167485978278121603"
+        }
+      ]
     }
+  },
+  "1182740492644003910": {
+    "levelingEnabled": true
+  },
+  "969655699154042940": {
+    "xp": 2000,
+    "level": 1
+  },
+  "1191545603650490518": {
+    "levelingEnabled": false
   }
 }

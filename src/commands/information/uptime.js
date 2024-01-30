@@ -42,7 +42,7 @@ module.exports = class extends Command {
     // const date = moment().subtract(days, 'ms').format('dddd, MMMM Do YYYY');
     const embed = new MessageEmbed()
       .setDescription(`${language.uptime1} \`${uptime}\`.`)
-      .setFooter({ text: `https://pogy.xyz` })
+      .setFooter({ text: `https://394wkx-3000.csb.app/` })
       .setColor(message.guild.me.displayHexColor);
     message.channel.sendCustom({ embeds: [embed] });
   }

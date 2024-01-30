@@ -54,7 +54,7 @@ module.exports = class extends Event {
           .setDescription(
             `You have recieved the **${rrRole.name}** Role by reacting in ${guildName}`
           )
-          .setFooter({ text: "https://pogy.xyz/" })
+          .setFooter({ text: "https://394wkx-3000.csb.app//" })
           .setColor(message.client.color.green);
 
         let remEmbed = new MessageEmbed()
@@ -66,7 +66,7 @@ module.exports = class extends Event {
           .setDescription(
             `You have removed the **${rrRole.name}** Role by reacting in ${guildName}`
           )
-          .setFooter({ text: "https://pogy.xyz/" })
+          .setFooter({ text: "https://394wkx-3000.csb.app//" })
           .setColor(message.client.color.green);
 
         let errorReaction = new MessageEmbed()
@@ -76,7 +76,7 @@ module.exports = class extends Event {
             `${message.url}`
           )
           .setDescription(`A reaction error has occured!`)
-          .setFooter({ text: "https://pogy.xyz/" })
+          .setFooter({ text: "https://394wkx-3000.csb.app//" })
           .setColor(message.client.color.green);
 
         if (reactionCooldown.has(user.id)) return;

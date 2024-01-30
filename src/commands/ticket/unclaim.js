@@ -83,7 +83,7 @@ module.exports = class extends Command {
             });
           });
 
-        let pogy = message.guild.me;
+        let Chaotic= message.guild.me;
         let everyone = message.guild.roles.everyone;
 
         message.channel.permissionOverwrites
