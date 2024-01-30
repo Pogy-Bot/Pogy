@@ -79,8 +79,7 @@ module.exports = class extends Command {
                     embeds: [
                         new MessageEmbed()
                         .setColor("BLURPLE")
-                        .setTitle(`${message.author.username}'s Monthly`)
-                        .setDescription(`You have to wait ${days}d ${hours}h ${minutes}m ${seconds}s before you can collect your monthly earnings!`)
+                        .setDescription(`You have to wait ${minutes}m ${seconds}s before you can collect your monthly earnings!`)
                     ]
                 })
             }
