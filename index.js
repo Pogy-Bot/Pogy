@@ -1,6 +1,6 @@
 // Imports lol
 require("dotenv").config();
-const { MessageEmbed, MessageActionRow, MessageButton, GatewayDispatchEvents } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const PogyClient = require("./Pogy");
 const config = require("./config.json");
 const axios = require("axios");
@@ -8,8 +8,12 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
-
+const LevelRoleCommand = require("./src/commands/rank/levelrole");
+const path = require("path");
 const color = require("./src/data/colors");
+const Guild = require("./src/database/schemas/Guild");
+const { stripIndent } = require("common-tags");
+const emojis = require("./src/assets/emojis.json");
 Pogy.color = color;
 
 const emoji = require("./src/data/emoji");
@@ -71,106 +75,122 @@ async function getPlayerData(username) {
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
-  } else {
-    let delay =
-      userData.guilds[message.guild.id].users[message.author.id].messageTimeout;
-    if (delay >= Date.now() + 60000) {
-      if (message.author.bot) return;
+  }
 
-      const userId = message.author.id;
-      const guildId = message.guild.id;
+  const guildId = message.guild?.id;
 
-      // Check if the guild exists in userData, if not, initialize it
-      if (!userData.guilds[guildId]) {
-        userData.guilds[guildId] = {
-          users: {},
-        };
-      }
+  if (!guildId) {
+    console.error("Guild ID is undefined");
+    return;
+  }
 
-      // Ensure userData.guilds[guildId].users[userId] is defined
-      if (!userData.guilds[guildId].users[userId]) {
-        userData.guilds[guildId].users[userId] = {
-          xp: 0,
-          level: 1,
-          messageTimeout: Date.now(),
-          username: message.author.username,
-        };
-      }
+  const guildConfig = getGuildConfig(guildId);
+  const userId = message.author.id;
 
-      if (!userData.guilds[guildId].users[userId].background) {
-        userData.guilds[guildId].users[userId].background =
-          "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
-      }
+  // Load user data from file
+  const userDataPath = "./src/data/users.json";
+  let userData = {};
+  try {
+    const userDataFileContent = fs.readFileSync(userDataPath, "utf-8");
+    userData = JSON.parse(userDataFileContent);
+  } catch (error) {
+    console.error("Error reading user data file:", error);
+  }
 
-      //if(!userData.guilds[guildId].users[userId].messageTimeout)
+  // Ensure userData.guilds is defined
+  if (!userData.guilds) {
+    userData.guilds = {};
+  }
 
-      // Increment XP for the user in the specific guild
-      userData.guilds[guildId].users[userId].xp +=
-        Math.floor(Math.random() * 15) + 10;
+  // Ensure userData.guilds[guildId] is defined
+  if (!userData.guilds[guildId]) {
+    userData.guilds[guildId] = {
+      users: {},
+      levelingEnabled: true,
+    };
+  }
 
-      let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+  // Ensure userData.guilds[guildId].users[userId] is defined
+  if (!userData.guilds[guildId].users[userId]) {
+    userData.guilds[guildId].users[userId] = {
+      xp: 0,
+      level: 1,
+      messageTimeout: Date.now(),
+      username: message.author.username,
+    };
+  }
 
-      // Check for level-up logic
-      let xpNeededForNextLevel =
-        userData.guilds[guildId].users[userId].level * nextLevelXP;
+  if (!userData.guilds[guildId].users[userId].background) {
+    userData.guilds[guildId].users[userId].background =
+      "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg";
+  }
 
-      if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
-        userData.guilds[guildId].users[userId].level += 1;
-        nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
-        xpNeededForNextLevel =
-          userData.guilds[guildId].users[userId].level * nextLevelXP;
+  // Increment XP for the user in the specific guild
+  userData.guilds[guildId].users[userId].xp +=
+    Math.floor(Math.random() * 15) + 10;
 
-        // Get the role ID for the current user's level
-        const roleForLevel = getRoleForLevel(
-          userData.guilds[guildId].users[userId].level,
-          guildId,
-          userId,
-          userData
-        );
+  let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
 
-        // Add the role to the user if a valid role ID is found
-        if (roleForLevel) {
-          const member = message.guild.members.cache.get(userId);
-          const role = message.guild.roles.cache.get(roleForLevel);
-          if (member && role) {
-            await member.roles.add(role);
-          }
-        }
+  // Check for level-up logic
+  let xpNeededForNextLevel =
+    userData.guilds[guildId].users[userId].level * nextLevelXP;
 
-        const levelbed = new MessageEmbed()
-          .setColor("#3498db")
-          .setTitle("Level Up!")
-          .setAuthor(message.author.username, message.author.displayAvatarURL())
-          .setDescription(
-            `You have reached level ${userData.guilds[guildId].users[userId].level}!`
-          )
-          .setFooter(
-            `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`
-          );
+  if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
+    userData.guilds[guildId].users[userId].level += 1;
+    nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+    xpNeededForNextLevel =
+      userData.guilds[guildId].users[userId].level * nextLevelXP;
 
-        const row = new MessageActionRow().addComponents(
-          new MessageButton()
-            .setCustomId("levelup")
-            .setLabel("Level Up")
-            .setStyle("SUCCESS")
-        );
-        message.channel.send({
-          embeds: [levelbed],
-          components: [row],
-        });
+    // Get the role ID for the current user's level
+    const roleForLevel = getRoleForLevel(
+      userData.guilds[guildId].users[userId].level,
+      guildId,
+      userId,
+      userData
+    );
 
-        // Save updated data back to the JSON file
-        fs.writeFile(
-          userData,
-          JSON.stringify(userData, null, 2),
-          (err) => {
-            if (err) console.error("Error writing user data file:", err);
-          }
-        );
+    // Add the role to the user if a valid role ID is found
+    if (roleForLevel) {
+      const member = message.guild.members.cache.get(userId);
+      const role = message.guild.roles.cache.get(roleForLevel);
+      if (member && role) {
+        await member.roles.add(role);
       }
     }
+
+    const levelbed = new MessageEmbed()
+      .setColor("#3498db")
+      .setTitle("Level Up!")
+      .setAuthor(message.author.username, message.author.displayAvatarURL())
+      .setDescription(
+        `You have reached level ${userData.guilds[guildId].users[userId].level}!`
+      )
+      .setFooter(
+        `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`
+      );
+
+    const row = new MessageActionRow().addComponents(
+      new MessageButton()
+        .setCustomId("levelup")
+        .setLabel("Level Up")
+        .setStyle("SUCCESS")
+    );
+    message.channel.send({
+      embeds: [levelbed],
+      components: [row],
+    });
+
+    // Save updated data back to the JSON file
+    fs.writeFile(
+      userDataPath,
+      JSON.stringify(userData, null, 2),
+      (err) => {
+        if (err) console.error("Error writing user data file:", err);
+      }
+    );
   }
 });
+
 // Function to get guild configuration, create if not exists
 function getGuildConfig(guildId) {
   if (!userData.guilds[guildId]) {
@@ -321,29 +341,29 @@ client.setMaxListeners(20);
 const moreinfo = new MessageEmbed()
   .setColor(color.blue)
   .setTitle("More Info")
-  .setURL("https://394wkx-3000.csb.app//invite")
+  .setURL("https://pogy.xyz/invite")
   .setDescription(
-    "Chaoticis a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below"
+    "Pogy is a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below"
   )
-  .setFooter("Pogy", "https://394wkx-3000.csb.app//assets/images/pogy.png")
-  .addField("Invite Pogy", "https://394wkx-3000.csb.app//invite")
+  .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
+  .addField("Invite Pogy", "https://pogy.xyz/invite")
   .addField("Support Server", "https://discord.gg/pogy")
   .addField("Vote Pogy", "https://top.gg/bot/880243836830652958/vote");
 
 const levelupbutton = new MessageEmbed()
   .setColor(color.blue)
   .setTitle("Level Up")
-  .setFooter("Pogy", "https://394wkx-3000.csb.app//assets/images/pogy.png")
+  .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
   .setDescription(
     `Hm this doesnt seem to do much. But you can click it anyways`
   )
-  .setURL("https://394wkx-3000.csb.app//invite");
+  .setURL("https://pogy.xyz/invite");
 
 const invitebutton = new MessageActionRow().addComponents(
   new MessageButton()
     .setLabel("Invite Pogy")
     .setStyle("LINK")
-    .setURL("https://394wkx-3000.csb.app//invite")
+    .setURL("https://pogy.xyz/invite")
 );
 
 const infobutton = new MessageEmbed()
@@ -353,6 +373,7 @@ const infobutton = new MessageEmbed()
   )
   .setURL("https://github.com/hotsu0p/Pogy/")
   .addField("Github Repo", "https://github.com/hotsu0p/Pogy/");
+
 client.on("interactionCreate", async (interaction) => {
   try {
     if (!interaction.isButton()) return;
@@ -470,7 +491,7 @@ client.on("interactionCreate", async (interaction) => {
         components: [buttonRow],
       });
     } else {
-      return;
+      await interaction.reply("Unknown button clicked.");
     }
   } catch (error) {
     console.error("Error handling button interaction:", error);
@@ -478,52 +499,34 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-
-const filePath = require("/home/vboxuser/Pogy-3/src/data/badwords.json");
-
-
-client.on('messageCreate', async message => {
-  try {
-    if (message.author.bot) return; // Ignore messages from bots
-
-    const guildId = message.guild.id;
-
-    if (fs.existsSync(filePath)) {
-      const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-      const serverData = data.servers[guildId];
-
-      if (!serverData || !serverData.badWords) return;
-
-      const content = message.content.toLowerCase();
-      const foundBadWords = serverData.badWords.filter(word => content.includes(word));
-
-      if (foundBadWords.length > 0) {
-        // Delete the message or take appropriate action
-        await message.delete();
-        message.channel.send('Your message contains inappropriate language.');
-      }
-    }
-  } catch (error) {
-    console.error('Error handling message:', error);
-    message.channel.send('An error occurred. Please try again later.');
+const { EmojiBackup } = require('discord.emoji-backup');
+const backup = new EmojiBackup();
+client.on('message', async msg => {
+  if (msg.author.bot || !msg.guild) return;
+  if (!msg.content.startsWith('!')) return;
+  const args = msg.content.slice('!'.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+  if (command === 'create') {
+      // Create a backup
+      await backup.create(msg.guild).then(console.log);
+  }
+  if (command === 'load-nodelete') {
+      // Load a backup without deleting all emojis
+      const backupid = args.join(' ');
+      await backup.load(msg.guild, backupid);
+  }
+  if (command === 'load-delete') {
+      // Load a backup with deleting all emojis
+      const backupid = args.join(' ');
+      await backup.load(msg.guild, backupid, { deleteAll: true });
+  }
+  if (command === 'list') {
+      // List all of backups
+      const list = await backup.list();
+      console.log(list);
+      msg.channel.send(`\`\`\`js\n${JSON.stringify(list, null, 2)}\`\`\``);
   }
 });
-const sharedPlayer = null;
-
-// Function to access or create the shared player
-async function getSharedPlayer(message) {
-  const connection = message.member.voice.channel.connection;
-  if (!connection) {
-    return message.channel.send('Not connected to a voice channel.');
-  }
-
-  if (!sharedPlayer) {
-    sharedPlayer = createAudioPlayer();
-    connection.subscribe(sharedPlayer);
-  }
-
-  return sharedPlayer;
-}
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
 
