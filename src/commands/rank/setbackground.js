@@ -2,7 +2,7 @@ const Command = require("../../structures/Command");
 const userData = require("../../data/users.json");
 const fs = require("fs");
 const guildData = require("../../data/users.json");
-module.exports = class BackgroundCommand extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "setbackground",
@@ -38,11 +38,11 @@ module.exports = class BackgroundCommand extends Command {
         if (err) {
           console.error("Error writing file:", err);
           return message.reply(
-            "An error occurred while saving the background preference."
+            "An error occurred while saving the background preference.",
           );
         }
         message.reply("Background preference saved successfully!");
-      }
+      },
     );
   }
 };

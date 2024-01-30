@@ -3,7 +3,7 @@
 const Command = require("../../structures/Command");
 const fs = require("fs");
 
-module.exports = class LevelingToggleCommand extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "levelingtoggle",

@@ -30,15 +30,12 @@ client.on("messageCreate", async (message) => {
   } else {
     const userId = message.author.id;
     let delay =
-      userData.guilds[message.guild.id].users[userId]?.messageTimeout || 60001;
+      userData.guilds[message.guild.id]?.users[userId]?.messageTimeout || 60001;
     if (Date.now() - delay >= 60000) {
       if (message.author.bot) return;
 
       const userId = message.author.id;
       const guildId = message.guild.id;
-      const lastMessage = new Date(
-        userData.guilds[guildId].users[userId].messageTimeout,
-      );
 
       // Check if the guild exists in userData, if not, initialize it
       if (!userData.guilds[guildId]) {

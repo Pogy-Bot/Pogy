@@ -16,7 +16,7 @@ function calculateRequiredXP(level) {
   }
 }
 
-module.exports = class RankCommand extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "rank",

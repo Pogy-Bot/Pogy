@@ -2,7 +2,7 @@ const Command = require("../../structures/Command");
 const Discord = require("discord.js");
 const userData = require("../../data/users.json");
 const guildData = require("../../data/users.json");
-module.exports = class LeaderboardCommand extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "leaderboard",
@@ -39,7 +39,7 @@ module.exports = class LeaderboardCommand extends Command {
 
         leaderboardEmbed.addField(
           `#${i + 1} - ${member ? `${user.username}` : "Unknown"}`,
-          `Level: ${user.level}`
+          `Level: ${user.level}`,
         );
       }
 
