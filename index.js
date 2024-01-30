@@ -1,6 +1,6 @@
 // Imports lol
 require("dotenv").config();
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton, GatewayDispatchEvents } = require("discord.js");
 const PogyClient = require("./Pogy");
 const config = require("./config.json");
 const axios = require("axios");
@@ -132,6 +132,16 @@ client.on("messageCreate", async (message) => {
     }
   }
 });
+// Function to get guild configuration, create if not exists
+function getGuildConfig(guildId) {
+  if (!userData.guilds[guildId]) {
+    userData.guilds[guildId] = {
+      users: {},
+      levelingEnabled: true, // Add a new property to enable/disable leveling
+    };
+  }
+  return userData.guilds[guildId];
+}
 
 // Function to get role ID for the current user's level
 function getRoleForLevel(level, guildId, userId, userData) {
@@ -304,7 +314,6 @@ const infobutton = new MessageEmbed()
   )
   .setURL("https://github.com/hotsu0p/Pogy/")
   .addField("Github Repo", "https://github.com/hotsu0p/Pogy/");
-
 client.on("interactionCreate", async (interaction) => {
   try {
     if (!interaction.isButton()) return;
@@ -422,7 +431,7 @@ client.on("interactionCreate", async (interaction) => {
         components: [buttonRow],
       });
     } else {
-      await interaction.reply("Unknown button clicked.");
+      return;
     }
   } catch (error) {
     console.error("Error handling button interaction:", error);
@@ -430,34 +439,6 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-const { EmojiBackup } = require("discord.emoji-backup");
-const backup = new EmojiBackup();
-client.on("messageCreate", async (msg) => {
-  if (msg.author.bot || !msg.guild) return;
-  if (!msg.content.startsWith("!")) return;
-  const args = msg.content.slice("!".length).trim().split(/ +/g);
-  const command = args.shift().toLowerCase();
-  if (command === "create") {
-    // Create a backup
-    await backup.create(msg.guild).then(console.log);
-  }
-  if (command === "load-nodelete") {
-    // Load a backup without deleting all emojis
-    const backupid = args.join(" ");
-    await backup.load(msg.guild, backupid);
-  }
-  if (command === "load-delete") {
-    // Load a backup with deleting all emojis
-    const backupid = args.join(" ");
-    await backup.load(msg.guild, backupid, { deleteAll: true });
-  }
-  if (command === "list") {
-    // List all of backups
-    const list = await backup.list();
-    console.log(list);
-    msg.channel.send(`\`\`\`js\n${JSON.stringify(list, null, 2)}\`\`\``);
-  }
-});
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
 

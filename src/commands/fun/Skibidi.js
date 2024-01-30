@@ -1,8 +1,8 @@
-const { Interaction } = require("discord.js");
+// using Discord.js for interaction here is not required, there's already a handler to do so automatically with the Command.js structure.
 const Command = require("../../structures/Command");
 
 
-module.exports = class EmptyCommand extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "skibidi", 

@@ -68,7 +68,7 @@
   
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const apiUrl = 'https://api.github.com/repos/hotsu0p/pogy/commits?per_page=1';
+        const apiUrl = 'https://api.github.com/repos/hotsu0p/Pogy/commits';
   
         fetch(apiUrl)
           .then(response => response.json())
@@ -78,6 +78,7 @@
               const latestCommit = data[0];
               const commitDetails = `
                 <h2>${latestCommit.commit.message}</h2>
+                <p>${message}</p>
                 <p>Commit by: ${latestCommit.commit.author.name}</p>
                 <p>Commit date: ${latestCommit.commit.author.date}</p>
                 <p>SHA: <a href="${latestCommit.html_url}" target="_blank">${latestCommit.sha}</a></p>
