@@ -26,9 +26,16 @@ module.exports = class extends Command {
                 ]
             });
         } else {
-            if (!profile.lastMonthly) {
+            if (user.id == message.author.id) {
+                await message.channel.sendCustom({
+                    embeds: [
+                        new MessageEmbed()
+                        .setDescription(`hey stupid, seems pretty dumb to steal from urself`)
+                    ]
+                })
+            } else if (!profile.lastRobbed) {
                 await Profile.updateOne(
-                    { userID: message.author.id, guildId: message.guild.id }, { $set: { lastMonthly: Date.now() } }
+                    { userID: message.author.id, guildId: message.guild.id }, { $set: { lastRobbed: Date.now() } }
                 );
                 let amount = Math.floor(Math.random() * profile.wallet);
                 await Profile.updateOne({
@@ -50,7 +57,7 @@ module.exports = class extends Command {
                 })
             } else if (Date.now - profile.lastRobbed > 600000) {
                 await Profile.updateOne(
-                    { userID: message.author.id, guildId: message.guild.id }, { $set: { lastMonthly: Date.now() } }
+                    { userID: message.author.id, guildId: message.guild.id }, { $set: { lastRobbed: Date.now() } }
                 );
                 let amount = Math.floor(Math.random() * profile.wallet);
                 await Profile.updateOne({
