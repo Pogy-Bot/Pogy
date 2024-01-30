@@ -17,7 +17,7 @@ module.exports = class extends Command {
         const user = message.mentions.members.first();
         const profile = await Profile.findOne({ userID: message.author.id, guildId: message.guild.id });
         if(!profile) {
-            await createProfile(user, message.guild);
+            await createProfile(message.author, message.guild);
             await message.channel.sendCustom({
                 embeds: [
                     new MessageEmbed()
