@@ -1,35 +1,53 @@
-<%- include("partials/head", {bot, user, path, title: "Pogy - Dashboard" }) %>
+<%- include("partials/head", {bot, user, path, title: "Chaotic- Dashboard" }) %>
 <div class="content">
   <h2>SELECT A SERVER</h2>
+  <style>
+    .glow {
+      width: 100vw;
 
+      height: 60px;
+      background: linear-gradient(90deg, #dd4949, #5e40e4);
+      position: fixed;
+
+      top: 0;
+      left: 0;
+      right: 0;
+      border-radius: 50%;
+      transform: translateY(-20%);
+      filter: blur(160px);
+      z-index: -1;
+
+    }
+
+    body {
+      background: linear-gradient(to right, #1c1c1d, #182848);
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+    }
+  </style>
+  <div class="glow"></div>
   <% if (!userExists) { %>
-  <div
-    style="
+  <div style="
       width: 512px;
       padding: 16px;
       margin: 8px;
       background-color: rgba(77, 77, 255, 0.05);
-    "
-  >
-    <h3
-      style="
+    ">
+    <h3 style="
         color: #4d4dff;
         margin-top: 0;
         margin-bottom: 8px;
         font-size: 18px;
         font-family: 'Poppins', sans-serif;
-      "
-    >
+      ">
       Hey <%= user.username%>!
     </h3>
-    <p
-      style="
+    <p style="
         margin: 0;
         font-size: 14px;
         font-family: 'Open Sans', sans-serif;
         color: #555;
-      "
-    >
+      ">
       Looks like you aren't in Pogy's Support Server.
       <a href="/support">Join Here!</a>
     </p>
@@ -63,11 +81,7 @@
         <img class="server-icon" src="<%= iconurl %>" alt="<% guild.name %>" />
         <p class="guild-name"><%= guild.name %></p>
       </div>
-      <a
-        href="<%= `${https}discordapp.com/oauth2/authorize?client_id=${clientID}&scope=bot%20applications.commands&guild_id=${guild.id}&response_type=code&redirect_uri=${encodeURIComponent(`${domain}/window`)}&permissions=1642761419863` %>"
-        class="add button"
-        >Add Bot</a
-      >
+      <a href="<%= `${https}discordapp.com/oauth2/authorize?client_id=${clientID}&scope=bot%20applications.commands&guild_id=${guild.id}&response_type=code&redirect_uri=${encodeURIComponent(`${domain}/window`)}&permissions=1642761419863` %>" class="add button">Add Bot</a>
     </div>
     <% } %> <% }); %>
   </div>
@@ -77,29 +91,29 @@
     function PopupCenter(e, n, t, i) {
       var o = void 0 != window.screenLeft ? window.screenLeft : screen.left,
         d = void 0 != window.screenTop ? window.screenTop : screen.top,
-        c = window.innerWidth
-          ? window.innerWidth
-          : document.documentElement.clientWidth
-          ? document.documentElement.clientWidth
-          : screen.width,
-        w = window.innerHeight
-          ? window.innerHeight
-          : document.documentElement.clientHeight
-          ? document.documentElement.clientHeight
-          : screen.height,
+        c = window.innerWidth ?
+        window.innerWidth :
+        document.documentElement.clientWidth ?
+        document.documentElement.clientWidth :
+        screen.width,
+        w = window.innerHeight ?
+        window.innerHeight :
+        document.documentElement.clientHeight ?
+        document.documentElement.clientHeight :
+        screen.height,
         r = c / 2 - t / 2 + o,
         h = w / 2 - i / 2 + d,
         s = window.open(
           e,
           n,
           "scrollbars=yes, width=" +
-            t +
-            ", height=" +
-            i +
-            ", top=" +
-            h +
-            ", left=" +
-            r
+          t +
+          ", height=" +
+          i +
+          ", top=" +
+          h +
+          ", left=" +
+          r
         );
       window.focus && s.focus();
     }
@@ -107,7 +121,7 @@
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;
 600&display=swap");
-    @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;
 600&display=swap");
   </style>
 </div>

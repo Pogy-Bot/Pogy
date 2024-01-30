@@ -119,7 +119,7 @@ module.exports = class extends Command {
         .setColor(message.guild.me.displayHexColor);
 
       webhookClient.sendCustom({
-        username: "Pogy Premium",
+        username: "ChaoticPremium",
         avatarURL: `https://v2.pogy.xyz/logo.png`,
         embeds: [embedPremium],
       });

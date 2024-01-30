@@ -38,7 +38,7 @@ module.exports = class extends Command {
           `**Proper Usage:**\n\n\`1-\` unban peter_#4444 appealed\n\`2-\` unban 710465231779790849 appealed\n\`3-\` unban all`
         )
         .setColor(message.client.color.red)
-        .setFooter({ text: "https://pogy.xyz/" });
+        .setFooter({ text: "https://394wkx-3000.csb.app//" });
 
       message.channel.sendCustom({ embeds: [embed] });
       return;

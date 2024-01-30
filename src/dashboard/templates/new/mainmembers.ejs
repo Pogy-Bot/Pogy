@@ -25,7 +25,7 @@
 <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<%- include("../partials/dashMenu", { bot, user, path, description, title: `Pogy - Dashboard`,  url})%>
+<%- include("../partials/dashMenu", { bot, user, path, description, title: `Chaotic- Dashboard`,  url})%>
 
 <% if (guild.icon) {
  iconurl = "https://cdn.discordapp.com/icons/" + guild.id + "/" + guild.icon + ".png??size=512";
@@ -79,7 +79,7 @@
     <div class="botsettings">
       <div class="alert alert-info" role="alert">
         <i class="fa fa-info-circle" style="font-size: 16px"></i>This Page is
-        currently under Development, feel free to come back later said peter 16 months ago lol. ill fix this soon. - hotsuop 12/24/23
+        currently under Development, feel free to come back later said peter 16 months ago lol. ill fix this soon. - hotsuop 12/24/23 +  <%= guild.id %>
       </div>
     </div>
   </div>

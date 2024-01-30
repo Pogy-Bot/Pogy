@@ -12,11 +12,11 @@
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway'>
 <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<div class="glow"></div>
 
 
 </head>
-<%- include("../partials/dashMenu", { bot, user, path, description, title: `Pogy - Dashboard`,  url})%>
+<%- include("../partials/dashMenu", { bot, user, path, description, title: `Chaotic- Dashboard`,  url})%>
 
 
 
@@ -34,7 +34,16 @@
 <link rel="stylesheet" href="https://cdn.lineicons.com/2.0/LineIcons.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;500&display=swap" rel="stylesheet">
+<style>
+  .active{
+    font-family: 'Hind Vadodara', sans-serif;
+    color: rgb(180, 30, 30);
 
+
+  }
+
+
+</style>
 <div class="container" style="padding-top: 80px;">
   <div class="main">
     <div class="sidebar">
@@ -345,8 +354,27 @@
   margin: 0;
   padding: 0;
 }
+.glow {
+      width: 100vw;
+      /* Use 100% of the viewport width */
+      height: 60px;
+      background: linear-gradient(90deg, #dd4949, #5e40e4);
+      position: fixed;
+      /* Use fixed positioning to make it cover the entire viewport */
+      top: 0;
+      left: 0;
+      right: 0;
+      border-radius: 50%;
+      transform: translateY(-20%);
+      filter: blur(160px);
+      z-index: -1;
+      /* Put it behind other content */
+    }
+
 body {
-  font-family: var(--font2);
+  background: linear-gradient(to right, #1c1c1d, #182848);
+  font-family: Arial, sans-serif;
+  color: #ffffff;
 }
 button:focus { outline: none; }
 .container {

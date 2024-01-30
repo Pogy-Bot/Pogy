@@ -22,7 +22,7 @@ module.exports = {
 
     let embed = new MessageEmbed()
     .setColor(interaction.guild.me.displayHexColor)
-    .setTitle(`Pogy News`)
+    .setTitle(`ChaoticNews`)
     .setDescription(`***__${language.datePublished}__ ${moment(guildDB.time).format("dddd, MMMM Do YYYY")}*** *__[\`(${moment(guildDB.time).fromNow()})\`] (https://Pogy.ml)__*\n\n${guildDB.news}`)
     .setFooter({ text: "https://Pogy.ml" })
     .setTimestamp();

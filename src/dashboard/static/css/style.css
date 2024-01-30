@@ -11,7 +11,7 @@
 --spinner: #888;
 --spinner-border: #333;
 --link: #fff;
---server-hover: #2b2b2b;
+--server-hover: #1c264573;
 --logout: 240, 71, 71;
 --logout-background: 240, 71, 71, 0.1;
 --edit: 68, 179, 127;
@@ -195,6 +195,7 @@ color: #ffffff;
 
 
 .nav {
+  
 position: fixed;
 background-color: var(--white);
 width: 100%;
@@ -203,7 +204,22 @@ transition: 500ms all !important;
 z-index: 9999;
 box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
 }
+.nav.glow{
+  width: 100vw; /* Use 100% of the viewport width */
+  height: 60px;
+  background: linear-gradient(90deg, #dd4949, #5e40e4);
+  position: fixed; /* Use fixed positioning to make it cover the entire viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+  transform: translateY(-20%);
+  filter: blur(160px);
+  z-index: -1; /* Put it behind other content */
 
+
+
+}
 .nav ul {
 margin: 0;
 padding: 0;
