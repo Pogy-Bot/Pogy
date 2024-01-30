@@ -1,27 +1,25 @@
 {
   "guilds": {
-<<<<<<< HEAD
-    "1182740492644003910": {
+    "1147423890574934079": {
       "users": {
-<<<<<<< HEAD
         "1067137336674107453": {
-          "xp": 109,
+          "xp": 96,
           "level": 2,
-          "messageTimeout": 1706635124539,
+          "messageTimeout": 1705014434047,
           "username": "theeyum",
-=======
-        "969655699154042940": {
-          "xp": 5815,
-          "level": 9,
-          "messageTimeout": 100,
-          "username": "hotsuop",
->>>>>>> 1fbf9bc4db1ea165e06af7b255f260d76997bcff
           "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
         },
-        "1166777971433029717": {
-          "xp": 37,
+        "969655699154042940": {
+          "xp": 46,
           "level": 1,
-          "messageTimeout": 1705111962082,
+          "messageTimeout": 1705014604473,
+          "username": "hotsuop",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        }
+      }
+    }
+  }
+}messageTimeout": 1705111962082,
           "username": "m0rpheusdreamweaver",
           "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
         }
