@@ -8,7 +8,6 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
-let messageCreateEventFired = false;
 
 const color = require("./src/data/colors");
 Pogy.color = color;
@@ -29,11 +28,12 @@ client.on("messageCreate", async (message) => {
   } else {
     let delay =
       userData.guilds[message.guild.id].users[message.author.id].messageTimeout;
-    if (delay >= Date.now() + 60000) {
+    if (Date.now() - delay >= 60000) {
       if (message.author.bot) return;
 
       const userId = message.author.id;
       const guildId = message.guild.id;
+      const lastMessage = new Date(userData.guilds[guildId].users[userId].messageTimeout);
 
       // Check if the guild exists in userData, if not, initialize it
       if (!userData.guilds[guildId]) {
@@ -59,6 +59,7 @@ client.on("messageCreate", async (message) => {
       // Increment XP for the user in the specific guild
       userData.guilds[guildId].users[userId].xp +=
         Math.floor(Math.random() * 15) + 10;
+      userData.guilds[guildId].users[userId].messageTimeout = Date.now();
 
       let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
 
