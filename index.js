@@ -161,7 +161,7 @@ client.on("messageCreate", async (message) => {
 
         // Save updated data back to the JSON file
         fs.writeFile(
-          userDataPath,
+          userData,
           JSON.stringify(userData, null, 2),
           (err) => {
             if (err) console.error("Error writing user data file:", err);
@@ -171,17 +171,6 @@ client.on("messageCreate", async (message) => {
     }
   }
 });
-
-// Function to get guild configuration, create if not exists
-function getGuildConfig(guildId) {
-  if (!userData.guilds[guildId]) {
-    userData.guilds[guildId] = {
-      users: {},
-      levelingEnabled: true, // Add a new property to enable/disable leveling
-    };
-  }
-  return userData.guilds[guildId];
-}
 
 // Function to get role ID for the current user's level
 function getRoleForLevel(level, guildId, userId, userData) {
