@@ -1,7 +1,6 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
-const client = require("/home/vboxuser/Pogy-3/index.js");
 
 module.exports = class extends Command {
   constructor(...args) {

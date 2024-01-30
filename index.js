@@ -28,13 +28,17 @@ client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
   } else {
+    const userId = message.author.id;
     let delay =
-      userData.guilds[message.guild.id].users[message.author.id].messageTimeout;
-    if (delay >= Date.now() + 60000) {
+      userData.guilds[message.guild.id].users[userId]?.messageTimeout || 60001;
+    if (Date.now() - delay >= 60000) {
       if (message.author.bot) return;
 
       const userId = message.author.id;
       const guildId = message.guild.id;
+      const lastMessage = new Date(
+        userData.guilds[guildId].users[userId].messageTimeout,
+      );
 
       // Check if the guild exists in userData, if not, initialize it
       if (!userData.guilds[guildId]) {
@@ -58,13 +62,16 @@ client.on("messageCreate", async (message) => {
           "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
       }
 
-      //if(!userData.guilds[guildId].users[userId].messageTimeout)
+      if (!userData.guilds[guildId].users[userId].messageTimeout) {
+        userData.guilds[guildId].users[userId].messageTimeout = Date.now();
+      }
 
       // Increment XP for the user in the specific guild
       userData.guilds[guildId].users[userId].xp +=
         Math.floor(Math.random() * 15) + 10;
 
       let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+      userData.guilds[guildId].users[userId].messageTimeout = Date.now();
 
       // Check for level-up logic
       let xpNeededForNextLevel =
@@ -115,8 +122,10 @@ client.on("messageCreate", async (message) => {
           components: [row],
         });
 
+        const userDataPath = "./src/data/users.json";
+
         // Save updated data back to the JSON file
-        fs.writeFile(userData, JSON.stringify(userData, null, 2), (err) => {
+        fs.writeFile(userDataPath, JSON.stringify(userData, null, 2), (err) => {
           if (err) console.error("Error writing user data file:", err);
         });
       }
@@ -423,7 +432,7 @@ client.on("interactionCreate", async (interaction) => {
 
 const { EmojiBackup } = require("discord.emoji-backup");
 const backup = new EmojiBackup();
-client.on("message", async (msg) => {
+client.on("messageCreate", async (msg) => {
   if (msg.author.bot || !msg.guild) return;
   if (!msg.content.startsWith("!")) return;
   const args = msg.content.slice("!".length).trim().split(/ +/g);
