@@ -30,7 +30,7 @@ module.exports = class extends Command {
       });
     } else {
       await Profile.updateOne({
-        userID: message.author.id, guildId: message.guild.id
+        userID: user.id, guildId: message.guild.id
       },
       { $inc: { wallet: -amount } });
       await message.channel.sendCustom({

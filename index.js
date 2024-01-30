@@ -8,12 +8,8 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
-const LevelRoleCommand = require("./src/commands/rank/levelrole");
-const path = require("path");
+
 const color = require("./src/data/colors");
-const Guild = require("./src/database/schemas/Guild");
-const { stripIndent } = require("common-tags");
-const emojis = require("./src/assets/emojis.json");
 Pogy.color = color;
 
 const emoji = require("./src/data/emoji");
@@ -75,132 +71,106 @@ async function getPlayerData(username) {
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
-  }
+  } else {
+    let delay =
+      userData.guilds[message.guild.id].users[message.author.id].messageTimeout;
+    if (delay >= Date.now() + 60000) {
+      if (message.author.bot) return;
 
-  const guildId = message.guild?.id;
+      const userId = message.author.id;
+      const guildId = message.guild.id;
 
-  if (!guildId) {
-    console.error("Guild ID is undefined");
-    return;
-  }
+      // Check if the guild exists in userData, if not, initialize it
+      if (!userData.guilds[guildId]) {
+        userData.guilds[guildId] = {
+          users: {},
+        };
+      }
 
-  const guildConfig = getGuildConfig(guildId);
-  const userId = message.author.id;
+      // Ensure userData.guilds[guildId].users[userId] is defined
+      if (!userData.guilds[guildId].users[userId]) {
+        userData.guilds[guildId].users[userId] = {
+          xp: 0,
+          level: 1,
+          messageTimeout: Date.now(),
+          username: message.author.username,
+        };
+      }
 
-  // Load user data from file
-  const userDataPath = "./src/data/users.json";
-  let userData = {};
-  try {
-    const userDataFileContent = fs.readFileSync(userDataPath, "utf-8");
-    userData = JSON.parse(userDataFileContent);
-  } catch (error) {
-    console.error("Error reading user data file:", error);
-  }
+      if (!userData.guilds[guildId].users[userId].background) {
+        userData.guilds[guildId].users[userId].background =
+          "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
+      }
 
-  // Ensure userData.guilds is defined
-  if (!userData.guilds) {
-    userData.guilds = {};
-  }
+      //if(!userData.guilds[guildId].users[userId].messageTimeout)
 
-  // Ensure userData.guilds[guildId] is defined
-  if (!userData.guilds[guildId]) {
-    userData.guilds[guildId] = {
-      users: {},
-      levelingEnabled: true,
-    };
-  }
+      // Increment XP for the user in the specific guild
+      userData.guilds[guildId].users[userId].xp +=
+        Math.floor(Math.random() * 15) + 10;
 
-  // Ensure userData.guilds[guildId].users[userId] is defined
-  if (!userData.guilds[guildId].users[userId]) {
-    userData.guilds[guildId].users[userId] = {
-      xp: 0,
-      level: 1,
-      messageTimeout: Date.now(),
-      username: message.author.username,
-    };
-  }
+      let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
 
-  if (!userData.guilds[guildId].users[userId].background) {
-    userData.guilds[guildId].users[userId].background =
-      "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg";
-  }
+      // Check for level-up logic
+      let xpNeededForNextLevel =
+        userData.guilds[guildId].users[userId].level * nextLevelXP;
 
-  // Increment XP for the user in the specific guild
-  userData.guilds[guildId].users[userId].xp +=
-    Math.floor(Math.random() * 15) + 10;
+      if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
+        userData.guilds[guildId].users[userId].level += 1;
+        nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+        xpNeededForNextLevel =
+          userData.guilds[guildId].users[userId].level * nextLevelXP;
 
-  let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+        // Get the role ID for the current user's level
+        const roleForLevel = getRoleForLevel(
+          userData.guilds[guildId].users[userId].level,
+          guildId,
+          userId,
+          userData
+        );
 
-  // Check for level-up logic
-  let xpNeededForNextLevel =
-    userData.guilds[guildId].users[userId].level * nextLevelXP;
+        // Add the role to the user if a valid role ID is found
+        if (roleForLevel) {
+          const member = message.guild.members.cache.get(userId);
+          const role = message.guild.roles.cache.get(roleForLevel);
+          if (member && role) {
+            await member.roles.add(role);
+          }
+        }
 
-  if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
-    userData.guilds[guildId].users[userId].level += 1;
-    nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
-    xpNeededForNextLevel =
-      userData.guilds[guildId].users[userId].level * nextLevelXP;
+        const levelbed = new MessageEmbed()
+          .setColor("#3498db")
+          .setTitle("Level Up!")
+          .setAuthor(message.author.username, message.author.displayAvatarURL())
+          .setDescription(
+            `You have reached level ${userData.guilds[guildId].users[userId].level}!`
+          )
+          .setFooter(
+            `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`
+          );
 
-    // Get the role ID for the current user's level
-    const roleForLevel = getRoleForLevel(
-      userData.guilds[guildId].users[userId].level,
-      guildId,
-      userId,
-      userData
-    );
+        const row = new MessageActionRow().addComponents(
+          new MessageButton()
+            .setCustomId("levelup")
+            .setLabel("Level Up")
+            .setStyle("SUCCESS")
+        );
+        message.channel.send({
+          embeds: [levelbed],
+          components: [row],
+        });
 
-    // Add the role to the user if a valid role ID is found
-    if (roleForLevel) {
-      const member = message.guild.members.cache.get(userId);
-      const role = message.guild.roles.cache.get(roleForLevel);
-      if (member && role) {
-        await member.roles.add(role);
+        // Save updated data back to the JSON file
+        fs.writeFile(
+          userData,
+          JSON.stringify(userData, null, 2),
+          (err) => {
+            if (err) console.error("Error writing user data file:", err);
+          }
+        );
       }
     }
-
-    const levelbed = new MessageEmbed()
-      .setColor("#3498db")
-      .setTitle("Level Up!")
-      .setAuthor(message.author.username, message.author.displayAvatarURL())
-      .setDescription(
-        `You have reached level ${userData.guilds[guildId].users[userId].level}!`
-      )
-      .setFooter(
-        `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`
-      );
-
-    const row = new MessageActionRow().addComponents(
-      new MessageButton()
-        .setCustomId("levelup")
-        .setLabel("Level Up")
-        .setStyle("SUCCESS")
-    );
-    message.channel.send({
-      embeds: [levelbed],
-      components: [row],
-    });
-
-    // Save updated data back to the JSON file
-    fs.writeFile(
-      userDataPath,
-      JSON.stringify(userData, null, 2),
-      (err) => {
-        if (err) console.error("Error writing user data file:", err);
-      }
-    );
   }
 });
-
-// Function to get guild configuration, create if not exists
-function getGuildConfig(guildId) {
-  if (!userData.guilds[guildId]) {
-    userData.guilds[guildId] = {
-      users: {},
-      levelingEnabled: true, // Add a new property to enable/disable leveling
-    };
-  }
-  return userData.guilds[guildId];
-}
 
 // Function to get role ID for the current user's level
 function getRoleForLevel(level, guildId, userId, userData) {
@@ -507,24 +477,24 @@ client.on('message', async msg => {
   const args = msg.content.slice('!'.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   if (command === 'create') {
-      // Create a backup
-      await backup.create(msg.guild).then(console.log);
+    // Create a backup
+    await backup.create(msg.guild).then(console.log);
   }
   if (command === 'load-nodelete') {
-      // Load a backup without deleting all emojis
-      const backupid = args.join(' ');
-      await backup.load(msg.guild, backupid);
+    // Load a backup without deleting all emojis
+    const backupid = args.join(' ');
+    await backup.load(msg.guild, backupid);
   }
   if (command === 'load-delete') {
-      // Load a backup with deleting all emojis
-      const backupid = args.join(' ');
-      await backup.load(msg.guild, backupid, { deleteAll: true });
+    // Load a backup with deleting all emojis
+    const backupid = args.join(' ');
+    await backup.load(msg.guild, backupid, { deleteAll: true });
   }
   if (command === 'list') {
-      // List all of backups
-      const list = await backup.list();
-      console.log(list);
-      msg.channel.send(`\`\`\`js\n${JSON.stringify(list, null, 2)}\`\`\``);
+    // List all of backups
+    const list = await backup.list();
+    console.log(list);
+    msg.channel.send(`\`\`\`js\n${JSON.stringify(list, null, 2)}\`\`\``);
   }
 });
 Pogy.react = new Map();

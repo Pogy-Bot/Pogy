@@ -9,6 +9,7 @@ let profile = new mongoose.Schema({
   lastWeekly: { type: Date },
   lastMonthly: { type: Date },
   lastBeg: { type: Date },
+  lastRob: { type: Date },
   passiveUpdated: { type: Date }
 });
 
