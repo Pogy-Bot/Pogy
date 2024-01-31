@@ -1,8 +1,8 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
-const getCommitHistory = require('git-commits-npm');
+const getCommitHistory = require("git-commits-npm");
 
-module.exports = class EmptyCommand extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "empty",
@@ -22,10 +22,12 @@ module.exports = class EmptyCommand extends Command {
       const getCommits = async () => {
         try {
           const response = await axios.get(
-            "https://api.github.com/repos/hotsu0p/Pogy/commits"
+            "https://api.github.com/repos/hotsu0p/Pogy/commits",
           );
           const commits = response.data;
-          const commitHistory = await getCommitHistory("https://api.github.com/repos/hotsu0p/Pogy/commits");
+          const commitHistory = await getCommitHistory(
+            "https://api.github.com/repos/hotsu0p/Pogy/commits",
+          );
           console.log(`Total commits: ${commits.length}`);
 
           const embed = new MessageEmbed()
@@ -38,7 +40,7 @@ module.exports = class EmptyCommand extends Command {
             new MessageButton()
               .setCustomId("test")
               .setLabel("testinng")
-              .setStyle("SUCCESS")
+              .setStyle("SUCCESS"),
           );
 
           const sentMessage = await message.channel.sendCustom({
@@ -51,9 +53,7 @@ module.exports = class EmptyCommand extends Command {
           });
 
           collector.on("collect", async (i) => {
-            sentMessage.edit(
-              `${commitHistory}`,
-            );
+            sentMessage.edit(`${commitHistory}`);
           });
 
           collector.on("end", (collected) => {

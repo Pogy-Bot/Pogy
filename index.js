@@ -25,50 +25,6 @@ jointocreate(client);
 // end imports
 const userData = require("./src/data/users.json");
 // getPlayerData function with base64 encoding
-async function getPlayerData(username) {
-  try {
-    console.log(`Fetching UUID for ${username}`);
-    const responseUUID = await axios.get(
-      `https://api.mojang.com/users/profiles/minecraft/${username}`
-    );
-
-    // Check if the player was found
-    if (!responseUUID.data) {
-      console.log("Player not found");
-      return null;
-    }
-
-    const uuid = responseUUID.data.id;
-    console.log(`UUID for ${username}: ${uuid}`);
-
-    console.log(`Fetching skin for UUID: ${uuid}`);
-    const responseSkin = await axios.get(
-      `https://api.mineatar.io/head/${uuid}`,
-      { responseType: "arraybuffer" }
-    );
-
-    // Check if the skin was found
-    if (!responseSkin.data) {
-      console.log("Skin not found");
-      return null;
-    }
-
-    console.log("Skin found");
-    const skinUrl = `data:image/png;base64,${Buffer.from(
-      responseSkin.data,
-      "binary"
-    ).toString("base64")}`;
-
-    return {
-      uuid,
-      skinUrl,
-    };
-  } catch (error) {
-    console.error("Error:", error.message);
-    return null;
-  }
-}
-
 // Load user data from the JSON file
 
 // This assumes you have a function getGuildConfig defined in your levelUtils
@@ -120,16 +76,21 @@ client.on("messageCreate", async (message) => {
     };
   }
 
-  if (!userData.guilds[guildId].users[userId].background) {
-    userData.guilds[guildId].users[userId].background =
-      "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg";
-  }
+      if (!userData.guilds[guildId].users[userId].background) {
+        userData.guilds[guildId].users[userId].background =
+          "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
+      }
+
+      if (!userData.guilds[guildId].users[userId].messageTimeout) {
+        userData.guilds[guildId].users[userId].messageTimeout = Date.now();
+      }
 
   // Increment XP for the user in the specific guild
   userData.guilds[guildId].users[userId].xp +=
     Math.floor(Math.random() * 15) + 10;
 
   let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+      userData.guilds[guildId].users[userId].messageTimeout = Date.now();
 
   // Check for level-up logic
   let xpNeededForNextLevel =
@@ -141,13 +102,13 @@ client.on("messageCreate", async (message) => {
     xpNeededForNextLevel =
       userData.guilds[guildId].users[userId].level * nextLevelXP;
 
-    // Get the role ID for the current user's level
-    const roleForLevel = getRoleForLevel(
-      userData.guilds[guildId].users[userId].level,
-      guildId,
-      userId,
-      userData
-    );
+        // Get the role ID for the current user's level
+        const roleForLevel = getRoleForLevel(
+          userData.guilds[guildId].users[userId].level,
+          guildId,
+          userId,
+          userData,
+        );
 
     // Add the role to the user if a valid role ID is found
     if (roleForLevel) {
@@ -299,7 +260,7 @@ client.on("messageCreate", async (message) => {
 
       // Notify the user about the new advancement in the channel
       message.channel.send(
-        `Congratulations, ${message.author}! You have earned the 'MessageMaster' advancement for reaching 20 messages!`
+        `Congratulations, ${message.author}! You have earned the 'MessageMaster' advancement for reaching 20 messages!`,
       );
 
       // Reset the message count
@@ -318,7 +279,7 @@ client.on("messageCreate", async (message) => {
 
       // Notify the user about the new advancement in the channel
       message.channel.send(
-        `Congratulations, ${message.author}! You have earned the 'Active chatter' advancement for reaching 100 messages!`
+        `Congratulations, ${message.author}! You have earned the 'Active chatter' advancement for reaching 100 messages!`,
       );
 
       // Reset the message count
@@ -343,7 +304,7 @@ const moreinfo = new MessageEmbed()
   .setTitle("More Info")
   .setURL("https://pogy.xyz/invite")
   .setDescription(
-    "Pogy is a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below"
+    "Chaoticis a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below",
   )
   .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
   .addField("Invite Pogy", "https://pogy.xyz/invite")
@@ -355,7 +316,7 @@ const levelupbutton = new MessageEmbed()
   .setTitle("Level Up")
   .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
   .setDescription(
-    `Hm this doesnt seem to do much. But you can click it anyways`
+    `Hm this doesnt seem to do much. But you can click it anyways`,
   )
   .setURL("https://pogy.xyz/invite");
 
@@ -363,13 +324,13 @@ const invitebutton = new MessageActionRow().addComponents(
   new MessageButton()
     .setLabel("Invite Pogy")
     .setStyle("LINK")
-    .setURL("https://pogy.xyz/invite")
+    .setURL("https://394wkx-3000.csb.app//invite"),
 );
 
 const infobutton = new MessageEmbed()
   .setTitle(`Info`)
   .setDescription(
-    " hello there poger. If you want more info on this bot you can check out the github repo or join the support server"
+    " hello there poger. If you want more info on this bot you can check out the github repo or join the support server",
   )
   .setURL("https://github.com/hotsu0p/Pogy/")
   .addField("Github Repo", "https://github.com/hotsu0p/Pogy/");
@@ -420,7 +381,7 @@ client.on("interactionCreate", async (interaction) => {
         .setColor("#00FF00")
         .setTitle("Rock Paper Scissors")
         .setDescription(
-          `You chose ${emojis[userChoice]}, and the bot chose ${emojis[botChoice]}.`
+          `You chose ${emojis[userChoice]}, and the bot chose ${emojis[botChoice]}.`,
         );
 
       let resultMessage;
@@ -435,7 +396,7 @@ client.on("interactionCreate", async (interaction) => {
         resultMessage = userWins ? "You win!" : "You lose!";
         resultEmbed.addField(
           "Result",
-          `${resultMessage} ${emojis[userChoice]} beats ${emojis[botChoice]}`
+          `${resultMessage} ${emojis[userChoice]} beats ${emojis[botChoice]}`,
         );
         if (userWins) {
           resultEmbed.setColor("#00FF00");
@@ -483,7 +444,7 @@ client.on("interactionCreate", async (interaction) => {
       const buttonRow = new MessageActionRow().addComponents(
         rockButton,
         paperButton,
-        scissorsButton
+        scissorsButton,
       );
 
       await interaction.update({
