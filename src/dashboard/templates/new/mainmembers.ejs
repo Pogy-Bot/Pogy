@@ -70,30 +70,84 @@
         <li><a href="/dashboard/<%= guild.id %>/Suggestions"><span><i class="fa fa-lightbulb-o" style="color: white; font-size: 17px"></i> Suggestions</span></a></li>
         <li><a href="/dashboard/<%= guild.id %>/reports"><span><i class="	fa fa-exclamation-triangle" style="color: white; font-size: 17px"></i> Server Reports</span></a></li>
       </ul>
-
-    </div>
-
-
+        </div>
+    
+       
     <div class="botsettings">
-      <div class="alert alert-info" role="alert">
-        <i class="fa fa-info-circle" style="font-size: 16px"></i>This Page is
-        currently under Development
-      </div>
       <h2>Server Members</h2>
-<ul>
-  <% guild.members.cache.forEach(member => { %>
-    <li>
-      <img src="<%= member.user.displayAvatarURL() %>" alt="<%= member.user.username %>">
-      <span><%= member.user.username %>#<%= member.user.discriminator %></span>
-    </li>
-  <% }); %>
-</ul>
-
+      <ul class="member-list">
+        <% guild.members.cache.forEach(member => { %>
+          <li class="member-item">
+            <% const avatarURL = member.user.avatarURL({ format: 'png', dynamic: true, size: 64 }) || member.user.defaultAvatarURL; %>
+            <img class="avatar" src="<%= avatarURL %>" alt="<%= member.user.username %>">
+            <div class="member-info">
+              <span class="username"><%= member.user.username %>#<%= member.user.discriminator %></span>
+              <span class="status <%= member.user.presence && member.user.presence.status ? member.user.presence.status : 'offline' %>"></span>
+            </div>
+          </li>
+        <% }); %>
+      </ul>
     </div>
   </div>
 </div>
-<!-- Members Section -->
-
+    <style>
+      .member-list {
+        list-style: none;
+        padding: 0;
+      }
+      .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover; /* Ensure avatars maintain aspect ratio */
+  }
+      .member-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 8px;
+        background-color: #ffffff00;
+        border-radius: 5px;
+      }
+    
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+    
+      .member-info {
+        flex-grow: 1;
+      }
+    
+      .username {
+        font-weight: bold;
+        font-size: 16px;
+      }
+    
+      .status {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-left: 5px;
+      }
+    
+      .status.online {
+        background-color: #43b581;
+      }
+    
+      .status.idle {
+        background-color: #faa61a;
+      }
+    
+      .status.dnd {
+        background-color: #f04747;
+      }
+    </style>
+    
 
 
 
