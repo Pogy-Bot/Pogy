@@ -86,7 +86,31 @@
 </div>
 
 
+<button id="fetchGuildButton">Fetch Guild Information</button>
 
+<!-- Add this script at the end of your HTML file -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let button = document.querySelector("#fetchGuildButton");
+
+    button.addEventListener("click", function () {
+      fetchGuildInfo('1182740492644003910');
+    });
+
+    function fetchGuildInfo(guildId) {
+      const apiUrl = `https://discord.com/api/guilds/${guildId}`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Guild Information:', data);
+        })
+        .catch(error => {
+          console.error('Error fetching guild information:', error);
+        });
+    }
+  });
+</script>
 
 </div>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
