@@ -1,6 +1,6 @@
 //  code is bugy rn
 const Command = require("../../structures/Command");
-const { Calculator } = require('weky');
+const { Calculator } = require("weky");
 
 module.exports = class CalculatorCommand extends Command {
   constructor(...args) {
@@ -16,24 +16,22 @@ module.exports = class CalculatorCommand extends Command {
   }
 
   async run(message, args) {
-    const command = "calculator";
-
-    try {
-      await Calculator({
-        message: message,
-        embed: {
-          title: 'Calculator ',
-          color: '#5865F2',
-          footer: 'Pogy.xyz',
-          timestamp: true,
-        },
-        disabledQuery: 'Calculator is disabled!',
-        invalidQuery: 'The provided equation is invalid!',
-        othersMessage: 'Only <@{{author}}> can use the buttons!',
-      });
-    } catch (error) {
-      console.error('Error running calculator command:', error);
-      message.reply('An error occurred while running the calculator command.');
-    }
+    const { Calculator } = require("weky");
+    await Calculator({
+      message: message,
+      embed: {
+        title: "Calculator | Weky Development",
+        color: "#5865F2",
+        footer: "©️ Weky Development",
+        timestamp: true,
+      },
+      disabledQuery: "Calculator is disabled!",
+      invalidQuery: "The provided equation is invalid!",
+      othersMessage: "Only <@{{author}}> can use the buttons!",
+    });
+  }
+  catch(error) {
+    console.error("Error running calculator command:", error);
+    message.reply("An error occurred while running the calculator command.");
   }
 };
