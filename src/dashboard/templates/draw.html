@@ -9,25 +9,25 @@
 
 <body>
 
-    <canvas id="canvas" width="800" height="500" style="border:1px solid #000;"></canvas>
+    <canvas id="canvas" width="800" height="500" style="border:5px solid #000;" class="canvas"></canvas>
     <div>
-        <label for="channelId">Channel ID:</label>
-        <input type="text" id="channelId" name="channelId">
+        <label for="channelId" class="channelid">Channel ID:</label>
+        <input type="text" class="channelidInput" id="channelId" name="channelId">
     </div>
     <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
+        <label for="username" class="username">Username:</label>
+        <input type="text" id="username" class="usernameinput" name="username">
     </div>
     <div>
-        <label for="color">Color:</label>
-        <input type="color" id="color" name="color" value="#000000">
+        <label for="color" class="color">Color:</label>
+        <input type="color" id="color" name="color" class="colorselect" value="#000000">
     </div>
     <div>
-        <label for="brushSize">Brush Size:</label>
-        <input type="range" id="brushSize" name="brushSize" min="1" max="50" value="5">
+        <label for="brushSize" class="brushsize">Brush Size:</label>
+        <input type="range" id="brushSize" name="brushSize" class="brushsizeslider" min="1" max="50" value="5">
     </div>
     <div>
-        <label for="tool">Tool:</label>
+        <label for="tool" class="tool">Tool:</label>
         <select id="tool" name="tool">
             <option value="pen">Pen</option>
             <option value="line">Line</option>
@@ -118,38 +118,38 @@
                     formData.append('file', blob, 'canvas.png');
 
                     fetch('https://cv75jg-3030.csb.app/upload', {
-                        method: 'POST',
-                        body: formData,
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('Success:', data);
-
-                        fetch(`http://localhost:3000/send-drawing?channelId=${channelId}&username=${username}`, {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                drawing: data.data.url,
-                            }),
+                            body: formData,
                         })
-                        .then(serverResponse => serverResponse.text())
-                        .then(serverData => {
-                            console.log('Server Success:', serverData);
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
                         })
-                        .catch(serverError => {
-                            console.error('Server Error:', serverError);
+                        .then(data => {
+                            console.log('Success:', data);
+
+                            fetch(`http://localhost:3000/send-drawing?channelId=${channelId}&username=${username}`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        drawing: data.data.url,
+                                    }),
+                                })
+                                .then(serverResponse => serverResponse.text())
+                                .then(serverData => {
+                                    console.log('Server Success:', serverData);
+                                })
+                                .catch(serverError => {
+                                    console.error('Server Error:', serverError);
+                                });
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
                         });
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
                 }, 'image/png');
             });
 
@@ -159,3 +159,90 @@
 </body>
 
 </html>
+<style>
+    .channelidInput {
+        font-size: 1px;
+        font-size: max(16px, 1em);
+        font-family: inherit;
+        padding: 0.25em 0.5em;
+        background-color: #fff;
+        border: 2px solid var(--input-border);
+        border-radius: 4px;
+    }
+    
+    .usernameinput {
+        font-size: 16px;
+        font-size: max(16px, 1em);
+        font-family: inherit;
+        padding: 0.25em 0.5em;
+        background-color: #fff;
+        border: 2px solid var(--input-border);
+        border-radius: 4px;
+    }
+    
+    select,
+    input[type="color"],
+    input[type="range"] {
+        font-size: 16px;
+        font-size: max(16px, 1em);
+        font-family: inherit;
+        padding: 0.25em 0.5em;
+        background-color: #fff;
+        border: 2px solid var(--input-border);
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+    
+    .username {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        display: inline-block;
+        background-color: #7b38d8;
+        padding: 11px;
+        width: 75px;
+        color: #ffffff;
+        text-align: center;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s;
+        &:hover {
+            background-color: #6831b6;
+        }
+    }
+    
+    .canvas {
+        background-color: #ffffff;
+    }
+    
+     :root {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .channelid {
+        margin-bottom: 5px;
+        border-radius: 10px;
+        display: inline-block;
+        background-color: #7b38d8;
+        padding: 11px;
+        width: 75px;
+        color: #ffffff;
+        text-align: center;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s;
+        &:hover {
+            background-color: #6831b6;
+        }
+    }
+    
+    body {
+        background-color: rgb(44, 43, 43);
+        color: aliceblue;
+    }
+</style>
