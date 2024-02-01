@@ -1,8 +1,9 @@
 require("dotenv").config();
-
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const Discord = require("discord.js");
 const url = require("url");
-let uniqid = require("uniqid");
+let voteCount = 0;
+const votedUsers = new Set();
 const path = require('path');
 const cooldownNickname = new Set();
 const express = require("express");
@@ -21,7 +22,6 @@ const randoStrings = require("../packages/randostrings.js");
 const random = new randoStrings();
 const sendingEmbed = new Set();
 const bodyParser = require("body-parser");
-const { MessageEmbed } = require("discord.js");
 const DBL = require("@top-gg/sdk");
 const User = require("../database/schemas/User");
 const TicketSettings = require("../database/models/tickets");
@@ -317,41 +317,88 @@ app.get('/testing', (req, res) => {
   res.sendFile(path.join(__dirname, 'templates', 'draw.html'));
 });
 
-// Route to handle the drawing submission
+
 app.post('/send-drawing', (req, res) => {
   try {
-      const drawing = req.body.drawing;
-      const channelId = req.query.channelId;
-      const username = req.query.username;
-      if (!channelId) {
-          throw new Error('Channel ID is missing.');
-      }
+    const drawing = req.body.drawing;
+    const channelId = req.query.channelId;
+    const username = req.query.username;
 
-      const channel = client.channels.cache.get(channelId);
+    if (!channelId) {
+      throw new Error('Channel ID is missing.');
+    }
 
-      if (!channel || !channel.isText()) {
-          throw new Error('Invalid Discord channel or not a text channel.');
-      }
-        const embed = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTitle(`New Drawing`)
-        .setImage(drawing)
-        .setFooter(`Submitted by ${username}`)
-        .setTimestamp()
-      channel.send({embeds: [embed]})
-          .then(() => {
-              console.log('Drawing sent to Discord!');
-              res.status(200).send('Drawing sent to Discord!');
-          })
-          .catch((error) => {
-              console.error('Error sending drawing to Discord:', error);
-              res.status(500).send('Error sending drawing to Discord!');
-          });
+    const channel = client.channels.cache.get(channelId);
+
+    if (!channel || !channel.isText()) {
+      throw new Error('Invalid Discord channel or not a text channel.');
+    }
+
+    let voteCount = 0;
+    const votedUsers = new Set();
+
+    const filter = i => i.customId === 'vote_button' || i.customId === 'downvote_button';
+
+    const voteButton = new MessageButton()
+      .setLabel('Vote')
+      .setStyle('PRIMARY')
+      .setCustomId('vote_button');
+
+    const downvoteButton = new MessageButton()
+      .setLabel('Downvote')
+      .setStyle('DANGER')
+      .setCustomId('downvote_button');
+
+    const row = new MessageActionRow().addComponents(voteButton, downvoteButton);
+
+    const embed = new MessageEmbed()
+      .setColor("RANDOM")
+      .setTitle(`New Drawing`)
+      .setImage(drawing)
+      .setFooter(`Submitted by ${username}`)
+      .setTimestamp()
+      .setDescription(`Votes: ${voteCount}`);
+
+    channel.send({ embeds: [embed], components: [row] })
+      .then(sentMessage => {
+        const collector = sentMessage.createMessageComponentCollector({ filter, time: 15000 });
+
+        collector.on('collect', async i => {
+          if (!votedUsers.has(i.user.id)) {
+            if (i.customId === 'vote_button') {
+              voteCount++;
+            } else if (i.customId === 'downvote_button') {
+              voteCount--;
+            }
+
+            votedUsers.add(i.user.id);
+            console.log(`${i.user.username} voted! Total votes: ${voteCount}`);
+            embed.setDescription(`Votes: ${voteCount}`);
+            voteButton.setLabel(`Vote (${voteCount})`);
+            downvoteButton.setLabel(`Downvote (${voteCount > 0 ? voteCount : 0})`);
+
+            await i.update({ content: 'Vote counted!', embeds: [embed], components: [new MessageActionRow().addComponents(voteButton, downvoteButton)], ephemeral: true });
+          } else {
+            await i.update({ content: 'You have already voted!', ephemeral: true });
+          }
+        });
+
+        collector.on('end', collected => {
+          console.log(`Collected ${collected.size} interactions.`);
+        });
+
+        res.status(200).send('Drawing sent to Discord!');
+      })
+      .catch((error) => {
+        console.error('Error sending drawing to Discord:', error);
+        res.status(500).send('Error sending drawing to Discord!');
+      });
   } catch (error) {
-      console.error('Error:', error.message);
-      res.status(500).send(`Error: ${error.message}`);
+    console.error('Error:', error.message);
+    res.status(500).send(`Error: ${error.message}`);
   }
 });
+
 
   
   app.get("/variables", (req, res) => {
