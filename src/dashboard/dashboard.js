@@ -322,7 +322,7 @@ app.post('/send-drawing', (req, res) => {
   try {
       const drawing = req.body.drawing;
       const channelId = req.query.channelId;
-
+      const username = req.query.username;
       if (!channelId) {
           throw new Error('Channel ID is missing.');
       }
@@ -332,8 +332,13 @@ app.post('/send-drawing', (req, res) => {
       if (!channel || !channel.isText()) {
           throw new Error('Invalid Discord channel or not a text channel.');
       }
-
-      channel.send(`Drawing from the website: ${drawing}`)
+        const embed = new MessageEmbed()
+        .setColor("RANDOM")
+        .setTitle(`New Drawing`)
+        .setImage(drawing)
+        .setFooter(`Submitted by ${username}`)
+        .setTimestamp()
+      channel.send({embeds: [embed]})
           .then(() => {
               console.log('Drawing sent to Discord!');
               res.status(200).send('Drawing sent to Discord!');

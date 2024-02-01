@@ -4,29 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Image Upload</title>
+    <title>Advanced Canvas Image Upload</title>
 </head>
 
 <body>
 
-    <canvas id="canvas" width="500" height="500" style="border:1px solid #000;"></canvas>
-    <button id="uploadButton">Upload Image</button>
-
-    <!-- Add an input field for the channel ID -->
-    <label for="channelId">Channel ID:</label>
-    <input type="text" id="channelId" name="channelId">
+    <canvas id="canvas" width="800" height="500" style="border:1px solid #000;"></canvas>
+    <div>
+        <label for="channelId">Channel ID:</label>
+        <input type="text" id="channelId" name="channelId">
+    </div>
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+    </div>
+    <div>
+        <label for="color">Color:</label>
+        <input type="color" id="color" name="color" value="#000000">
+    </div>
+    <div>
+        <label for="brushSize">Brush Size:</label>
+        <input type="range" id="brushSize" name="brushSize" min="1" max="50" value="5">
+    </div>
+    <div>
+        <label for="tool">Tool:</label>
+        <select id="tool" name="tool">
+            <option value="pen">Pen</option>
+            <option value="line">Line</option>
+            <option value="rectangle">Rectangle</option>
+        </select>
+    </div>
+    <div>
+        <button id="clearButton">Clear Canvas</button>
+        <button id="uploadButton">Upload Image</button>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('canvas');
             const context = canvas.getContext('2d');
             const uploadButton = document.getElementById('uploadButton');
+            const clearButton = document.getElementById('clearButton');
+            const toolSelect = document.getElementById('tool');
 
             let isDrawing = false;
+            let startX, startY;
 
             function startDrawing(e) {
                 isDrawing = true;
-                draw(e);
+                startX = e.clientX - canvas.offsetLeft;
+                startY = e.clientY - canvas.offsetTop;
             }
 
             function stopDrawing() {
@@ -37,64 +64,94 @@
             function draw(e) {
                 if (!isDrawing) return;
 
-                context.lineWidth = 5;
-                context.lineCap = 'round';
-                context.strokeStyle = '#000';
+                const color = document.getElementById('color').value;
+                const brushSize = document.getElementById('brushSize').value;
+                const currentX = e.clientX - canvas.offsetLeft;
+                const currentY = e.clientY - canvas.offsetTop;
 
-                context.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
-                context.stroke();
-                context.beginPath();
-                context.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+                context.lineWidth = brushSize;
+                context.lineCap = 'round';
+                context.strokeStyle = color;
+
+                const tool = toolSelect.value;
+
+                switch (tool) {
+                    case 'pen':
+                        context.lineTo(currentX, currentY);
+                        context.stroke();
+                        context.beginPath();
+                        context.moveTo(currentX, currentY);
+                        break;
+                    case 'line':
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        context.beginPath();
+                        context.moveTo(startX, startY);
+                        context.lineTo(currentX, currentY);
+                        context.stroke();
+                        break;
+                    case 'rectangle':
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        context.beginPath();
+                        context.rect(startX, startY, currentX - startX, currentY - startY);
+                        context.stroke();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            function clearCanvas() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
             }
 
             canvas.addEventListener('mousedown', startDrawing);
             canvas.addEventListener('mouseup', stopDrawing);
             canvas.addEventListener('mousemove', draw);
 
+            clearButton.addEventListener('click', clearCanvas);
+
             uploadButton.addEventListener('click', () => {
-    // Get the channel ID entered by the user
-    const channelId = document.getElementById('channelId').value;
+                const channelId = document.getElementById('channelId').value;
+                const username = document.getElementById('username').value;
+                canvas.toBlob((blob) => {
+                    const formData = new FormData();
+                    formData.append('file', blob, 'canvas.png');
 
-    canvas.toBlob((blob) => {
-        const formData = new FormData();
-        formData.append('file', blob, 'canvas.png');
+                    fetch('https://cv75jg-3030.csb.app/upload', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Success:', data);
 
-        fetch('https://cv75jg-3030.csb.app/upload', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Success:', data);
-
-            // Use the data from the previous fetch request
-            fetch(`http://localhost:3000/send-drawing?channelId=${channelId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    drawing: data.data.url,
-                }),
-            })
-            .then(serverResponse => serverResponse.text())
-            .then(serverData => {
-                console.log('Server Success:', serverData);
-            })
-            .catch(serverError => {
-                console.error('Server Error:', serverError);
+                        fetch(`http://localhost:3000/send-drawing?channelId=${channelId}&username=${username}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                drawing: data.data.url,
+                            }),
+                        })
+                        .then(serverResponse => serverResponse.text())
+                        .then(serverData => {
+                            console.log('Server Success:', serverData);
+                        })
+                        .catch(serverError => {
+                            console.error('Server Error:', serverError);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                }, 'image/png');
             });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }, 'image/png');
-});
 
         });
     </script>
