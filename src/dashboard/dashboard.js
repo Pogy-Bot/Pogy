@@ -2,8 +2,8 @@ require("dotenv").config();
 
 const Discord = require("discord.js");
 const url = require("url");
-const path = require("path");
 let uniqid = require("uniqid");
+const path = require('path');
 const cooldownNickname = new Set();
 const express = require("express");
 const passport = require("passport");
@@ -306,6 +306,49 @@ module.exports = async (client) => {
     renderTemplate(res, req, "stats.ejs");
   });
 
+  
+  app.use(express.static(__dirname));
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  
+  
+// Route to serve the HTML file
+app.get('/testing', (req, res) => {
+  res.sendFile(path.join(__dirname, 'templates', 'draw.html'));
+});
+
+// Route to handle the drawing submission
+app.post('/send-drawing', (req, res) => {
+  try {
+      const drawing = req.body.drawing;
+      const channelId = req.query.channelId;
+
+      if (!channelId) {
+          throw new Error('Channel ID is missing.');
+      }
+
+      const channel = client.channels.cache.get(channelId);
+
+      if (!channel || !channel.isText()) {
+          throw new Error('Invalid Discord channel or not a text channel.');
+      }
+
+      channel.send(`Drawing from the website: ${drawing}`)
+          .then(() => {
+              console.log('Drawing sent to Discord!');
+              res.status(200).send('Drawing sent to Discord!');
+          })
+          .catch((error) => {
+              console.error('Error sending drawing to Discord:', error);
+              res.status(500).send('Error sending drawing to Discord!');
+          });
+  } catch (error) {
+      console.error('Error:', error.message);
+      res.status(500).send(`Error: ${error.message}`);
+  }
+});
+
+  
   app.get("/variables", (req, res) => {
     renderTemplate(res, req, "variables.ejs");
   });

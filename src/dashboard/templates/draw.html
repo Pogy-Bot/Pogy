@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Image Upload</title>
+</head>
+
+<body>
+
+    <canvas id="canvas" width="500" height="500" style="border:1px solid #000;"></canvas>
+    <button id="uploadButton">Upload Image</button>
+
+    <!-- Add an input field for the channel ID -->
+    <label for="channelId">Channel ID:</label>
+    <input type="text" id="channelId" name="channelId">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+            const uploadButton = document.getElementById('uploadButton');
+
+            let isDrawing = false;
+
+            function startDrawing(e) {
+                isDrawing = true;
+                draw(e);
+            }
+
+            function stopDrawing() {
+                isDrawing = false;
+                context.beginPath();
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+
+                context.lineWidth = 5;
+                context.lineCap = 'round';
+                context.strokeStyle = '#000';
+
+                context.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+                context.stroke();
+                context.beginPath();
+                context.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            }
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mousemove', draw);
+
+            uploadButton.addEventListener('click', () => {
+    // Get the channel ID entered by the user
+    const channelId = document.getElementById('channelId').value;
+
+    canvas.toBlob((blob) => {
+        const formData = new FormData();
+        formData.append('file', blob, 'canvas.png');
+
+        fetch('https://cv75jg-3030.csb.app/upload', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+
+            // Use the data from the previous fetch request
+            fetch(`http://localhost:3000/send-drawing?channelId=${channelId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    drawing: data.data.url,
+                }),
+            })
+            .then(serverResponse => serverResponse.text())
+            .then(serverData => {
+                console.log('Server Success:', serverData);
+            })
+            .catch(serverError => {
+                console.error('Server Error:', serverError);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }, 'image/png');
+});
+
+        });
+    </script>
+
+</body>
+
+</html>
