@@ -14,9 +14,15 @@ module.exports = class extends Event {
         .permissionsFor(message.guild.me)
         .has(["SEND_MESSAGES", "EMBED_LINKS"])
     ) {
+      const error = new Discord.MessageEmbed()
+      .setColor("RED")
+      .setDescription(`${message.client.emoji.fail} Hey pogger! An Error just occured, make sure to report it here https://discord.gg/FWJsSnVGgM!`)
+      .setTimestamp()
+      .setFooter(`ID: ${message.author.id}`);
+
       message.channel
         .sendCustom(
-          `${message.client.emoji.fail} Hey pogger! An Error just occured, make sure to report it here ${config.discord}!`
+          { embeds: [error] }
         )
         .catch(() => {});
     }

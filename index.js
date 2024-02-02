@@ -22,12 +22,8 @@ Pogy.emoji = emoji;
 let client = Pogy;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
-// end imports
-const userData = require("./src/data/users.json");
-// getPlayerData function with base64 encoding
-// Load user data from the JSON file
 
-// This assumes you have a function getGuildConfig defined in your levelUtils
+const userData = require("./src/data/users.json");
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
@@ -902,6 +898,7 @@ async function startTetrisGame(message) {
         await buttonMessage.edit(`${renderBoard(gameState.board)}\n\nButtons pressed:`);
     }
 }
+
 Pogy.react = new Map();
 Pogy.fetchforguild = new Map();
 
