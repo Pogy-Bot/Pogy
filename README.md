@@ -1,5 +1,5 @@
 # the Discord Bot [DJS V13] 🤖
-
+![Alt](https://repobeats.axiom.co/api/embed/452ab75762c584e2d600d1eae3586ba91a6da3b3.svg "Repobeats analytics image")
 <p align="center">
   <br>
   <a href="https://github.com/peterhanania"><img src="https://dev.pogy.gg/favicon.ico"></a>
@@ -46,26 +46,26 @@
 </p>
 
 ## Community Updates 🌟
-[+ More dashboard pages and commands by Hotsuop](https://github.com/hotsu0p/Pogy)
+- [+ More dashboard pages and commands by Hotsuop](https://github.com/hotsu0p/Pogy)
+- [+ Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
 
-[+ Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
 ## Latest commit!
-✨added commands lock and unlock
-*https://394wkx-3000.csb.app/changelog*
+- ✨added commands lock and unlock
+*[Changelog](https://394wkx-3000.csb.app/changelog)*
+
 ## Docs 📚
-https://394wkx-3000.csb.app/docs
-*these are pretty old for now*
-*will update later*
+[Documentation](https://394wkx-3000.csb.app/docs)
+*Note: Documentation is currently outdated and will be updated later.*
+
 ## About 🤔
 
-is a discord bot that we made exactly 2 years ago, the code was broken, so we decided to fix the bugs and make it a multipurpose discord.js v13 bot! You can click [this](https://394wkx-3000.csb.app//invite) link to invite the official Bot! Also, you can join the official [Pogy's Support Server](https://394wkx-3000.csb.app//support) for assistance.
+Pogy is a Discord bot that was created exactly 2 years ago. The initial code was broken, prompting us to fix the bugs and transform it into a multipurpose discord.js v13 bot! You can click [this link](https://394wkx-3000.csb.app//invite) to invite the official bot! Additionally, you can join the official [Pogy's Support Server](https://394wkx-3000.csb.app//support) for assistance.
 
-If you liked this repository, feel free to leave a star ⭐
+If you find this repository helpful, feel free to leave a star ⭐
 
 ## Features 🚀
 
-**147** commands and **11** different categories! 🎉
-
+- **147** commands and **11** different categories! 🎉
 - **alt detector:** Blocks alts from the guild
 - **applications:** Manage applications from the website
 - **config:** Configure server settings
@@ -78,13 +78,13 @@ If you liked this repository, feel free to leave a star ⭐
 - **reaction roles:** Reaction roles
 - **tickets:** Guild tickets for support
 
-even has the following features on the website 🌐
+Pogy also offers the following features on the website 🌐
 
 - **Ticket Transcripts** + **Application Transcripts**
 - **Contact & Report** page
 - **Welcome messages** and **farewell messages** including embeds.
-- Full customizable **Logging** and **moderation**
-- Full customizable **Suggestions** and **Server Reports**
+- Fully customizable **Logging** and **moderation**
+- Fully customizable **Suggestions** and **Server Reports**
 - A built-in **Premium system**
 - A built-in maintenance mode
 - A members Page
@@ -96,7 +96,7 @@ even has the following features on the website 🌐
 </h1>
 
 **Webhooks: (for Developer)**
-With You can even log everything using webhooks directly from the config file!
+You can even log everything using webhooks directly from the config file!
 
 <h1 align="center">
   <a href="https://github.com/peterhanania"><img src="https://i.imgur.com/vbGuLdL.jpg"></a>
@@ -108,10 +108,11 @@ First clone the repo:
 
 `git clone https://github.com/Pogy-Bot/Pogy.git`
 
-Then run `Npm i` or `Npm install`
+Then run `npm i` or `npm install`
+
 ## Setting Up ⚙️
 
-Your `config.json` should follow
+Your `config.json` should include:
 
 - "developers": ID of Developers who can use the owner commands [ARRAY],
 - "status": Your bot Status [STRING],
@@ -120,8 +121,8 @@ Your `config.json` should follow
 - "server": Your support server id [STRING],
 - "prefix": Your default bot prefix [STRING],
 
-Webhooks
-- "logs": Webhook URL for command logs.,
+Webhooks include:
+- "logs": Webhook URL for command logs.
 -  "maintenance_logs": Webhook URL for maintenance logs (if it gets triggered automatically),
 -  "ratelimit_logs": Webhook URL for ratelimit logs,
 - "blacklist": Webhook URL for blacklist logs,
@@ -129,7 +130,7 @@ Webhooks
 -  "contact": Webhook URL for contact logs,
 -  "bugs": Webhook URL for bugs logs,
 -  "premium": Webhook URL for premium logs,
--  "suggestions": Webhook URL for suggestions logs,,
+-  "suggestions": Webhook URL for suggestions logs,
 -  "votes": Webhook URL for votes logs,
 -  "errors": Webhook URL for errors logs,
 -  "auth": Webhook URL for auth logs,
@@ -141,17 +142,14 @@ Webhooks
 -  "maintenance_threshold": The amount of ratelimit triggers needed to enable maintenance mode [STRING] recommended [3-10]. Example "3",
 -  "invite_link": Your bot's invite link,
 
-SEO
+SEO:
 -  "enabled": if you want to enable SEO ["true" / "false"] (STRING),
 -  "title": Your website's SEO title [STRING],
 -  "description": Your website's SEO description [STRING],
 
-##
+Your `.env` file should include:
 
-
-Your `.env` should match
-
-THE ONES NEEDED
+THE ONES NEEDED:
 - TOKEN=YOUR BOT TOKEN
 - MONGO=YOUR MONGO DATABASE URL
 - SESSION_SECRET=A RANDOM STRING FOR SESSION SECURITY (Ex. 6B4E8&G#%Z&##bqcyEL5)
@@ -161,7 +159,7 @@ THE ONES NEEDED
 - AUTH_CLIENT_SECRET= the client secret of your auth application
 - PORT= the port of your website | default=3000
 
-OPTIONAL
+OPTIONAL:
 - ANALYTICS=your google analytics code,
 - GOOGLE_SITE_VERIFICATION=your google site verification code,
 - DATADOG_API_KEY=your data dog api key,
@@ -169,26 +167,23 @@ OPTIONAL
 - DATADOG_API_PREFIX= your data dog api prefix,
 - DBL_AUTH= your dbl authorization
 
-
-
-**The callbacks in Discord's dev portal**
+**The callbacks in Discord's dev portal:**
 This will have 2 parts, callback for the main client ID, and the other for the auth client ID. I did this so that the main client doesn't get ratelimited. You can use the same Id for main_client_id and auth_client_id and put the 3 callbacks in the same application.
 
-MAIN CLIENT ID
-yourdomain/thanks example https://394wkx-3000.csb.app//thanks or http://localhost:3000/thanks
-yourdomain/window example https://394wkx-3000.csb.app//window or http://localhost:3000/window
+MAIN CLIENT ID:
+- yourdomain/thanks example [https://394wkx-3000.csb.app//thanks](https://394wkx-3000.csb.app//thanks) or [http://localhost:3000/thanks](http://localhost:3000/thanks)
+- yourdomain/window example [https://394wkx-3000.csb.app//window](https://394wkx-3000.csb.app//window) or [http://localhost:3000/window](http://localhost:3000/window)
 
-AUTH CLIENT ID
-yourdomain/callback example https://394wkx-3000.csb.app//callback or http://localhost:3000/callback
+AUTH CLIENT ID:
+- yourdomain/callback example [https://394wkx-3000.csb.app//callback](https://394wkx-3000.csb.app//callback) or [http://localhost:3000/callback](http://localhost:3000/callback)
 
+**TOP.gg:**
+To add top.gg to your site, add `DBL_AUTH` as your dbl api key to the `.env` file. And `yourdomain/dblwebhook` as a webhook url on top.gg's site settings. Example: `https://yourbot.com/dblwebhook
 
-**TOP.gg**
-To add top.gg to your site, add `DBL_AUTH` as your dbl api key to the `.env` file. And `yourdomain/dblwebhook` as a webhook url on top.gg's site settings. Example:  `https://yourbot.com/dblwebhook
-
-**Replit**
+**Replit:**
 To run on replit you must install node js `v.16.9.1` to do so go to bash (the bash terminal on your repl) and paste: `npm init -y && npm i --save-dev node@16.9.0 && npm config set prefix=$(pwd)/node_modules/node && export PATH=$(pwd)/node_modules/node/bin:$PATH`
 
-Pease make sure you have enabled `Privileged Intents` on your Discord [developer portal](https://discordapp.com/developers/applications/). You can find these intents under the "Bot" section, and there are two ticks you have to switch on. For more information on Gateway Intents, check out [this](https://discordjs.guide/popular-topics/intents.html#the-intents-bit-field-wrapper) link.
+Make sure you have enabled `Privileged Intents` on your Discord [developer portal](https://discordapp.com/developers/applications/). You can find these intents under the "Bot" section, and there are two ticks you have to switch on. For more information on Gateway Intents, check out [this](https://discordjs.guide/popular-topics/intents.html#the-intents-bit-field-wrapper) link.
 
 You can launch the bot with `npm start`
 
@@ -208,8 +203,7 @@ You can launch the bot with `npm start`
  Copyright Statement: Do not copy this website, if the code is found to be duplicated, reproduced,
     or copied we will fine you a minimum of $250,000 and criminal charges may be pressed.
 
-    CopyOurCodeWeWillSendYouToJesus(C)2023ThisIsOurHardWork.
-Released under the [MIT License]() license.
+Released under the [MIT License](LICENSE) license.
 
 ## Support 🤝
 [Click here for the support server](https://v2.pogy.xyz/support)
