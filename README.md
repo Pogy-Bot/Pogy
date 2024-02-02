@@ -24,7 +24,7 @@
   </a>
 
   <a href="https://github.com/peterhanania/Pogy/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/license-Apache%202-blue" alt="license">
+    <img src="https://img.shields.io/badge/MIT%202-blue" alt="license">
   </a>
 
 </div>
