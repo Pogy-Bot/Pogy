@@ -346,75 +346,6 @@ function saveStickyData(guildId, data) {
 }
 
 
-client.on("messageCreate", async (message) => {
-// Sticky message logic
-
-  if (message.author.bot) return;
-
-  try {
-    const userID = message.author.id;
-    const serverID = message.guild.id;
-    let userAdvancements = await Advancement.findOne({
-      userID,
-      serverID,
-    });
-
-    if (!userAdvancements) {
-      userAdvancements = await Advancement.create({
-        userID,
-        serverID,
-        advancements: [],
-        messageCount: 0,
-      });
-    }
-
-    // Increment the message count for the user
-    userAdvancements.messageCount = (userAdvancements.messageCount || 0) + 1;
-
-    // Check if the user reached 20 messages
-    if (
-      userAdvancements.messageCount >= 20 &&
-      !userAdvancements.advancements.includes("MessageMaster")
-    ) {
-      console.log(`User ${userID} reached 20 messages.`); // Debug message
-
-      // Add the new advancement
-      userAdvancements.advancements.push("MessageMaster");
-
-      // Notify the user about the new advancement in the channel
-      message.channel.send(
-        `Congratulations, ${message.author}! You have earned the 'MessageMaster' advancement for reaching 20 messages!`,
-      );
-
-      // Reset the message count
-
-      // Save the updated advancements to the database
-      await userAdvancements.save();
-    }
-    if (
-      userAdvancements.messageCount >= 100 &&
-      !userAdvancements.advancements.includes("Active chatter")
-    ) {
-      console.log(`User ${userID} reached 100 messages.`);
-
-      // Add the new advancement
-      userAdvancements.advancements.push("Active chatter");
-
-      // Notify the user about the new advancement in the channel
-      message.channel.send(
-        `Congratulations, ${message.author}! You have earned the 'Active chatter' advancement for reaching 100 messages!`,
-      );
-
-      // Reset the message count
-
-      // Save the updated advancements to the database
-      await userAdvancements.save();
-    }
-  } catch (error) {
-    console.error(error);
-  }
-});
-
 // mem leak fix
 client.setMaxListeners(20);
 
@@ -875,12 +806,9 @@ async function startTetrisGame(message) {
             rotatedTetromino.push(newRow);
         }
 
-        // Check for collisions after rotation
         if (canPlaceTetromino(rotatedTetromino)) {
             return rotatedTetromino;
         } else {
-            // Optionally implement wall kick algorithm to attempt adjustments
-            // ... (if desired)
             return null; // Rotation failed due to collision
         }
     }
