@@ -1,5 +1,5 @@
 // Imports lol
-require("dotenv").config();
+
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const PogyClient = require("./Pogy");
 const config = require("./config.json");
@@ -8,22 +8,24 @@ const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Pogy = new PogyClient(config);
-const LevelRoleCommand = require("./src/commands/rank/levelrole");
 const path = require("path");
 const color = require("./src/data/colors");
 const Guild = require("./src/database/schemas/Guild");
 const { stripIndent } = require("common-tags");
 const emojis = require("./src/assets/emojis.json");
-Pogy.color = color;
-
-const emoji = require("./src/data/emoji");
-Pogy.emoji = emoji;
-
-let client = Pogy;
 const jointocreate = require("./src/structures/jointocreate");
-jointocreate(client);
-
+const emoji = require("./src/data/emoji");
 const userData = require("./src/data/users.json");
+// lets
+let client = Pogy;
+// pogy stuff
+jointocreate(client);
+Pogy.color = color;
+Pogy.emoji = emoji;
+// reqs
+require("dotenv").config();
+
+
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
@@ -218,15 +220,140 @@ client.on("interactionCreate", async (interaction) => {
 });
 const Advancement = require("./src/database/models/advancement.js");
 
+client.on('messageCreate', async message => {
+  if (message.author.bot) return;
+
+  await setupSticky(message);
+
+  // Your other messageCreate logic here...
+});
+
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isCommand()) return;
+
+  const { commandName } = interaction;
+
+  if (commandName === 'addstickyvalues') {
+      // Command to add or update values in the JSON file
+      await addStickyValues(interaction);
+  } else if (commandName === 'updatestickymessage') {
+      // Command to update the content of the sticky message
+      await updateStickyMessage(interaction);
+  }
+});
+
+async function setupSticky(msg) {
+  const guildId = msg.guild.id;
+
+  // Create the stickyData directory if it doesn't exist
+  const dataDir = './stickyData';
+  if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir);
+  }
+
+  // Load or initialize the sticky messages from the JSON file
+  const filePath = path.join(dataDir, `${guildId}.json`);
+  let stickyData = {};
+
+  if (fs.existsSync(filePath)) {
+      stickyData = JSON.parse(fs.readFileSync(filePath));
+  } else {
+      fs.writeFileSync(filePath, JSON.stringify(stickyData));
+  }
+
+  // Check if the message is from the desired channel
+  const stickyChannelId = stickyData.stickyChannelId || '1200072567055192075'; // Default channel ID
+  const stickyMessageContent = stickyData.stickyMessageContent || 'This is a sticky message!';
+
+  if (msg.channel.id === stickyChannelId) {
+      // Get the current sticky message for this channel
+      const currentStickyMessageId = stickyData.stickyMessageId;
+
+      // If there's no sticky message yet, send one and store its ID
+      if (!currentStickyMessageId) {
+          const newStickyMessage = await msg.channel.send(stickyMessageContent);
+          stickyData.stickyMessageId = newStickyMessage.id;
+          saveStickyData(guildId, stickyData);
+      } else {
+          // If there's already a sticky message, delete it and send a new one
+          const stickyMessage = await msg.channel.messages.fetch(currentStickyMessageId);
+          if (stickyMessage) {
+              await stickyMessage.delete();
+          }
+          const newStickyMessage = await msg.channel.send(stickyMessageContent);
+          stickyData.stickyMessageId = newStickyMessage.id;
+          saveStickyData(guildId, stickyData);
+      }
+  }
+}
+
+async function addStickyValues(interaction) {
+  const guildId = interaction.guild.id;
+
+  const stickyChannelId = interaction.options.getString('channelid');
+  const stickyMessageContent = interaction.options.getString('messagecontent');
+
+  // Load or initialize the sticky messages from the JSON file
+  const filePath = path.join('./stickyData', `${guildId}.json`);
+  let stickyData = {};
+
+  if (fs.existsSync(filePath)) {
+      stickyData = JSON.parse(fs.readFileSync(filePath));
+  }
+
+  // Add or update values in the JSON file
+  stickyData.stickyChannelId = stickyChannelId;
+  stickyData.stickyMessageContent = stickyMessageContent;
+  saveStickyData(guildId, stickyData);
+
+  await interaction.reply('Sticky values have been added or updated!');
+}
+
+async function updateStickyMessage(interaction) {
+  const guildId = interaction.guild.id;
+
+  // Load or initialize the sticky messages from the JSON file
+  const filePath = path.join('./stickyData', `${guildId}.json`);
+  let stickyData = {};
+
+  if (fs.existsSync(filePath)) {
+      stickyData = JSON.parse(fs.readFileSync(filePath));
+  }
+
+  const newStickyMessageContent = interaction.options.getString('newmessagecontent');
+
+  // Check if there's a current sticky message ID
+  const currentStickyMessageId = stickyData.stickyMessageId;
+  if (currentStickyMessageId) {
+      // Fetch the current sticky message and update its content
+      const currentStickyMessage = await interaction.channel.messages.fetch(currentStickyMessageId);
+      if (currentStickyMessage) {
+          await currentStickyMessage.edit(newStickyMessageContent);
+          stickyData.stickyMessageContent = newStickyMessageContent;
+          saveStickyData(guildId, stickyData);
+          await interaction.reply('Sticky message content has been updated!');
+      } else {
+          await interaction.reply('Error: Unable to fetch the current sticky message.');
+      }
+  } else {
+      await interaction.reply('Error: No current sticky message found.');
+  }
+}
+
+function saveStickyData(guildId, data) {
+  const filePath = path.join('./stickyData', `${guildId}.json`);
+  fs.writeFileSync(filePath, JSON.stringify(data));
+}
+
+
 client.on("messageCreate", async (message) => {
-  // Ignore messages from bots
+// Sticky message logic
+
   if (message.author.bot) return;
 
   try {
     const userID = message.author.id;
     const serverID = message.guild.id;
-
-    // Fetch the user's advancements from the database
     let userAdvancements = await Advancement.findOne({
       userID,
       serverID,
@@ -456,34 +583,6 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-const { EmojiBackup } = require('discord.emoji-backup');
-const backup = new EmojiBackup();
-client.on('message', async msg => {
-  if (msg.author.bot || !msg.guild) return;
-  if (!msg.content.startsWith('!')) return;
-  const args = msg.content.slice('!'.length).trim().split(/ +/g);
-  const command = args.shift().toLowerCase();
-  if (command === 'create') {
-      // Create a backup
-      await backup.create(msg.guild).then(console.log);
-  }
-  if (command === 'load-nodelete') {
-      // Load a backup without deleting all emojis
-      const backupid = args.join(' ');
-      await backup.load(msg.guild, backupid);
-  }
-  if (command === 'load-delete') {
-      // Load a backup with deleting all emojis
-      const backupid = args.join(' ');
-      await backup.load(msg.guild, backupid, { deleteAll: true });
-  }
-  if (command === 'list') {
-      // List all of backups
-      const list = await backup.list();
-      console.log(list);
-      msg.channel.send(`\`\`\`js\n${JSON.stringify(list, null, 2)}\`\`\``);
-  }
-});
 const { debounce } = require('lodash'); // Import debounce function for button handling
 
 
