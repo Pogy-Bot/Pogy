@@ -7,3 +7,4 @@ const maried = mongoose.Schema({
 });
 // me lazy 
 module.exports = mongoose.model("maried", maried);
+// saying somthigng so it commits
