@@ -441,9 +441,6 @@ let gameState = {
 
 let gameInterval; // Variable to store the interval for automatic falling
 
-client.once('ready', () => {
-    console.log('Bot is ready');
-});
 
 client.on('messageCreate', async(message) => {
     if (message.content.toLowerCase() === '!starttetris') {
