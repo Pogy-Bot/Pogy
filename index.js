@@ -21,51 +21,6 @@ jointocreate(client);
 // end imports
 const userData = require("./src/data/users.json");
 // getPlayerData function with base64 encoding
-async function getPlayerData(username) {
-  try {
-    console.log(`Fetching UUID for ${username}`);
-    const responseUUID = await axios.get(
-      `https://api.mojang.com/users/profiles/minecraft/${username}`
-    );
-
-    // Check if the player was found
-    if (!responseUUID.data) {
-      console.log("Player not found");
-      return null;
-    }
-
-    const uuid = responseUUID.data.id;
-    console.log(`UUID for ${username}: ${uuid}`);
-
-    console.log(`Fetching skin for UUID: ${uuid}`);
-    const responseSkin = await axios.get(
-      `https://api.mineatar.io/head/${uuid}`,
-      { responseType: "arraybuffer" }
-    );
-
-    // Check if the skin was found
-    if (!responseSkin.data) {
-      console.log("Skin not found");
-      return null;
-    }
-
-    console.log("Skin found");
-    const skinUrl = `data:image/png;base64,${Buffer.from(
-      responseSkin.data,
-      "binary"
-    ).toString("base64")}`;
-
-    return {
-      uuid,
-      skinUrl,
-    };
-  } catch (error) {
-    console.error("Error:", error.message);
-    return null;
-  }
-}
-
-// Load user data from the JSON file
 
 // This assumes you have a function getGuildConfig defined in your levelUtils
 client.on("messageCreate", async (message) => {
@@ -74,7 +29,7 @@ client.on("messageCreate", async (message) => {
   } else {
     let delay =
       userData.guilds[message.guild.id].users[message.author.id].messageTimeout;
-    if (delay >= Date.now() + 60000) {
+    if (Date.now() - delay >= 60000 || delay == 0) {
       if (message.author.bot) return;
 
       const userId = message.author.id;
