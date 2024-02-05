@@ -9,7 +9,8 @@
  11. music commands!
  12. boost related commands
  13. add family commands! 
+ 14. new dash pages
  ~~7. channel info~~ Done!
  ~~8. emoji info~~ Done!
- ~~9. add notepad~~
+ ~~9. add notepad~~ Done!
  ~~8. add eval~~ alrady there
