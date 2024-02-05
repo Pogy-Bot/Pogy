@@ -1,4 +1,4 @@
-const Command = require("../../structures/Command");
+const Command = require("../../structures/Command.js");
 const notes = require("../../database/models/notes.js"); // Assuming this connects to your MongoDB
 const { MessageEmbed } = require("discord.js");
 
@@ -28,6 +28,7 @@ module.exports = class NoteCommand extends Command {
       const newNote = new notes({
         userID: message.author.id,
         content: noteContent, 
+        guildID: message.guild.id,
         // note to self : maybe adding more stuff later?
       });
 

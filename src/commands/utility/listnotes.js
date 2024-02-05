@@ -1,6 +1,5 @@
-const Command = require("../../structures/Command");
+const Command = require("../../structures/Command.js");
 const NotesModel = require("../../database/models/notes.js"); // Renamed to avoid conflict
-const { user } = require("tiktok-scraper");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class ListNotesCommand extends Command {
@@ -16,14 +15,12 @@ module.exports = class ListNotesCommand extends Command {
 
  async run(message, interaction) {
     try {
-      // Retrieve the user ID from the interaction options
       const targetUserId = message.mentions.users.first()?.id || message.author.id;
 
       if (!targetUserId) {
         return message.channel.send("Please provide a user to list notes for.");
       }
 
-      // Query for notes specifically for that user
       const userNotes = await NotesModel.find({ userID: targetUserId });
 
       if (userNotes.length === 0) {

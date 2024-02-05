@@ -13,6 +13,7 @@ const Strategy = require("./passport").Strategy;
 const premiumWeb = new Discord.WebhookClient({
   url: jsonconfig.webhooks.premium,
 });
+const NotesModel = require("../database/models/notes.js"); 
 const send = require(`../packages/logs/index.js`);
 const ejs = require("ejs");
 const ShortUrl = require("../database/models/ShortUrl.js");
@@ -21,6 +22,7 @@ const randoStrings = require("../packages/randostrings.js");
 const random = new randoStrings();
 const sendingEmbed = new Set();
 const bodyParser = require("body-parser");
+
 const DBL = require("@top-gg/sdk");
 const User = require("../database/schemas/User");
 const TicketSettings = require("../database/models/tickets");
@@ -325,32 +327,40 @@ app.get('/meow-data', async (req, res) => {
 
 app.get('/dashboard/:guildID/meow', async (req, res) => {
   try {
-      // Fetch data from the database
-      const tests = await TestModel.find();
-      const guild = client.guilds.cache.get(req.params.guildID);
-      if (!guild) return res.redirect("/dashboard");
-      const member = await guild.members.fetch(req.user.id);
-      if (!member) return res.redirect("/dashboard");
-      if (!member.permissions.has("MANAGE_GUILD"))
-        return res.redirect("/dashboard");
-  
-      const maintenance = await Maintenance.findOne({
-        maintenance: "maintenance",
-      });
-  
-      if (maintenance && maintenance.toggle == "true") {
-        return renderTemplate(res, req, "maintenance.ejs");
-      }
-  
-      renderTemplate(res, req, "./new/maintesting.ejs", {
-        guild: guild,
-        tests: tests,
-      });
+    const guild = client.guilds.cache.get(req.params.guildID);
+    const userNotes = await NotesModel.find({ guildID: guild.id });
+
+    if (userNotes.length === 0) {
+      return res.send("No notes found for that user.");
+    }
+
+    // Fetch data from the database
+    const tests = userNotes.map((note) => ({ name: note.content, value: note.userId }));
+
+    if (!guild) return res.redirect("/dashboard");
+    const member = await guild.members.fetch(req.user.id);
+    if (!member) return res.redirect("/dashboard");
+    if (!member.permissions.has("MANAGE_GUILD"))
+      return res.redirect("/dashboard");
+
+    const maintenance = await Maintenance.findOne({
+      maintenance: "maintenance",
+    });
+
+    if (maintenance && maintenance.toggle == "true") {
+      return renderTemplate(res, req, "maintenance.ejs");
+    }
+
+    renderTemplate(res, req, "./new/maintesting.ejs", {
+      guild: guild,
+      tests: tests,
+    });
   } catch (error) {
-      console.error('Error fetching data:', error);
-      res.status(500).send('An error occurred while fetching data');
+    console.error('Error fetching data:', error);
+    res.status(500).send('An error occurred while fetching data');
   }
 });
+
 app.post('/send-drawing', (req, res) => {
   try {
     const drawing = req.body.drawing;
