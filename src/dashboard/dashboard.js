@@ -325,7 +325,7 @@ app.get('/meow-data', async (req, res) => {
 });
 
 
-app.get('/dashboard/:guildID/meow', async (req, res) => {
+app.get('/dashboard/:guildID/notes', async (req, res) => {
   try {
     const guild = client.guilds.cache.get(req.params.guildID);
     const userNotes = await NotesModel.find({ guildID: guild.id });
@@ -335,7 +335,7 @@ app.get('/dashboard/:guildID/meow', async (req, res) => {
     }
 
     // Fetch data from the database
-    const tests = userNotes.map((note) => ({ name: note.content, value: note.userId }));
+    const tests = userNotes.map((note) => ({ name: note.content, UserID: note.userID , username: note.username}));
 
     if (!guild) return res.redirect("/dashboard");
     const member = await guild.members.fetch(req.user.id);
@@ -351,7 +351,7 @@ app.get('/dashboard/:guildID/meow', async (req, res) => {
       return renderTemplate(res, req, "maintenance.ejs");
     }
 
-    renderTemplate(res, req, "./new/maintesting.ejs", {
+    renderTemplate(res, req, "./new/mainnotes.ejs", {
       guild: guild,
       tests: tests,
     });
