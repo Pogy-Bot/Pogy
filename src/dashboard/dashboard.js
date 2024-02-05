@@ -2,8 +2,6 @@ require("dotenv").config();
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const Discord = require("discord.js");
 const url = require("url");
-let voteCount = 0;
-const votedUsers = new Set();
 const path = require('path');
 const cooldownNickname = new Set();
 const express = require("express");
@@ -18,6 +16,7 @@ const premiumWeb = new Discord.WebhookClient({
 const send = require(`../packages/logs/index.js`);
 const ejs = require("ejs");
 const ShortUrl = require("../database/models/ShortUrl.js");
+const Testing = require("../database/models/test.js");
 const randoStrings = require("../packages/randostrings.js");
 const random = new randoStrings();
 const sendingEmbed = new Set();
@@ -108,7 +107,6 @@ module.exports = async (client) => {
   app.locals.domain = domain.split("//")[1];
 
   app.engine("html", ejs.renderFile);
-  app.set("view engine", "html");
 
   app.use(bodyParser.json());
   app.use(
@@ -307,17 +305,52 @@ module.exports = async (client) => {
   });
 
   
-  app.use(express.static(__dirname));
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
-  
   
 // Route to serve the HTML file
 app.get('/testing', (req, res) => {
   res.sendFile(path.join(__dirname, 'templates', 'draw.html'));
 });
+const TestModel = require("../database/models/test.js");
+app.get('/meow-data', async (req, res) => {
+  try {
+    const tests = await TestModel.find();
+    res.json(tests);
+    
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ error: 'Error fetching data from MongoDB' });
+  }
+});
 
 
+app.get('/dashboard/:guildID/meow', async (req, res) => {
+  try {
+      // Fetch data from the database
+      const tests = await TestModel.find();
+      const guild = client.guilds.cache.get(req.params.guildID);
+      if (!guild) return res.redirect("/dashboard");
+      const member = await guild.members.fetch(req.user.id);
+      if (!member) return res.redirect("/dashboard");
+      if (!member.permissions.has("MANAGE_GUILD"))
+        return res.redirect("/dashboard");
+  
+      const maintenance = await Maintenance.findOne({
+        maintenance: "maintenance",
+      });
+  
+      if (maintenance && maintenance.toggle == "true") {
+        return renderTemplate(res, req, "maintenance.ejs");
+      }
+  
+      renderTemplate(res, req, "./new/maintesting.ejs", {
+        guild: guild,
+        tests: tests,
+      });
+  } catch (error) {
+      console.error('Error fetching data:', error);
+      res.status(500).send('An error occurred while fetching data');
+  }
+});
 app.post('/send-drawing', (req, res) => {
   try {
     const drawing = req.body.drawing;
@@ -429,6 +462,7 @@ app.post('/send-drawing', (req, res) => {
   app.get("/thanks", function (req, res) {
     renderTemplate(res, req, "thanks.ejs");
   });
+
 
   app.get("/team", (req, res) => {
     renderTemplate(res, req, "team.ejs");
@@ -2140,62 +2174,6 @@ app.post('/send-drawing', (req, res) => {
     });
   });
 
-  // app.get("/dashboard/:guildID/members/list", checkAuth, async (req, res) => {
-  //   const guild = client.guilds.cache.get(req.params.guildID);
-  //   if (!guild) return res.status(404);
-  //   if (req.query.fetch) {
-  //     await guild.fetchMembers();
-  //   }
-  //   const totals = guild.members.size;
-  //   const start = parseInt(req.query.start, 10) || 0;
-  //   const limit = parseInt(req.query.limit, 10) || 50;
-  //   let members = guild.members;
-
-  //   if (req.query.filter && req.query.filter !== "null") {
-  //     members = members.filter((m) => {
-  //       m = req.query.filterUser ? m.user : m;
-  //       return m["displayName"]
-  //         .toLowerCase()
-  //         .includes(req.query.filter.toLowerCase());
-  //     });
-  //   }
-
-  //   const memberArray = members.cache.array().slice(start, start + limit);
-
-  //   const returnObject = [];
-  //   for (let i = 0; i < memberArray.length; i++) {
-  //     const m = memberArray[i];
-  //     returnObject.push({
-  //       id: m.id,
-  //       status: m.user.presence.status,
-  //       bot: m.user.bot,
-  //       username: m.user.username,
-  //       displayName: m.displayName,
-  //       tag: m.user.tag,
-  //       discriminator: m.user.discriminator,
-  //       joinedAt: m.joinedTimestamp,
-  //       createdAt: m.user.createdTimestamp,
-  //       highestRole: {
-  //         hexColor: m.roles.highest.hexColor,
-  //       },
-  //       memberFor: moment
-  //         .duration(Date.now() - m.joinedAt)
-  //         .format(" D [days], H [hrs], m [mins], s [secs]"),
-  //       roles: m.roles.cache.map((r) => ({
-  //         name: r.name,
-  //         id: r.id,
-  //         hexColor: r.hexColor,
-  //       })),
-  //     });
-  //   }
-  //   res.json({
-  //     total: totals,
-  //     page: start / limit + 1,
-  //     pageof: Math.ceil(members.size / limit),
-  //     members: returnObject,
-  //   });
-  // });
-
   //automod
   app.get("/dashboard/:guildID/automod", checkAuth, async (req, res) => {
     const guild = client.guilds.cache.get(req.params.guildID);
@@ -3613,11 +3591,15 @@ send
       );
     }
   });
-
-  app.get("/contact", async (req, res) => {
-    renderTemplate(res, req, "contact.ejs");
-  });
-
+  app.get("/test", async (req, res) => {
+    try {
+        const data = await TestModel.find({});
+        renderTemplate(res, req, 'test', { data: data }); // Make sure 'test' matches your EJS file name
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('An error occurred while fetching data');
+    }
+});
   app.get("/report", async (req, res) => {
     renderTemplate(res, req, "report.ejs");
   });
