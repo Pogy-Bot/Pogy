@@ -6,6 +6,7 @@ const notes = mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
   guildID: { type: String },
   username: { type: String },
+  avatar: { type: String },
 });
 
 module.exports = mongoose.model("note", notes);

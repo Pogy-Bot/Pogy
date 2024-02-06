@@ -335,7 +335,7 @@ app.get('/dashboard/:guildID/notes', async (req, res) => {
     }
 
     // Fetch data from the database
-    const tests = userNotes.map((note) => ({ name: note.content, UserID: note.userID , username: note.username}));
+    const tests = userNotes.map((note) => ({ content: note.content, UserID: note.userID , username: note.username , timestamp: note.timestamp, avatar: note.avatar }));
 
     if (!guild) return res.redirect("/dashboard");
     const member = await guild.members.fetch(req.user.id);
@@ -544,7 +544,7 @@ app.post('/send-drawing', (req, res) => {
     shortUrl.clicks++;
     shortUrl.save();
 
-    res.redirect(shortUrl.full);
+    res.redirect(shortUrl.full); 
   });
 
   app.get("/url", async (req, res) => {
