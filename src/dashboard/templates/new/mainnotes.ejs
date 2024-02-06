@@ -16,7 +16,6 @@
 </head>
 <%- include("../partials/dashMenu", { bot, user, path, description, title: `Pogy
 - Dashboard`, url})%>
-  <button class="delete-note-button" onclick="deleteNote('<%= test._id %>')">Delete Note</button>
 <link rel="stylesheet" href="https://cdn.lineicons.com/2.0/LineIcons.css" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;500&display=swap" rel="stylesheet" />
@@ -52,7 +51,7 @@
         </li>
         <p>Moderation</p>
         <li>
-          <a class="active" href="/dashboard/<%= guild.id %>/automod"><span><i class="fa fa-shield" style="color: white; font-size: 17px"></i>
+          <a href="/dashboard/<%= guild.id %>/automod"><span><i class="fa fa-shield" style="color: white; font-size: 17px"></i>
               Auto Mod</span></a>
         </li>
         <li>
@@ -102,6 +101,10 @@
           <a href="/dashboard/<%= guild.id %>/reports"><span><i class="fa fa-exclamation-triangle" style="color: white; font-size: 17px"></i>
               Server Reports</span></a>
         </li>
+        <li>
+          <a class="active" href="/dashboard/<%= guild.id %>/notes"><span><i class="fa fa-exclamation-triangle" style="color: white; font-size: 17px"></i>
+              Notes</span></a>
+        </li>  
       </ul>
     </div>
 

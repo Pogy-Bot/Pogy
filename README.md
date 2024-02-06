@@ -198,6 +198,25 @@ You can launch the bot with `npm start`
 ### Colors 🌈
 
 - You can change the colors in `data/colors.js`
+## ✅ Hosting Requirements
+
+<details>
+  <summary>Click to expand</summary>
+
+  * [Nodejs](https://nodejs.org) version 16.11.3 works best
+  * [Discord.js](https://discord.js.org/) version 13.6.0 or higher
+    * Latest version `npm install discord.js@latest`
+    * Version 13 `npm install discord.js@13`
+  * A VM Would also take up less resourceses on your computer
+    * [Virtualbox](https://www.virtualbox.org/)
+    * [Workstation Player Evaluation](https://www.vmware.com/products/workstation-player/workstation-player-evaluation.html)
+  * A Text/Code editor
+    * [Notpad++](https://notepad-plus-plus.org/)
+    * [Sublime Text](https://www.sublimetext.com/)
+    * [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+    * [Visual studio code](https://visualstudio.microsoft.com/downloads/) 
+
+</details>
 
 ## License 📜
  Copyright Statement: Do not copy this website, if the code is found to be duplicated, reproduced,

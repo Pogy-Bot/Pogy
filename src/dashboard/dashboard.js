@@ -323,6 +323,81 @@ app.get('/meow-data', async (req, res) => {
     res.status(500).json({ error: 'Error fetching data from MongoDB' });
   }
 });
+app.get('/dashboard/:guildID/stats', async (req, res) => {
+  try {
+    const guild = client.guilds.cache.get(req.params.guildID);
+    const userNotes = await NotesModel.find({ guildID: guild.id });
+
+    if (userNotes.length === 0) {
+      return res.send("No notes found for that user.");
+    }
+
+    // Fetch data from the database
+    const tests = userNotes.map((note) => ({ content: note.content, UserID: note.userID , username: note.username , timestamp: note.timestamp, avatar: note.avatar }));
+
+    if (!guild) return res.redirect("/dashboard");
+    const member = await guild.members.fetch(req.user.id);
+    if (!member) return res.redirect("/dashboard");
+    if (!member.permissions.has("MANAGE_GUILD"))
+      return res.redirect("/dashboard");
+
+    const maintenance = await Maintenance.findOne({
+      maintenance: "maintenance",
+    });
+
+    if (maintenance && maintenance.toggle == "true") {
+      return renderTemplate(res, req, "maintenance.ejs");
+    }
+
+    const join1 = [];
+    const leave1 = [];
+    const join2 = [];
+    const leave2 = [];
+
+    guild.members.cache.forEach(async (user) => {
+      let x = Date.now() - user.joinedAt;
+      let created = Math.floor(x / 86400000);
+
+      if (7 > created) {
+        join2.push(user.id);
+      }
+
+      if (1 > created) {
+        join1.push(user.id);
+      }
+    })
+
+    //Nickname
+    let data = req.body;
+    let nickname = data.nickname;
+    if (nickname && nickname.length < 1)
+      nickname = guild.me.nickname || guild.me.user.username;
+
+    if (data.nickname) {
+      if (cooldownNickname.has(guild.id))
+        nickname = guild.me.nickname || guild.me.user.username;
+      if (!nickname) nickname = guild.me.nickname || guild.me.user.username;
+
+      guild.me.setNickname(nickname);
+      cooldownNickname.add(guild.id);
+      setTimeout(() => {
+        cooldownNickname.delete(guild.id);
+      }, 20000);
+    }
+    renderTemplate(res, req, "./new/mainstats.ejs", {
+      guild: guild,
+      tests: tests,
+      join1: join1.length || 0,
+      join2: join2.length || 0,
+      leave1: leave1.length || 0,
+      leave2: leave2.length || 0,
+      nickname: guild.me.nickname || guild.me.user.username,
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('An error occurred while fetching data');
+  }
+});
 
 
 app.get('/dashboard/:guildID/notes', async (req, res) => {
@@ -351,9 +426,53 @@ app.get('/dashboard/:guildID/notes', async (req, res) => {
       return renderTemplate(res, req, "maintenance.ejs");
     }
 
+    const join1 = [];
+    const leave1 = [];
+    const join2 = [];
+    const leave2 = [];
+    const join3 = [];
+    const leave3 = [];
+
+    guild.members.cache.forEach(async (user) => {
+      let x = Date.now() - user.joinedAt;
+      let created = Math.floor(x / 86400000);
+
+      if (7 > created) {
+        join2.push(user.id);
+      }
+    
+      if (1 > created) {
+        join1.push(user.id);
+      }
+    })
+
+    //Nickname
+    let data = req.body;
+    let nickname = data.nickname;
+    if (nickname && nickname.length < 1)
+      nickname = guild.me.nickname || guild.me.user.username;
+
+    if (data.nickname) {
+      if (cooldownNickname.has(guild.id))
+        nickname = guild.me.nickname || guild.me.user.username;
+      if (!nickname) nickname = guild.me.nickname || guild.me.user.username;
+
+      guild.me.setNickname(nickname);
+      cooldownNickname.add(guild.id);
+      setTimeout(() => {
+        cooldownNickname.delete(guild.id);
+      }, 20000);
+    }
     renderTemplate(res, req, "./new/mainnotes.ejs", {
       guild: guild,
       tests: tests,
+      join1: join1.length || 0,
+      join2: join2.length || 0,
+      join3: join3.length || 0,
+      leave1: leave1.length || 0,
+      leave2: leave2.length || 0,
+      leave3: leave3.length || 0,
+      nickname: guild.me.nickname || guild.me.user.username,
     });
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -926,7 +1045,7 @@ app.post('/send-drawing', (req, res) => {
       username: "ChaoticPremium",
       avatarURL: `${domain}/logo.png`,
       embeds: [embedPremium],
-    });
+    });z
     renderTemplate(res, req, "redeemguild.ejs", {
       guild: guild,
       alert: `${guild.name} Is now a premium guild!!`,
