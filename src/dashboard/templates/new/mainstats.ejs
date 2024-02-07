@@ -112,40 +112,69 @@
 
 
     <div>
-      <h2>Join Statistics</h2>
-      <p class="joins">Joined in the last 24 hours: <%= join1 %></p>
-      <p class="joins">Joined in the last 7 days: <%= join2 %></p>
+  <h2>Join Statistics</h2>
+  <p class="joins">Joined in the last 24 hours: <%= join1 %></p>
+  <p class="joins">Joined in the last 7 days: <%= join2 %></p>
 
-      <h2>Leave Statistics</h2>
-      <p class="leaves">Left in the last 24 hours: <%= leave1 %></p>
-      <p class="leaves">Left in the last 7 days: <%= leave2 %></p>
+  <h2>Leave Statistics</h2>
+  <p class="leaves">Left in the last 24 hours: <%= leave1 %></p>
+  <p class="leaves">Left in the last 7 days: <%= leave2 %></p>
 
-      <h2>Roles Statistics</h2>
-      <p class="roles">Roles in the server: <%= roles %></p>
-      <h2>Member Roles Distribution</h2>
-      <canvas id="memberRolesChart" width="400" height="400"></canvas>
+  <h2>Roles Statistics</h2>
+  <p class="roles">Roles in the server: <%= roles %></p>
 
-      <script>
-        const memberRolesData = JSON.parse('<%- memberRolesCount %>');
+  <h2>Member Roles Distribution</h2>
+    <canvas id="memberRolesChart" width="400" height="400"></canvas>
+    <script>
+      const memberRolesData = JSON.parse('<%- memberRolesCount %>');
 
-        // Create a pie chart using Chart.js
-        const ctx = document.getElementById('memberRolesChart').getContext('2d');
-        new Chart(ctx, {
-          type: 'pie',
-          data: {
-            labels: Object.keys(memberRolesData),
-            datasets: [{
-              data: Object.values(memberRolesData),
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.8)',
-                'rgba(54, 162, 235, 0.8)',
-                'rgba(255, 206, 86, 0.8)',
-              ],
-            }],
-          },
-        });
-      </script>
+      // Create a pie chart using Chart.js
+      const ctxMemberRoles = document.getElementById('memberRolesChart').getContext('2d');
+      new Chart(ctxMemberRoles, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(memberRolesData),
+          datasets: [{
+            data: Object.values(memberRolesData),
+            backgroundColor: [
+              'rgba(255,  99,  132,  0.8)',
+              'rgba(54,  162,  235,  0.8)',
+              'rgba(255,  206,  86,  0.8)',
+            ],
+          }],
+        },
+      });
+    </script>
+
+    <h2>Member Types Distribution</h2>
+    <canvas id="memberTypesChart" width="400" height="400"></canvas>
+    <script>
+      const botCount = JSON.parse('<%= botCount %>');
+      const memberCount = JSON.parse('<%= memberCount %>');
+
+      // Create a pie chart using Chart.js
+      const ctxMemberTypes = document.getElementById('memberTypesChart').getContext('2d');
+      new Chart(ctxMemberTypes, {
+        type: 'pie',
+        data: {
+          labels: ['Bots', 'Real Members'],
+          datasets: [{
+            data: [botCount, memberCount],
+            backgroundColor: [
+              'rgba(255,  99,  132,  0.8)',
+              'rgba(54,  162,  235,  0.8)',
+            ],
+          }],
+        },
+      });
+    </script>
+  </div>
     </div>
+  </div>
+  <div>
+</body>
+
+</html>
     <style>
       .leaves {
         color: aliceblue;
@@ -184,6 +213,7 @@
         color: aliceblue;
         margin: 0;
         padding: 0;
+  overflow-y: auto; 
       }
 
       .meow {
@@ -1171,4 +1201,3 @@
 
 
 
-</html>

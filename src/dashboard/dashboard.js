@@ -374,6 +374,19 @@ app.get('/dashboard/:guildID/stats', async (req, res) => {
         memberRolesCount[role.name] = (memberRolesCount[role.name] || 0) + 1;
       });
     });
+    const guildMembersbot = Array.from(guild.members.cache.values());
+
+    let botCount = 0;
+    let memberCount = 0;
+
+    guildMembers.forEach((member) => {
+      if (member.user.bot) {
+        botCount++;
+      } else {
+        memberCount++;
+      }
+    });
+    
     //Nickname
     let data = req.body;
     let nickname = data.nickname;
@@ -401,6 +414,8 @@ app.get('/dashboard/:guildID/stats', async (req, res) => {
       join2: join2.length || 0,
       leave1: leave1.length || 0,
       leave2: leave2.length || 0,
+      botCount: botCount,
+      memberCount: memberCount,
       memberRolesCount: JSON.stringify(memberRolesCount),
       nickname: guild.me.nickname || guild.me.user.username,
     });
