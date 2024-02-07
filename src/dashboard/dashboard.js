@@ -366,7 +366,14 @@ app.get('/dashboard/:guildID/stats', async (req, res) => {
         join1.push(user.id);
       }
     })
+    const guildMembers = Array.from(guild.members.cache.values());
 
+    const memberRolesCount = {};
+    guildMembers.forEach((member) => {
+      member.roles.cache.forEach((role) => {
+        memberRolesCount[role.name] = (memberRolesCount[role.name] || 0) + 1;
+      });
+    });
     //Nickname
     let data = req.body;
     let nickname = data.nickname;
@@ -384,13 +391,17 @@ app.get('/dashboard/:guildID/stats', async (req, res) => {
         cooldownNickname.delete(guild.id);
       }, 20000);
     }
+    //get number of roles
+    const roles = guild.roles.cache.size;
     renderTemplate(res, req, "./new/mainstats.ejs", {
       guild: guild,
       tests: tests,
+      roles: roles,
       join1: join1.length || 0,
       join2: join2.length || 0,
       leave1: leave1.length || 0,
       leave2: leave2.length || 0,
+      memberRolesCount: JSON.stringify(memberRolesCount),
       nickname: guild.me.nickname || guild.me.user.username,
     });
   } catch (error) {
