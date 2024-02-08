@@ -227,18 +227,19 @@ client.setMaxListeners(20);
   This is where you should add all button handler stuff
   this is the first one i have added
 */
-const moreinfo = new MessageEmbed()
-  .setColor(color.blue)
+const moreInfoEmbed = new MessageEmbed()
+  .setColor('#0099ff') // Set color to blue
   .setTitle("More Info")
   .setURL("https://pogy.xyz/invite")
   .setDescription(
-    "Chaoticis a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below",
+    "Chaotic is a discord bot with a lot of features. You can invite Pogy to your server by clicking the button below"
   )
-  .setFooter("Pogy", "https://pogy.xyz/assets/images/pogy.png")
-  .addField("Invite Pogy", "https://pogy.xyz/invite")
-  .addField("Support Server", "https://discord.gg/pogy")
-  .addField("Vote Pogy", "https://top.gg/bot/880243836830652958/vote");
-
+  .setFooter('Pogy', 'https://pogy.xyz/assets/images/pogy.png') // Set footer with text and icon
+  .addFields(
+    { name: "Invite Pogy", value: "https://pogy.xyz/invite", inline: false },
+    { name: "Support Server", value: "https://discord.gg/pogy", inline: false },
+    { name: "Vote Pogy", value: "https://top.gg/bot/880243836830652958/vote", inline: false }
+  );
 const levelupbutton = new MessageEmbed()
   .setColor(color.blue)
   .setTitle("Level Up")
