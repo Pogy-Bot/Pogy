@@ -1,4 +1,6 @@
-
+const fs = require("node:fs");
+const path = require("node:path");
+const Profile = require("../database/models/economy/profile.js");
 /**
  * Capitalizes a string
  * @param {string} string
@@ -33,6 +35,20 @@ function trimArray(arr, maxLen = 10) {
   }
   return arr;
 }
+
+module.exports.getAllFiles = function getAllFiles(dirPath, arrayOfFiles)
+  {
+    const files = fs.readdirSync(dirPath);
+
+    arrayOfFiles = arrayOfFiles || [];
+    files.forEach(function (file) {
+      if (fs.statSync(dirPath + "/" + file).isDirectory())
+        arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
+      else arrayOfFiles.push(path.join(dirPath, "/", file));
+    });
+
+    return arrayOfFiles;
+  };
 
 /**
  * Trims joined array to specified size
@@ -120,6 +136,27 @@ function getStatus(...args) {
   return "enabled";
 }
 
+async function createProfile(user, guild) {
+  const profile = await Profile.findOne({ userID: user.id, guildId: guild.id });
+  if (!profile) {
+    const newProfile = await new Profile({
+      guildId: guild.id,
+      userID: user.id,
+      wallet: 0,
+      bank: 0,
+      lastDaily: new Date() - 86400000,
+      lastWeekly: new Date() - 604800000,
+      lastMonthly: new Date() - 2592000000,
+      lastBeg: new Date() - 180000,
+      lastRobbed: new Date() - 600000,
+      passiveUpdated: new Date()
+    })
+    newProfile.save().catch(() => {});
+    return true;
+  }
+  return false;
+}
+
 module.exports = {
   capitalize,
   removeElement,
@@ -129,4 +166,5 @@ module.exports = {
   getOrdinalNumeral,
   getCaseNumber,
   getStatus,
+  createProfile,
 };

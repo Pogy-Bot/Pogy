@@ -23,7 +23,7 @@ module.exports = class extends Command {
       description: "Create a reaction role",
       category: "Reaction Role",
       cooldown: 3,
-      usage: "<channel> <messageID> <emoji>",
+      usage: "[channel] <messageID> <emoji>",
       userPermission: ["MANAGE_GUILD"],
     });
   }
@@ -34,16 +34,14 @@ module.exports = class extends Command {
     let success = message.client.emoji.success;
 
     let channel =
-      message.mentions.channels.first() ||
-      message.guild.channels.cache.get(args[0]) ||
-      message.guild.channels.cache.find((ch) => ch.name === args[0]);
+      message.mentions.channels.first() || message.channel;
     if (!channel)
       return message.channel.sendCustom({
         embeds: [
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${fail} Provide me with a valid Channel`)
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(client.color.red),
         ],
       });
@@ -55,7 +53,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${fail} Provide me with a valid message ID`)
-            .setFooter({ text: "https://pogy.xyz/" }),
+            .setFooter({ text: "https://394wkx-3000.csb.app//" }),
         ],
       });
     let messageID = await channel.messages.fetch(ID).catch(() => {
@@ -64,7 +62,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${fail} I could not find the following ID`)
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(client.color.red),
         ],
       });
@@ -78,7 +76,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${fail} Provide me with a valid Emoji`)
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(client.color.red),
         ],
       });
@@ -93,7 +91,7 @@ module.exports = class extends Command {
           .setDescription(
             `${success} Deleted The [Reaction Role](${messageID.url})`
           )
-          .setFooter({ text: "https://pogy.xyz/" }),
+          .setFooter({ text: "https://394wkx-3000.csb.app//" }),
       ],
     });
   }

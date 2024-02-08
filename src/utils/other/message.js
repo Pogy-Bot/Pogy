@@ -34,7 +34,7 @@ module.exports = function (client) {
         } catch (e) {
           //no
         }
-      }
+      },
     );
 
     if (!settings) return;
@@ -63,7 +63,7 @@ module.exports = function (client) {
         .sendCustom(
           new discord.MessageEmbed()
             .setColor("GREEN")
-            .setDescription(`${language.afk7} ${afklis.reason}`)
+            .setDescription(`${language.afk7} ${afklis.reason}`),
         )
         .then((m) => {
           setTimeout(() => {
@@ -92,7 +92,7 @@ module.exports = function (client) {
       if (maintenance && maintenance.toggle == "true") return;
       if (autoResponseCooldown.has(message.author.id))
         return message.channel.sendCustom(
-          `${message.client.emoji.fail} Slow Down - ${message.author}`
+          `${message.client.emoji.fail} Slow Down - ${message.author}`,
         );
 
       message.channel.sendCustom(
@@ -110,14 +110,14 @@ module.exports = function (client) {
           .replace(/{guild}/g, `${message.guild.name}`)
           .replace(
             /{member_createdAtAgo}/g,
-            `${moment(message.author.createdTimestamp).fromNow()}`
+            `${moment(message.author.createdTimestamp).fromNow()}`,
           )
           .replace(
             /{member_createdAt}/g,
             `${moment(message.author.createdAt).format(
-              "MMMM Do YYYY, h:mm:ss a"
-            )}`
-          )
+              "MMMM Do YYYY, h:mm:ss a",
+            )}`,
+          ),
       );
 
       autoResponseCooldown.add(message.author.id);
@@ -147,7 +147,7 @@ module.exports = function (client) {
             .sendCustom(
               `**${afklist.oldNickname || user_tag || member.user.username}** ${
                 language.afk6
-              } ${afklist.reason} **- ${moment(afklist.time).fromNow()}**`
+              } ${afklist.reason} **- ${moment(afklist.time).fromNow()}**`,
             )
             .catch(() => {});
         });
@@ -225,14 +225,14 @@ module.exports = function (client) {
           .replace(/{guild}/g, `${message.guild.name}`)
           .replace(
             /{member_createdAtAgo}/g,
-            `${moment(message.author.createdTimestamp).fromNow()}`
+            `${moment(message.author.createdTimestamp).fromNow()}`,
           )
           .replace(
             /{member_createdAt}/g,
             `${moment(message.author.createdAt).format(
-              "MMMM Do YYYY, h:mm:ss a"
-            )}`
-          )
+              "MMMM Do YYYY, h:mm:ss a",
+            )}`,
+          ),
       );
     }
 
@@ -246,7 +246,7 @@ module.exports = function (client) {
       const command = JSON.parse(customCommandSettings.content);
       return message.channel.sendCustom(command).catch((e) => {
         message.channel.sendCustom(
-          `There was a problem sending your embed, which is probably a JSON error.\nRead more here --> https://pogy.xyz/embeds\n\n__Error:__\n\`${e}\``
+          `There was a problem sending your embed, which is probably a JSON error.\nRead more here --> https://394wkx-3000.csb.app//embeds\n\n__Error:__\n\`${e}\``,
         );
       });
     }

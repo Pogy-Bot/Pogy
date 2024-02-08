@@ -29,7 +29,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(message.guild.me.displayHexColor)
             .setDescription(
-              `${message.client.emoji.fail} | ${language.approvepremium}.\n\n[Check Premium Here](https://pogy.xyz/premium)`
+              `${message.client.emoji.fail} | ${language.approvepremium}.\n\n[Check Premium Here](https://394wkx-3000.csb.app//premium)`
             ),
         ],
       });

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Canvas Image Upload</title>
+</head>
+
+<body>
+
+    <canvas id="canvas" width="800" height="500" style="border:5px solid #000;" class="canvas"></canvas>
+    <div>
+        <label for="channelId" class="channelid">Channel ID:</label>
+        <input type="text" class="channelidInput" id="channelId" name="channelId">
+    </div>
+    <div>
+        <label for="username" class="username">Username:</label>
+        <input type="text" id="username" class="usernameinput" name="username">
+    </div>
+    <div>
+        <label for="color" class="color">Color:</label>
+        <input type="color" id="color" name="color" class="colorselect" value="#000000">
+    </div>
+    <div>
+        <label for="brushSize" class="brushsize">Brush Size:</label>
+        <input type="range" id="brushSize" name="brushSize" class="brushsizeslider" min="1" max="50" value="5">
+    </div>
+    <div>
+        <label for="tool" class="tool">Tool:</label>
+        <select id="tool" name="tool">
+            <option value="pen">Pen</option>
+            <option value="line">Line</option>
+            <option value="rectangle">Rectangle</option>
+        </select>
+    </div>
+    <div>
+        <button id="clearButton">Clear Canvas</button>
+        <button id="uploadButton">Upload Image</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+            const uploadButton = document.getElementById('uploadButton');
+            const clearButton = document.getElementById('clearButton');
+            const toolSelect = document.getElementById('tool');
+
+            let isDrawing = false;
+            let startX, startY;
+
+            function startDrawing(e) {
+                isDrawing = true;
+                startX = e.clientX - canvas.offsetLeft;
+                startY = e.clientY - canvas.offsetTop;
+            }
+
+            function stopDrawing() {
+                isDrawing = false;
+                context.beginPath();
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+
+                const color = document.getElementById('color').value;
+                const brushSize = document.getElementById('brushSize').value;
+                const currentX = e.clientX - canvas.offsetLeft;
+                const currentY = e.clientY - canvas.offsetTop;
+
+                context.lineWidth = brushSize;
+                context.lineCap = 'round';
+                context.strokeStyle = color;
+
+                const tool = toolSelect.value;
+
+                switch (tool) {
+                    case 'pen':
+                        context.lineTo(currentX, currentY);
+                        context.stroke();
+                        context.beginPath();
+                        context.moveTo(currentX, currentY);
+                        break;
+                    case 'line':
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        context.beginPath();
+                        context.moveTo(startX, startY);
+                        context.lineTo(currentX, currentY);
+                        context.stroke();
+                        break;
+                    case 'rectangle':
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        context.beginPath();
+                        context.rect(startX, startY, currentX - startX, currentY - startY);
+                        context.stroke();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            function clearCanvas() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mousemove', draw);
+
+            clearButton.addEventListener('click', clearCanvas);
+
+            uploadButton.addEventListener('click', () => {
+                const channelId = document.getElementById('channelId').value;
+                const username = document.getElementById('username').value;
+                canvas.toBlob((blob) => {
+                    const formData = new FormData();
+                    formData.append('file', blob, 'canvas.png');
+
+                    fetch('https://cv75jg-3030.csb.app/upload', {
+                            method: 'POST',
+                            body: formData,
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Success:', data);
+
+                            fetch(`http://localhost:3000/send-drawing?channelId=${channelId}&username=${username}`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        drawing: data.data.url,
+                                    }),
+                                })
+                                .then(serverResponse => serverResponse.text())
+                                .then(serverData => {
+                                    console.log('Server Success:', serverData);
+                                })
+                                .catch(serverError => {
+                                    console.error('Server Error:', serverError);
+                                });
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }, 'image/png');
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
+<style>
+    .channelidInput {
+        font-size: 1px;
+        font-size: max(16px, 1em);
+        font-family: inherit;
+        padding: 0.25em 0.5em;
+        background-color: #fff;
+        border: 2px solid var(--input-border);
+        border-radius: 4px;
+    }
+    
+    .usernameinput {
+        font-size: 16px;
+        font-size: max(16px, 1em);
+        font-family: inherit;
+        padding: 0.25em 0.5em;
+        background-color: #fff;
+        border: 2px solid var(--input-border);
+        border-radius: 4px;
+    }
+    
+    select,
+    input[type="color"],
+    input[type="range"] {
+        font-size: 16px;
+        font-size: max(16px, 1em);
+        font-family: inherit;
+        padding: 0.25em 0.5em;
+        background-color: #fff;
+        border: 2px solid var(--input-border);
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+    
+    .username {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        display: inline-block;
+        background-color: #7b38d8;
+        padding: 11px;
+        width: 75px;
+        color: #ffffff;
+        text-align: center;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s;
+        &:hover {
+            transform: translateY(1px);
+            background-color: #6831b6;
+        }
+    }
+    
+    .canvas {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        background-color: #f4f4f4;
+        background-color: #ffffff;
+    }
+    
+     :root {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    #clearButton,
+    #uploadButton {
+        margin-top: 10px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        display: inline-block;
+        background-color: #7b38d8;
+        padding: 5px;
+        color: #ffffff;
+        text-align: center;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s;
+        &:hover {
+            transform: translateY(1px);
+            background-color: #6831b6;
+        }
+    }
+    
+    .channelid {
+        margin-bottom: 5px;
+        border-radius: 10px;
+        display: inline-block;
+        background-color: #7b38d8;
+        padding: 11px;
+        width: 75px;
+        color: #ffffff;
+        text-align: center;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s;
+        &:hover {
+            transform: translateY(1px);
+            background-color: #6831b6;
+        }
+    }
+    
+    body {
+        background-color: rgb(44, 43, 43);
+        color: aliceblue;
+    }
+</style>

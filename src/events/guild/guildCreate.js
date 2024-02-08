@@ -32,17 +32,17 @@ module.exports = class extends Event {
         ch.type === "GUILD_TEXT" &&
         ch
           .permissionsFor(guild.me)
-          .has(["SEND_MESSAGES", "VIEW_CHANNEL", "EMBED_LINKS"])
+          .has(["SEND_MESSAGES", "VIEW_CHANNEL", "EMBED_LINKS"]),
     );
 
     const modLog = guild.channels.cache.find(
       (c) =>
         c.name.replace("-", "").replace("s", "") === "modlog" ||
-        c.name.replace("-", "").replace("s", "") === "moderatorlog"
+        c.name.replace("-", "").replace("s", "") === "moderatorlog",
     );
 
     let muteRole = guild.roles.cache.find(
-      (r) => r.name.toLowerCase() === "muted"
+      (r) => r.name.toLowerCase() === "muted",
     );
     if (!muteRole) {
       try {
@@ -108,13 +108,13 @@ module.exports = class extends Event {
       const embed = new Discord.MessageEmbed()
         .setColor("PURPLE")
         .setDescription(
-          `Hey Poggers! I'm **Pogy**.\n\nThank you for inviting me to your server as it means a lot to us! You can get started with [\`p!help\`](https://pogy.xyz) & customise your server settings by accessing the Dashboard [\`here\`](https://pogy.xyz/dashboard/${guild.id}).\n\n__**Current News**__\n\`\`\`\nWe are currently giving premium to all servers until 1000 guilds! If interested Please visit https://pogy.xyz/redeem\`\`\`\n\nAgain, thank you for inviting me! (this server is now very pog)\n**- Pogy**`
+          `Hey Poggers! I'm **Pogy**.\n\nThank you for inviting me to your server as it means a lot to us! You can get started with [\`p!help\`](https://394wkx-3000.csb.app/) & customise your server settings by accessing the Dashboard [\`here\`](https://394wkx-3000.csb.app/dashboard/${guild.id}).\n\n__**Current News**__\n\`\`\`\nWe are currently giving premium to all servers until 1000 guilds! If interested Please visit https://394wkx-3000.csb.app//redeem\`\`\`\n\nAgain, thank you for inviting me! (this server is now very pog)\n**- Pogy**`,
         )
         .addField(
           "\u200b",
           "**[Invite](https://invite.pogy.xyz) | " +
-            "[Support Server](https://pogy.xyz/support) | " +
-            "[Dashboard](https://pogy.xyz/dashboard)**"
+            "[Support Server](https://394wkx-3000.csb.app//support) | " +
+            "[Dashboard](https://394wkx-3000.csb.app/dashboard)**",
         );
 
       textChats.send({ embeds: [embed] }).catch(() => {});
@@ -123,8 +123,8 @@ module.exports = class extends Event {
     const welcomeEmbed = new Discord.MessageEmbed()
       .setColor(`PURPLE`)
       .setTitle("New Server")
-      .setThumbnail(`https://pogy.xyz/logo`)
-      .setDescription(`Pogy was added to a new Server!`)
+      .setThumbnail(`https://394wkx-3000.csb.app//logo`)
+      .setDescription(`Chaoticwas added to a new Server!`)
       .addField(`Server Name`, `\`${guild.name}\``, true)
       .addField(`Server ID`, `\`${guild.id}\``, true)
       .setFooter({
@@ -141,7 +141,7 @@ module.exports = class extends Event {
     const embed = new Discord.MessageEmbed()
       .setColor("GREEN")
       .setDescription(
-        `I have joined the ${guild.name} server.\n\nID: ${guild.id}`
+        `I have joined the ${guild.name} server.\n\nID: ${guild.id}`,
       )
       .setFooter({
         text: `Gained ${guild.members.cache.size - 1} members • I'm now in ${
@@ -152,8 +152,8 @@ module.exports = class extends Event {
         guild.iconURL({ dynamic: true })
           ? guild.iconURL({ dynamic: true })
           : `https://guild-default-icon.herokuapp.com/${encodeURIComponent(
-              guild.name
-            )}`
+              guild.name,
+            )}`,
       );
 
     webhookClient.sendCustom({

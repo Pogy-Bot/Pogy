@@ -1,0 +1,105 @@
+<%- include("partials/head", { bot, user, path, description, title: "Chaotic- Policy",  url, image }) %>
+
+<div>
+  <!-- Your changelog code here -->
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>ChaoticBot Dashboard - Latest Commits</title>
+    <style>
+      /* Styles for the Chaoticbot dashboard */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #202225;
+        color: #ffffff;
+      }
+
+      header, footer {
+        background-color: #2f3136;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      h1, h2 {
+        margin-top: 0;
+        color: #ffffff;
+      }
+
+      .content-section {
+        background-color: #36393f;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .content-section p {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #ffffff;
+      }
+
+      .content-section a {
+        color: #7289da;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>ChaoticBot Dashboard - Latest Commits</h1>
+    </header>
+    
+    <main>
+      <section id="commit-details" class="content-section">
+        <!-- Commit details will be populated dynamically -->
+      </section>
+    </main>
+  
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const apiUrl = 'https://api.github.com/repos/hotsu0p/Pogy/commits';
+  
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(data => {
+            const commitDetailsSection = document.getElementById('commit-details');
+            if (data.length > 0) {
+              const latestCommit = data[0];
+              const commitDetails = `
+                <h2>${latestCommit.commit.message}</h2>
+                <p>${message}</p>
+                <p>Commit by: ${latestCommit.commit.author.name}</p>
+                <p>Commit date: ${latestCommit.commit.author.date}</p>
+                <p>SHA: <a href="${latestCommit.html_url}" target="_blank">${latestCommit.sha}</a></p>
+                <!-- You can add more details as needed -->
+              `;
+              commitDetailsSection.innerHTML = commitDetails;
+            } else {
+              commitDetailsSection.innerHTML = '<p>No commits found.</p>';
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching commits:', error);
+            document.getElementById('commit-details').innerHTML = '<p>Error fetching commits.</p>';
+          });
+      });
+    </script>
+  </body>
+  </html>
+  <!-- End of your changelog code -->
+
+</div>
+
+<%- include("partials/mainfooter") %>
+<%- include("partials/footer") %>

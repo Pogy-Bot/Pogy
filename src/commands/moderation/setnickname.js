@@ -41,7 +41,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Set Nickname Error`)
             .setDescription("Please provide a valid user mention / user ID")
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -61,7 +61,7 @@ module.exports = class extends Command {
               "The provided user has either an equal or higher role."
             )
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -77,7 +77,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Set Nickname Error`)
             .setDescription("Please provide a new Nickname")
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -98,7 +98,7 @@ module.exports = class extends Command {
                 `Make sure the nickname is surrounded in Quotes, **"text"**`
               )
               .setTimestamp()
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setColor(message.guild.me.displayHexColor),
           ],
         });
@@ -114,7 +114,7 @@ module.exports = class extends Command {
               .setTitle(`${fail} Set Nickname Error`)
               .setDescription("Provide a Nickname")
               .setTimestamp()
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setColor(message.guild.me.displayHexColor),
           ],
         });
@@ -131,7 +131,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Set Nickname Error`)
             .setDescription("Make sure that nickname is below 32 characters")
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -252,7 +252,7 @@ module.exports = class extends Command {
                 `Please ensure my role is above the provided user's role.`
               )
               .setTimestamp()
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setColor(message.guild.me.displayHexColor),
           ],
         });

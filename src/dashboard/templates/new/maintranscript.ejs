@@ -1,0 +1,16 @@
+<!-- transcript.ejs -->
+
+<h1>Transcript</h1>
+
+<% if (transcript && transcript.messages && transcript.messages.length > 0) { %>
+    <ul>
+        <% transcript.messages.forEach(message => { %>
+            <li>
+                <strong><%= message.author.username %>:</strong>
+                <%= message.content %>
+            </li>
+        <% }); %>
+    </ul>
+<% } else { %>
+    <p>No transcript available.</p>
+<% } %>

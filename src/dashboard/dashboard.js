@@ -1,9 +1,8 @@
 require("dotenv").config();
-
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const Discord = require("discord.js");
 const url = require("url");
-const path = require("path");
-let uniqid = require("uniqid");
+const path = require('path');
 const cooldownNickname = new Set();
 const express = require("express");
 const passport = require("passport");
@@ -14,13 +13,16 @@ const Strategy = require("./passport").Strategy;
 const premiumWeb = new Discord.WebhookClient({
   url: jsonconfig.webhooks.premium,
 });
+const NotesModel = require("../database/models/notes.js"); 
+const send = require(`../packages/logs/index.js`);
 const ejs = require("ejs");
 const ShortUrl = require("../database/models/ShortUrl.js");
+const Testing = require("../database/models/test.js");
 const randoStrings = require("../packages/randostrings.js");
 const random = new randoStrings();
 const sendingEmbed = new Set();
 const bodyParser = require("body-parser");
-const { MessageEmbed } = require("discord.js");
+
 const DBL = require("@top-gg/sdk");
 const User = require("../database/schemas/User");
 const TicketSettings = require("../database/models/tickets");
@@ -107,7 +109,6 @@ module.exports = async (client) => {
   app.locals.domain = domain.split("//")[1];
 
   app.engine("html", ejs.renderFile);
-  app.set("view engine", "html");
 
   app.use(bodyParser.json());
   app.use(
@@ -282,9 +283,9 @@ module.exports = async (client) => {
     }
   );
 
-  // Features list redirect endpoint.
+  // commands
   app.get("/commands", (req, res) => {
-    res.send("This feature is not yet available.");
+    renderTemplate(res, req, "commands.ejs"); // made comamnds page work
   });
 
   app.get("/color", (req, res) => {
@@ -297,15 +298,317 @@ module.exports = async (client) => {
   app.get("/faq", (req, res) => {
     renderTemplate(res, req, "faq.ejs");
   });
+  app.get("/docs", (req, res) => {
+    renderTemplate(res, req, "docs.ejs");
+  });
 
   app.get("/stats", (req, res) => {
     renderTemplate(res, req, "stats.ejs");
   });
 
+  
+  
+// Route to serve the HTML file
+app.get('/testing', (req, res) => {
+  res.sendFile(path.join(__dirname, 'templates', 'draw.html'));
+});
+const TestModel = require("../database/models/test.js");
+app.get('/meow-data', async (req, res) => {
+  try {
+    const tests = await TestModel.find();
+    res.json(tests);
+    
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ error: 'Error fetching data from MongoDB' });
+  }
+});
+app.get('/dashboard/:guildID/stats', async (req, res) => {
+  try {
+    const guild = client.guilds.cache.get(req.params.guildID);
+    const userNotes = await NotesModel.find({ guildID: guild.id });
+
+    if (userNotes.length === 0) {
+      return res.send("No notes found for that user.");
+    }
+
+    // Fetch data from the database
+    const tests = userNotes.map((note) => ({ content: note.content, UserID: note.userID , username: note.username , timestamp: note.timestamp, avatar: note.avatar }));
+
+    if (!guild) return res.redirect("/dashboard");
+    const member = await guild.members.fetch(req.user.id);
+    if (!member) return res.redirect("/dashboard");
+    if (!member.permissions.has("MANAGE_GUILD"))
+      return res.redirect("/dashboard");
+
+    const maintenance = await Maintenance.findOne({
+      maintenance: "maintenance",
+    });
+
+    if (maintenance && maintenance.toggle == "true") {
+      return renderTemplate(res, req, "maintenance.ejs");
+    }
+
+    const join1 = [];
+    const leave1 = [];
+    const join2 = [];
+    const leave2 = [];
+
+    guild.members.cache.forEach(async (user) => {
+      let x = Date.now() - user.joinedAt;
+      let created = Math.floor(x / 86400000);
+
+      if (7 > created) {
+        join2.push(user.id);
+      }
+
+      if (1 > created) {
+        join1.push(user.id);
+      }
+    })
+    const guildMembers = Array.from(guild.members.cache.values());
+
+    const memberRolesCount = {};
+    guildMembers.forEach((member) => {
+      member.roles.cache.forEach((role) => {
+        memberRolesCount[role.name] = (memberRolesCount[role.name] || 0) + 1;
+      });
+    });
+    const guildMembersbot = Array.from(guild.members.cache.values());
+
+    let botCount = 0;
+    let memberCount = 0;
+
+    guildMembers.forEach((member) => {
+      if (member.user.bot) {
+        botCount++;
+      } else {
+        memberCount++;
+      }
+    });
+    const moderatorCount = guildMembersbot.filter(
+      (member) => member.permissions.has("KICK_MEMBERS")
+    ).size;
+      const admincount = guildMembersbot.filter((member) => member.permissions.has("ADMINISTRATOR")
+    ).size;
+    const modactions = await guild.fetchAuditLogs({
+      limit: 10,
+      type: "MEMBER_KICK", // You can change this type to the desired audit log event type
+    });
+    //Nickname
+    let data = req.body;
+    let nickname = data.nickname;
+    if (nickname && nickname.length < 1)
+      nickname = guild.me.nickname || guild.me.user.username;
+
+    if (data.nickname) {
+      if (cooldownNickname.has(guild.id))
+        nickname = guild.me.nickname || guild.me.user.username;
+      if (!nickname) nickname = guild.me.nickname || guild.me.user.username;
+
+      guild.me.setNickname(nickname);
+      cooldownNickname.add(guild.id);
+      setTimeout(() => {
+        cooldownNickname.delete(guild.id);
+      }, 20000);
+    }
+    //get number of roles
+    const roles = guild.roles.cache.size;
+    renderTemplate(res, req, "./new/mainstats.ejs", {
+      guild: guild,
+      tests: tests,
+      roles: roles,
+      join1: join1.length || 0,
+      join2: join2.length || 0,
+      leave1: leave1.length || 0,
+      leave2: leave2.length || 0,
+      botCount: botCount,
+      memberCount: memberCount,
+      modactions: modactions.entries,
+      admincount: admincount,
+      moderatorCount: moderatorCount,
+      memberRolesCount: JSON.stringify(memberRolesCount),
+      nickname: guild.me.nickname || guild.me.user.username,
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('An error occurred while fetching data');
+  }
+});
+
+
+app.get('/dashboard/:guildID/notes', async (req, res) => {
+  try {
+    const guild = client.guilds.cache.get(req.params.guildID);
+    const userNotes = await NotesModel.find({ guildID: guild.id });
+
+    if (userNotes.length === 0) {
+      return res.send("No notes found for that user.");
+    }
+
+    // Fetch data from the database
+    const tests = userNotes.map((note) => ({ content: note.content, UserID: note.userID , username: note.username , timestamp: note.timestamp, avatar: note.avatar }));
+
+    if (!guild) return res.redirect("/dashboard");
+    const member = await guild.members.fetch(req.user.id);
+    if (!member) return res.redirect("/dashboard");
+    if (!member.permissions.has("MANAGE_GUILD"))
+      return res.redirect("/dashboard");
+
+    const maintenance = await Maintenance.findOne({
+      maintenance: "maintenance",
+    });
+
+    if (maintenance && maintenance.toggle == "true") {
+      return renderTemplate(res, req, "maintenance.ejs");
+    }
+
+    const join1 = [];
+    const leave1 = [];
+    const join2 = [];
+    const leave2 = [];
+    const join3 = [];
+    const leave3 = [];
+
+    guild.members.cache.forEach(async (user) => {
+      let x = Date.now() - user.joinedAt;
+      let created = Math.floor(x / 86400000);
+
+      if (7 > created) {
+        join2.push(user.id);
+      }
+    
+      if (1 > created) {
+        join1.push(user.id);
+      }
+    })
+
+    //Nickname
+    let data = req.body;
+    let nickname = data.nickname;
+    if (nickname && nickname.length < 1)
+      nickname = guild.me.nickname || guild.me.user.username;
+
+    if (data.nickname) {
+      if (cooldownNickname.has(guild.id))
+        nickname = guild.me.nickname || guild.me.user.username;
+      if (!nickname) nickname = guild.me.nickname || guild.me.user.username;
+
+      guild.me.setNickname(nickname);
+      cooldownNickname.add(guild.id);
+      setTimeout(() => {
+        cooldownNickname.delete(guild.id);
+      }, 20000);
+    }
+    renderTemplate(res, req, "./new/mainnotes.ejs", {
+      guild: guild,
+      tests: tests,
+      join1: join1.length || 0,
+      join2: join2.length || 0,
+      join3: join3.length || 0,
+      leave1: leave1.length || 0,
+      leave2: leave2.length || 0,
+      leave3: leave3.length || 0,
+      nickname: guild.me.nickname || guild.me.user.username,
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('An error occurred while fetching data');
+  }
+});
+
+app.post('/send-drawing', (req, res) => {
+  try {
+    const drawing = req.body.drawing;
+    const channelId = req.query.channelId;
+    const username = req.query.username;
+
+    if (!channelId) {
+      throw new Error('Channel ID is missing.');
+    }
+
+    const channel = client.channels.cache.get(channelId);
+
+    if (!channel || !channel.isText()) {
+      throw new Error('Invalid Discord channel or not a text channel.');
+    }
+
+    let voteCount = 0;
+    const votedUsers = new Set();
+
+    const filter = i => i.customId === 'vote_button' || i.customId === 'downvote_button';
+
+    const voteButton = new MessageButton()
+      .setLabel('Vote')
+      .setStyle('PRIMARY')
+      .setCustomId('vote_button');
+
+    const downvoteButton = new MessageButton()
+      .setLabel('Downvote')
+      .setStyle('DANGER')
+      .setCustomId('downvote_button');
+
+    const row = new MessageActionRow().addComponents(voteButton, downvoteButton);
+
+    const embed = new MessageEmbed()
+      .setColor("RANDOM")
+      .setTitle(`New Drawing`)
+      .setImage(drawing)
+      .setFooter(`Submitted by ${username}`)
+      .setTimestamp()
+      .setDescription(`Votes: ${voteCount}`);
+
+    channel.send({ embeds: [embed], components: [row] })
+      .then(sentMessage => {
+        const collector = sentMessage.createMessageComponentCollector({ filter, time: 15000 });
+
+        collector.on('collect', async i => {
+          if (!votedUsers.has(i.user.id)) {
+            if (i.customId === 'vote_button') {
+              voteCount++;
+            } else if (i.customId === 'downvote_button') {
+              voteCount--;
+            }
+
+            votedUsers.add(i.user.id);
+            console.log(`${i.user.username} voted! Total votes: ${voteCount}`);
+            embed.setDescription(`Votes: ${voteCount}`);
+            voteButton.setLabel(`Vote (${voteCount})`);
+            downvoteButton.setLabel(`Downvote (${voteCount > 0 ? voteCount : 0})`);
+
+            await i.update({ content: 'Vote counted!', embeds: [embed], components: [new MessageActionRow().addComponents(voteButton, downvoteButton)], ephemeral: true });
+          } else {
+            await i.update({ content: 'You have already voted!', ephemeral: true });
+          }
+        });
+
+        collector.on('end', collected => {
+          console.log(`Collected ${collected.size} interactions.`);
+        });
+
+        res.status(200).send('Drawing sent to Discord!');
+      })
+      .catch((error) => {
+        console.error('Error sending drawing to Discord:', error);
+        res.status(500).send('Error sending drawing to Discord!');
+      });
+  } catch (error) {
+    console.error('Error:', error.message);
+    res.status(500).send(`Error: ${error.message}`);
+  }
+});
+
+
+  
   app.get("/variables", (req, res) => {
     renderTemplate(res, req, "variables.ejs");
   });
-
+  app.get("/transcript", (req, res) => {
+    renderTemplate(res, req, "maintranscript.ejs");
+  });
+  app.get("/manage", (req, res) => {
+    renderTemplate(res, req, "manage.ejs");
+  });
   app.get("/embeds", (req, res) => {
     renderTemplate(res, req, "embeds.ejs");
   });
@@ -325,6 +628,7 @@ module.exports = async (client) => {
   app.get("/thanks", function (req, res) {
     renderTemplate(res, req, "thanks.ejs");
   });
+
 
   app.get("/team", (req, res) => {
     renderTemplate(res, req, "team.ejs");
@@ -371,6 +675,9 @@ module.exports = async (client) => {
   app.get("/premium", (req, res) => {
     renderTemplate(res, req, "premium.ejs");
   });
+  app.get("/changelog", (req, res) => {
+    renderTemplate(res, req, "changelog.ejs");
+  });
 
   // Index endpoint.
   app.get("/", (req, res) => {
@@ -393,7 +700,7 @@ module.exports = async (client) => {
     shortUrl.clicks++;
     shortUrl.save();
 
-    res.redirect(shortUrl.full);
+    res.redirect(shortUrl.full); 
   });
 
   app.get("/url", async (req, res) => {
@@ -598,7 +905,7 @@ module.exports = async (client) => {
                 "dddd, MMMM Do YYYY HH:mm:ss"
               )}`
             )
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor("GREEN");
         } else {
           form.paste.push(`Question #${i + 1} - ${db.questions[i]}`);
@@ -613,7 +920,7 @@ module.exports = async (client) => {
                 "dddd, MMMM Do YYYY HH:mm:ss"
               )}`
             )
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor("GREEN");
         }
       }
@@ -622,7 +929,7 @@ module.exports = async (client) => {
           embeds: [
             new MessageEmbed()
               .setColor("GREEN")
-              .setFooter({ text: `Powered by https://pogy.xyz` })
+              .setFooter({ text: `Powered by https://394wkx-3000.csb.app/` })
               .setTitle(`Application #${ticketID}`)
               .setDescription(
                 `Hey ${
@@ -772,10 +1079,10 @@ module.exports = async (client) => {
       .setColor(guild.me.displayHexColor);
 
     premiumWeb.send({
-      username: "Pogy Premium",
+      username: "ChaoticPremium",
       avatarURL: `${domain}/logo.png`,
       embeds: [embedPremium],
-    });
+    });z
     renderTemplate(res, req, "redeemguild.ejs", {
       guild: guild,
       alert: `${guild.name} Is now a premium guild!!`,
@@ -845,7 +1152,7 @@ module.exports = async (client) => {
 
     renderTemplate(res, req, "./new/mainpage.ejs", {
       guild: guild,
-      alert: `Dashboard was made by https://pogy.xyz`,
+      alert: `Dashboard was made by https://394wkx-3000.csb.app/`,
       join1: join1.length || 0,
       join2: join2.length || 0,
       leave1: leave1.length || 0,
@@ -1104,6 +1411,32 @@ module.exports = async (client) => {
         appSettings.dm = false;
       }
     }
+    const DiscordTranscripts = require("discord-transcripts");
+
+    app.get("/dashboard/transcript/:serverId/:channelId", async (req, res) => {
+      try {
+        const { serverId, channelId } = req.params;
+
+        // Replace 'YOUR_DISCORD_BOT_TOKEN' with your actual bot token
+        const botToken = "YOUR_DISCORD_BOT_TOKEN";
+
+        // Initialize the DiscordTranscripts with the bot token
+        const transcripts = new DiscordTranscripts(botToken);
+
+        // Fetch the channel's transcript for the provided server and channel IDs
+        const transcript = await transcripts.getChannelTranscript(
+          serverId,
+          channelId
+        );
+
+        // Render your transcript page using 'transcript' data
+        res.render("transcript", { transcript });
+      } catch (error) {
+        console.error("Error fetching transcript:", error);
+        // Handle the error, redirect, or render an error page
+        res.status(500).send("Error fetching transcript");
+      }
+    });
 
     await appSettings.save().catch(() => {});
     renderTemplate(res, req, "./new/mainapp.ejs", {
@@ -2006,62 +2339,6 @@ module.exports = async (client) => {
       guild: guild,
     });
   });
-
-  // app.get("/dashboard/:guildID/members/list", checkAuth, async (req, res) => {
-  //   const guild = client.guilds.cache.get(req.params.guildID);
-  //   if (!guild) return res.status(404);
-  //   if (req.query.fetch) {
-  //     await guild.fetchMembers();
-  //   }
-  //   const totals = guild.members.size;
-  //   const start = parseInt(req.query.start, 10) || 0;
-  //   const limit = parseInt(req.query.limit, 10) || 50;
-  //   let members = guild.members;
-
-  //   if (req.query.filter && req.query.filter !== "null") {
-  //     members = members.filter((m) => {
-  //       m = req.query.filterUser ? m.user : m;
-  //       return m["displayName"]
-  //         .toLowerCase()
-  //         .includes(req.query.filter.toLowerCase());
-  //     });
-  //   }
-
-  //   const memberArray = members.cache.array().slice(start, start + limit);
-
-  //   const returnObject = [];
-  //   for (let i = 0; i < memberArray.length; i++) {
-  //     const m = memberArray[i];
-  //     returnObject.push({
-  //       id: m.id,
-  //       status: m.user.presence.status,
-  //       bot: m.user.bot,
-  //       username: m.user.username,
-  //       displayName: m.displayName,
-  //       tag: m.user.tag,
-  //       discriminator: m.user.discriminator,
-  //       joinedAt: m.joinedTimestamp,
-  //       createdAt: m.user.createdTimestamp,
-  //       highestRole: {
-  //         hexColor: m.roles.highest.hexColor,
-  //       },
-  //       memberFor: moment
-  //         .duration(Date.now() - m.joinedAt)
-  //         .format(" D [days], H [hrs], m [mins], s [secs]"),
-  //       roles: m.roles.cache.map((r) => ({
-  //         name: r.name,
-  //         id: r.id,
-  //         hexColor: r.hexColor,
-  //       })),
-  //     });
-  //   }
-  //   res.json({
-  //     total: totals,
-  //     page: start / limit + 1,
-  //     pageof: Math.ceil(members.size / limit),
-  //     members: returnObject,
-  //   });
-  // });
 
   //automod
   app.get("/dashboard/:guildID/automod", checkAuth, async (req, res) => {
@@ -3178,15 +3455,6 @@ send
           });
           return;
         }
-      } else {
-        renderTemplate(res, req, "./new/mainreactionroles.ejs", {
-          guild: guild,
-          alert: `Please Provide me with a valid message ID`,
-          emojiArray: EmojiArray,
-          settings: storedSettings,
-        });
-
-        return;
       }
 
       const checkEmoji = data.emoji;
@@ -3489,11 +3757,15 @@ send
       );
     }
   });
-
-  app.get("/contact", async (req, res) => {
-    renderTemplate(res, req, "contact.ejs");
-  });
-
+  app.get("/test", async (req, res) => {
+    try {
+        const data = await TestModel.find({});
+        renderTemplate(res, req, 'test', { data: data }); // Make sure 'test' matches your EJS file name
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('An error occurred while fetching data');
+    }
+});
   app.get("/report", async (req, res) => {
     renderTemplate(res, req, "report.ejs");
   });
@@ -3506,13 +3778,13 @@ send
 
       const report = new MessageEmbed()
         .setColor("GREEN")
-        .setTitle(`Pogy Reports`)
+        .setTitle(`ChaoticReports`)
         .setDescription(
           `Someone just reported a user!\n\nUser: ${req.body.name}\`(${req.body.id})\`\nReported User: ${req.body.reported_user}\nReported User ID: ${req.body.reported_id}\nReason: \`${req.body.reason}\`\nProof: ${req.body.proof}`
         );
 
       reportEmbed.sendCustom({
-        username: "Pogy Reports",
+        username: "ChaoticReports",
         avatarURL: `${domain}/logo.png`,
         embeds: [report],
       });
@@ -3533,7 +3805,7 @@ send
         );
 
       contactEmbed.sendCustom({
-        username: "Pogy Contact",
+        username: "ChaoticContact",
         avatarURL: `${domain}/logo.png`,
         embeds: [contact],
       });
