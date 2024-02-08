@@ -301,7 +301,6 @@ module.exports = class extends Event {
 
     await command.run(message, args);
   }
-
   ratelimit(message, cmd) {
     try {
       const command =

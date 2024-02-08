@@ -32,41 +32,89 @@
 }
 %>
 <form role="form" action="/dashboard/<%= guild.id %>/tickets" method="POST">
-<div class="container" style="padding-top: 80px;">
-  <div class="main">
-    <div class="sidebar">
-      <ul>
-            <div class="guild">
-<img class="server-image" src="<%= iconurl %>" alt="<% guild.name %>"/>
-<p class="server-name" style = "font-size: 26px;"><%= guild.name %></p>
-</div>
-        <p>Settings</p>
-        <li><a href="/dashboard/<%= guild.id %>"><span><i class="fa fa-gear" style="color: white; font-size: 17px"></i> Bot Settings</span></a></li>
-        <li><a href="/dashboard/<%= guild.id %>/commands"><span><i class="fa fa-wrench" style="color: white; font-size: 17px"></i> Commands</span></a></li>
-        <li><a  href="/dashboard/<%= guild.id %>/welcome"><span><i class="fa fa-sign-out" style="color: white; font-size: 17px"></i> Welcome</span></a></li>
-        <li><a  href="/dashboard/<%= guild.id %>/members" ><span><i class="fa fa-users" style="color: white; font-size: 17px"></i> Members</span></a></li>
-        <p>Moderation</p>
-        <li><a href="/dashboard/<%= guild.id %>/automod" ><span><i class="fa fa-shield" style="color: white; font-size: 17px"></i> Auto Mod</span></a></li>
-        <li><a href="/dashboard/<%= guild.id %>/moderation" ><span><i class="	fa fa-legal" style="color: white; font-size: 17px"></i> Moderation</span></a></li>
-        <li><a href="/dashboard/<%= guild.id %>/logging" ><span><i class="	fa fa-book" style="color: white; font-size: 17px"></i> Logging</span></a></li>
-        <li><a  href="/dashboard/<%= guild.id %>/autorole" ><span><i class="fa fa-user-plus" style="color: white; font-size: 17px"></i> Auto Role</span></a></li>
-        <li><a href="/dashboard/<%= guild.id %>/altdetector" ><span><i class="fa fa-address-card" style="color: white; font-size: 17px"></i> Alt Detector</span></a></li>
-        <p>Utilities</p>
-        <li><a href="/dashboard/<%= guild.id %>/reactionroles" ><span><i class="	fa fa-support" style="color: white; font-size: 17px" ></i> Reaction Roles</span></a></li>
-        <li><a href="/dashboard/<%= guild.id %>/levels" ><span><i class="fa fa-signal" style="color: white; font-size: 17px"></i> Levels</span></a>
-        </li>
-
-        <li><a href="/dashboard/<%= guild.id %>/embeds" ><span><i class="	fa fa-image" style="color: white; font-size: 17px"></i> Embeds</span></a></li>
-        <li><a class="active" href="/dashboard/<%= guild.id %>/tickets" ><span><i class="	fa fa-ticket" style="color: white; font-size: 17px"></i> Tickets</span></a></li>
-        <li><a href="/dashboard/<%= guild.id %>/applications" ><span><i class="	fa fa-file-text" style="color: white; font-size: 17px"></i> Applications</span></a></li>
-        <p>Channels</p>
-        <li><a href="/dashboard/<%= guild.id %>/Suggestions" ><span><i class="fa fa-lightbulb-o" style="color: white; font-size: 17px"></i> Suggestions</span></a></li>
-        <li><a href="/dashboard/<%= guild.id %>/reports" ><span><i class="	fa fa-exclamation-triangle" style="color: white; font-size: 17px"></i> Server Reports</span></a></li>
-      </ul>
-
-
-
-    </div>
+  <div class="container" style="padding-top: 80px">
+    <div class="main">
+      <div class="sidebar">
+        <ul>
+          <div class="guild">
+            <img class="server-image" src="<%= iconurl %>" alt="<% guild.name %>" />
+            <p class="server-name" style="font-size: 26px"><%= guild.name %></p>
+          </div>
+          <p>Settings</p>
+          <li>
+            <a href="/dashboard/<%= guild.id %>"><span><i class="fa fa-gear" style="color: white; font-size: 17px"></i>
+                Bot Settings</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/commands"><span><i class="fa fa-wrench" style="color: white; font-size: 17px"></i>
+                Commands</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/welcome"><span><i class="fa fa-sign-out" style="color: white; font-size: 17px"></i>
+                Welcome</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/members"><span><i class="fa fa-users" style="color: white; font-size: 17px"></i>
+                Members</span></a>
+          </li>
+          <p>Moderation</p>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/automod"><span><i class="fa fa-shield" style="color: white; font-size: 17px"></i>
+                Auto Mod</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/moderation"><span><i class="fa fa-legal" style="color: white; font-size: 17px"></i>
+                Moderation</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/logging"><span><i class="fa fa-book" style="color: white; font-size: 17px"></i>
+                Logging</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/autorole"><span><i class="fa fa-user-plus" style="color: white; font-size: 17px"></i>
+                Auto Role</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/altdetector"><span><i class="fa fa-address-card" style="color: white; font-size: 17px"></i>
+                Alt Detector</span></a>
+          </li>
+          <p>Utilities</p>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/reactionroles"><span><i class="fa fa-support" style="color: white; font-size: 17px"></i>
+                Reaction Roles</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/levels"><span><i class="fa fa-signal" style="color: white; font-size: 17px"></i>
+                Levels</span></a>
+          </li>
+  
+          <li>
+            <a href="/dashboard/<%= guild.id %>/embeds"><span><i class="fa fa-image" style="color: white; font-size: 17px"></i>
+                Embeds</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/tickets"><span><i class="fa fa-ticket" style="color: white; font-size: 17px"></i>
+                Tickets</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/applications"><span><i class="fa fa-file-text" style="color: white; font-size: 17px"></i>
+                Applications</span></a>
+          </li>
+          <p>Channels</p>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/Suggestions"><span><i class="fa fa-lightbulb-o" style="color: white; font-size: 17px"></i>
+                Suggestions</span></a>
+          </li>
+          <li>
+            <a href="/dashboard/<%= guild.id %>/reports"><span><i class="fa fa-exclamation-triangle" style="color: white; font-size: 17px"></i>
+                Server Reports</span></a>
+          </li>
+          <li>
+            <a class="active" href="/dashboard/<%= guild.id %>/notes"><span><i class="fa fa-exclamation-triangle" style="color: white; font-size: 17px"></i>
+                Notes</span></a>
+          </li>  
+        </ul>
+      </div>
     
 
 

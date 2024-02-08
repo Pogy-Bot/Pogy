@@ -1,0 +1,58 @@
+const Command = require("../../structures/Command");
+const Discord = require('discord.js'); // Import the Discord.js library
+
+const prefix = '!'; // Set your desired prefix
+
+module.exports = class EmptyCommand extends Command {
+  constructor(...args) {
+    super(...args, {
+      name: "empty2", 
+      aliases: [], 
+      description: "Empty command template.",
+      category: "General",
+      cooldown: 5,
+    });
+  }
+
+  async run(message) {
+    try {
+      const gridSize = 10;
+      let gameGrid = Array.from(Array(gridSize), () => new Array(gridSize).fill('◻️'));
+
+      // Create a new Discord.Client instance
+        const msg = message.channel
+          startTetrisGame(msg.channel);
+
+      function startTetrisGame(channel) {
+        // Initialize game state and send the initial game grid
+        gameGrid = Array.from(Array(gridSize), () => new Array(gridSize).fill('◻️'));
+        sendGameGrid(channel);
+
+        // Game loop
+        const gameInterval = setInterval(() => {
+          // Update game state here
+          // Check for user input, move pieces, update grid, etc.
+
+          // Send updated game grid
+          sendGameGrid(channel);
+        }, 1000); // Update every second
+
+        // End the game after a certain time or condition
+        setTimeout(() => {
+          clearInterval(gameInterval);
+          channel.send('Game Over!');
+        }, 60000); // End the game after 60 seconds
+      }
+
+      function sendGameGrid(channel) {
+        const gameMessage = gameGrid.map(row => row.join('')).join('\n');
+        channel.send(`\`\`\`${gameMessage}\`\`\``);
+      }
+
+      // Log in to Discord with the bot token
+    } catch (error) {
+      console.error("Error in the empty command:", error);
+      message.channel.send("An error occurred. Please try again later.");
+    }
+  }
+};

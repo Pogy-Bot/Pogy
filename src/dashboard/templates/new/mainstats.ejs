@@ -122,7 +122,8 @@
 
   <h2>Roles Statistics</h2>
   <p class="roles">Roles in the server: <%= roles %></p>
-
+  <h2>mod Statistics</h2>
+  <p class="roles">Roles in the server: <%= modactions %></p>  
   <h2>Member Roles Distribution</h2>
     <canvas id="memberRolesChart" width="400" height="400"></canvas>
     <script>
@@ -213,7 +214,7 @@
         color: aliceblue;
         margin: 0;
         padding: 0;
-  overflow-y: auto; 
+        overflow-y: auto;
       }
 
       .meow {
@@ -251,6 +252,7 @@
       body {
         font-family: "Hind Vadodara", -apple-system, BlinkMacSystemFont, Segoe UI,
           Helvetica Neue, Arial, sans-serif;
+          
       }
 
       .container {

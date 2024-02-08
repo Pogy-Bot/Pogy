@@ -386,7 +386,15 @@ app.get('/dashboard/:guildID/stats', async (req, res) => {
         memberCount++;
       }
     });
-    
+    const moderatorCount = guildMembersbot.filter(
+      (member) => member.permissions.has("KICK_MEMBERS")
+    ).size;
+      const admincount = guildMembersbot.filter((member) => member.permissions.has("ADMINISTRATOR")
+    ).size;
+    const modactions = await guild.fetchAuditLogs({
+      limit: 10,
+      type: "MEMBER_KICK", // You can change this type to the desired audit log event type
+    });
     //Nickname
     let data = req.body;
     let nickname = data.nickname;
@@ -416,6 +424,9 @@ app.get('/dashboard/:guildID/stats', async (req, res) => {
       leave2: leave2.length || 0,
       botCount: botCount,
       memberCount: memberCount,
+      modactions: modactions.entries,
+      admincount: admincount,
+      moderatorCount: moderatorCount,
       memberRolesCount: JSON.stringify(memberRolesCount),
       nickname: guild.me.nickname || guild.me.user.username,
     });

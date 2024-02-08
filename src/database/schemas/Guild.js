@@ -21,6 +21,10 @@ const guildConfigSchema = mongoose.Schema({
     required: false,
     default: false,
   },
+  notesSystemEnabled: {
+    type: Boolean,
+    default: true, // Default value if not specified
+  },
   premium: {
     redeemedBy: {
       id: { type: mongoose.SchemaTypes.String, default: null },

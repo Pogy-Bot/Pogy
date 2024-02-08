@@ -24,6 +24,7 @@
     "canvas": "^2.11.2",
     "chalk": "^4.1.0",
     "channelsave-discord": "^1.5.0",
+    "chart.js": "^4.4.1",
     "cheerio": "^1.0.0-rc.12",
     "colors": "^1.4.0",
     "common-tags": "^1.8.0",
