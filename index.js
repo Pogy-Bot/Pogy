@@ -1,4 +1,4 @@
-// Imports lol
+// Imports/requirements lol
 require("dotenv").config();
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const PogyClient = require("./Pogy");
