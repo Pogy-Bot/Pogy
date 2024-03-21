@@ -148,6 +148,7 @@ async function createProfile(user, guild) {
       lastWeekly: new Date() - 604800000,
       lastMonthly: new Date() - 2592000000,
       lastBeg: new Date() - 180000,
+      lastRobbed: new Date() - 600000,
       passiveUpdated: new Date()
     })
     newProfile.save().catch(() => {});

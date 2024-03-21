@@ -38,7 +38,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${fail} Provide me with a valid Channel`)
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(client.color.red),
         ],
       });
@@ -50,7 +50,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${fail} Provide me with a valid message ID`)
-            .setFooter({ text: "https://pogy.xyz/" }),
+            .setFooter({ text: "https://394wkx-3000.csb.app//" }),
         ],
       });
     let messageID = await channel.messages.fetch(ID).catch(() => {
@@ -59,7 +59,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${fail} I could not find the following ID`)
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(client.color.red),
         ],
       });
@@ -75,7 +75,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${fail} Provide me with a valid Role`)
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(client.color.red),
         ],
       });
@@ -94,7 +94,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${fail} Provide me with a valid Emoji`)
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(client.color.red),
         ],
       });
@@ -108,7 +108,7 @@ module.exports = class extends Command {
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${fail} Please Provide a valid Emoji.`)
             .setColor(client.color.red)
-            .setFooter({ text: "https://pogy.xyz/" }),
+            .setFooter({ text: "https://394wkx-3000.csb.app//" }),
         ],
       });
     }
@@ -139,7 +139,7 @@ module.exports = class extends Command {
           .addField("Message ID", `${ID}`, true)
           .addField("Message", `[Jump To Message](${messageID.url})`, true)
           .addField("Role", `${role}`, true)
-          .setFooter({ text: "https://pogy.xyz/" }),
+          .setFooter({ text: "https://394wkx-3000.csb.app//" }),
       ],
     });
   }

@@ -72,7 +72,7 @@ module.exports = class extends Event {
           .setDescription(
             `You have recieved the **${rrRole.name}** Role by reacting in ${guildName}`
           )
-          .setFooter({ text: "https://pogy.xyz/" })
+          .setFooter({ text: "https://394wkx-3000.csb.app//" })
           .setColor(message.client.color.green);
 
         let remEmbed = new MessageEmbed()
@@ -84,7 +84,7 @@ module.exports = class extends Event {
           .setDescription(
             `You have removed the **${rrRole.name}** Role by reacting in ${guildName}`
           )
-          .setFooter({ text: "https://pogy.xyz/" })
+          .setFooter({ text: "https://394wkx-3000.csb.app//" })
           .setColor(message.client.color.green);
 
         let errorReaction = new MessageEmbed()
@@ -96,7 +96,7 @@ module.exports = class extends Event {
           .setDescription(
             `${message.client.emoji.fail} Failed to Add the role, since I'm Missing the Manage Roles Permission.\n\nPlease let an admin Know.`
           )
-          .setFooter({ text: "https://pogy.xyz/" })
+          .setFooter({ text: "https://394wkx-3000.csb.app//" })
           .setColor(message.client.color.green);
 
         if (reactionCooldown.has(user.id)) {
@@ -425,7 +425,7 @@ module.exports = class extends Event {
                           `You already have ${arraylength} open tickets, as the current guild's ticket limit is ${ticketlimit} `
                         )
                         .setAuthor(user.tag, user.displayAvatarURL())
-                        .setFooter({ text: "https://pogy.xyz/" }),
+                        .setFooter({ text: "https://394wkx-3000.csb.app//" }),
                     ],
                   })
                   .then((m) => {
@@ -539,7 +539,7 @@ module.exports = class extends Event {
                           `Please use \`${prefix}close\` to close the ticket.`
                         )
                         .setColor(message.client.color.red)
-                        .setFooter({ text: "https://pogy.xyz/" }),
+                        .setFooter({ text: "https://394wkx-3000.csb.app//" }),
                     ],
                   });
 
@@ -548,7 +548,7 @@ module.exports = class extends Event {
 
                   const embedLog = new discord.MessageEmbed()
                     .setColor(color2)
-                    .setFooter({ text: "https://pogy.xyz/" })
+                    .setFooter({ text: "https://394wkx-3000.csb.app//" })
                     .setTitle("Ticket Created")
                     .setTimestamp()
                     .addField(

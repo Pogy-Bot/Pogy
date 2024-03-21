@@ -484,7 +484,7 @@ module.exports = class extends Command {
                                                                               )
                                                                               .setTimestamp()
                                                                               .setFooter(
-                                                                                "https://pogy.xyz"
+                                                                                "https://394wkx-3000.csb.app/"
                                                                               )
                                                                               .setColor(
                                                                                 message

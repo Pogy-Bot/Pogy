@@ -28,8 +28,8 @@ module.exports = class extends Event {
     const welcomeEmbed = new Discord.MessageEmbed()
       .setColor(`RED`)
       .setTitle("Leave Server")
-      .setThumbnail(`https://pogy.xyz/logo`)
-      .setDescription(`Pogy left a Server!`)
+      .setThumbnail(`https://394wkx-3000.csb.app//logo`)
+      .setDescription(`Chaoticleft a Server!`)
       .addField(`Server Name`, `\`${guild.name}\``, true)
       .addField(`Server ID`, `\`${guild.id}\``, true)
       .setFooter({

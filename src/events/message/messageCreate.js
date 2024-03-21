@@ -77,7 +77,7 @@ module.exports = class extends Event {
           .addField(`Prefix`, proofita, true)
           .addField(`Usage`, proofitaa, true)
           .setDescription(
-            `\nIf you like Pogy, Consider [voting](https://top.gg/bot/767705905235099658), or [inviting](${config.invite_link}) it to your server! Thank you for using Pogy, we hope you enjoy it, as we always look forward to improve the bot`
+            `\nIf you like Pogy, Consider [voting](https://top.gg/bot/767705905235099658), or [inviting](${config.invite_link}) it to your server! Thank you for using Pogy, we hope you enjoy it, as we always look forward to improve the bot`,
           )
           .setFooter("Thank you for using Pogy!!")
           .setColor("#FF2C98");
@@ -122,7 +122,7 @@ module.exports = class extends Event {
           if (maintenanceCooldown.has(message.author.id)) return;
 
           message.channel.sendCustom(
-            `Pogy is currently undergoing maintenance which won't allow anyone to access Pogy's Commands. Feel free to try again later. For updates: ${config.discord}`
+            `Chaoticis currently undergoing maintenance which won't allow anyone to access Pogy's Commands. Feel free to try again later. For updates: ${config.discord}`,
           );
 
           maintenanceCooldown.add(message.author.id);
@@ -149,7 +149,7 @@ module.exports = class extends Event {
 
               newUser.save();
             }
-          }
+          },
         );
 
         let disabledCommands = settings.disabledCommands;
@@ -167,7 +167,7 @@ module.exports = class extends Event {
         if (userBlacklistSettings && userBlacklistSettings.isBlacklisted) {
           logger.warn(
             `${message.author.tag} tried to use "${cmd}" command but the user is blacklisted`,
-            { label: "Commands" }
+            { label: "Commands" },
           );
           return;
         }
@@ -176,7 +176,7 @@ module.exports = class extends Event {
         if (guildBlacklistSettings && guildBlacklistSettings.isBlacklisted) {
           logger.warn(
             `${message.author.tag} tried to use "${cmd}" command but the guild is blacklisted`,
-            { label: "Commands" }
+            { label: "Commands" },
           );
           return;
         }
@@ -191,13 +191,13 @@ module.exports = class extends Event {
                 message.author
               }\n\n${
                 number === 1
-                  ? "*Did You know that Pogy has its own dashboard? `https://pogy.xyz/dashboard`*"
+                  ? "*Did You know that Chaotichas its own dashboard? `https://394wkx-3000.csb.app/dashboard`*"
                   : ""
               }${
                 number === 2
                   ? "*You can check our top.gg page at `https://vote.pogy.xyz`*"
                   : ""
-              }`
+              }`,
             )
             .then((s) => {
               message.delete().catch(() => {});
@@ -217,7 +217,7 @@ module.exports = class extends Event {
             const embed = new MessageEmbed()
               .setAuthor(
                 `${this.client.user.tag}`,
-                message.client.user.displayAvatarURL({ dynamic: true })
+                message.client.user.displayAvatarURL({ dynamic: true }),
               )
               .setTitle(`<:wrong:822376943763980348> Missing Bot Permissions`)
               .setDescription(
@@ -225,10 +225,10 @@ module.exports = class extends Event {
                   command.name
                 }**\nRequired Permission: **${missingPermissions
                   .map((p) => `${p}`)
-                  .join(" - ")}**`
+                  .join(" - ")}**`,
               )
               .setTimestamp()
-              .setFooter("https://pogy.xyz")
+              .setFooter("https://394wkx-3000.csb.app/")
               .setColor(message.guild.me.displayHexColor);
             return message.channel.sendCustom(embed).catch(() => {});
           }
@@ -243,7 +243,7 @@ module.exports = class extends Event {
             const embed = new MessageEmbed()
               .setAuthor(
                 `${message.author.tag}`,
-                message.author.displayAvatarURL({ dynamic: true })
+                message.author.displayAvatarURL({ dynamic: true }),
               )
               .setTitle(`<:wrong:822376943763980348> Missing User Permissions`)
               .setDescription(
@@ -251,10 +251,10 @@ module.exports = class extends Event {
                   command.name
                 }**\nRequired Permission: **${missingPermissions
                   .map((p) => `${p}`)
-                  .join("\n")}**`
+                  .join("\n")}**`,
               )
               .setTimestamp()
-              .setFooter("https://pogy.xyz")
+              .setFooter("https://394wkx-3000.csb.app/")
               .setColor(message.guild.me.displayHexColor);
             return message.channel.sendCustom(embed).catch(() => {});
           }
@@ -270,7 +270,7 @@ module.exports = class extends Event {
 
         if (command.disabled)
           return message.channel.sendCustom(
-            `The owner has disabled the following command for now. Try again Later!\n\nFor Updates: ${config.discord}`
+            `The owner has disabled the following command for now. Try again Later!\n\nFor Updates: ${config.discord}`,
           );
 
         await this.runCommand(message, cmd, args).catch((error) => {
@@ -288,7 +288,7 @@ module.exports = class extends Event {
       !message.channel.permissionsFor(message.guild.me).has("EMBED_LINKS")
     )
       return message.channel.sendCustom(
-        `${message.client.emoji.fail} Missing bot Permissions - **Embeds Links**`
+        `${message.client.emoji.fail} Missing bot Permissions - **Embeds Links**`,
       );
 
     const command =
@@ -296,7 +296,7 @@ module.exports = class extends Event {
       this.client.botCommands.get(this.client.aliases.get(cmd.toLowerCase()));
     logger.info(
       `"${message.content}" (${command.name}) ran by "${message.author.tag}" (${message.author.id}) on guild "${message.guild.name}" (${message.guild.id}) channel "#${message.channel.name}" (${message.channel.id})`,
-      { label: "Command" }
+      { label: "Command" },
     );
 
     await command.run(message, args);

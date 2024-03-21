@@ -48,7 +48,7 @@ module.exports = class extends Command {
               .setTitle(`${fail} Clear Error`)
               .setDescription(`Please make sure I can view that channel`)
               .setTimestamp()
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setColor(message.guild.me.displayHexColor),
           ],
         });
@@ -74,7 +74,7 @@ module.exports = class extends Command {
               .setTitle(`${fail} Clear Error`)
               .setDescription(`I can only purge between 1 - 100 messages.`)
               .setTimestamp()
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setColor(message.guild.me.displayHexColor),
           ],
         });
@@ -92,7 +92,7 @@ module.exports = class extends Command {
                 `Please make sure I have the **Manage Messages** Permission!`
               )
               .setTimestamp()
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setColor(message.guild.me.displayHexColor),
           ],
         });

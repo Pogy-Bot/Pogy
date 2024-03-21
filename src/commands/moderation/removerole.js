@@ -39,7 +39,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Remove Role Error`)
             .setDescription("Please provide a valid role")
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -54,7 +54,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Remove Role Error`)
             .setDescription("The Provided user has an equal or higher role.")
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -81,7 +81,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Remove Role Error`)
             .setDescription("Please provide a valid role")
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -96,7 +96,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Remove Role Error`)
             .setDescription(`The provided user does not have the role.`)
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -185,7 +185,7 @@ module.exports = class extends Command {
                 `Unable to remove the User's Role, please check the role hiarchy and make sure My role is above the provided user.`
               )
               .setTimestamp()
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setColor(message.guild.me.displayHexColor),
           ],
         });
