@@ -3,12 +3,12 @@ const Command = require("../../structures/Command");
 const fs = require("fs");
 const path = require("path");
 
-module.exports = class SetLevelUpRoleCommand extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "setleveluprole",
       description: "Set the role to be given upon leveling up.",
-      category: "Admin",
+      category: "Leveling",
       cooldown: 5,
       guildOnly: true,
     });
@@ -23,7 +23,7 @@ module.exports = class SetLevelUpRoleCommand extends Command {
     }
 
     const guildId = message.guild.id;
-    const userDataPath = path.join(__dirname, "../../data/users.json");
+    const userDataPath = "./src/data/users.json";
 
     // Read the current user data
     let userData = {};
@@ -37,10 +37,13 @@ module.exports = class SetLevelUpRoleCommand extends Command {
     // Update the guild configuration
     userData.guilds = userData.guilds || {};
     userData.guilds[guildId] = userData.guilds[guildId] || {};
-    userData.guilds[guildId].levelUpRoles = userData.guilds[guildId].levelUpRoles || [];
+    userData.guilds[guildId].levelUpRoles =
+      userData.guilds[guildId].levelUpRoles || [];
 
     // Check if a role entry for the specified level already exists
-    const existingRoleIndex = userData.guilds[guildId].levelUpRoles.findIndex(role => role.level === parseInt(level));
+    const existingRoleIndex = userData.guilds[guildId].levelUpRoles.findIndex(
+      (role) => role.level === parseInt(level),
+    );
 
     if (existingRoleIndex !== -1) {
       // Update existing role entry

@@ -1,13 +1,12 @@
 const Command = require("../../structures/Command");
 const Discord = require("discord.js");
 const userData = require("../../data/users.json");
-const guildData = require("../../data/users.json");
-module.exports = class LeaderboardCommand extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "leaderboard",
       description: "Display the server's leaderboard based on levels.",
-      category: "Utility",
+      category: "Leveling",
       cooldown: 5,
       guildOnly: true,
     });
@@ -15,10 +14,10 @@ module.exports = class LeaderboardCommand extends Command {
 
   async run(message) {
     try {
-      const guild = message.guild;
-      const users = Object.values(userData.guilds[guild.id].users);
+      const guildId = message.guild.id;
+      const users = Object.values(userData.guilds[guildId].users);
       const sortedUsers = users.sort((a, b) => b.level - a.level).slice(0, 10); // Sort users by level and take the top 10
-      if (guildData[guildId] && guildData[guildId].levelingEnabled === false) {
+      if (userData[guildId] && userData[guildId].levelingEnabled === false) {
         return message.reply("Leveling is disabled for this server.");
       }
 
@@ -39,7 +38,7 @@ module.exports = class LeaderboardCommand extends Command {
 
         leaderboardEmbed.addField(
           `#${i + 1} - ${member ? `${user.username}` : "Unknown"}`,
-          `Level: ${user.level}`
+          `Level: ${user.level}`,
         );
       }
 

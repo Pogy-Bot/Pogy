@@ -16,12 +16,12 @@ function calculateRequiredXP(level) {
   }
 }
 
-module.exports = class RankCommand extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "rank",
       description: "Display your rank card.",
-      category: "Images",
+      category: "Leveling",
       cooldown: 5,
       guildOnly: true,
     });
@@ -33,7 +33,10 @@ module.exports = class RankCommand extends Command {
       const guild = message.guild;
       const user = userData.guilds[guild.id]?.users[targetUser.id];
 
-      if (guildData[guild.id] && guildData[guild.id].levelingEnabled === false) {
+      if (
+        guildData.guilds[guild.id] &&
+        guildData.guilds[guild.id].levelingEnabled === false
+      ) {
         return message.reply("Leveling is disabled for this server.");
       }
 
@@ -59,7 +62,7 @@ module.exports = class RankCommand extends Command {
 
       // Avatar
       const avatar = await loadImage(
-        targetUser.displayAvatarURL({ format: "png", size: 128 })
+        targetUser.displayAvatarURL({ format: "png", size: 128 }),
       );
       ctx.drawImage(avatar, 50, 50, 140, 150);
 
@@ -81,7 +84,7 @@ module.exports = class RankCommand extends Command {
       ctx.fillText(
         `XP till Level Up: ${requiredXPForNextLevel - user.xp}`,
         200,
-        200
+        200,
       );
 
       ctx.font = "24px Arial";
@@ -98,7 +101,7 @@ module.exports = class RankCommand extends Command {
           x + width,
           y + height,
           x + width - radius,
-          y + height
+          y + height,
         );
         this.lineTo(x + radius, y + height);
         this.quadraticCurveTo(x, y + height, x, y + height - radius);
@@ -112,10 +115,7 @@ module.exports = class RankCommand extends Command {
       ctx.save();
       ctx.roundRect(200, 250, progressWidth, 15, 7, true, false);
 
-      const attachment = new MessageAttachment(
-        canvas.toBuffer(),
-        "rank.png"
-      );
+      const attachment = new MessageAttachment(canvas.toBuffer(), "rank.png");
       message.channel.send({ files: [attachment] });
     } catch (error) {
       console.error("Error occurred:", error);

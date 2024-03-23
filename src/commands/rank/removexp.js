@@ -1,4 +1,3 @@
-// AddXPCommand.js
 const Command = require("../../structures/Command");
 const fs = require("fs");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
@@ -8,8 +7,8 @@ const userDataPath = "./src/data/users.json";
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      name: "addxp",
-      description: "Adds experience points to a user.",
+      name: "removexp",
+      description: "Removes experience points from a user.",
       category: "Leveling",
       cooldown: 3,
       userPermissions: ["MANAGE_MESSAGES"], // Require admin permissions
@@ -17,7 +16,7 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
-    const targetUser = message.mentions.users.first();
+    const targetUser = message.mentions.members.first();
     const amount = parseInt(args[1]);
 
     if (!targetUser || isNaN(amount) || amount <= 0) {
@@ -36,42 +35,45 @@ module.exports = class extends Command {
         });
     }
 
-    let nextLevelXP =
-      userData.guilds[message.guild.id].users[targetUser.id].level * 75;
-    let xpNeededForNextLevel =
-      userData.guilds[message.guild.id].users[targetUser.id].level *
-      nextLevelXP;
+    let previousLevelXP =
+      (userData.guilds[message.guild.id].users[targetUser.id].level - 1) * 75;
+    let xpNeededForPreviousLevel =
+      (userData.guilds[message.guild.id].users[targetUser.id].level - 1) *
+      previousLevelXP;
 
-    userData.guilds[message.guild.id].users[targetUser.id].xp += amount;
-    const previouslevel =
+    userData.guilds[message.guild.id].users[targetUser.id].xp -= amount;
+    const previousLevel =
       userData.guilds[message.guild.id].users[targetUser.id].level;
     while (
-      userData.guilds[message.guild.id].users[targetUser.id].xp >=
-      xpNeededForNextLevel
+      xpNeededForPreviousLevel >
+        userData.guilds[message.guild.id].users[targetUser.id].xp &&
+      !(xpNeededForPreviousLevel === 0)
     ) {
-      userData.guilds[message.guild.id].users[targetUser.id].level += 1;
-      nextLevelXP =
-        userData.guilds[message.guild.id].users[targetUser.id].level * 75;
-      xpNeededForNextLevel =
-        userData.guilds[message.guild.id].users[targetUser.id].level *
-        nextLevelXP;
+      userData.guilds[message.guild.id].users[targetUser.id].level -= 1;
+      previousLevelXP =
+        (userData.guilds[message.guild.id].users[targetUser.id].level - 1) * 75;
+      xpNeededForPreviousLevel =
+        (userData.guilds[message.guild.id].users[targetUser.id].level - 1) *
+        previousLevelXP;
     }
     const levelbed = new MessageEmbed()
       .setColor("#3498db")
-      .setTitle("Level Up!")
+      .setTitle("Level Lost!")
       .setAuthor(targetUser.user.username, targetUser.user.displayAvatarURL())
       .setDescription(
-        `You have reached level ${userData.guilds[message.guild.id].users[targetUser.id].level}! An increase of ${userData.guilds[message.guild.id].users[targetUser.id].level - previouslevel} ${userData.guilds[message.guild.id].users[targetUser.id].level - previouslevel == 1 ? "level!" : "levels!"}`,
+        `Unbelievable! You lost ${previousLevel - userData.guilds[message.guild.id].users[targetUser.id].level} ${previousLevel - userData.guilds[message.guild.id].users[targetUser.id].level == 1 ? "level!" : "levels!"}`,
       )
       .setFooter(
-        `XP: ${userData.guilds[message.guild.id].users[targetUser.id].xp}/${xpNeededForNextLevel}`,
+        `XP: ${
+          userData.guilds[message.guild.id].users[targetUser.id].xp
+        }/${xpNeededForPreviousLevel}`,
       );
 
     const row = new MessageActionRow().addComponents(
       new MessageButton()
-        .setCustomId("levelup")
-        .setLabel("Level Up")
-        .setStyle("SUCCESS"),
+        .setCustomId("levelloss")
+        .setLabel("Level Lost")
+        .setStyle("DANGER"),
     );
     message.channel.sendCustom({
       embeds: [levelbed],
@@ -80,6 +82,8 @@ module.exports = class extends Command {
 
     fs.writeFileSync(userDataPath, JSON.stringify(userData));
 
-    message.channel.send(`Added ${amount} XP to ${targetUser.user.username}.`);
+    message.channel.send(
+      `Removed ${amount} XP from ${targetUser.user.username}.`,
+    );
   }
 };
