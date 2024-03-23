@@ -1,7 +1,10 @@
 const Command = require("../../structures/Command");
 const Discord = require("discord.js");
 const userData = require("../../data/users.json");
+<<<<<<< HEAD
 const guildData = require("../../data/users.json");
+=======
+>>>>>>> c0564ba3a226d164d9d4ac3ee10620b3c1ce1efc
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
@@ -18,7 +21,7 @@ module.exports = class extends Command {
       const guildId = message.guild.id;
       const users = Object.values(userData.guilds[guildId].users);
       const sortedUsers = users.sort((a, b) => b.level - a.level).slice(0, 10); // Sort users by level and take the top 10
-      if (guildData[guildId] && guildData[guildId].levelingEnabled === false) {
+      if (userData[guildId] && userData[guildId].levelingEnabled === false) {
         return message.reply("Leveling is disabled for this server.");
       }
 

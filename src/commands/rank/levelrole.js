@@ -23,7 +23,7 @@ module.exports = class extends Command {
     }
 
     const guildId = message.guild.id;
-    const userDataPath = path.join(__dirname, "../../data/users.json");
+    const userDataPath = "./src/data/users.json";
 
     // Read the current user data
     let userData = {};

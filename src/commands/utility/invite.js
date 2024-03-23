@@ -1,6 +1,10 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
+<<<<<<< HEAD
+=======
+const client = require("../../../index.js");
+>>>>>>> c0564ba3a226d164d9d4ac3ee10620b3c1ce1efc
 
 module.exports = class extends Command {
   constructor(...args) {

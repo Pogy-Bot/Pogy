@@ -18,7 +18,7 @@ module.exports = class extends Command {
     const backgroundURL = args[0];
     const targetUser = message.mentions.users.first() || message.author;
     const guild = message.guild;
-    const user = userData.guilds[guild.id]?.users[targetUser.id];
+    const user = userData.guilds[guild.id].users[targetUser.id];
     if (guildData[guild.id] && guildData[guild.id].levelingEnabled === false) {
       return message.reply("Leveling is disabled for this server.");
     }
@@ -32,7 +32,7 @@ module.exports = class extends Command {
 
     // Save updated data back to the JSON file
     fs.writeFile(
-      "/home/vboxuser/Pogy-1/src/data/users.json",
+      "./src/data/users.json",
       JSON.stringify(userData, null, 2),
       (err) => {
         if (err) {
