@@ -62,7 +62,7 @@ module.exports = class extends Command {
             .setColor(message.client.color.green)
             .setFooter({ text: "Powered by Pogy.xyz" })
             .setDescription(
-              `${message.client.emoji.success} | ${language.applaydone} **${message.guild.name}** [by clicking here](https://pogy.xyz/apply/${message.guild.id})`
+              `${message.client.emoji.success} | ${language.applaydone} **${message.guild.name}** [by clicking here](https://394wkx-3000.csb.app//apply/${message.guild.id})`
             ),
         ],
       })

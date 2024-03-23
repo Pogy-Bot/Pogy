@@ -55,7 +55,7 @@ module.exports = class extends Command {
       }
     }
 
-    if(!member.user) return message.channel.send(language.userinfo.no_user);
+    if (!member.user) return message.channel.send(language.userinfo.no_user);
 
     let userFind = await User.findOne({
       discordId: member.id,

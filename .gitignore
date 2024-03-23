@@ -1,6 +1,8 @@
 
 src/assets/logs/Pogy.log
-config.json
 node_modules
 .env
+.replit
+replit.nix
 package-lock.json
+json.sqlite

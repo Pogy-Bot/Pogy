@@ -1,0 +1,26 @@
+<<<<<<< HEAD
+{"guilds":{"1147423890574934079":{"users":{"1067137336674107453":{"xp":0,"level":1,"messageTimeout":1710269560707,"username":"theeyum","background":"https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"},"969655699154042940":{"xp":46,"level":1,"messageTimeout":1705014604473,"username":"hotsuop","background":"https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"}},"levelingEnabled":true},"1198089659893420132":{"users":{"1067137336674107453":{"xp":78,"level":2,"messageTimeout":1706733319163,"username":"theeyum","background":"https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"}}}}}
+=======
+{
+  "guilds": {
+    "1147423890574934079": {
+      "users": {
+        "1067137336674107453": {
+          "xp": 96,
+          "level": 2,
+          "messageTimeout": 1705014434047,
+          "username": "theeyum",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        },
+        "969655699154042940": {
+          "xp": 46,
+          "level": 1,
+          "messageTimeout": 1705014604473,
+          "username": "hotsuop",
+          "background": "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"
+        }
+      }
+    }
+  }
+}
+>>>>>>> c0564ba3a226d164d9d4ac3ee10620b3c1ce1efc

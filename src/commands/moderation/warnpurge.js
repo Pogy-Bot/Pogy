@@ -14,7 +14,7 @@ module.exports = class extends Command {
       description: "Warns a member purge their specified messages",
       category: "Moderation",
       usage: "<user> [reason]",
-      examples: ["warnpurge @pogy 10."],
+      examples: ["warnpurge @Chaotic10."],
       guildOnly: true,
       botPermission: [
         "SEND_MESSAGES",
@@ -93,7 +93,7 @@ module.exports = class extends Command {
               `Please Provide a message count between 1 - 100 messages`
             )
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });

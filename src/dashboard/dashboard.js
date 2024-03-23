@@ -14,6 +14,7 @@ const Strategy = require("./passport").Strategy;
 const premiumWeb = new Discord.WebhookClient({
   url: jsonconfig.webhooks.premium,
 });
+const send = require(`../packages/logs/index.js`);
 const ejs = require("ejs");
 const ShortUrl = require("../database/models/ShortUrl.js");
 const randoStrings = require("../packages/randostrings.js");
@@ -282,9 +283,9 @@ module.exports = async (client) => {
     }
   );
 
-  // Features list redirect endpoint.
+  // commands
   app.get("/commands", (req, res) => {
-    res.send("This feature is not yet available.");
+    renderTemplate(res, req, "commands.ejs"); // made comamnds page work
   });
 
   app.get("/color", (req, res) => {
@@ -297,6 +298,9 @@ module.exports = async (client) => {
   app.get("/faq", (req, res) => {
     renderTemplate(res, req, "faq.ejs");
   });
+  app.get("/docs", (req, res) => {
+    renderTemplate(res, req, "docs.ejs");
+  });
 
   app.get("/stats", (req, res) => {
     renderTemplate(res, req, "stats.ejs");
@@ -305,7 +309,12 @@ module.exports = async (client) => {
   app.get("/variables", (req, res) => {
     renderTemplate(res, req, "variables.ejs");
   });
-
+  app.get("/transcript", (req, res) => {
+    renderTemplate(res, req, "maintranscript.ejs");
+  });
+  app.get("/manage", (req, res) => {
+    renderTemplate(res, req, "manage.ejs");
+  });
   app.get("/embeds", (req, res) => {
     renderTemplate(res, req, "embeds.ejs");
   });
@@ -370,6 +379,9 @@ module.exports = async (client) => {
 
   app.get("/premium", (req, res) => {
     renderTemplate(res, req, "premium.ejs");
+  });
+  app.get("/changelog", (req, res) => {
+    renderTemplate(res, req, "changelog.ejs");
   });
 
   // Index endpoint.
@@ -598,7 +610,7 @@ module.exports = async (client) => {
                 "dddd, MMMM Do YYYY HH:mm:ss"
               )}`
             )
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor("GREEN");
         } else {
           form.paste.push(`Question #${i + 1} - ${db.questions[i]}`);
@@ -613,7 +625,7 @@ module.exports = async (client) => {
                 "dddd, MMMM Do YYYY HH:mm:ss"
               )}`
             )
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor("GREEN");
         }
       }
@@ -622,7 +634,7 @@ module.exports = async (client) => {
           embeds: [
             new MessageEmbed()
               .setColor("GREEN")
-              .setFooter({ text: `Powered by https://pogy.xyz` })
+              .setFooter({ text: `Powered by https://394wkx-3000.csb.app/` })
               .setTitle(`Application #${ticketID}`)
               .setDescription(
                 `Hey ${
@@ -772,7 +784,7 @@ module.exports = async (client) => {
       .setColor(guild.me.displayHexColor);
 
     premiumWeb.send({
-      username: "Pogy Premium",
+      username: "ChaoticPremium",
       avatarURL: `${domain}/logo.png`,
       embeds: [embedPremium],
     });
@@ -845,7 +857,7 @@ module.exports = async (client) => {
 
     renderTemplate(res, req, "./new/mainpage.ejs", {
       guild: guild,
-      alert: `Dashboard was made by https://pogy.xyz`,
+      alert: `Dashboard was made by https://394wkx-3000.csb.app/`,
       join1: join1.length || 0,
       join2: join2.length || 0,
       leave1: leave1.length || 0,
@@ -1104,6 +1116,32 @@ module.exports = async (client) => {
         appSettings.dm = false;
       }
     }
+    const DiscordTranscripts = require("discord-transcripts");
+
+    app.get("/dashboard/transcript/:serverId/:channelId", async (req, res) => {
+      try {
+        const { serverId, channelId } = req.params;
+
+        // Replace 'YOUR_DISCORD_BOT_TOKEN' with your actual bot token
+        const botToken = "YOUR_DISCORD_BOT_TOKEN";
+
+        // Initialize the DiscordTranscripts with the bot token
+        const transcripts = new DiscordTranscripts(botToken);
+
+        // Fetch the channel's transcript for the provided server and channel IDs
+        const transcript = await transcripts.getChannelTranscript(
+          serverId,
+          channelId
+        );
+
+        // Render your transcript page using 'transcript' data
+        res.render("transcript", { transcript });
+      } catch (error) {
+        console.error("Error fetching transcript:", error);
+        // Handle the error, redirect, or render an error page
+        res.status(500).send("Error fetching transcript");
+      }
+    });
 
     await appSettings.save().catch(() => {});
     renderTemplate(res, req, "./new/mainapp.ejs", {
@@ -3178,15 +3216,6 @@ send
           });
           return;
         }
-      } else {
-        renderTemplate(res, req, "./new/mainreactionroles.ejs", {
-          guild: guild,
-          alert: `Please Provide me with a valid message ID`,
-          emojiArray: EmojiArray,
-          settings: storedSettings,
-        });
-
-        return;
       }
 
       const checkEmoji = data.emoji;
@@ -3506,13 +3535,13 @@ send
 
       const report = new MessageEmbed()
         .setColor("GREEN")
-        .setTitle(`Pogy Reports`)
+        .setTitle(`ChaoticReports`)
         .setDescription(
           `Someone just reported a user!\n\nUser: ${req.body.name}\`(${req.body.id})\`\nReported User: ${req.body.reported_user}\nReported User ID: ${req.body.reported_id}\nReason: \`${req.body.reason}\`\nProof: ${req.body.proof}`
         );
 
       reportEmbed.sendCustom({
-        username: "Pogy Reports",
+        username: "ChaoticReports",
         avatarURL: `${domain}/logo.png`,
         embeds: [report],
       });
@@ -3533,7 +3562,7 @@ send
         );
 
       contactEmbed.sendCustom({
-        username: "Pogy Contact",
+        username: "ChaoticContact",
         avatarURL: `${domain}/logo.png`,
         embeds: [contact],
       });

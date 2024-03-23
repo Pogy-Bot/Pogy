@@ -23,7 +23,7 @@ module.exports = class extends Command {
     const embed = new MessageEmbed()
       .setDescription(`\`${language.pinging}\``)
       .setColor(message.guild.me.displayHexColor)
-      .setFooter({ text: `Powered By https://pogy.xyz/` });
+      .setFooter({ text: `Powered By https://394wkx-3000.csb.app//` });
 
     const msg = await message.channel.sendCustom({ embeds: [embed] });
 

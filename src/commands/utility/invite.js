@@ -1,12 +1,17 @@
+const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
-const { MessageEmbed } = require("discord.js");
+<<<<<<< HEAD
+=======
+const client = require("../../../index.js");
+>>>>>>> c0564ba3a226d164d9d4ac3ee10620b3c1ce1efc
+
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "invite",
       aliases: ["inv"],
-      description: "Sends you Pogys invite link",
+      description: "Sends you Pogy's invite link",
       category: "Utility",
       cooldown: 3,
     });
@@ -21,10 +26,26 @@ module.exports = class extends Command {
 
     const embed = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
-      .setDescription(
-        `${language.invite}(https://pogy.xyz/invite) ${message.client.emoji.success}`
+      .setTitle("Invite Pogy")
+      .setURL("https://g5qzg2-5003.csb.app/invite")
+      .setThumbnail(message.client.user.displayAvatarURL())
+      .setDescription(language.invite)
+      .setFooter(
+        message.client.user.username,
+        message.client.user.displayAvatarURL(),
       );
+    const row = new MessageActionRow().addComponents(
+      new MessageButton()
+        .setLabel("Invite Pogy")
+        .setStyle("LINK")
+        .setURL("https://g5qzg2-5003.csb.app/invite"),
 
-    await message.channel.sendCustom({ embeds: [embed] });
+      new MessageButton()
+        .setCustomId("support")
+        .setLabel("More info")
+        .setStyle("SECONDARY"), // can be "PRIMARY", "SECONDARY", "SUCCESS", "DANGER", "LINK", "INFO"
+    );
+
+    await message.channel.send({ embeds: [embed], components: [row] });
   }
 };

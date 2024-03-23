@@ -1,8 +1,8 @@
 <h1 align="center">
  <br>
-  <a href="https://github.com/peterhanania"><img src="https://pogy.xyz/thumbnail.png"></a>
+  <a href="https://github.com/peterhanania"><img src="https://394wkx-3000.csb.app//thumbnail.png"></a>
   <br>
-  Pogy the Discord Bot [DJS V13]
+  the Discord Bot [DJS V13]
  <br>
 </h1>
 
@@ -42,7 +42,7 @@
 
 ## Pogy
 
-Pogy to bot discord, który jest tworzony od 2 lat. Kod był zepsuty, więc postanowiliśmy naprawić błędy i zrobić z niego wielofunkcyjnego bota w bibliotece discord.js v13! Kliknij [tutaj](https://pogy.xyz/invite) aby zaprosić oficjalnego bota na swój serwer! Również możesz dołączyć na officjalny [Serwer wspracia Pogy](https://pogy.xyz/support) aby otrzymać pomoc.
+to bot discord, który jest tworzony od 2 lat. Kod był zepsuty, więc postanowiliśmy naprawić błędy i zrobić z niego wielofunkcyjnego bota w bibliotece discord.js v13! Kliknij [tutaj](https://394wkx-3000.csb.app//invite) aby zaprosić oficjalnego bota na swój serwer! Również możesz dołączyć na officjalny [Serwer wspracia Pogy](https://394wkx-3000.csb.app//support) aby otrzymać pomoc.
 
 Jeżeli spodobało ci się repozytorium, zostaw po sobie gwiazdke ⭐
 
@@ -62,7 +62,7 @@ Jeżeli spodobało ci się repozytorium, zostaw po sobie gwiazdke ⭐
 - **reaction roles:** Reaction roles
 - **tickets:** System ticketów.
 
-- Pogy posiada następujące funckje na stronie
+- posiada następujące funckje na stronie
 
 - **Zapisy ticketów** + **Zapisy aplikacji**
 - **Kontakt & Zgłoszenia**
@@ -80,7 +80,7 @@ Jeżeli spodobało ci się repozytorium, zostaw po sobie gwiazdke ⭐
 </h1>
 
 **Webhooki: (dla developerów)**
-Dzięki Pogy możesz nawet zapisywać wszystko za pomocą webhooków bezpośrednio z pliku konfiguracyjnego!
+Dzięki możesz nawet zapisywać wszystko za pomocą webhooków bezpośrednio z pliku konfiguracyjnego!
 
 <h1 align="center">
   <a href="https://github.com/peterhanania"><img src="https://i.imgur.com/vbGuLdL.jpg"></a>
@@ -146,7 +146,7 @@ WYMAGANE
 - TOKEN=TOKEN TWOJEGO BOTA
 - MONGO=URL POŁĄCZENIA Z TWOIM MONGODB
 - SESSION_SECRET=RANDOMOWE LITERY CYFRY ITP ABY ZABEZPIECZYĆ SESJE (Ex. 6B4E8&G#%Z&##bqcyEL5)
-- AUTH_DOMAIN=Domena autoryzacji (Np. https://pogy.xyz lub http://localhost:3000) bez slasha na końcu.
+- AUTH_DOMAIN=Domena autoryzacji (Np. https://394wkx-3000.csb.app/ lub http://localhost:3000) bez slasha na końcu.
 - MAIN_CLIENT_ID=ID clienta twojej głównej aplikacji
 - AUTH_CLIENT_ID=ID clienta twojej aplikacji uwierzytelniania
 - AUTH_CLIENT_SECRET= SECRET key dla twojej aplikacji
@@ -166,11 +166,11 @@ OPTIONAL
 Będzie on składał się z 2 części, wywołania zwrotnego dla głównego identyfikatora klienta, a drugi dla identyfikatora klienta autoryzacji. Zrobiłem to, aby główny klient nie został ograniczony. Możesz użyć tego samego identyfikatora dla main_client_id i auth_client_id i umieścić 3 wywołania zwrotne w tej samej aplikacji.
 
 MAIN CLIENT ID
-twojadomena/thanks na przykład: https://pogy.xyz/thanks lub http://localhost:3000/thanks
-twojadomena/window na przykład: https://pogy.xyz/window lub http://localhost:3000/window
+twojadomena/thanks na przykład: https://394wkx-3000.csb.app//thanks lub http://localhost:3000/thanks
+twojadomena/window na przykład: https://394wkx-3000.csb.app//window lub http://localhost:3000/window
 
 AUTH CLIENT ID
-twojadomena/callback na przykład: https://pogy.xyz/callback lub http://localhost:3000/callback
+twojadomena/callback na przykład: https://394wkx-3000.csb.app//callback lub http://localhost:3000/callback
 
 
 **TOP.gg**
@@ -203,7 +203,7 @@ Wydany na licencji [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
 
 ## Wesprzyj
 
-Możesz przekazać Pogy i uczynić ją silniejszą niż kiedykolwiek [klikając tutaj](https://paypal.me/pogybot)!
+Możesz przekazać i uczynić ją silniejszą niż kiedykolwiek [klikając tutaj](https://paypal.me/pogybot)!
 
 ## Autorzy
 [Stare kredyty](https://github.com/peterhanania/pogy#credits)

@@ -43,7 +43,7 @@ module.exports = class extends Command {
     let properUsage = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
       .setDescription(`${language.reportt1.replace(/{prefix}/g, `${prefix}`)}`)
-      .setFooter({ text: "https://pogy.xyz/" });
+      .setFooter({ text: "https://394wkx-3000.csb.app//" });
 
     if (args.length < 1) {
       return message.channel.sendCustom(properUsage);
@@ -62,7 +62,7 @@ module.exports = class extends Command {
                 .setTitle(`${fail} ${language.missingUser}`)
                 .setDescription(`${language.missingUser1}`)
                 .setTimestamp()
-                .setFooter({ text: "https://pogy.xyz/" }),
+                .setFooter({ text: "https://394wkx-3000.csb.app//" }),
             ],
           })
           .setColor(message.guild.me.displayHexColor);
@@ -75,7 +75,7 @@ module.exports = class extends Command {
               .setDescription(
                 `${message.client.emoji.fail} ${language.report4}`
               )
-              .setFooter({ text: "https://pogy.xyz/" }),
+              .setFooter({ text: "https://394wkx-3000.csb.app//" }),
           ],
         });
       await Guild.findOne(
@@ -93,7 +93,7 @@ module.exports = class extends Command {
                 .setDescription(
                   `${message.client.emoji.success} ${language.report5}`
                 )
-                .setFooter({ text: "https://pogy.xyz/" }),
+                .setFooter({ text: "https://394wkx-3000.csb.app//" }),
             ],
           });
         }
@@ -111,7 +111,7 @@ module.exports = class extends Command {
                 .setTitle(`${fail} ${language.missingUser}`)
                 .setDescription(`${language.missingUser1}`)
                 .setTimestamp()
-                .setFooter({ text: "https://pogy.xyz/" }),
+                .setFooter({ text: "https://394wkx-3000.csb.app//" }),
             ],
           })
           .setColor(message.guild.me.displayHexColor);
@@ -125,7 +125,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(`${fail} ${channel} ${language.report6}`)
-              .setFooter({ text: "https://pogy.xyz/" }),
+              .setFooter({ text: "https://394wkx-3000.csb.app//" }),
           ],
         });
       await Guild.findOne(
@@ -168,7 +168,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report11}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -184,7 +184,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report12}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -199,7 +199,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report13}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -214,7 +214,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report14}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -226,7 +226,7 @@ module.exports = class extends Command {
           message.author.displayAvatarURL({ format: "png" })
         )
         .setDescription(`${language.report15}`)
-        .setFooter({ text: "https://pogy.xyz/" })
+        .setFooter({ text: "https://394wkx-3000.csb.app//" })
         .setTimestamp()
         .setColor(message.client.color.green);
 
@@ -312,7 +312,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report8}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -327,7 +327,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report9}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -345,7 +345,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report10}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -362,7 +362,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report11}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -378,7 +378,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report12}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -393,7 +393,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report13}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -408,7 +408,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report14}`)
-              .setFooter({ text: "https://pogy.xyz/" })
+              .setFooter({ text: "https://394wkx-3000.csb.app//" })
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -420,7 +420,7 @@ module.exports = class extends Command {
           message.author.displayAvatarURL({ format: "png" })
         )
         .setDescription(`${language.report15}`)
-        .setFooter({ text: "https://pogy.xyz/" })
+        .setFooter({ text: "https://394wkx-3000.csb.app//" })
         .setTimestamp()
         .setColor(message.client.color.green);
 
