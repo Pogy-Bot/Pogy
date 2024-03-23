@@ -2,11 +2,13 @@
 
 const Command = require("../../structures/Command");
 const fs = require("fs");
+const userData = require("../../data/users.json");
+let toggle = true;
 
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      name: "levelingtoggle",
+      name: "leveltoggle",
       description: "Enable or disable leveling for this server.",
       category: "Leveling",
       cooldown: 3,
@@ -16,31 +18,10 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
-    const guildId = message.guild?.id;
+    const guildId = message.guild.id;
 
     if (!guildId) {
       return message.reply("Guild ID is undefined.");
-    }
-
-    // Load the guild data
-    const guildDataPath = "/workspaces/Pogy/src/data/users.json";
-    let guildData = {};
-
-    try {
-      guildData = require(guildDataPath);
-    } catch (error) {
-      console.error("Error loading guild data:", error);
-      return message.reply("Error loading guild data. Please try again later.");
-    }
-
-    // Check if the guild is defined in the data
-    if (!guildData[guildId]) {
-      guildData[guildId] = {};
-    }
-
-    // Check if levelingEnabled property is defined
-    if (guildData[guildId].levelingEnabled === undefined) {
-      guildData[guildId].levelingEnabled = true;
     }
 
     // Check if args is not empty
@@ -52,16 +33,16 @@ module.exports = class extends Command {
 
     // Update the guild's levelingEnabled property
     if (action === "enable") {
-      guildData[guildId].levelingEnabled = true;
+      toggle = true;
+      userData.guilds[guildId].levelingEnabled = toggle;
       message.reply("Leveling system enabled for this server.");
     } else if (action === "disable") {
-      guildData[guildId].levelingEnabled = false;
+      toggle = false;
+      userData.guilds[guildId].levelingEnabled = toggle;
       message.reply("Leveling system disabled for this server.");
     } else {
       return message.reply("Invalid action. Use `enable` or `disable`.");
     }
-
-    // Save the updated guild data back to the JSON file
-    fs.writeFileSync(guildDataPath, JSON.stringify(guildData, null, 2));
+    fs.writeFileSync("./src/data/users.json", JSON.stringify(userData));
   }
 };

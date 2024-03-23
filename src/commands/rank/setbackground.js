@@ -7,7 +7,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "setbackground",
       description: "Set your preferred background.",
-      category: "Configuration",
+      category: "Leveling",
       cooldown: 3,
       usage: "<background URL>",
       guildOnly: true,

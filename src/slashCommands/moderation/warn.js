@@ -116,7 +116,7 @@ module.exports = {
       if (
         logging &&
         logging.moderation.warn_action &&
-        logging.moderation.waran_action !== "1"
+        logging.moderation.warn_action != "1"
       ) {
         if (logging.moderation.warn_action === "2") {
           dmEmbed = `${interaction.client.emoji.fail} | You've been warned in **${interaction.guild.name}**`;

@@ -36,19 +36,18 @@ function trimArray(arr, maxLen = 10) {
   return arr;
 }
 
-module.exports.getAllFiles = function getAllFiles(dirPath, arrayOfFiles)
-  {
-    const files = fs.readdirSync(dirPath);
+module.exports.getAllFiles = function getAllFiles(dirPath, arrayOfFiles) {
+  const files = fs.readdirSync(dirPath);
 
-    arrayOfFiles = arrayOfFiles || [];
-    files.forEach(function (file) {
-      if (fs.statSync(dirPath + "/" + file).isDirectory())
-        arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
-      else arrayOfFiles.push(path.join(dirPath, "/", file));
-    });
+  arrayOfFiles = arrayOfFiles || [];
+  files.forEach(function (file) {
+    if (fs.statSync(dirPath + "/" + file).isDirectory())
+      arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
+    else arrayOfFiles.push(path.join(dirPath, "/", file));
+  });
 
-    return arrayOfFiles;
-  };
+  return arrayOfFiles;
+};
 
 /**
  * Trims joined array to specified size
@@ -112,7 +111,7 @@ async function getCaseNumber(client, guild, modLog) {
         m.embeds[0].type == "rich" &&
         m.embeds[0].footer &&
         m.embeds[0].footer.text &&
-        m.embeds[0].footer.text.startsWith("Case")
+        m.embeds[0].footer.text.startsWith("Case"),
     )
     .first();
 
@@ -149,8 +148,8 @@ async function createProfile(user, guild) {
       lastMonthly: new Date() - 2592000000,
       lastBeg: new Date() - 180000,
       lastRobbed: new Date() - 600000,
-      passiveUpdated: new Date()
-    })
+      passiveUpdated: new Date(),
+    });
     newProfile.save().catch(() => {});
     return true;
   }

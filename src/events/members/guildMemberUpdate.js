@@ -6,8 +6,8 @@ const Maintenance = require("../../database/schemas/maintenance");
 const cooldown = new Set();
 
 module.exports = class extends Event {
-  async run(oldMember, newMember) {
-    const logging = await Logging.findOne({ guildId: oldMember.guild.id });
+  async run(message, oldMember, newMember) {
+    const logging = await Logging.findOne({ guildId: message.guild.id });
 
     const maintenance = await Maintenance.findOne({
       maintenance: "maintenance",
@@ -17,34 +17,32 @@ module.exports = class extends Event {
 
     if (logging) {
       if (logging.member_events.toggle == "true") {
-        const channelEmbed = await oldMember.guild.channels.cache.get(
-          logging.member_events.channel
+        const channelEmbed = await message.guild.channels.cache.get(
+          logging.member_events.channel,
         );
 
         if (channelEmbed) {
           if (logging.member_events.role_update == "true") {
             let colorGreen = logging.member_events.color;
             if (colorGreen == "#000000")
-              colorGreen = oldMember.client.color.green;
+              colorGreen = message.client.color.green;
             let colorRed = logging.member_events.color;
-            if (colorRed == "#000000") colorRed = oldMember.client.color.red;
+            if (colorRed == "#000000") colorRed = message.client.color.red;
             const role = oldMember.roles.cache
               .difference(newMember.roles.cache)
               .first();
 
             if (oldMember.roles.cache.size < newMember.roles.cache.size) {
               const roleAddembed = new discord.MessageEmbed()
-                .setAuthor(
-                  `${newMember.user.tag} | Role add`,
-                  newMember.user.displayAvatarURL({ dynamic: true })
-                )
+                .setAuthor({
+                  name: `${newMember.user.tag} | Role Add`,
+                  iconURL: newMember.user.displayAvatarURL({ dynamic: true }),
+                })
                 .setTimestamp()
                 .setColor(colorGreen)
-                .setFooter({ text: `ID: ${newMember.id}` })
                 .setDescription(
-                  `**Added Roles**\n Role: ${role}\n User: ${newMember}\n\n ${newMember} Was given the **${role.name}** Role.`
+                  `**Added Roles**\n Role: ${role}\n User: ${newMember}\n\n ${newMember} Was given the **${role.name}** Role.`,
                 );
-
               if (
                 channelEmbed &&
                 channelEmbed.viewable &&
@@ -64,13 +62,13 @@ module.exports = class extends Event {
               const roleRemoveembed = new discord.MessageEmbed()
                 .setAuthor(
                   `${newMember.user.tag} | Role Remove`,
-                  newMember.user.displayAvatarURL({ dynamic: true })
+                  newMember.user.displayAvatarURL({ dynamic: true }),
                 )
                 .setTimestamp()
                 .setColor(colorRed)
                 .setFooter({ text: `ID: ${newMember.id}` })
                 .setDescription(
-                  `**Removed Roles**\n Role: ${role}\n User: ${newMember}\n\n The **${role.name}** role was removed from ${newMember}`
+                  `**Removed Roles**\n Role: ${role}\n User: ${newMember}\n\n The **${role.name}** role was removed from ${newMember}`,
                 );
 
               if (
@@ -80,7 +78,9 @@ module.exports = class extends Event {
                   .permissionsFor(newMember.guild.me)
                   .has(["SEND_MESSAGES", "EMBED_LINKS"])
               ) {
-                channelEmbed.send({embeds: [roleRemoveembed]}).catch(() => {});
+                channelEmbed
+                  .send({ embeds: [roleRemoveembed] })
+                  .catch(() => {});
                 cooldown.add(newMember.guild.id);
                 setTimeout(() => {
                   cooldown.delete(newMember.guild.id);
@@ -92,7 +92,7 @@ module.exports = class extends Event {
             if (oldMember.nickname != newMember.nickname) {
               let colorYellow = logging.member_events.color;
               if (colorYellow == "#000000")
-                colorYellow = oldMember.client.color.yellow;
+                colorYellow = message.client.color.yellow;
 
               const oldNickname = oldMember.nickname || "`None`";
               const newNickname = newMember.nickname || "`None`";
@@ -100,13 +100,13 @@ module.exports = class extends Event {
               const nicknameEmbed = new discord.MessageEmbed()
                 .setAuthor(
                   `${newMember.user.tag} | Nickname Update`,
-                  newMember.user.displayAvatarURL({ dynamic: true })
+                  newMember.user.displayAvatarURL({ dynamic: true }),
                 )
                 .setTimestamp()
                 .setFooter({ text: `ID: ${newMember.id}` })
                 .setColor(colorYellow)
                 .setDescription(
-                  `**Nickname Update**\n ${newMember}'s **nickname** was changed.`
+                  `**Nickname Update**\n ${newMember}'s **nickname** was changed.`,
                 )
                 .addField("Nickname", `${oldNickname} --> ${newNickname}`);
 
@@ -139,13 +139,13 @@ module.exports = class extends Event {
       } else {
         const user = await Nickname.findOne({
           discordId: newMember.id,
-          guildId: oldMember.guild.id,
+          guildId: message.guild.id,
         });
 
         if (!user) {
           const newUser = new Nickname({
             discordId: newMember.id,
-            guildId: oldMember.guild.id,
+            guildId: message.guild.id,
           });
           newUser.nicknames.push(newMember.nickname);
           newUser.save();

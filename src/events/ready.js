@@ -7,14 +7,13 @@ const Guild = require("../database/schemas/Guild");
 const { WebhookClient } = require("discord.js");
 const premiumrip = new WebhookClient({ url: config.webhooks.premium }); // make sure webhook link is correct!!
 const Message = require("../utils/other/message");
-const { Handler } = require("discord-slash-command-handler");
 module.exports = class extends Event {
   async run() {
     Message(this.client);
 
     logger.info(
       `${this.client.user.tag} is ready to serve ${this.client.guilds.cache.size} guilds with ${this.client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)} members.`,
-      { label: "Ready" }
+      { label: "Ready" },
     );
 
     setInterval(async () => {
@@ -32,14 +31,14 @@ module.exports = class extends Event {
             const guildPremium = this.client.guilds.cache.get(result.guildId);
             if (guildPremium) {
               const user = await this.client.users.cache.get(
-                result.premium.redeemedBy.id
+                result.premium.redeemedBy.id,
               );
 
               if (user) {
                 const embed = new Discord.MessageEmbed()
                   .setColor(this.client.color.red)
                   .setDescription(
-                    `Hey ${user.username}, Premium in ${guildPremium.name} has Just expired :(\n\n__You can you re-new your server here! [https://394wkx-3000.csb.app//premium](https://394wkx-3000.csb.app//premium)__\n\nThank you for purchasing premium Previously! We hope you enjoyed what you purchased.\n\n**- Pogy**`
+                    `Hey ${user.username}, Premium in ${guildPremium.name} has Just expired :(\n\n__You can you re-new your server here! [https://394wkx-3000.csb.app//premium](https://394wkx-3000.csb.app//premium)__\n\nThank you for purchasing premium Previously! We hope you enjoyed what you purchased.\n\n**- Pogy**`,
                   );
 
                 user.send({ embeds: [embed] }).catch(() => {});
@@ -51,7 +50,7 @@ module.exports = class extends Event {
                     guildPremium.name
                   } | **${guildPremium.id}**\nRedeemed by: ${
                     user.tag || "Unknown"
-                  }\n**Plan:** ${result.premium.plan}`
+                  }\n**Plan:** ${result.premium.plan}`,
                 )
                 .setColor("RED")
                 .setTimestamp();

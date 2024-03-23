@@ -55,9 +55,6 @@ module.exports = {
           .catch(() => {});
       }
 
-      const mentionedPosition = mentionedMember.roles.highest.position;
-      const memberPosition = interaction.member.roles.highest.position;
-
       if (
         mentionedMember.roles.highest.position >=
         interaction.member.roles.highest.position
@@ -179,15 +176,15 @@ module.exports = {
           .catch(() => {});
       }
 
-      let toReset = warnDoc.warningID.length;
+      let toReset = warnDoc.warningID.indexOf(warnID);
 
-      //warnDoc.memberID.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1)
-      //warnDoc.guildID.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1)
-      warnDoc.warnings.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1);
-      warnDoc.warningID.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1);
-      warnDoc.modType.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1);
-      warnDoc.moderator.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1);
-      warnDoc.date.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1);
+      //warnDoc.memberID.splice(toReset, 1)
+      //warnDoc.guildID.splice(toReset, 1)
+      warnDoc.warnings.splice(toReset, 1);
+      warnDoc.warningID.splice(toReset, 1);
+      warnDoc.modType.splice(toReset, 1);
+      warnDoc.moderator.splice(toReset, 1);
+      warnDoc.date.splice(toReset, 1);
 
       await warnDoc.save().catch((err) => console.log(err));
 

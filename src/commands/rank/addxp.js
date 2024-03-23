@@ -1,16 +1,18 @@
 // AddXPCommand.js
 const Command = require("../../structures/Command");
-const userData = require("../../../src/data/users.json"); // Replace with your path
 const fs = require("fs");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const userData = require("../../data/users.json");
+const userDataPath = "./src/data/users.json";
 
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "addxp",
       description: "Adds experience points to a user.",
-      category: "XP",
+      category: "Leveling",
       cooldown: 3,
-      userPermissions: ["ADMINISTRATOR"], // Require admin permissions
+      userPermissions: ["MANAGE_MESSAGES"], // Require admin permissions
     });
   }
 
@@ -24,26 +26,60 @@ module.exports = class extends Command {
       );
     }
 
-    if (!userData.guilds[message.guild.id].users[targetUser.id]) {
-      userData.guilds[message.guild.id].users[targetUser.id] = {
-        xp: 0,
-        level: 1,
-      };
+    if (!userData.guilds[message.guild.id]?.users[targetUser.id]) {
+      return message
+        .reply("This user doesn't have a level profile!")
+        .then((s) => {
+          setTimeout(() => {
+            s.delete();
+          }, 5000);
+        });
     }
 
+    let nextLevelXP =
+      userData.guilds[message.guild.id].users[targetUser.id].level * 75;
+    let xpNeededForNextLevel =
+      userData.guilds[message.guild.id].users[targetUser.id].level *
+      nextLevelXP;
+
     userData.guilds[message.guild.id].users[targetUser.id].xp += amount;
+    const previouslevel =
+      userData.guilds[message.guild.id].users[targetUser.id].level;
+    while (
+      userData.guilds[message.guild.id].users[targetUser.id].xp >=
+      xpNeededForNextLevel
+    ) {
+      userData.guilds[message.guild.id].users[targetUser.id].level += 1;
+      nextLevelXP =
+        userData.guilds[message.guild.id].users[targetUser.id].level * 75;
+      xpNeededForNextLevel =
+        userData.guilds[message.guild.id].users[targetUser.id].level *
+        nextLevelXP;
+    }
+    const levelbed = new MessageEmbed()
+      .setColor("#3498db")
+      .setTitle("Level Up!")
+      .setAuthor(targetUser.user.username, targetUser.user.displayAvatarURL())
+      .setDescription(
+        `You have reached level ${userData.guilds[message.guild.id].users[targetUser.id].level}! An increase of ${userData.guilds[message.guild.id].users[targetUser.id].level - previouslevel} ${userData.guilds[message.guild.id].users[targetUser.id].level - previouslevel == 1 ? "level!" : "levels!"}`,
+      )
+      .setFooter(
+        `XP: ${userData.guilds[message.guild.id].users[targetUser.id].xp}/${xpNeededForNextLevel}`,
+      );
 
-    // Save updated data back to the JSON file
-    // (Assuming your code for saving data is similar to what you provided previously)
-    // Replace this with your logic to save updated data to the JSON file
-    fs.writeFile(
-      "src/data/users.json",
-      JSON.stringify(userData, null, 2),
-      (err) => {
-        if (err) console.error("Error writing file:", err);
-      },
+    const row = new MessageActionRow().addComponents(
+      new MessageButton()
+        .setCustomId("levelup")
+        .setLabel("Level Up")
+        .setStyle("SUCCESS"),
     );
+    message.channel.sendCustom({
+      embeds: [levelbed],
+      components: [row],
+    });
 
-    message.channel.send(`Added ${amount} XP to ${targetUser.tag}.`);
+    fs.writeFileSync(userDataPath, JSON.stringify(userData));
+
+    message.channel.send(`Added ${amount} XP to ${targetUser.user.username}.`);
   }
 };

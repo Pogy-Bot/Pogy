@@ -18,12 +18,12 @@ module.exports = class extends Command {
       new MessageButton()
         .setLabel("Dashboard")
         .setStyle("LINK")
-        .setURL("https://v2.pogy.xyz")
+        .setURL("https://g5qzg2-5003.csb.app"),
     );
 
     const dashembed = new MessageEmbed()
       .setTitle("Need the bot's dashboard link? Here you go!")
-      .setDescription("https://v2.pogy.xyz")
+      .setDescription("https://g5qzg2-5003.csb.app")
       .setColor("RANDOM")
       .setFooter({ text: `Requested by ${message.author.username}` })
       .setTimestamp();

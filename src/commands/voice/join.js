@@ -5,8 +5,8 @@ const { joinVoiceChannel, VoiceConnectionStatus } = require('@discordjs/voice');
 module.exports = class EmptyCommand extends Command {
   constructor(...args) {
     super(...args, {
-      name: "joinvc", // Replace with your command name
-      aliases: [], // Add any aliases for your command
+      name: "join", // Replace with your command name
+      aliases: ["joinvc", "vc", "connect", "jvc"], // Add any aliases for your command
       description: "Makes the bot join your current voice channel.",
       category: "Voice", // Adjust the category as needed
       cooldown: 5,

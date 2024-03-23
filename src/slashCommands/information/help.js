@@ -74,15 +74,15 @@ module.exports = {
       { name: `${emojis.moderation} Moderation`, value: "Moderation Category", inline: true },
       { name: `${emojis.owner} Owner`, value: "Owner Category", inline: true },
       { name: `${emojis.utility} Utility`, value: "Utility Category", inline: true },
-      { name: "\u200b", value: "**[Invite](https://invite.Pogy.ml) | " + "[Support Server](https://Pogy.ml/support) | " + "[Dashboard](https://Pogy.ml/dashboard)**" }
+      { name: "\u200b", value: "**[Invite](https://g5qzg2-5003.csb.app/invite) | " + "[Support Server](https://g5qzg2-5003.csb.app/support) | " + "[Dashboard](https://g5qzg2-5003.csb.app/dashboard)**" }
     )
     .setColor("GREEN")
-    .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
+    .setFooter({ text: `Requested by ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
     .setTimestamp();
     
     let editEmbed = new MessageEmbed()
       .addFields(
-          { name: "\u200b", value: "**[Invite](https://invite.Pogy.ml) | " + "[Support Server](https://Pogy.ml/support) | " + "[Dashboard](https://Pogy.ml/dashboard)**" }
+          { name: "\u200b", value: "**[Invite](https://q5qzg2-5003.csb.app/invite) | " + "[Support Server](https://q5qzg2-5003.csb.app/support) | " + "[Dashboard](https://g5qzg2-5003.csb.app/dashboard)**" }
         )
       .setTimestamp();
 

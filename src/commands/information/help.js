@@ -45,7 +45,7 @@ module.exports = class extends Command {
       new MessageButton()
         .setLabel("Invite Pogy")
         .setStyle("LINK")
-        .setURL("https://394wkx-3000.csb.app//invite"),
+        .setURL("https://g5qzg2-5003.csb.app/invite"),
 
       new MessageButton()
         .setCustomId("info")

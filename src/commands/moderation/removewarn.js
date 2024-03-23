@@ -37,7 +37,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setAuthor(
               `${message.author.tag}`,
-              message.author.displayAvatarURL({ dynamic: true })
+              message.author.displayAvatarURL({ dynamic: true }),
             )
             .setDescription(`${client.emoji.fail} | ${language.banUserValid}`)
             .setTimestamp(message.createdAt)
@@ -55,7 +55,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setAuthor(
               `${message.author.tag}`,
-              message.author.displayAvatarURL({ dynamic: true })
+              message.author.displayAvatarURL({ dynamic: true }),
             )
             .setDescription(`${client.emoji.fail} | ${language.rmPosition}`)
             .setTimestamp(message.createdAt)
@@ -81,7 +81,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setAuthor(
               `${message.author.tag}`,
-              message.author.displayAvatarURL({ dynamic: true })
+              message.author.displayAvatarURL({ dynamic: true }),
             )
             .setDescription(`${client.emoji.fail} | ${language.rmNoWarning}`)
             .setTimestamp(message.createdAt)
@@ -97,7 +97,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setAuthor(
               `${message.author.tag}`,
-              message.author.displayAvatarURL({ dynamic: true })
+              message.author.displayAvatarURL({ dynamic: true }),
             )
             .setDescription(`${client.emoji.fail} | ${language.rmWarnInvalid} `)
             .setTimestamp(message.createdAt)
@@ -113,7 +113,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setAuthor(
               `${message.author.tag}`,
-              message.author.displayAvatarURL({ dynamic: true })
+              message.author.displayAvatarURL({ dynamic: true }),
             )
             .setDescription(`${client.emoji.fail} | ${language.rmWarnInvalid} `)
             .setTimestamp(message.createdAt)
@@ -127,7 +127,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setAuthor(
               `${message.author.tag}`,
-              message.author.displayAvatarURL({ dynamic: true })
+              message.author.displayAvatarURL({ dynamic: true }),
             )
             .setDescription(`${client.emoji.fail} | ${language.rmWarnInvalid} `)
             .setTimestamp(message.createdAt)
@@ -141,7 +141,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setAuthor(
               `${message.author.tag}`,
-              message.author.displayAvatarURL({ dynamic: true })
+              message.author.displayAvatarURL({ dynamic: true }),
             )
             .setDescription(`${client.emoji.fail} | ${language.rmWarnInvalid} `)
             .setTimestamp(message.createdAt)
@@ -151,13 +151,13 @@ module.exports = class extends Command {
     }
     let toReset = warnDoc.warningID.length;
 
-    //warnDoc.memberID.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1)
-    //warnDoc.guildID.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1)
-    warnDoc.warnings.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1);
-    warnDoc.warningID.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1);
-    warnDoc.modType.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1);
-    warnDoc.moderator.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1);
-    warnDoc.date.splice(toReset - 1, toReset !== 1 ? toReset - 1 : 1);
+    //warnDoc.memberID.splice(toReset - 1, warnDoc.warningID.indexOf(warningID))
+    //warnDoc.guildID.splice(toReset - 1, warnDoc.warningID.indexOf(warningID))
+    warnDoc.warnings.splice(toReset - 1, warnDoc.warningID.indexOf(warningID));
+    warnDoc.warningID.splice(toReset - 1, warnDoc.warningID.indexOf(warningID));
+    warnDoc.modType.splice(toReset - 1, warnDoc.warningID.indexOf(warningID));
+    warnDoc.moderator.splice(toReset - 1, warnDoc.warningID.indexOf(warningID));
+    warnDoc.date.splice(toReset - 1, warnDoc.warningID.indexOf(warningID));
 
     await warnDoc.save().catch((err) => console.log(err));
 
@@ -171,7 +171,7 @@ module.exports = class extends Command {
           logging && logging.moderation.include_reason === "true"
             ? `\n\n**Reason:** ${reason}`
             : ``
-        }`
+        }`,
       )
       .setColor(message.client.color.green);
 
@@ -192,10 +192,10 @@ module.exports = class extends Command {
       }
 
       const role = message.guild.roles.cache.get(
-        logging.moderation.ignore_role
+        logging.moderation.ignore_role,
       );
       const channel = message.guild.channels.cache.get(
-        logging.moderation.channel
+        logging.moderation.channel,
       );
 
       if (logging.moderation.toggle == "true") {
@@ -205,7 +205,7 @@ module.exports = class extends Command {
               !role ||
               (role &&
                 !message.member.roles.cache.find(
-                  (r) => r.name.toLowerCase() === role.name
+                  (r) => r.name.toLowerCase() === role.name,
                 ))
             ) {
               if (logging.moderation.warns == "true") {
@@ -218,7 +218,7 @@ module.exports = class extends Command {
                 const logEmbed = new MessageEmbed()
                   .setAuthor(
                     `Action: \`Remove Warn\` | ${mentionedMember.user.tag} | Case #${logcase}`,
-                    mentionedMember.user.displayAvatarURL({ format: "png" })
+                    mentionedMember.user.displayAvatarURL({ format: "png" }),
                   )
                   .addField("User", `${mentionedMember}`, true)
                   .addField("Moderator", `${message.member}`, true)

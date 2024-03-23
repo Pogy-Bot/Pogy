@@ -4,6 +4,5 @@ node_modules
 .env
 .replit
 replit.nix
-src/commands/utility/rank.js
 package-lock.json
 json.sqlite

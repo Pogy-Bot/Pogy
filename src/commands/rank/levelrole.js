@@ -8,7 +8,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "setleveluprole",
       description: "Set the role to be given upon leveling up.",
-      category: "Admin",
+      category: "Leveling",
       cooldown: 5,
       guildOnly: true,
     });

@@ -1,13 +1,18 @@
 const Command = require("../../structures/Command");
-const sharedPlayer = null;
-const {MessageEmbed} = require('discord.js');
-const { joinVoiceChannel, VoiceConnectionStatus,createAudioPlayer, VoiceState } = require('@discordjs/voice'); // Import the voice function
+let sharedPlayer = null;
+const { MessageEmbed } = require("discord.js");
+const {
+  joinVoiceChannel,
+  VoiceConnectionStatus,
+  createAudioPlayer,
+  VoiceState,
+} = require("@discordjs/voice"); // Import the voice function
 // Function to access or create the shared player
 const ytdl = require("ytdl-core");
 async function getSharedPlayer(message) {
   const connection = message.member.voice.channel.connection;
   if (!connection) {
-    return message.channel.send('Not connected to a voice channel.');
+    return message.channel.send("Not connected to a voice channel.");
   }
 
   if (!sharedPlayer) {
@@ -17,7 +22,7 @@ async function getSharedPlayer(message) {
 
   return sharedPlayer;
 }
-module.exports = class StopCommand extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "stop",
@@ -31,7 +36,8 @@ module.exports = class StopCommand extends Command {
   run(message) {
     try {
       const guildId = message.guild.id;
-      const { connection, player, nowPlayingMessage } = message.guild.playerInfo || {};
+      const { connection, player, nowPlayingMessage } =
+        message.guild.playerInfo || {};
 
       if (!connection || !player || !nowPlayingMessage) {
         return message.channel.send("Not currently playing any song.");
@@ -46,7 +52,6 @@ module.exports = class StopCommand extends Command {
 
       // Remove player information from the guild map
       delete message.guild.playerInfo;
-
     } catch (error) {
       console.error("Error stopping playback:", error);
       message.channel.send("An error occurred while stopping playback.");
