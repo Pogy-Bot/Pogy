@@ -1,13 +1,14 @@
+# the Discord Bot [DJS V13] 🤖
 
-<h1 align="center">
- <br>
+<p align="center">
+  <br>
   <a href="https://github.com/peterhanania"><img src="https://dev.pogy.gg/favicon.ico"></a>
   <br>
-  Pogy the Discord Bot [DJS V13]
- <br>
-</h1>
+  Pogy, a fully customizable bot built with 147 commands, 11 categories, and a dashboard using discord.js v13 🚀
+  <br>
+</p>
 
-<h3 align=center>A fully customizable bot built with 147 commands, 11 categories and a dashboard using discord.js v13</h3>
+<h3 align=center>Explore the possibilities with Pogy! 🌐</h3>
 
 [README-hindi.md](/README-hi-HI.md)
 [README-polish](/README-pl-PL.md)
@@ -44,18 +45,26 @@
   <a href="#credits">Credits</a>
 </p>
 
-## Community Updates
-[Pogy + Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
+## Community Updates 🌟
+[+ More dashboard pages and commands by Hotsuop](https://github.com/hotsu0p/Pogy)
 
-## About
+[+ Slash commands by eYuM](https://github.com/Pogy-Bot/Pogy/tree/eyum-contributions)
+## Latest commit!
+✨added commands lock and unlock
+*https://394wkx-3000.csb.app/changelog*
+## Docs 📚
+https://394wkx-3000.csb.app/docs
+*these are pretty old for now*
+*will update later*
+## About 🤔
 
-Pogy is a discord bot that we made exactly 2 years ago, the code was broken so we decided to fix the bugs and make it a multipurpose discord.js v13 bot! You can click [this](https://pogy.xyz/invite) link to invite the official Bot! Also, you can join the official [Pogy's Support Server](https://pogy.xyz/support) for assistance.
+is a discord bot that we made exactly 2 years ago, the code was broken, so we decided to fix the bugs and make it a multipurpose discord.js v13 bot! You can click [this](https://394wkx-3000.csb.app//invite) link to invite the official Bot! Also, you can join the official [Pogy's Support Server](https://394wkx-3000.csb.app//support) for assistance.
 
 If you liked this repository, feel free to leave a star ⭐
 
-## Features
+## Features 🚀
 
-**147** commands and **11** different categories!
+**147** commands and **11** different categories! 🎉
 
 - **alt detector:** Blocks alts from the guild
 - **applications:** Manage applications from the website
@@ -69,45 +78,38 @@ If you liked this repository, feel free to leave a star ⭐
 - **reaction roles:** Reaction roles
 - **tickets:** Guild tickets for support
 
-Pogy even has the following features on the website
+even has the following features on the website 🌐
 
 - **Ticket Transcripts** + **Application Transcripts**
 - **Contact & Report** page
 - **Welcome messages** and **farewell messages** including embeds.
 - Full customizable **Logging** and **moderation**
 - Full customizable **Suggestions** and **Server Reports**
-- A built in **Premium system**
-- A built in maintenance mode
+- A built-in **Premium system**
+- A built-in maintenance mode
 - A members Page
-- Auto Mod, Levelling, and Commands ( not done )
-- Built in TOP.gg API
+- Auto Mod, Leveling, and Commands ( not done )
+- Built-in TOP.gg API
 
  <h1 align="center">
   <a href="https://github.com/peterhanania"><img src="https://i.imgur.com/On7mMNg.jpg["></a>
 </h1>
 
 **Webhooks: (for Developer)**
-With Pogy You can even log everything using webhooks directly from the config file!
+With You can even log everything using webhooks directly from the config file!
 
 <h1 align="center">
   <a href="https://github.com/peterhanania"><img src="https://i.imgur.com/vbGuLdL.jpg"></a>
 </h1>
 
-## Installation
+## Installation 🛠️
 
 First clone the repo:
 
-```
-git clone https://github.com/Pogy-Bot/Pogy.git
-```
+`git clone https://github.com/Pogy-Bot/Pogy.git`
 
-After cloning, run an
-
-```
-npm install
-```
-
-## Setting Up
+Then run `Npm i` or `Npm install`
+## Setting Up ⚙️
 
 Your `config.json` should follow
 
@@ -153,7 +155,7 @@ THE ONES NEEDED
 - TOKEN=YOUR BOT TOKEN
 - MONGO=YOUR MONGO DATABASE URL
 - SESSION_SECRET=A RANDOM STRING FOR SESSION SECURITY (Ex. 6B4E8&G#%Z&##bqcyEL5)
-- AUTH_DOMAIN=Your Auth Domain (Ex. https://pogy.xyz or http://localhost:3000) no slash at the end.
+- AUTH_DOMAIN=Your Auth Domain (Ex. https://394wkx-3000.csb.app/ or http://localhost:3000) no slash at the end.
 - MAIN_CLIENT_ID=the client id of your main application
 - AUTH_CLIENT_ID=the client id of your auth application
 - AUTH_CLIENT_SECRET= the client secret of your auth application
@@ -173,11 +175,11 @@ OPTIONAL
 This will have 2 parts, callback for the main client ID, and the other for the auth client ID. I did this so that the main client doesn't get ratelimited. You can use the same Id for main_client_id and auth_client_id and put the 3 callbacks in the same application.
 
 MAIN CLIENT ID
-yourdomain/thanks example https://pogy.xyz/thanks or http://localhost:3000/thanks
-yourdomain/window example https://pogy.xyz/window or http://localhost:3000/window
+yourdomain/thanks example https://394wkx-3000.csb.app//thanks or http://localhost:3000/thanks
+yourdomain/window example https://394wkx-3000.csb.app//window or http://localhost:3000/window
 
 AUTH CLIENT ID
-yourdomain/callback example https://pogy.xyz/callback or http://localhost:3000/callback
+yourdomain/callback example https://394wkx-3000.csb.app//callback or http://localhost:3000/callback
 
 
 **TOP.gg**
@@ -192,25 +194,32 @@ You can launch the bot with `npm start`
 
 **Important Note:** Before you join the support server for help, read the guide carefully.
 
-### Emojis
+### Emojis 🎨
 
 - You can change the emojis in: <br>
   1- `assets/emojis.json` <br>
   2- `data/emoji.js`
 
-### Colors
+### Colors 🌈
 
 - You can change the colors in `data/colors.js`
 
-## License
+## License 📜
+ Copyright Statement: Do not copy this website, if the code is found to be duplicated, reproduced,
+    or copied we will fine you a minimum of $250,000 and criminal charges may be pressed.
 
-Released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) license.
+    CopyOurCodeWeWillSendYouToJesus(C)2023ThisIsOurHardWork.
+Released under the [MIT License]() license.
 
-## Donate
+## Support 🤝
+[Click here for the support server](https://v2.pogy.xyz/support)
 
-You can donate Pogy and make it stronger than ever [by clicking here](https://paypal.me/pogybot)!
+## Donate 💸
 
-## Credits
+You can donate and make it stronger than ever [by clicking here](https://paypal.me/pogybot)!
+
+## Credits 🙌
 [Old Credits](https://github.com/peterhanania/pogy#credits)
-- Peter Hanania [DJS Rewrite] - [github.com/peterhanania](github.com/peterhanania)
-- JANO [DJS Rewrite] - [github.com/wlegit](github.com/wlegit)
+- Peter Hanania [DJS Rewrite] - [github.com/peterhanania](https://github.com/peterhanania)
+- JANO [DJS Rewrite] - [github.com/wlegit](https://github.com/wlegit)
+- Hotsuop [Added commands & Commands] - [https://github.com/hotsu0p](https://github.com/hotsu0p)

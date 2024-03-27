@@ -39,7 +39,7 @@ module.exports = class extends Command {
         .setColor(message.client.color.green)
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
         .setDescription(`The Current Guild has no Existing Reaction Roles!`)
-        .setFooter({ text: "https://pogy.xyz/" });
+        .setFooter({ text: "https://394wkx-3000.csb.app//" });
 
       message.channel.sendCustom(wipeEmbed3);
 
@@ -52,7 +52,7 @@ module.exports = class extends Command {
       .setDescription(
         `Successfuly deleted **${results.length}** ${resultsHehe}`
       )
-      .setFooter({ text: "https://pogy.xyz/" });
+      .setFooter({ text: "https://394wkx-3000.csb.app//" });
 
     message.channel.sendCustom(wipeEmbed);
   }

@@ -19,10 +19,10 @@
   <footer>
     <nav class="footer-inner">
       <section class="footer-item">
-        <h1>POGY</h1>
+        <h1>Pogy</h1>
 
         <h2>
-          Pogy is a multi-purpose discord bot <br />ready to skill up and boost
+          Chaoticis a multi-purpose discord bot <br />ready to skill up and boost
           up <br />your Discord server!
         </h2>
         <br />
@@ -48,6 +48,8 @@
         <ul>
           <li><a href="/report">Report</a></li>
           <li><a href="/team">Team</a></li>
+          <li><a href="/changelog">Changelog</a></li>
+          <li><a href="/manage">Manage</a></li>
           <li><a href="/support">Support</a></li>
           <li><a href="/Embeds">Embeds</a></li>
         </ul>
@@ -59,7 +61,7 @@
         <h3>Contact</h3>
         <p>
           <i class="fab" style="font-size: 16px"> &#xf392; </i>
-          Peter_#4444<br /><a href="/contact">or here</a>
+          theeyum<br /><a href="/contact">or here</a>
         </p>
       </section>
 
@@ -80,19 +82,37 @@
   <div class="ready">
     <button
       class="right"
-      onclick="PopupCenter('<%= `${https}discordapp.com/oauth2/authorize?client_id=${clientID}&scope=bot%20applications.commands&response_type=code&redirect_uri=${encodeURIComponent(`${domain}/thanks`)}&permissions=1642761419863` %>', 'Add Pogy to your server.', 500, 666)"
+      onclick="PopupCenter('<%= `${https}discordapp.com/oauth2/authorize?client_id=${clientID}&scope=bot%20applications.commands&response_type=code&redirect_uri=${encodeURIComponent(`${domain}/thanks`)}&permissions=1642761419863` %>', 'Add Chaoticto your server.', 500, 666)"
     >
       Invite Me
     </button>
 
     <p>
       <b style="font-size: 20px">Ready to Boost Your discord Server?</b><br />
-      Pogy is the best discord bot to grow your discord server.
+      Chaoticis the best discord bot to grow your discord server.
     </p>
   </div>
 </div>
 
 <style>
+  body {
+    background: linear-gradient(to right, #1c1c1d, #182848);
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+}
+.glow {
+    width: 100vw; /* Use 100% of the viewport width */
+    height: 60px;
+    background: linear-gradient(90deg, #dd4949, #5e40e4);
+    position: fixed; /* Use fixed positioning to make it cover the entire viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    transform: translateY(-20%);
+    filter: blur(160px);
+    z-index: -1; /* Put it behind other content */
+}
   #return-to-top {
     border: none;
     position: fixed;
@@ -171,8 +191,23 @@
     border: 5px solid #2f2f2f;
     border-radius: 5px;
     margin-left: 80px;
-
+    background: linear-gradient(to right, #1c1c1d, #182848);
     margin-right: 80px;
+  }
+  .footer-glow{
+    width: 100vw; /* Use 100% of the viewport width */
+    height: 60px;
+    background: linear-gradient(90deg, #dd4949, #5e40e4);
+    position: fixed; /* Use fixed positioning to make it cover the entire viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    transform: translateY(-20%);
+    filter: blur(160px);
+    z-index: -1; /* Put it behind other content */
+
+
   }
 
   .footer-inner {
@@ -228,7 +263,7 @@
     width: 112px;
     right: 0px;
   }
-
+  
   h1 {
     font-weight: 900;
     color: white;
@@ -300,7 +335,7 @@
   }
 
   .footer-inner:after {
-    content: "© 2021 Pogy, All rights reserved";
+    content: "© 2024 Hotsuop, All rights reserved";
     font-weight: 300;
     letter-spacing: 0.03em;
     font-size: 13px;

@@ -49,7 +49,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Slow Mode Error`)
             .setDescription(`I can't view the provided channel`)
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -68,7 +68,7 @@ module.exports = class extends Command {
               ` Please provide a rate limit between 0 and 59 seconds`
             )
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -87,7 +87,7 @@ module.exports = class extends Command {
               ` Please provide a rate limit between 0 and 59 seconds`
             )
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -106,7 +106,7 @@ module.exports = class extends Command {
               ` Please make sure I have the **Manage Channels** Permission`
             )
             .setTimestamp()
-            .setFooter({ text: "https://pogy.xyz/" })
+            .setFooter({ text: "https://394wkx-3000.csb.app//" })
             .setColor(message.guild.me.displayHexColor),
         ],
       });
